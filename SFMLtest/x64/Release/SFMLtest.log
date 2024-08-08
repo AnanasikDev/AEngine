@@ -1,7 +1,5 @@
 ﻿  Game.cpp
-  Generating code
-  3 of 35 functions ( 8.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  SFMLtest.vcxproj -> C:\Archive\Code\C++\SFMLtest\x64\Release\SFMLtest.exe
+  Player.cpp
+  main.cpp
+Game.obj : error LNK2001: unresolved external symbol "public: static class Game * Game::instance" (?instance@Game@@2PEAV1@EA)
+C:\Archive\Code\C++\SFML-game\x64\Release\SFMLtest.exe : fatal error LNK1120: 1 unresolved externals

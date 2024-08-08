@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include <vector>
+
+class Gameobject;
 
 class Game {
 private:
@@ -14,10 +17,17 @@ private:
 
 public:
 
+	unsigned int frame;
+
+	static Game* instance;
+
+	std::vector<Gameobject*> gameobjects;
+
 	Game();
 	~Game();
 
 	void InitWindow();
+	sf::RenderWindow* getWindow() const;
 
 	void Update();
 	void Render();
