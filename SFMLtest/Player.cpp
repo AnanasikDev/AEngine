@@ -8,7 +8,8 @@ void Player::Init() {
 	rect.setPosition(this->position);
 }
 void Player::Update() {
-	//this->position.x++;
+	this->position.x++;
+	rect.setPosition(this->position);
 }
 void Player::Render() {
 	Game::instance->getWindow()->draw(rect);

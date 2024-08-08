@@ -1,6 +1,7 @@
-﻿  Game.cpp
-  Gameobject.cpp
-  Player.cpp
-  main.cpp
-  Generating Code...
+﻿  main.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\main.cpp(9,24): warning C4305: 'argument': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
   SFMLtest.vcxproj -> C:\Archive\Code\C++\SFML-game\x64\Debug\SFMLtest.exe

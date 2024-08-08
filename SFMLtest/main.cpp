@@ -1,7 +1,15 @@
 #include "Game.h"
 #include "Player.h"
+#include "Vector.h"
+#include <iostream>
 
 int main() {
+
+	Vector<float> a(1, 2);
+	Vector<float> b(4, 4.2);
+
+	std::cout << (a + b).toStr();
+	return 0;
 
 	Game game;
 	game.InitWindow();
