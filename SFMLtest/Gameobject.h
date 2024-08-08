@@ -2,12 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "Vector.h"
 
 class Gameobject {
 
 private:
 public:
-	sf::Vector2f position;
+	Vectorf position;
 	std::string name;
 
 	Gameobject(std::string name);

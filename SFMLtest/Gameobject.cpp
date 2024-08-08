@@ -3,6 +3,7 @@
 
 Gameobject::Gameobject(std::string name) {
 	this->name = name;
+	this->position = Vectorf(0, 0);
 	//Init();
 }
 
