@@ -8,11 +8,12 @@ private:
 
 
 public:
-	sf::RectangleShape rect;
-
 	using Gameobject::Gameobject;
 
 	void Init() override;
 	void Update() override;
 	void Render() override;
+
+	using Gameobject::GetComponent;
+	using Gameobject::AddComponent;
 };

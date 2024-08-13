@@ -7,19 +7,23 @@ Gameobject::Gameobject(std::string name) {
 	//Init();
 }
 
-/*
-Gameobject::~Gameobject() {
-
-}
-
 void Gameobject::Render() {
-	std::cout << "Rendering a gameobject" << std::endl;
+	if (renderer != nullptr)
+		renderer->Render();
 }
 
 void Gameobject::Update() {
-
+	if (renderer != nullptr)
+		renderer->Update();
 }
 
-void Gameobject::Init() {
+std::shared_ptr<Component> Gameobject::GetComponent(Component component) {
+	for (auto c : this->components)
+		if (&(*c) == &component)
+			return c;
+	return nullptr;
+}
 
-}*/
+void Gameobject::AddComponent(Component component) {
+	this->components.push_back(std::make_shared<Component>(component));
+}

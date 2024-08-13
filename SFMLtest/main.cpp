@@ -4,14 +4,14 @@
 #include <iostream>
 
 int main() {
+
 	Game game;
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
 
-	Player* player = new Player("Player");
-	player->Init();
-	player->position = Vectorf(40, 50);
-	game.gameobjects.push_back(player);
+	Player player("Player");
+	player.Init();
+	game.gameobjects.push_back(&player);
 
 	while (game.isRunning()) {
 
@@ -19,8 +19,6 @@ int main() {
 
 		game.Render();
 	}
-
-	delete player;
 
 	return 0;
 }

@@ -47,6 +47,16 @@ public:
 		return sf::Vector2<T>(this->x, this->y);
 	}
 
+	float Magnitude() {
+		return sqrtf(x * x + y * y);
+	}
+
+	void Normalize() {
+		float m = Magnitude();
+		x /= m;
+		y /= m;
+	}
+
 	std::string toStr() {
 		char buff[50];
 		sprintf_s(buff, 50, "(%.4f, %.4f)", (float)(this->x), (float)(this->y));
