@@ -17,13 +17,13 @@ void Gameobject::Update() {
 		renderer->Update();
 }
 
-std::shared_ptr<Component> Gameobject::GetComponent(Component component) {
+std::shared_ptr<Component> Gameobject::GetComponent(Component& component) {
 	for (auto c : this->components)
 		if (&(*c) == &component)
 			return c;
 	return nullptr;
 }
 
-void Gameobject::AddComponent(Component component) {
+void Gameobject::AddComponent(Component& component) {
 	this->components.push_back(std::make_shared<Component>(component));
 }

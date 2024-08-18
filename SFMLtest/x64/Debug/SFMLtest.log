@@ -1,4 +1,7 @@
-﻿  Player.cpp
+﻿  Game.cpp
+  Gameobject.cpp
+  main.cpp
+  Player.cpp
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,35): error C2665: 'ShapeRenderer::ShapeRenderer': no overloaded function could convert all the argument types
 C:\Archive\Code\C++\SFML-game\SFMLtest\Renderer.h(30,1): message : could be 'ShapeRenderer::ShapeRenderer(ShapeRenderer &&)'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,35): message : 'ShapeRenderer::ShapeRenderer(ShapeRenderer &&)': cannot convert argument 1 from 'ShapeRenderer *' to 'ShapeRenderer &&'

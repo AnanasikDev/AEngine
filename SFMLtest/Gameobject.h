@@ -25,7 +25,7 @@ public:
 	virtual void Render() = 0;
 	virtual void Update() = 0;
 	
-	std::shared_ptr<Component> GetComponent(Component component);
+	std::shared_ptr<Component> GetComponent(Component& component);
 
-	void AddComponent(Component component);
+	void AddComponent(Component& component);
 };
