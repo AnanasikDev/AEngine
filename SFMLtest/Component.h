@@ -1,5 +1,8 @@
 #pragma once
 
-class Component {
+namespace aengine
+{
+	class Component {
 
-};
+	};
+}

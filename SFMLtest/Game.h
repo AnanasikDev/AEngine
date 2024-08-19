@@ -6,34 +6,37 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 
-class Gameobject;
+namespace aengine {
 
-class Game {
-private:
-	sf::RenderWindow* window;
-	sf::VideoMode videoMode;
-	sf::Event event;
-	sf::Color defaultColor;
+	class Gameobject;
 
-public:
+	class Game {
+	private:
+		sf::RenderWindow* window;
+		sf::VideoMode videoMode;
+		sf::Event event;
+		sf::Color defaultColor;
 
-	unsigned int frame;
+	public:
 
-	static Game* instance;
+		unsigned int frame;
 
-	std::vector<Gameobject*> gameobjects;
+		static Game* instance;
 
-	Game();
-	~Game();
+		std::vector<Gameobject*> gameobjects;
 
-	void InitWindow();
-	sf::RenderWindow* getWindow() const;
+		Game();
+		~Game();
 
-	void Update();
-	void Render();
-	void Close();
+		void InitWindow();
+		sf::RenderWindow* getWindow() const;
 
-	void PollEvents();
+		void Update();
+		void Render();
+		void Close();
 
-	const bool isRunning() const;
-};
+		void PollEvents();
+
+		const bool isRunning() const;
+	};
+}

@@ -3,6 +3,9 @@
 #include "Vector.h"
 #include <iostream>
 
+using namespace aengine;
+using namespace agame;
+
 int main() {
 
 	Game game;

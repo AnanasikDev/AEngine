@@ -3,17 +3,15 @@
 #include "Game.h"
 #include "Gameobject.h"
 
-class Player : public Gameobject {
-private:
+namespace agame {
+	class Player : public aengine::Gameobject {
+	private:
 
+	public:
+		using Gameobject::Gameobject;
 
-public:
-	using Gameobject::Gameobject;
-
-	void Init() override;
-	void Update() override;
-	void Render() override;
-
-	using Gameobject::GetComponent;
-	using Gameobject::AddComponent;
-};
+		void Init() override;
+		void Update() override;
+		void Render() override;
+	};
+}

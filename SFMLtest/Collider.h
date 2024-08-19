@@ -1,22 +1,26 @@
 #include <SFML/Graphics.hpp>
-#include "Vector.h"
 #include "Component.h"
+/*
+namespace angine {
 
-class Collider : public Component {
-public:
-	Vectorf center;
+	class Vectorf;
 
-	Collider();
-	~Collider();
+	class Collider : public Component {
+	public:
+		std::unique_ptr<Vectorf> center;
 
-	virtual bool Intersect(Collider& other) = 0;
-	virtual bool IsPointInside(sf::Vector2f point) = 0;
-};
+		Collider() = default;
+		~Collider() = default;
+
+		virtual bool Intersect(Collider& other) = 0;
+		virtual bool IsPointInside(sf::Vector2f point) = 0;
+	};
 
 
-class CircleCollider : public Collider {
-public:
-	float radius;
+	class CircleCollider : public Collider {
+	public:
+		float radius;
 
-	bool Intersect(Collider& other) override;
-};
+		bool Intersect(Collider& other) override;
+	};
+}*/
