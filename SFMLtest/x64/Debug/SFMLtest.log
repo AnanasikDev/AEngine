@@ -1,30 +1,7 @@
-﻿  Player.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,35): error C2665: 'aengine::ShapeRenderer::ShapeRenderer': no overloaded function could convert all the argument types
-C:\Archive\Code\C++\SFML-game\SFMLtest\Renderer.h(27,2): message : could be 'aengine::ShapeRenderer::ShapeRenderer(aengine::ShapeRenderer &&)'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,35): message : 'aengine::ShapeRenderer::ShapeRenderer(aengine::ShapeRenderer &&)': cannot convert argument 1 from 'aengine::ShapeRenderer *' to 'aengine::ShapeRenderer &&'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,56): message : Reason: cannot convert from 'aengine::ShapeRenderer *' to 'aengine::ShapeRenderer'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,56): message : No constructor could take the source type, or constructor overload resolution was ambiguous
-C:\Archive\Code\C++\SFML-game\SFMLtest\Renderer.h(27,2): message : or       'aengine::ShapeRenderer::ShapeRenderer(const aengine::ShapeRenderer &)'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,35): message : 'aengine::ShapeRenderer::ShapeRenderer(const aengine::ShapeRenderer &)': cannot convert argument 1 from 'aengine::ShapeRenderer *' to 'const aengine::ShapeRenderer &'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,56): message : Reason: cannot convert from 'aengine::ShapeRenderer *' to 'const aengine::ShapeRenderer'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,56): message : No constructor could take the source type, or constructor overload resolution was ambiguous
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3433,35): message : while trying to match the argument list '(aengine::ShapeRenderer *)'
-C:\Archive\Code\C++\SFML-game\SFMLtest\Player.cpp(13,13): message : see reference to function template instantiation 'std::unique_ptr<aengine::ShapeRenderer,std::default_delete<aengine::ShapeRenderer>> std::make_unique<aengine::ShapeRenderer,aengine::ShapeRenderer*&,0>(aengine::ShapeRenderer *&)' being compiled
+﻿  Game.cpp
+  Gameobject.cpp
+  Player.cpp
   Renderer.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(1982,9): error C2259: 'aengine::Gameobject': cannot instantiate abstract class
-C:\Archive\Code\C++\SFML-game\SFMLtest\Gameobject.h(11,8): message : see declaration of 'aengine::Gameobject'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(1982,9): message : due to following members:
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(1982,9): message : 'void aengine::Gameobject::Init(void)': is abstract
-C:\Archive\Code\C++\SFML-game\SFMLtest\Gameobject.h(22,16): message : see declaration of 'aengine::Gameobject::Init'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(1982,9): message : 'void aengine::Gameobject::Render(void)': is abstract
-C:\Archive\Code\C++\SFML-game\SFMLtest\Gameobject.h(24,16): message : see declaration of 'aengine::Gameobject::Render'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(1982,9): message : 'void aengine::Gameobject::Update(void)': is abstract
-C:\Archive\Code\C++\SFML-game\SFMLtest\Gameobject.h(25,16): message : see declaration of 'aengine::Gameobject::Update'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2044,1): message : see reference to class template instantiation 'std::_Wrap<_Ty>' being compiled
-          with
-          [
-              _Ty=aengine::Gameobject
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2703,36): message : see reference to class template instantiation 'std::_Ref_count_obj2<aengine::Gameobject>' being compiled
-C:\Archive\Code\C++\SFML-game\SFMLtest\Renderer.cpp(14,61): message : see reference to function template instantiation 'std::shared_ptr<aengine::Gameobject> std::make_shared<aengine::Gameobject,aengine::Gameobject&>(aengine::Gameobject &)' being compiled
+  main.cpp
   Generating Code...
+  SFMLtest.vcxproj -> C:\Archive\Code\C++\SFML-game\x64\Debug\SFMLtest.exe

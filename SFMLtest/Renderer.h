@@ -8,7 +8,7 @@ namespace aengine {
 	class Renderer : public Component {
 	public:
 		std::shared_ptr<class Gameobject> gameobject;
-		std::shared_ptr<sf::RenderWindow> surface;
+		sf::RenderWindow* surface;
 
 		Renderer() = default;
 
@@ -18,9 +18,10 @@ namespace aengine {
 
 	class ShapeRenderer : public Renderer {
 	public:
-		std::unique_ptr<sf::Shape> shape;
+		std::shared_ptr<sf::Shape> shape;
 
-		ShapeRenderer(aengine::Gameobject& gameobject, sf::RenderWindow& surface);
+		ShapeRenderer(const ShapeRenderer& other);
+		ShapeRenderer(const aengine::Gameobject* gameobject, sf::RenderWindow* surface);
 
 		void Render() override;
 		void Update() override;

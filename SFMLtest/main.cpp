@@ -12,9 +12,9 @@ int main() {
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
 
-	Player player("Player");
-	player.Init();
-	game.gameobjects.push_back(&player);
+	Player* player = new Player("Player");
+	player->Init();
+	game.gameobjects.push_back(player);
 
 	while (game.isRunning()) {
 

@@ -4,7 +4,6 @@ namespace aengine {
 	Gameobject::Gameobject(std::string name) {
 		this->name = name;
 		this->position = Vectorf(0, 0);
-		//Init();
 	}
 
 	void Gameobject::Render() {
@@ -15,5 +14,9 @@ namespace aengine {
 	void Gameobject::Update() {
 		if (renderer != nullptr)
 			renderer->Update();
+	}
+
+	void Gameobject::Init() {
+
 	}
 }

@@ -8,7 +8,7 @@ namespace agame {
 	private:
 
 	public:
-		using Gameobject::Gameobject;
+		Player(std::string name);
 
 		void Init() override;
 		void Update() override;

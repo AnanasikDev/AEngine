@@ -4,17 +4,25 @@
 
 namespace agame {
 
+	Player::Player(std::string name) {
+		this->name = name;
+	}
+
 	void Player::Init() {
-		this->renderer = std::make_shared<aengine::ShapeRenderer>(aengine::ShapeRenderer(*this, *(aengine::Game::instance->getWindow())));
-		auto circle = new sf::CircleShape(30);
+		aengine::ShapeRenderer* r = new aengine::ShapeRenderer(this, (aengine::Game::instance->getWindow()));
+		this->renderer.reset(r);
+		sf::CircleShape* circle = new sf::CircleShape(30);
+		r->shape.reset(circle);
 		circle->setRadius(30);
 		circle->setFillColor(sf::Color(255, 100, 10));
-		circle->setPosition(position.getsf());
 		position = Vectorf(40, 50);
+		circle->setPosition(position.getsf());
+		delete r;
+		delete circle;
 	}
 
 	void Player::Update() {
-		this->position += Vectorf(1, 2);
+		//this->position += Vectorf(1, 2);
 		renderer->Update();
 	}
 
