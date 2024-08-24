@@ -1,4 +1,5 @@
 #include "Gameobject.h"
+#include <iostream>
 
 namespace aengine {
 	Gameobject::Gameobject(std::string name) {
@@ -12,6 +13,7 @@ namespace aengine {
 	}
 
 	void Gameobject::Update() {
+		std::cout << "Gameobject update" << std::endl;
 		if (renderer != nullptr)
 			renderer->Update();
 	}

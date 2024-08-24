@@ -30,7 +30,7 @@ namespace aengine {
 		this->PollEvents();
 
 		for (auto obj : gameobjects) {
-			//obj->Update();
+			obj->Update();
 		}
 	}
 

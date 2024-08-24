@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Vector.h"
-#include "Collider.h"
 #include "Renderer.h"
 
 namespace aengine {

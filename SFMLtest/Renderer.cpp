@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "Gameobject.h"
+#include <iostream>
 
 namespace aengine {
 	void ShapeRenderer::Render() {
@@ -8,6 +9,7 @@ namespace aengine {
 
 	void ShapeRenderer::Update() {
 		shape->setPosition(gameobject->position.getsf());
+		std::cout << shape->getPosition().x;
 	}
 
 	ShapeRenderer::ShapeRenderer(const ShapeRenderer& other) {
@@ -19,6 +21,6 @@ namespace aengine {
 	ShapeRenderer::ShapeRenderer(const aengine::Gameobject* gameobject, sf::RenderWindow* surface) {
 		this->gameobject = std::make_shared<Gameobject>(*gameobject);
 		this->surface = surface;
-		this->shape = NULL;
+		this->shape = nullptr;
 	}
 }

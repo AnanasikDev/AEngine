@@ -1,11 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Component.h"
 
 namespace aengine {
 
-	class Renderer : public Component {
+	class Renderer {
 	public:
 		std::shared_ptr<class Gameobject> gameobject;
 		sf::RenderWindow* surface;
