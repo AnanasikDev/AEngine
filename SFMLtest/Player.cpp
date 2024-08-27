@@ -8,24 +8,32 @@ namespace agame {
 		this->name = name;
 	}
 
-	void Player::Init() {
-		aengine::ShapeRenderer* r = new aengine::ShapeRenderer(this, (aengine::Game::instance->getWindow()));
-		this->renderer.reset(r); // = std::make_unique<aengine::ShapeRenderer>(*r);
-		sf::CircleShape* circle = new sf::CircleShape(30);
-		r->shape.reset(circle);
+    void Player::Init() {
+        // Create a ShapeRenderer and store it in the Renderer pointer
+        this->renderer = new aengine::ShapeRenderer(
+            this,
+            aengine::Game::instance->getWindow()
+            );
 
-		circle->setRadius(30);
-		circle->setFillColor(sf::Color(255, 100, 10));
-		position = Vectorf(40, 50);
-		circle->setPosition(position.getsf());
-		
-		//delete r;
-		//delete circle;
-	}
+        // Safely cast the renderer to ShapeRenderer to access the shape property
+        aengine::ShapeRenderer* shapeRenderer = static_cast<aengine::ShapeRenderer*>(this->renderer);
+
+        // Create and manage CircleShape with std::make_unique
+        shapeRenderer->shape = std::make_unique<sf::CircleShape>(30);
+
+        sf::CircleShape* circle = static_cast<sf::CircleShape*>(shapeRenderer->shape.get());
+        std::cout << "Circle: " << circle << std::endl;
+
+        // Configure the CircleShape
+        circle->setRadius(30);
+        circle->setFillColor(sf::Color(255, 100, 10));
+        SetPosition(40, 50);
+        circle->setPosition(position.getsf());
+    }
 
 	void Player::Update() {
-		std::cout << "Player update" << std::endl;
-		this->position += Vectorf(1, 2);
+		//std::cout << "Player update" << std::endl;
+        this->Translate(1, 0);
 		renderer->Update();
 	}
 

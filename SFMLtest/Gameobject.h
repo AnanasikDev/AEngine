@@ -13,13 +13,16 @@ namespace aengine {
 		std::string name;
 
 		//std::unique_ptr<Collider> collider;
-		std::unique_ptr<Renderer> renderer;
+		Renderer* renderer;
 
 		Gameobject() {
-
+			position = Vectorf(0, 0);
+			name = "";
 		}
 		Gameobject(std::string name);
-		~Gameobject() = default;
+		~Gameobject() {
+			renderer = nullptr;
+		}
 
 		virtual void Init();
 
@@ -31,15 +34,27 @@ namespace aengine {
 			this->name = other.name;
 		}
 
-		Gameobject(Gameobject&& other) noexcept {
-			other.swap(*this);
+		//Gameobject(Gameobject&& other) noexcept {
+		//	other.swap(*this);
+		//}
+
+		//void swap(Gameobject& other) {
+		//	std::swap(this->position, other.position);
+		//	std::swap(this->name, other.name);
+		//	
+		//	//std::swap(this->bol, other.bol);
+		//}
+
+		void SetPosition(Vectorf pos) {
+			position = pos;
 		}
 
-		void swap(Gameobject& other) {
-			std::swap(this->position, other.position);
-			std::swap(this->name, other.name);
-			
-			//std::swap(this->bol, other.bol);
+		void SetPosition(float x, float y) {
+			position = Vectorf(x, y);
+		}
+
+		void Translate(float dx, float dy) {
+			position += Vectorf(dx, dy);
 		}
 	};
 }

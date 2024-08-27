@@ -18,14 +18,14 @@ int main() {
 
 	while (game.isRunning()) {
 
-		//game.Update();
-		std::cout << player->position.toStr();
-		player->Update();
-		player->Render();
-		game.PollEvents();
-		game.getWindow()->display();
+		game.Update();
+		//std::cout << player->position.toStr();
+		//player->Update();
+		//player->Render();
+		//game.PollEvents();
+		//game.getWindow()->display();
 
-		//game.Render();
+		game.Render();
 	}
 
 	delete player;
