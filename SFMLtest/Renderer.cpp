@@ -9,11 +9,6 @@ namespace aengine {
 
 	void ShapeRenderer::Update() {
 		shape->setPosition(gameobject->position.getsf());
-		
-		//shape->move(sf::Vector2f(2, 2));
-		//std::cout << "GOpos " << gameobject->position.toStr() << std::endl;
-		//std::cout << shape->getPosition().x;
-		std::cout << "Shape: " << gameobject << std::endl;
 	}
 
 	ShapeRenderer::ShapeRenderer(const ShapeRenderer& other) {
@@ -26,5 +21,9 @@ namespace aengine {
 		this->gameobject = gameobject;
 		this->surface = surface;
 		this->shape = nullptr;
+	}
+
+	ShapeRenderer::~ShapeRenderer() {
+		delete shape;
 	}
 }

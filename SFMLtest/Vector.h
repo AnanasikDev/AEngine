@@ -3,51 +3,48 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class Vectorf {
+template <typename T>
+
+class Vector {
 
 public:
-	float x;
-	float y;
+	T x;
+	T y;
 
-	Vectorf() {
+	Vector() {
 		this->x = 0;
 		this->y = 0;
 	}
 
-	explicit Vectorf(float _x, float _y) {
+	Vector(T _x, T _y) {
 		this->x = _x;
 		this->y = _y;
 	}
 
-	Vectorf(const Vectorf& other) {
-		this->x = other.x;
-		this->y = other.y;
-	}
-
-	Vectorf& operator+=(const Vectorf other) {
+	Vector<T>& operator+=(const Vector<T>& other) {
 		this->x += other.x;
 		this->y += other.y;
 		return *this;
 	}
 
-	Vectorf operator+(Vectorf other) {
-		return Vectorf(this->x + other.x, this->y + other.y);
+	Vector<T> operator+(Vector<T> other) {
+		return Vector<T>(this->x + other.x, this->y + other.y);
 	}
 
-	Vectorf operator-(Vectorf other) {
-		return Vectorf(this->x - other.x, this->y - other.y);
+	Vector<T> operator-(Vector<T> other) {
+		return Vector<T>(this->x - other.x, this->y - other.y);
 	}
 
-	Vectorf operator*(float fac) {
-		return Vectorf(this->x * fac, this->y * fac);
+	Vector<T> operator*(T fac) {
+		return Vector<T>(this->x * fac, this->y * fac);
 	}
 
-	Vectorf operator/(float fac) {
-		return Vectorf(this->x / fac, this->y / fac);
+	Vector<T> operator/(T fac) {
+		return Vector<T>(this->x / fac, this->y / fac);
 	}
 
-	sf::Vector2<float> getsf() {
-		return sf::Vector2<float>(this->x, this->y);
+	sf::Vector2<T> getsf() {
+		return sf::Vector2<T>(this->x, this->y);
 	}
 
 	float Magnitude() {
@@ -66,3 +63,6 @@ public:
 		return buff;
 	}
 };
+
+typedef Vector<float> Vectorf;
+typedef Vector<int>   Vectori;

@@ -13,7 +13,6 @@ namespace aengine {
 	}
 
 	void Gameobject::Update() {
-		std::cout << "Gameobject update" << this << std::endl;
 		if (renderer != nullptr)
 			renderer->Update();
 	}

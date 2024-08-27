@@ -17,12 +17,14 @@ namespace aengine {
 
 	class ShapeRenderer : public Renderer {
 	public:
-		std::shared_ptr<sf::Shape> shape;
+		sf::Shape* shape;
 
 		ShapeRenderer(const ShapeRenderer& other);
 		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface);
 
 		void Render() override;
 		void Update() override;
+
+		~ShapeRenderer();
 	};
 }

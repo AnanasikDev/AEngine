@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Game.h"
 #include "Gameobject.h"
 
 namespace agame {

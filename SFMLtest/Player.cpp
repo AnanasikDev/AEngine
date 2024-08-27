@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Gameobject.h"
+#include "Game.h"
 #include <iostream>
 
 namespace agame {
@@ -19,10 +20,9 @@ namespace agame {
         aengine::ShapeRenderer* shapeRenderer = static_cast<aengine::ShapeRenderer*>(this->renderer);
 
         // Create and manage CircleShape with std::make_unique
-        shapeRenderer->shape = std::make_unique<sf::CircleShape>(30);
+        shapeRenderer->shape = new sf::CircleShape(30);
 
-        sf::CircleShape* circle = static_cast<sf::CircleShape*>(shapeRenderer->shape.get());
-        std::cout << "Circle: " << circle << std::endl;
+        sf::CircleShape* circle = static_cast<sf::CircleShape*>(shapeRenderer->shape);
 
         // Configure the CircleShape
         circle->setRadius(30);

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Vector.h"
+#include "Collectable.h"
 #include <iostream>
 
 using namespace aengine;
@@ -16,14 +17,13 @@ int main() {
 	player->Init();
 	game.gameobjects.push_back(player);
 
+	Collectable* coin = new Collectable("Coin");
+	coin->Init();
+	game.gameobjects.push_back(coin);
+
 	while (game.isRunning()) {
 
 		game.Update();
-		//std::cout << player->position.toStr();
-		//player->Update();
-		//player->Render();
-		//game.PollEvents();
-		//game.getWindow()->display();
 
 		game.Render();
 	}
