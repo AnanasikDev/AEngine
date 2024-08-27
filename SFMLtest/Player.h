@@ -5,6 +5,7 @@
 namespace agame {
 	class Player : public aengine::Gameobject {
 	private:
+		float movementSpeed = 3;
 
 	public:
 		Player(std::string name);

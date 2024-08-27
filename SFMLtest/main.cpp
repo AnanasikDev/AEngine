@@ -28,7 +28,5 @@ int main() {
 		game.Render();
 	}
 
-	delete player;
-
 	return 0;
 }

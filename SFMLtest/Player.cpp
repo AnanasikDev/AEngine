@@ -33,7 +33,15 @@ namespace agame {
 
 	void Player::Update() {
 		//std::cout << "Player update" << std::endl;
-        this->Translate(1, 0);
+        
+        Vectorf delta;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) delta.x = -1 * movementSpeed;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) delta.x =  1 * movementSpeed;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) delta.y = -1 * movementSpeed;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) delta.y =  1 * movementSpeed;
+
+        Translate(delta);
+
 		renderer->Update();
 	}
 

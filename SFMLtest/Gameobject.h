@@ -53,6 +53,10 @@ namespace aengine {
 			position = Vectorf(x, y);
 		}
 
+		void Translate(Vectorf delta) {
+			position += delta;
+		}
+
 		void Translate(float dx, float dy) {
 			position += Vectorf(dx, dy);
 		}
