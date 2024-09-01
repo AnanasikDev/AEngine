@@ -16,7 +16,7 @@ namespace aengine {
 
 	void Gameobject::Update() {
 		if (collider != nullptr) {
-			collider->center = this->position;
+			collider->Update(this->position);
 		}
 		if (renderer != nullptr)
 			renderer->Update(this->position);

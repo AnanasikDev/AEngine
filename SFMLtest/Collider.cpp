@@ -62,4 +62,8 @@ namespace aengine {
 	{
 
 	}
+
+	void Collider::Update(const Vectorf& position) {
+		this->center = position;
+	}
 }

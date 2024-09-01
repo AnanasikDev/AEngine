@@ -19,9 +19,10 @@ namespace agame {
 
 		sp->shape = circle;
 
-		SetPosition(40, 190);
+		SetPosition(0, 0);
 		circle->setFillColor(sf::Color(250, 220, 20));
 		circle->setRadius(15);
+		sp->SetOrigin(aengine::Vectorf(15, 15));
 
 		aengine::CircleCollider* collider 
 			= new aengine::CircleCollider(this);
@@ -37,7 +38,7 @@ namespace agame {
 
 	void Collectable::Update() {
 		Gameobject::Update();
-		position += aengine::Vectorf(0.5f, 0.3f);
+		//position += aengine::Vectorf(0.5f, 0.3f);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			
 			std::cout << (dynamic_cast<aengine::CircleCollider*>(collider)->center - aengine::Game::instance->worldPos).Magnitude() << std::endl;

@@ -14,6 +14,8 @@ namespace aengine {
 		Collider(Gameobject* gameobject);
 		~Collider() = default;
 
+		void Update(const Vectorf& position);
+
 		virtual bool IsPointInside(Vectorf& point);
 		virtual void SetScale(float scale) = 0;
 	};
