@@ -26,7 +26,7 @@ namespace agame {
 
 		aengine::CircleCollider* collider 
 			= new aengine::CircleCollider(this);
-		collider->radius = 50;
+		collider->radius = 15;
 
 		this->collider = collider;
 		std::cout << "Collectable init" << std::endl;
@@ -38,14 +38,17 @@ namespace agame {
 
 	void Collectable::Update() {
 		Gameobject::Update();
-		//position += aengine::Vectorf(0.5f, 0.3f);
+		position += aengine::Vectorf(0, 1.f);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			
 			std::cout << (dynamic_cast<aengine::CircleCollider*>(collider)->center - aengine::Game::instance->worldPos).Magnitude() << std::endl;
 			
-			/*if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
-				std::cout << "ALSKJFALDKJFASLKDJFA" << std::endl;
-			}*/
+			if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
+				collected++;
+				this->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));
+			}
 		}
 	}
+
+	unsigned int Collectable::collected = 0;
 }

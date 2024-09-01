@@ -1,4 +1,9 @@
 ﻿  Collectable.cpp
 C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(8,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
 C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(8,9): message : see declaration of 'aengine::Collider'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collectable.cpp(48,58): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   SFMLtest.vcxproj -> C:\Archive\Code\C++\SFML-game\x64\Debug\SFMLtest.exe

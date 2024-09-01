@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "Collectable.h"
 #include <iostream>
+#include <vector>
 
 using namespace aengine;
 using namespace agame;
@@ -17,9 +18,14 @@ int main() {
 	player->Init();
 	game.gameobjects.push_back(player);
 
-	Collectable* coin = new Collectable("Coin");
-	coin->Init();
-	game.gameobjects.push_back(coin);
+	std::vector<Collectable*> coins;
+
+	for (int i = 0; i < 4; i++) {
+		Collectable* coin = new Collectable("Coin");
+		coin->Init();
+		coin->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, (std::rand() % 100) * -1));
+		game.gameobjects.push_back(coin);
+	}
 
 	while (game.isRunning()) {
 
