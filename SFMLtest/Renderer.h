@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Vector.h"
 
 namespace aengine {
 
@@ -11,8 +12,12 @@ namespace aengine {
 
 		Renderer() = default;
 
-		virtual void Update() = 0;
+		virtual void Update(const aengine::Vectorf position) = 0;
 		virtual void Render() = 0;
+
+		virtual void SetScale(float scale) = 0;
+
+		void SetOrigin(const aengine::Vectorf& localOrigin);
 	};
 
 	class ShapeRenderer : public Renderer {
@@ -23,7 +28,8 @@ namespace aengine {
 		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface);
 
 		void Render() override;
-		void Update() override;
+		void Update(const aengine::Vectorf position) override;
+		void SetScale(float scale) override;
 
 		~ShapeRenderer();
 	};

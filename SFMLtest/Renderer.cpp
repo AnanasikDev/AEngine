@@ -1,16 +1,8 @@
 #include "Renderer.h"
-#include "Gameobject.h"
 #include <iostream>
+#include "Vector.h"
 
 namespace aengine {
-	void ShapeRenderer::Render() {
-		surface->draw(*shape);
-	}
-
-	void ShapeRenderer::Update() {
-		shape->setPosition(gameobject->position.getsf());
-	}
-
 	ShapeRenderer::ShapeRenderer(const ShapeRenderer& other) {
 		this->gameobject = other.gameobject;
 		this->surface = other.surface;
@@ -23,7 +15,31 @@ namespace aengine {
 		this->shape = nullptr;
 	}
 
+	void Renderer::SetOrigin(const aengine::Vectorf& origin) {
+		
+		auto shapeRenderer = dynamic_cast<ShapeRenderer*>(this);
+		if (shapeRenderer != nullptr) {
+			
+			shapeRenderer->shape->setOrigin(origin.getsf());
+			return;
+		}
+
+		throw std::exception("Given renderer type is not supported.");
+	}
+
 	ShapeRenderer::~ShapeRenderer() {
 		delete shape;
+	}
+
+	void ShapeRenderer::Render() {
+		surface->draw(*shape);
+	}
+
+	void ShapeRenderer::Update(const aengine::Vectorf position) {
+		shape->setPosition(position.getsf());
+	}
+
+	void ShapeRenderer::SetScale(float scale) {
+		this->shape->setScale(sf::Vector2f(scale, scale));
 	}
 }

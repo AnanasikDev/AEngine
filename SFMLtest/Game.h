@@ -5,12 +5,14 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
+#include "Vector.h"
 
 namespace aengine {
 
 	class Gameobject;
 
 	class Game {
+
 	private:
 		sf::RenderWindow* window;
 		sf::VideoMode videoMode;
@@ -18,6 +20,8 @@ namespace aengine {
 		sf::Color defaultColor;
 
 	public:
+		Vector<int> pixelPos;
+		Vectorf worldPos;
 
 		unsigned int frame;
 

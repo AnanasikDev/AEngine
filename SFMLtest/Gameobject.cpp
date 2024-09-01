@@ -1,4 +1,6 @@
 #include "Gameobject.h"
+#include "Renderer.h"
+#include "Collider.h"
 #include <iostream>
 
 namespace aengine {
@@ -13,11 +15,19 @@ namespace aengine {
 	}
 
 	void Gameobject::Update() {
+		if (collider != nullptr) {
+			collider->center = this->position;
+		}
 		if (renderer != nullptr)
-			renderer->Update();
+			renderer->Update(this->position);
 	}
 
 	void Gameobject::Init() {
 
+	}
+
+	void Gameobject::SetScale(float scale) {
+		if (renderer != nullptr) renderer->SetScale(scale);
+		if (collider != nullptr) collider->SetScale(scale);
 	}
 }

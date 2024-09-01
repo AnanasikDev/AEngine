@@ -1,4 +1,10 @@
-﻿  Player.cpp
-  main.cpp
+﻿  Collectable.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(8,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(8,9): message : see declaration of 'aengine::Collider'
+  Gameobject.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(8,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(8,9): message : see declaration of 'aengine::Collider'
+  Player.cpp
+  Renderer.cpp
   Generating Code...
   SFMLtest.vcxproj -> C:\Archive\Code\C++\SFML-game\x64\Debug\SFMLtest.exe

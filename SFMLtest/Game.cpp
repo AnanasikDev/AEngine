@@ -14,6 +14,8 @@ namespace aengine {
 	Game::Game() {
 		this->window = nullptr;
 		instance = this;
+		pixelPos = Vectori();
+		worldPos = Vectorf();
 	}
 
 	Game::~Game() {
@@ -33,6 +35,13 @@ namespace aengine {
 	void Game::Update() {
 
 		this->PollEvents();
+
+		// get the current mouse position in the window
+		
+		pixelPos = Vectori(sf::Mouse::getPosition(*window));
+
+		// convert it to world coordinates
+		worldPos = window->mapPixelToCoords(pixelPos.getsf());
 
 		for (auto obj : gameobjects) {
 			obj->Update();

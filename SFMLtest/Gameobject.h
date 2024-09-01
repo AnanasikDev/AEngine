@@ -3,16 +3,20 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Vector.h"
-#include "Renderer.h"
+//#include "Renderer.h"
+//#include "Collider.h"
 
 namespace aengine {
+
+	class Collider;
+	class Renderer;
 
 	class Gameobject {
 	public:
 		Vectorf position;
 		std::string name;
 
-		//std::unique_ptr<Collider> collider;
+		Collider* collider;
 		Renderer* renderer;
 
 		Gameobject() {
@@ -22,6 +26,7 @@ namespace aengine {
 		Gameobject(std::string name);
 		~Gameobject() {
 			renderer = nullptr;
+			collider = nullptr;
 		}
 
 		virtual void Init();
@@ -33,17 +38,6 @@ namespace aengine {
 			this->position = other.position;
 			this->name = other.name;
 		}
-
-		//Gameobject(Gameobject&& other) noexcept {
-		//	other.swap(*this);
-		//}
-
-		//void swap(Gameobject& other) {
-		//	std::swap(this->position, other.position);
-		//	std::swap(this->name, other.name);
-		//	
-		//	//std::swap(this->bol, other.bol);
-		//}
 
 		void SetPosition(Vectorf pos) {
 			position = pos;
@@ -60,5 +54,7 @@ namespace aengine {
 		void Translate(float dx, float dy) {
 			position += Vectorf(dx, dy);
 		}
+
+		void SetScale(float scale);
 	};
 }

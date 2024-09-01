@@ -1,6 +1,9 @@
 #include "Collectable.h"
 #include "Gameobject.h"
+#include "Renderer.h"
 #include "Game.h"
+#include "Collider.h"
+#include <iostream>
 
 namespace agame {
 	Collectable::Collectable(std::string name) {
@@ -12,13 +15,20 @@ namespace agame {
 
 		aengine::ShapeRenderer* sp = static_cast<aengine::ShapeRenderer*>(this->renderer);
 
-		sf::RectangleShape* rect = new sf::RectangleShape();
+		sf::CircleShape* circle = new sf::CircleShape();
 
-		sp->shape = rect;
+		sp->shape = circle;
 
 		SetPosition(40, 190);
-		rect->setFillColor(sf::Color::Black);
-		rect->setSize(Vectorf(40, 90).getsf());
+		circle->setFillColor(sf::Color(250, 220, 20));
+		circle->setRadius(15);
+
+		aengine::CircleCollider* collider 
+			= new aengine::CircleCollider(this);
+		collider->radius = 50;
+
+		this->collider = collider;
+		std::cout << "Collectable init" << std::endl;
 	}
 
 	void Collectable::Render() {
@@ -26,7 +36,15 @@ namespace agame {
 	}
 
 	void Collectable::Update() {
-		position += Vectorf(1, 3);
-		renderer->Update();
+		Gameobject::Update();
+		position += aengine::Vectorf(0.5f, 0.3f);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			
+			std::cout << (dynamic_cast<aengine::CircleCollider*>(collider)->center - aengine::Game::instance->worldPos).Magnitude() << std::endl;
+			
+			/*if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
+				std::cout << "ALSKJFALDKJFASLKDJFA" << std::endl;
+			}*/
+		}
 	}
 }
