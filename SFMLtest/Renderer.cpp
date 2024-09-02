@@ -15,6 +15,12 @@ namespace aengine {
 		this->shape = nullptr;
 	}
 
+	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, sf::Shape* shape) {
+		this->gameobject = gameobject;
+		this->surface = surface;
+		this->shape = shape;
+	}
+
 	void Renderer::SetOrigin(const aengine::Vectorf& origin) {
 		
 		auto shapeRenderer = dynamic_cast<ShapeRenderer*>(this);

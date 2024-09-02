@@ -26,6 +26,7 @@ namespace aengine {
 
 		ShapeRenderer(const ShapeRenderer& other);
 		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface);
+		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, sf::Shape* shape);
 
 		void Render() override;
 		void Update(const aengine::Vectorf position) override;

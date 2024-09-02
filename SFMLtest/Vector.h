@@ -13,6 +13,11 @@ namespace aengine {
 		T x;
 		T y;
 
+		static const Vector up;
+		static const Vector down;
+		static const Vector right;
+		static const Vector left;
+
 		Vector() {
 			this->x = 0;
 			this->y = 0;
@@ -40,19 +45,19 @@ namespace aengine {
 			return *this;
 		}
 
-		Vector<T> operator+(Vector<T> other) {
+		Vector<T> operator+(Vector<T> other) const {
 			return Vector<T>(this->x + other.x, this->y + other.y);
 		}
 
-		Vector<T> operator-(Vector<T> other) {
+		Vector<T> operator-(Vector<T> other) const {
 			return Vector<T>(this->x - other.x, this->y - other.y);
 		}
 
-		Vector<T> operator*(T fac) {
+		Vector<T> operator*(T fac) const {
 			return Vector<T>(this->x * fac, this->y * fac);
 		}
 
-		Vector<T> operator/(T fac) {
+		Vector<T> operator/(T fac) const {
 			return Vector<T>(this->x / fac, this->y / fac);
 		}
 
@@ -76,6 +81,18 @@ namespace aengine {
 			return buff;
 		}
 	};
+
+	template <typename T>
+	static const Vector<T> Vector<T>::up = Vector<T>(0, 1);
+
+	template <typename T>
+	static const Vector<T> Vector<T>::down = Vector<T>(0, -1);
+
+	template <typename T>
+	static const Vector<T> Vector<T>::right = Vector<T>(1, 0);
+
+	template <typename T>
+	static const Vector<T> Vector<T>::left = Vector<T>(-1, 0);
 
 	typedef Vector<float> Vectorf;
 	typedef Vector<int>   Vectori;

@@ -3,13 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Vector.h"
-//#include "Renderer.h"
-//#include "Collider.h"
 
 namespace aengine {
 
 	class Collider;
 	class Renderer;
+	class Rigidbody;
 
 	class Gameobject {
 	public:
@@ -18,16 +17,14 @@ namespace aengine {
 
 		Collider* collider;
 		Renderer* renderer;
+		Rigidbody* rigidbody;
 
 		Gameobject() {
 			position = Vectorf(0, 0);
 			name = "";
 		}
 		Gameobject(std::string name);
-		~Gameobject() {
-			renderer = nullptr;
-			collider = nullptr;
-		}
+		~Gameobject();
 
 		virtual void Init();
 

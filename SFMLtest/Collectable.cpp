@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Game.h"
 #include "Collider.h"
+#include "Rigidbody.h"
 #include <iostream>
 
 namespace agame {
@@ -11,6 +12,7 @@ namespace agame {
 	}
 
 	void Collectable::Init() {
+		Gameobject::Init();
 		this->renderer = new aengine::ShapeRenderer(this, aengine::Game::instance->getWindow());
 
 		aengine::ShapeRenderer* sp = static_cast<aengine::ShapeRenderer*>(this->renderer);
@@ -29,7 +31,9 @@ namespace agame {
 		collider->radius = 15;
 
 		this->collider = collider;
-		std::cout << "Collectable init" << std::endl;
+
+		this->rigidbody = new aengine::Rigidbody(this);
+		this->rigidbody->
 	}
 
 	void Collectable::Render() {
@@ -40,9 +44,6 @@ namespace agame {
 		Gameobject::Update();
 		position += aengine::Vectorf(0, 1.f);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			
-			std::cout << (dynamic_cast<aengine::CircleCollider*>(collider)->center - aengine::Game::instance->worldPos).Magnitude() << std::endl;
-			
 			if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
 				collected++;
 				this->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));

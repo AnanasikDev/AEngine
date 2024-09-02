@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Vector.h"
+#include "Renderer.h"
 #include "Collectable.h"
 #include <iostream>
 #include <vector>
@@ -16,7 +17,6 @@ int main() {
 
 	Player* player = new Player("Player");
 	player->Init();
-	game.gameobjects.push_back(player);
 
 	std::vector<Collectable*> coins;
 
@@ -24,8 +24,16 @@ int main() {
 		Collectable* coin = new Collectable("Coin");
 		coin->Init();
 		coin->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, (std::rand() % 100) * -1));
-		game.gameobjects.push_back(coin);
 	}
+
+	Gameobject* floor = new Gameobject("floor");
+	floor->Init();
+	auto rect = new sf::RectangleShape(Vectorf(500, 30).getsf());
+	rect->setFillColor(sf::Color::Magenta);
+	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
+	floor->renderer->SetOrigin(Vectorf(250, 15));
+	floor->SetPosition(400, 400);
+
 
 	while (game.isRunning()) {
 

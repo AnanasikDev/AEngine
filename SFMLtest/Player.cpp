@@ -11,6 +11,7 @@ namespace agame {
 	}
 
     void Player::Init() {
+        Gameobject::Init();
         // Create a ShapeRenderer and store it in the Renderer pointer
         this->renderer = new aengine::ShapeRenderer(
             this,
