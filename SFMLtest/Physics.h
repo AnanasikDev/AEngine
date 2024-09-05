@@ -11,8 +11,8 @@ namespace aengine {
 		static const float g;
 		static const float airResistance;
 
-		static bool AreOverlapping(const CircleCollider& c1, const CircleCollider& c2, CollisionInfo* outInfo);
-		static bool AreOverlapping(const RectCollider& c1, const CircleCollider& c2, CollisionInfo* outInfo);
-		static bool AreOverlapping(const RectCollider& c1, const RectCollider& c2, CollisionInfo* outInfo);
+		static bool AreOverlapping(const CircleCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo);
+		static bool AreOverlapping(const RectCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo);
+		static bool AreOverlapping(const RectCollider* c1, const RectCollider* c2, CollisionInfo* outInfo);
 	};
 }

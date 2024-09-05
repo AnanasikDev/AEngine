@@ -135,8 +135,10 @@
   <ItemGroup>
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionInfo.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="List.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />

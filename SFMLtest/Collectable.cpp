@@ -33,7 +33,7 @@ namespace agame {
 		this->collider = collider;
 
 		this->rigidbody = new aengine::Rigidbody(this);
-		this->rigidbody->
+		//this->rigidbody->
 	}
 
 	void Collectable::Render() {

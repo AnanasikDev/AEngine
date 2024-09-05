@@ -94,22 +94,22 @@ namespace aengine {
 	};
 
 	template <typename T>
-	static const Vector<T> Vector<T>::zero = Vector<T>(0, 0);
+	const Vector<T> Vector<T>::zero = Vector<T>(0, 0);
 
 	template <typename T>
-	static const Vector<T> Vector<T>::one = Vector<T>(1, 1);
+	const Vector<T> Vector<T>::one = Vector<T>(1, 1);
 
 	template <typename T>
-	static const Vector<T> Vector<T>::up = Vector<T>(0, 1);
+	const Vector<T> Vector<T>::up = Vector<T>(0, 1);
 
 	template <typename T>
-	static const Vector<T> Vector<T>::down = Vector<T>(0, -1);
+	const Vector<T> Vector<T>::down = Vector<T>(0, -1);
 
 	template <typename T>
-	static const Vector<T> Vector<T>::right = Vector<T>(1, 0);
+	const Vector<T> Vector<T>::right = Vector<T>(1, 0);
 
 	template <typename T>
-	static const Vector<T> Vector<T>::left = Vector<T>(-1, 0);
+	const Vector<T> Vector<T>::left = Vector<T>(-1, 0);
 
 	typedef Vector<float> Vectorf;
 	typedef Vector<int>   Vectori;

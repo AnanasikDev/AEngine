@@ -48,6 +48,12 @@
     <ClCompile Include="Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionInfo.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="List.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

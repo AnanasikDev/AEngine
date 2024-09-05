@@ -20,7 +20,7 @@ namespace aengine {
 		void Update(const Vectorf& position);
 
 		virtual bool IsPointInside(Vectorf& point);
-		virtual bool IsOverlapping(const Collider& other);
+		virtual bool IsOverlapping(const Collider* other);
 		virtual void SetScale(float scale) = 0;
 	};
 
@@ -35,12 +35,12 @@ namespace aengine {
 		void SetScale(float scale) override;
 	};
 
-	struct BoxCollider : public Collider {
+	struct RectCollider : public Collider {
 		Vectorf size;
 
-		BoxCollider();
-		BoxCollider(Gameobject* gameobject);
-		~BoxCollider() = default;
+		RectCollider();
+		RectCollider(Gameobject* gameobject);
+		~RectCollider() = default;
 
 		void SetScale(float scale) override;
 	};
