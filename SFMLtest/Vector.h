@@ -13,6 +13,8 @@ namespace aengine {
 		T x;
 		T y;
 
+		static const Vector zero;
+		static const Vector one;
 		static const Vector up;
 		static const Vector down;
 		static const Vector right;
@@ -71,8 +73,17 @@ namespace aengine {
 
 		void Normalize() {
 			float m = Magnitude();
+			if (m == 0) 
+				return;
 			x /= m;
 			y /= m;
+		}
+
+		Vector<T> normalized() {
+			float m = Magnitude();
+			if (m == 0)
+				return Vector<T>();
+			return Vector<T>(x / m, y / m);
 		}
 
 		std::string toStr() {
@@ -81,6 +92,12 @@ namespace aengine {
 			return buff;
 		}
 	};
+
+	template <typename T>
+	static const Vector<T> Vector<T>::zero = Vector<T>(0, 0);
+
+	template <typename T>
+	static const Vector<T> Vector<T>::one = Vector<T>(1, 1);
 
 	template <typename T>
 	static const Vector<T> Vector<T>::up = Vector<T>(0, 1);

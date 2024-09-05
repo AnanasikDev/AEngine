@@ -4,6 +4,7 @@
 #include "Rigidbody.h"
 #include <iostream>
 #include "Game.h"
+#include "List.h"
 
 namespace aengine {
 	Gameobject::Gameobject(std::string name) {
@@ -17,14 +18,18 @@ namespace aengine {
 	}
 
 	void Gameobject::Update() {
+
+		// if rigidbody is applied, it takes control over GO's position
+		if (rigidbody != nullptr) {
+			this->position = rigidbody->getPosition();
+		}
+		
 		if (collider != nullptr) {
 			collider->Update(this->position);
 		}
+		
 		if (renderer != nullptr) {
 			renderer->Update(this->position);
-		}
-		if (rigidbody != nullptr) {
-			rigidbody->Update(this->position);
 		}
 	}
 
@@ -37,12 +42,7 @@ namespace aengine {
 		if (collider != nullptr) delete collider;
 		if (rigidbody != nullptr) delete rigidbody;
 
-		auto it = std::find(aengine::Game::instance->gameobjects.begin(), aengine::Game::instance->gameobjects.end(), this);
-
-		// If element is found found, erase it 
-		if (it != aengine::Game::instance->gameobjects.end()) {
-			aengine::Game::instance->gameobjects.erase(it);
-		}
+		List::Remove<Gameobject*>(aengine::Game::instance->gameobjects, this);
 	}
 
 	void Gameobject::SetScale(float scale) {

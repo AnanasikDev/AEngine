@@ -1,5 +1,6 @@
 #include "Rigidbody.h"
 #include "Physics.h"
+#include "Game.h"
 
 namespace aengine {
 
@@ -20,7 +21,7 @@ namespace aengine {
 	}
 
 	Vectorf Rigidbody::getVelocity() const {
-		return this->velocity;
+		return this->fvelocity;
 	}
 
 	Vectorf Rigidbody::getPosition() const {
@@ -28,12 +29,16 @@ namespace aengine {
 	}
 
 	void Rigidbody::AddForce(Vectorf force) {
-		this->velocity += force;
+		this->fvelocity += force;
 	}
 
 	void Rigidbody::Update() {
 
-		this->velocity += this->facceleration + Vectorf::up * this->g;
-		this->position += this->velocity;
+		this->fvelocity += this->facceleration + 
+			Vectorf::up * this->g;
+		this->position += this->fvelocity;
+	}
+
+	void Rigidbody::CheckCollisions() {
 	}
 }

@@ -5,14 +5,14 @@
 namespace aengine {
 	class Rigidbody {
 	private:
-		Vectorf velocity;
+		Vectorf fvelocity;
 		Vectorf position;
 		class Gameobject* gameobject;
 
 		float g;
 		float airResistance;
 		float mass;
-		Vectorf acceleration;
+		Vectorf facceleration;
 
 	public:
 		
@@ -31,5 +31,7 @@ namespace aengine {
 		void Update();
 
 		void AddForce(Vectorf force);
+
+		void CheckCollisions();
 	};
 }
