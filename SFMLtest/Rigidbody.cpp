@@ -1,6 +1,9 @@
 #include "Rigidbody.h"
 #include "Physics.h"
 #include "Game.h"
+#include "Collider.h"
+#include "Gameobject.h"
+#include <iostream>
 
 namespace aengine {
 
@@ -32,13 +35,25 @@ namespace aengine {
 		this->fvelocity += force;
 	}
 
-	void Rigidbody::Update() {
+	void Rigidbody::FixedUpdate() {
 
 		this->fvelocity += this->facceleration + 
 			Vectorf::up * this->g;
 		this->position += this->fvelocity;
+
+		CheckCollisions();
+	}
+
+	void Rigidbody::Update() {
+		
 	}
 
 	void Rigidbody::CheckCollisions() {
+		for (Collider* other : Collider::colliders) {
+			if (other->IsOverlapping(this->gameobject->collider)) {
+				// collision detected
+				std::cout << "Collision detected!" << std::endl;
+			}
+		}
 	}
 }

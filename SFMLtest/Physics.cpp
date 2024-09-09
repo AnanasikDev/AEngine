@@ -8,12 +8,12 @@ namespace aengine {
 	const float Physics::airResistance = 0.045f;
 
 	bool Physics::AreOverlapping(const CircleCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {
-		Vectorf n = (c2->center - c1->center);
-		float d = n.Magnitude();
-		bool b = d <= c1->radius + c2->radius;
-		if (b)
-			outInfo = new CollisionInfo(n, (c1->center + c2->center) / 2.f); // pos temp calculation
-		return b;
+		Vectorf delta = (c2->center - c1->center);
+		float distance = delta.Magnitude();
+		bool areover = distance <= c1->radius + c2->radius;
+		if (areover)
+			outInfo = new CollisionInfo(delta, (c1->center + c2->center) / 2.f); // pos temp calculation
+		return areover;
 	}
 
 	bool Physics::AreOverlapping(const RectCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {

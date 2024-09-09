@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Gameobject.h"
 #include <iostream>
+#include "Time.h"
 
 namespace aengine {
 
@@ -16,6 +17,7 @@ namespace aengine {
 		instance = this;
 		pixelPos = Vectori();
 		worldPos = Vectorf();
+		Time::Init();
 	}
 
 	Game::~Game() {
@@ -36,6 +38,8 @@ namespace aengine {
 
 		this->PollEvents();
 
+		Time::Update();
+
 		// get the current mouse position in the window
 		
 		pixelPos = Vectori(sf::Mouse::getPosition(*window));
@@ -54,8 +58,7 @@ namespace aengine {
 		for (auto obj : gameobjects) {
 			obj->Render();
 		}
-		//std::cout << "[" << frame << "]" << " rendering an object " << go.name << std::endl;
-
+		
 		this->window->display();
 		frame++;
 	}

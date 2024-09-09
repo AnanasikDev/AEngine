@@ -28,6 +28,11 @@ namespace aengine {
 			calculates collisions,
 			updates gameobject position
 		*/
+		void FixedUpdate();
+
+		/*  Calculates and applies
+			intermediate positions
+		*/
 		void Update();
 
 		void AddForce(Vectorf force);
