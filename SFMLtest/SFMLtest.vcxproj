@@ -136,6 +136,7 @@
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionInfo.h" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="List.h" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="Physics.h" />

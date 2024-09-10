@@ -4,6 +4,7 @@
 #include "Collider.h"
 #include "Gameobject.h"
 #include <iostream>
+#include "Time.h"
 
 namespace aengine {
 
@@ -37,15 +38,25 @@ namespace aengine {
 
 	void Rigidbody::FixedUpdate() {
 
+		/*
+			Heavy physics computations done in FixedUpdate
+			to achieve better performance
+		*/
+
 		this->fvelocity += this->facceleration + 
 			Vectorf::up * this->g;
-		this->position += this->fvelocity;
 
 		CheckCollisions();
 	}
 
 	void Rigidbody::Update() {
-		
+
+		/*
+			Light computations for seamless updates,
+			such as transformations
+		*/
+
+		this->position += (this->fvelocity * Time::getDeltaTimeMs() / 1000.f);
 	}
 
 	void Rigidbody::CheckCollisions() {

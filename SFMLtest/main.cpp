@@ -5,12 +5,12 @@
 #include "Collectable.h"
 #include <iostream>
 #include <vector>
+#include "Event.h"
 
 using namespace aengine;
 using namespace agame;
 
 int main() {
-
 	Game game;
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);

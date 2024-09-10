@@ -1,3 +1,14 @@
-﻿  Time.cpp
-C:\Archive\Code\C++\SFML-game\SFMLtest\Time.cpp(33,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+﻿  Event.cpp
+  main.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\main.cpp(39,82): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Archive\Code\C++\SFML-game\SFMLtest\main.cpp(39,56): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Generating Code...
   SFMLtest.vcxproj -> C:\Archive\Code\C++\SFML-game\x64\Debug\SFMLtest.exe
