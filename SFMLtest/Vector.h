@@ -100,10 +100,10 @@ namespace aengine {
 	const Vector<T> Vector<T>::one = Vector<T>(1, 1);
 
 	template <typename T>
-	const Vector<T> Vector<T>::up = Vector<T>(0, 1);
+	const Vector<T> Vector<T>::up = Vector<T>(0, -1);
 
 	template <typename T>
-	const Vector<T> Vector<T>::down = Vector<T>(0, -1);
+	const Vector<T> Vector<T>::down = Vector<T>(0, 1);
 
 	template <typename T>
 	const Vector<T> Vector<T>::right = Vector<T>(1, 0);

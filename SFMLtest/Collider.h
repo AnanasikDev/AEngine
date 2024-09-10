@@ -19,8 +19,23 @@ namespace aengine {
 
 		void Update(const Vectorf& position);
 
+		/// <summary>
+		/// Detects whether the given point is
+		/// inside or outside of the collider.
+		/// </summary>
 		virtual bool IsPointInside(Vectorf& point);
+
+		/// <summary>
+		/// Detects collision between the pair
+		/// of colliders (this and other). Dynamic_cast's
+		/// both to detect collision between any types
+		/// of colliders.
+		/// </summary>
 		virtual bool IsOverlapping(const Collider* other);
+
+		/// <summary>
+		/// Multiplies size of the collider by given factor.
+		/// </summary>
 		virtual void SetScale(float scale) = 0;
 	};
 

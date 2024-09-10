@@ -20,10 +20,10 @@ int main() {
 
 	std::vector<Collectable*> coins;
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 1; i++) {
 		Collectable* coin = new Collectable("Coin");
 		coin->Init();
-		coin->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, (std::rand() % 100) * -1));
+		coin->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 10));
 	}
 
 	Gameobject* floor = new Gameobject("floor");

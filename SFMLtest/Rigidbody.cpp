@@ -32,6 +32,10 @@ namespace aengine {
 		return this->position;
 	}
 
+	void Rigidbody::setPosition(Vectorf pos) {
+		this->position = pos;
+	}
+
 	void Rigidbody::AddForce(Vectorf force) {
 		this->fvelocity += force;
 	}
@@ -43,7 +47,7 @@ namespace aengine {
 			to achieve better performance
 		*/
 
-		this->fvelocity += this->facceleration + 
+		this->fvelocity = 
 			Vectorf::up * this->g;
 
 		CheckCollisions();
@@ -61,9 +65,9 @@ namespace aengine {
 
 	void Rigidbody::CheckCollisions() {
 		for (Collider* other : Collider::colliders) {
-			if (other->IsOverlapping(this->gameobject->collider)) {
+			if (this->gameobject->collider != other && other->IsOverlapping(this->gameobject->collider)) {
 				// collision detected
-				std::cout << "Collision detected!" << std::endl;
+				std::cout << "Collision detected at: " << this->gameobject->getPosition().toStr() << " : " << other->gameobject->getPosition().toStr() << " " << this << " : " << other << std::endl;
 			}
 		}
 	}

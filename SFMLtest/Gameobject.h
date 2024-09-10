@@ -11,46 +11,49 @@ namespace aengine {
 	class Rigidbody;
 
 	class Gameobject {
-	public:
+
+	private:
 		Vectorf position;
+	
+	public:
 		std::string name;
 
 		Collider* collider;
 		Renderer* renderer;
 		Rigidbody* rigidbody;
 
-		Gameobject() {
-			position = Vectorf(0, 0);
-			name = "";
-		}
+		Gameobject();
 		Gameobject(std::string name);
 		~Gameobject();
 
+		/// <summary>
+		/// Registers itself in global list
+		/// of instantiates gameobjects. Can
+		/// be overriden
+		/// </summary>
 		virtual void Init();
 
+		/// <summary>
+		/// Renders the gameobject. Called after
+		/// Update function each frame.
+		/// </summary>
 		virtual void Render();
+		
+		/// <summary>
+		/// Virtual function, can and should
+		/// be overriden by its inheritor.
+		/// Called each frame.
+		/// </summary>
 		virtual void Update();
 
-		Gameobject(const Gameobject& other) {
-			this->position = other.position;
-			this->name = other.name;
-		}
+		Gameobject(const Gameobject& other);
 
-		void SetPosition(Vectorf pos) {
-			position = pos;
-		}
+		void SetPosition(Vectorf pos);
+		void SetPosition(float x, float y);
+		Vectorf getPosition() const;
 
-		void SetPosition(float x, float y) {
-			position = Vectorf(x, y);
-		}
-
-		void Translate(Vectorf delta) {
-			position += delta;
-		}
-
-		void Translate(float dx, float dy) {
-			position += Vectorf(dx, dy);
-		}
+		void Translate(Vectorf delta);
+		void Translate(float dx, float dy);
 
 		void SetScale(float scale);
 	};

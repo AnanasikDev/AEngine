@@ -6,6 +6,7 @@
 namespace aengine {
 	const float Physics::g = -9.81f;
 	const float Physics::airResistance = 0.045f;
+	const int Physics::fixedUpdateIntervalMs = 50;
 
 	bool Physics::AreOverlapping(const CircleCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {
 		Vectorf delta = (c2->center - c1->center);

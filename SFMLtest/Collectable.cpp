@@ -33,7 +33,6 @@ namespace agame {
 		this->collider = collider;
 
 		this->rigidbody = new aengine::Rigidbody(this);
-		//this->rigidbody->
 	}
 
 	void Collectable::Render() {
@@ -42,7 +41,6 @@ namespace agame {
 
 	void Collectable::Update() {
 		Gameobject::Update();
-		position += aengine::Vectorf(0, 1.f);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
 				collected++;

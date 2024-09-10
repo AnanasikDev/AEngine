@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Gameobject.h"
+#include "Rigidbody.h"
+#include "Physics.h"
 #include <iostream>
 #include "Time.h"
 
@@ -34,14 +36,32 @@ namespace aengine {
 		return this->window;
 	}
 
+	void Game::FixedUpdate() {
+		for (Gameobject* go : gameobjects) {
+			if (go->rigidbody != nullptr) {
+				go->rigidbody->FixedUpdate();
+			}
+		}
+	}
+
 	void Game::Update() {
 
 		this->PollEvents();
 
 		Time::Update();
 
+		/*	TODO: If deltaTime is greater than fixedUpdateInterval
+			(On freeze generally when lagging) physics FixedUpdate
+			and Update should take that in consideration and 
+			scale their changes according to deltaTime.
+		*/
+		msSinceFixedUpdate += Time::getDeltaTimeMs();
+		if (msSinceFixedUpdate >= Physics::fixedUpdateIntervalMs) {
+			FixedUpdate();
+			msSinceFixedUpdate = 0;
+		}
+
 		// get the current mouse position in the window
-		
 		pixelPos = Vectori(sf::Mouse::getPosition(*window));
 
 		// convert it to world coordinates
@@ -71,6 +91,9 @@ namespace aengine {
 		return this->window->isOpen();
 	}
 
+	/// <summary>
+	/// Polls SFML events (Window, keyboard, etc.)
+	/// </summary>
 	void Game::PollEvents() {
 		while (window->pollEvent(event)) {
 			switch (event.type)

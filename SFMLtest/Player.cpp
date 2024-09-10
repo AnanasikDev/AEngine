@@ -30,7 +30,7 @@ namespace agame {
         circle->setRadius(30);
         circle->setFillColor(sf::Color(255, 100, 10));
         SetPosition(40, 50);
-        circle->setPosition(position.getsf());
+        circle->setPosition(getPosition().getsf());
     }
 
 	void Player::Update() {

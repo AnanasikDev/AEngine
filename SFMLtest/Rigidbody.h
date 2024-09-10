@@ -23,16 +23,17 @@ namespace aengine {
 
 		Vectorf getVelocity() const;
 		Vectorf getPosition() const;
+		void setPosition(Vectorf pos);
 
-		/*  Applies forces,
-			calculates collisions,
-			updates gameobject position
-		*/
+		/// <summary>
+		/// Applies forces, computes collisions, 
+		/// updates gameobject position
+		/// </summary>
 		void FixedUpdate();
 
-		/*  Calculates and applies
-			intermediate positions
-		*/
+		/// <summary>
+		/// Calculates and applies intermediate positions
+		/// </summary>
 		void Update();
 
 		void AddForce(Vectorf force);

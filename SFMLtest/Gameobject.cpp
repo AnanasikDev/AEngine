@@ -5,8 +5,15 @@
 #include <iostream>
 #include "Game.h"
 #include "List.h"
+#include "Vector.h"
 
 namespace aengine {
+
+	Gameobject::Gameobject() {
+		position = Vectorf(0, 0);
+		name = "";
+	}
+
 	Gameobject::Gameobject(std::string name) {
 		this->name = name;
 		this->position = Vectorf(0, 0);
@@ -22,6 +29,7 @@ namespace aengine {
 		// if rigidbody is applied, it takes control over GO's position
 		if (rigidbody != nullptr) {
 			this->position = rigidbody->getPosition();
+			rigidbody->Update();
 		}
 		
 		if (collider != nullptr) {
@@ -48,5 +56,33 @@ namespace aengine {
 	void Gameobject::SetScale(float scale) {
 		if (renderer != nullptr) renderer->SetScale(scale);
 		if (collider != nullptr) collider->SetScale(scale);
+	}
+
+	Gameobject::Gameobject(const Gameobject& other) {
+		this->position = other.position;
+		this->name = other.name;
+	}
+
+	void Gameobject::SetPosition(Vectorf pos) {
+		position = pos;
+		if (rigidbody != nullptr) {
+			rigidbody->setPosition(pos);
+		}
+	}
+
+	void Gameobject::SetPosition(float x, float y) {
+		SetPosition(Vectorf(x, y));
+	}
+
+	Vectorf Gameobject::getPosition() const {
+		return this->position;
+	}
+
+	void Gameobject::Translate(Vectorf delta) {
+		position += delta;
+	}
+
+	void Gameobject::Translate(float dx, float dy) {
+		Translate(Vectorf(dx, dy));
 	}
 }

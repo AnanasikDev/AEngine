@@ -10,6 +10,7 @@ namespace aengine {
 	public:
 		static const float g;
 		static const float airResistance;
+		static const int fixedUpdateIntervalMs;
 
 		static bool AreOverlapping(const CircleCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo);
 		static bool AreOverlapping(const RectCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo);
