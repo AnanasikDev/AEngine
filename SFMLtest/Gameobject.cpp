@@ -19,6 +19,14 @@ namespace aengine {
 		this->position = Vectorf(0, 0);
 	}
 
+	Gameobject::~Gameobject() {
+		if (renderer != nullptr) delete renderer;
+		if (collider != nullptr) delete collider;
+		if (rigidbody != nullptr) delete rigidbody;
+
+		List::Remove<Gameobject*>(aengine::Game::instance->gameobjects, this);
+	}
+
 	void Gameobject::Render() {
 		if (renderer != nullptr)
 			renderer->Render();
@@ -43,14 +51,6 @@ namespace aengine {
 
 	void Gameobject::Init() {
 		aengine::Game::instance->gameobjects.push_back(this);
-	}
-
-	Gameobject::~Gameobject() {
-		if (renderer != nullptr) delete renderer;
-		if (collider != nullptr) delete collider;
-		if (rigidbody != nullptr) delete rigidbody;
-
-		List::Remove<Gameobject*>(aengine::Game::instance->gameobjects, this);
 	}
 
 	void Gameobject::SetScale(float scale) {

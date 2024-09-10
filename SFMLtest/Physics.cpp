@@ -10,7 +10,7 @@ namespace aengine {
 
 	bool Physics::AreOverlapping(const CircleCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {
 		Vectorf delta = (c2->center - c1->center);
-		float distance = delta.Magnitude();
+		float distance = delta.getLength();
 		bool areover = distance <= c1->radius + c2->radius;
 		if (areover)
 			outInfo = new CollisionInfo(delta, (c1->center + c2->center) / 2.f); // pos temp calculation
@@ -18,7 +18,8 @@ namespace aengine {
 	}
 
 	bool Physics::AreOverlapping(const RectCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {
-		throw std::exception("Non-implemented function Physics::AreOverlapping (2) cannot be invoked.");
+		//throw std::exception("Non-implemented function Physics::AreOverlapping (2) cannot be invoked.");
+		
 		return false;
 	}
 

@@ -31,13 +31,13 @@ namespace aengine {
 		// Try calculate for circle collider
 		auto circleCollider = dynamic_cast<CircleCollider*>(this);
 		if (circleCollider != nullptr) {
-			return (circleCollider->center - point).Magnitude() <= circleCollider->radius;
+			return (circleCollider->center - point).getLength() <= circleCollider->radius;
 		}
 		
 		// If failed, try calculate for rect collider
 		auto rectCollider = dynamic_cast<RectCollider*>(this);
 		if (circleCollider != nullptr) {
-			return (circleCollider->center - point).Magnitude() <= circleCollider->radius;
+			return (circleCollider->center - point).getLength() <= circleCollider->radius;
 		}
 
 		// If failed, crash with error message
@@ -47,25 +47,25 @@ namespace aengine {
 	bool Collider::IsOverlapping(const Collider* other) {
 		CollisionInfo* info = nullptr;
 		auto circleCollider1 = dynamic_cast<const CircleCollider*>(this);
-		auto boxCollider1 = dynamic_cast<const CircleCollider*>(this);
+		auto rectCollider1 = dynamic_cast<const RectCollider*>(this);
 
 		auto circleCollider2 = dynamic_cast<const CircleCollider*>(other);
-		auto boxCollider2 = dynamic_cast<const CircleCollider*>(other);
+		auto rectCollider2 = dynamic_cast<const RectCollider*>(other);
 
 		if (circleCollider1 != nullptr && circleCollider2 != nullptr) {
 			return Physics::AreOverlapping(circleCollider1, circleCollider2, info);
 		}
 
-		if (circleCollider1 != nullptr && boxCollider2 != nullptr) {
-			return Physics::AreOverlapping(circleCollider1, boxCollider2, info);
+		if (circleCollider1 != nullptr && rectCollider2 != nullptr) {
+			return Physics::AreOverlapping(rectCollider2, circleCollider1, info);
 		}
 
-		if (boxCollider1 != nullptr && circleCollider2 != nullptr) {
-			return Physics::AreOverlapping(circleCollider2, boxCollider1, info);
+		if (rectCollider1 != nullptr && circleCollider2 != nullptr) {
+			return Physics::AreOverlapping(rectCollider1, circleCollider2, info);
 		}
 
-		if (boxCollider1 != nullptr && boxCollider2 != nullptr) {
-			return Physics::AreOverlapping(boxCollider1, boxCollider2, info);
+		if (rectCollider1 != nullptr && rectCollider2 != nullptr) {
+			return Physics::AreOverlapping(rectCollider1, rectCollider2, info);
 		}
 
 		throw std::exception("Collider::IsOvelapping cannot handle the given pair of colliders.");
@@ -101,6 +101,12 @@ namespace aengine {
 
 	RectCollider::RectCollider(Gameobject* gameobject) :
 		Collider(gameobject), size()
+	{
+
+	}
+
+	RectCollider::RectCollider(Gameobject* gameobject, Vectorf size) :
+		Collider(gameobject), size(size)
 	{
 
 	}

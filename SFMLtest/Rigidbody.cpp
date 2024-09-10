@@ -47,7 +47,7 @@ namespace aengine {
 			to achieve better performance
 		*/
 
-		this->fvelocity = 
+		this->fvelocity += 
 			Vectorf::up * this->g;
 
 		CheckCollisions();

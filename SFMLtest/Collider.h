@@ -55,6 +55,7 @@ namespace aengine {
 
 		RectCollider();
 		RectCollider(Gameobject* gameobject);
+		RectCollider(Gameobject* gameobject, Vectorf size);
 		~RectCollider() = default;
 
 		void SetScale(float scale) override;

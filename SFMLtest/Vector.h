@@ -67,26 +67,26 @@ namespace aengine {
 			return sf::Vector2<T>(this->x, this->y);
 		}
 
-		float Magnitude() {
+		float getLength() const {
 			return sqrtf(x * x + y * y);
 		}
 
 		void Normalize() {
-			float m = Magnitude();
+			float m = getLength();
 			if (m == 0) 
 				return;
 			x /= m;
 			y /= m;
 		}
 
-		Vector<T> normalized() {
-			float m = Magnitude();
+		Vector<T> normalized() const {
+			float m = getLength();
 			if (m == 0)
 				return Vector<T>();
 			return Vector<T>(x / m, y / m);
 		}
 
-		std::string toStr() {
+		std::string toStr() const {
 			char buff[50];
 			sprintf_s(buff, 50, "(%.4f, %.4f)", (float)(this->x), (float)(this->y));
 			return buff;

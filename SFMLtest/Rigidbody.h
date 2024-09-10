@@ -20,6 +20,7 @@ namespace aengine {
 
 		Rigidbody();
 		Rigidbody(Gameobject* gameobject);
+		~Rigidbody() = default;
 
 		Vectorf getVelocity() const;
 		Vectorf getPosition() const;

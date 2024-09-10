@@ -141,6 +141,7 @@
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="List.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="Mathf.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />

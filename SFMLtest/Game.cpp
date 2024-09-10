@@ -24,11 +24,11 @@ namespace aengine {
 
 	Game::~Game() {
 		delete this->window;
-		delete instance;
 		for (auto obj : gameobjects)
 		{
 			delete obj;
 		}
+		delete instance;
 		gameobjects.clear();
 	}
 

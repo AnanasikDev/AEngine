@@ -3,14 +3,21 @@
 #include "Vector.h"
 #include "Renderer.h"
 #include "Collectable.h"
+#include "Rigidbody.h"
+#include "Collider.h"
 #include <iostream>
 #include <vector>
 #include "Event.h"
+#include "Mathf.h"
 
 using namespace aengine;
 using namespace agame;
 
 int main() {
+
+	Line line(Vectorf(0, 0), Vectorf(-5, 4));
+	std::cout << line.getNormal().toStr() << std::endl;
+
 	Game game;
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
@@ -28,12 +35,13 @@ int main() {
 
 	Gameobject* floor = new Gameobject("floor");
 	floor->Init();
-	auto rect = new sf::RectangleShape(Vectorf(500, 30).getsf());
+	auto rect = new sf::RectangleShape(Vectorf(800, 30).getsf());
 	rect->setFillColor(sf::Color::Magenta);
 	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
-	floor->renderer->SetOrigin(Vectorf(250, 15));
+	floor->renderer->SetOrigin(Vectorf(400, 15));
+	floor->collider = new aengine::RectCollider(floor, Vectorf(800, 30));
+	//floor->rigidbody = new Rigidbody(floor);
 	floor->SetPosition(400, 400);
-
 
 	while (game.isRunning()) {
 
