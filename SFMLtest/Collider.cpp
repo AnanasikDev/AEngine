@@ -3,6 +3,7 @@
 #include "List.h"
 #include "Physics.h"
 #include "CollisionInfo.h"
+#include "Gameobject.h"
 
 namespace aengine {
 
@@ -31,13 +32,13 @@ namespace aengine {
 		// Try calculate for circle collider
 		auto circleCollider = dynamic_cast<CircleCollider*>(this);
 		if (circleCollider != nullptr) {
-			return (circleCollider->center - point).getLength() <= circleCollider->radius;
+			return (circleCollider->worldCenter - point).getLength() <= circleCollider->radius;
 		}
 		
 		// If failed, try calculate for rect collider
 		auto rectCollider = dynamic_cast<RectCollider*>(this);
 		if (circleCollider != nullptr) {
-			return (circleCollider->center - point).getLength() <= circleCollider->radius;
+			return (circleCollider->worldCenter - point).getLength() <= circleCollider->radius;
 		}
 
 		// If failed, crash with error message
@@ -108,10 +109,10 @@ namespace aengine {
 	RectCollider::RectCollider(Gameobject* gameobject, Vectorf size) :
 		Collider(gameobject), size(size)
 	{
-
+		bounds.setCenterAndSize(gameobject->getPosition(), size);
 	}
 
 	void Collider::Update(const Vectorf& position) {
-		this->center = position;
+		this->worldCenter = position;
 	}
 }

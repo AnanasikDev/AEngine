@@ -3,15 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include "Vector.h"
 #include <vector>
+#include "Bounds.h"
 
 namespace aengine {
 
+	class Gameobject;
+
 	struct Collider {
-		class Gameobject* gameobject;
+		Gameobject* gameobject;
 
 		static std::vector<Collider*> colliders;
 
-		Vectorf center;
+		Vectorf worldCenter;
 
 		Collider();
 		Collider(Gameobject* gameobject);
@@ -52,6 +55,7 @@ namespace aengine {
 
 	struct RectCollider : public Collider {
 		Vectorf size;
+		Bounds bounds;
 
 		RectCollider();
 		RectCollider(Gameobject* gameobject);

@@ -1,7 +1,7 @@
 ﻿  main.cpp
-C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(9,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
-C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(9,9): message : see declaration of 'aengine::Collider'
-C:\Archive\Code\C++\SFML-game\SFMLtest\main.cpp(33,56): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(12,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(12,9): message : see declaration of 'aengine::Collider'
+C:\Archive\Code\C++\SFML-game\SFMLtest\main.cpp(29,56): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float

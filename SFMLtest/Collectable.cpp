@@ -26,11 +26,11 @@ namespace agame {
 		circle->setRadius(15);
 		sp->SetOrigin(aengine::Vectorf(15, 15));
 
-		aengine::CircleCollider* collider 
-			= new aengine::CircleCollider(this);
-		collider->radius = 15;
+		//aengine::CircleCollider* collider 
+			//= new aengine::CircleCollider(this);
+		//collider->radius = 15;
 
-		this->collider = collider;
+		this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
 
 		this->rigidbody = new aengine::Rigidbody(this);
 	}

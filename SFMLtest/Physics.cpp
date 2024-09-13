@@ -9,22 +9,26 @@ namespace aengine {
 	const int Physics::fixedUpdateIntervalMs = 50;
 
 	bool Physics::AreOverlapping(const CircleCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {
-		Vectorf delta = (c2->center - c1->center);
+		Vectorf delta = (c2->worldCenter - c1->worldCenter);
 		float distance = delta.getLength();
 		bool areover = distance <= c1->radius + c2->radius;
 		if (areover)
-			outInfo = new CollisionInfo(delta, (c1->center + c2->center) / 2.f); // pos temp calculation
+			outInfo = new CollisionInfo(delta, (c1->worldCenter + c2->worldCenter) / 2.f); // pos temp calculation
 		return areover;
 	}
 
 	bool Physics::AreOverlapping(const RectCollider* c1, const CircleCollider* c2, CollisionInfo* outInfo) {
-		//throw std::exception("Non-implemented function Physics::AreOverlapping (2) cannot be invoked.");
+		throw std::exception("Non-implemented function Physics::AreOverlapping (2) cannot be invoked.");
 		
 		return false;
 	}
 
 	bool Physics::AreOverlapping(const RectCollider* c1, const RectCollider* c2, CollisionInfo* outInfo) {
-		throw std::exception("Non-implemented function Physics::AreOverlapping (3) cannot be invoked.");
+		Vectorf pos;
+		Vectorf normal;
+
+		//if (c1->)
+
 		return false;
 	}
 }

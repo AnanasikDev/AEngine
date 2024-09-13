@@ -14,10 +14,6 @@ using namespace aengine;
 using namespace agame;
 
 int main() {
-
-	Line line(Vectorf(0, 0), Vectorf(-5, 4));
-	std::cout << line.getNormal().toStr() << std::endl;
-
 	Game game;
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
