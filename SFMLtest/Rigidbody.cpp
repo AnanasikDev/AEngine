@@ -103,7 +103,7 @@ namespace aengine {
 					vec.y = -Mathf::Sign(fvelocity.y);
 				else
 					vec.x = -Mathf::Sign(fvelocity.x);
-				setPosition(getPosition() + vec * overlap.getSize() + Vectorf::up*3);
+				setPosition(getPosition() + vec * (overlap.getSize() + Vectorf::one * 3));
 				//std::cout << "Collision detected at: " << this->gameobject->name << " " << other->gameobject->name << std::endl;
 				std::cout << getFrameVelocity() << std::endl;
 				if (getFrameVelocity().getLength() < stickiness)
