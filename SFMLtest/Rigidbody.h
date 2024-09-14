@@ -14,6 +14,9 @@ namespace aengine {
 		float mass;
 		Vectorf facceleration;
 
+		float bounciness;
+		float stickiness;
+
 	public:
 		
 		bool useGravity = true;
@@ -23,8 +26,16 @@ namespace aengine {
 		~Rigidbody() = default;
 
 		Vectorf getVelocity() const;
+		Vectorf getFrameVelocity() const;
+
 		Vectorf getPosition() const;
-		void setPosition(Vectorf pos);
+		void setPosition(Vectorf value);
+
+		float getBounciness() const;
+		void setBounciness(float value);
+
+		float getStickiness() const;
+		void setStickiness(float value);
 
 		/// <summary>
 		/// Applies forces, computes collisions, 

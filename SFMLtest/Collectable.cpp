@@ -21,10 +21,10 @@ namespace agame {
 
 		sp->shape = circle;
 
-		SetPosition(0, 0);
 		circle->setFillColor(sf::Color(250, 220, 20));
 		circle->setRadius(15);
 		sp->SetOrigin(aengine::Vectorf(15, 15));
+		SetPosition(300, 0);
 
 		//aengine::CircleCollider* collider 
 			//= new aengine::CircleCollider(this);
@@ -33,6 +33,7 @@ namespace agame {
 		this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
 
 		this->rigidbody = new aengine::Rigidbody(this);
+		rigidbody->setBounciness(0.7f);
 	}
 
 	void Collectable::Render() {

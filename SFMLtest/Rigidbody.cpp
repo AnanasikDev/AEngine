@@ -5,6 +5,7 @@
 #include "Gameobject.h"
 #include <iostream>
 #include "Time.h"
+#include "Mathf.h"
 
 namespace aengine {
 
@@ -12,6 +13,8 @@ namespace aengine {
 		g = Physics::g;
 		airResistance = Physics::airResistance;
 		mass = 1.f;
+		bounciness = 0.8f;
+		stickiness = 2.f;
 		facceleration = Vectorf();
 		this->gameobject = nullptr;
 	}
@@ -20,20 +23,43 @@ namespace aengine {
 		g = Physics::g;
 		airResistance = Physics::airResistance;
 		mass = 1.f;
+		bounciness = 0.8f;
+		stickiness = 2.f;
 		facceleration = Vectorf();
 		this->gameobject = gameobject;
+		this->position = gameobject->getPosition();
 	}
 
 	Vectorf Rigidbody::getVelocity() const {
 		return this->fvelocity;
 	}
 
+	Vectorf Rigidbody::getFrameVelocity() const {
+		return fvelocity / 1000. * Time::getDeltaTimeMs();
+	}
+
+	float Rigidbody::getBounciness() const {
+		return this->bounciness;
+	}
+
+	void Rigidbody::setBounciness(float value) {
+		this->bounciness = value;
+	}
+
 	Vectorf Rigidbody::getPosition() const {
 		return this->position;
 	}
 
-	void Rigidbody::setPosition(Vectorf pos) {
-		this->position = pos;
+	void Rigidbody::setPosition(Vectorf value) {
+		this->position = value;
+	}
+
+	float Rigidbody::getStickiness() const {
+		return this->stickiness;
+	}
+
+	void Rigidbody::setStickiness(float value) {
+		this->stickiness = value;
 	}
 
 	void Rigidbody::AddForce(Vectorf force) {
@@ -69,9 +95,21 @@ namespace aengine {
 			if (this->gameobject->collider == other) continue;
 
 			auto overlap = other->IsOverlapping(this->gameobject->collider);
-			if (overlap.first) {
+			if (!overlap.isEmpty()) {
 				// collision detected
-				std::cout << "Collision detected at: " << this->gameobject->name << " " << other->gameobject->name << std::endl;
+				Vectorf vec;
+				Vectorf size = overlap.getSize();
+				if (size.x > size.y)
+					vec.y = -Mathf::Sign(fvelocity.y);
+				else
+					vec.x = -Mathf::Sign(fvelocity.x);
+				setPosition(getPosition() + vec * overlap.getSize() + Vectorf::up*3);
+				//std::cout << "Collision detected at: " << this->gameobject->name << " " << other->gameobject->name << std::endl;
+				std::cout << getFrameVelocity() << std::endl;
+				if (getFrameVelocity().getLength() < stickiness)
+					fvelocity = Vectorf::zero;
+				else
+					AddForce(fvelocity * -1.f + fvelocity * -1.f * bounciness);
 			}
 		}
 	}

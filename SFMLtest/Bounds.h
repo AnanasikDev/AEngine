@@ -12,8 +12,9 @@ namespace aengine {
 		Bounds() = default;
 		~Bounds() = default;
 		Bounds(Vectorf min, Vectorf max);
-		bool isEmpty = true;
+		Bounds(float minx, float miny, float maxx, float maxy);
 
+		bool isEmpty() const;
 		float getArea() const;
 		Vectorf getSize() const;
 		Vectorf getCenter() const;

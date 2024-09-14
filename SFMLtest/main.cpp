@@ -26,7 +26,7 @@ int main() {
 	for (int i = 0; i < 1; i++) {
 		Collectable* coin = new Collectable("Coin");
 		coin->Init();
-		coin->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 10));
+		//coin->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 10));
 	}
 
 	Gameobject* floor = new Gameobject("floor");

@@ -40,6 +40,7 @@ namespace aengine {
 		REQUIRE((Bounds::getIntersectionBounds(b3, b4) == Bounds::empty));
 		REQUIRE((Bounds::getIntersectionBounds(b1, b4) == b4));
 		REQUIRE((Bounds::getIntersectionBounds(b4, b2) == Bounds::empty));
+		REQUIRE((Bounds::getIntersectionBounds(Bounds(0, 385, 800, 415), Bounds(75, 380, 105, 410)) == Bounds::Bounds(75, 385, 105, 410)));
 
 		REQUIRE((b4.getCenter() == Vectorf(2, 3)));
 	}

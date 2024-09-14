@@ -2,7 +2,6 @@
 #include <iostream>
 #include "List.h"
 #include "Physics.h"
-#include "CollisionInfo.h"
 #include "Gameobject.h"
 
 namespace aengine {
@@ -45,7 +44,7 @@ namespace aengine {
 		throw std::exception("Failed to cast a collider to any of existing types (only circle and rect are supported");
 	}
 
-	std::pair<bool, CollisionInfo> Collider::IsOverlapping(const Collider* other) {
+	Bounds Collider::IsOverlapping(const Collider* other) {
 		auto circleCollider1 = dynamic_cast<const CircleCollider*>(this);
 		auto rectCollider1 = dynamic_cast<const RectCollider*>(this);
 
@@ -53,24 +52,24 @@ namespace aengine {
 		auto rectCollider2 = dynamic_cast<const RectCollider*>(other);
 
 		if (circleCollider1 != nullptr && circleCollider2 != nullptr) {
-			return Physics::AreOverlapping(circleCollider1, circleCollider2);
+			return Physics::getOverlap(circleCollider1, circleCollider2);
 		}
 
 		if (circleCollider1 != nullptr && rectCollider2 != nullptr) {
-			return Physics::AreOverlapping(rectCollider2, circleCollider1);
+			return Physics::getOverlap(rectCollider2, circleCollider1);
 		}
 
 		if (rectCollider1 != nullptr && circleCollider2 != nullptr) {
-			return Physics::AreOverlapping(rectCollider1, circleCollider2);
+			return Physics::getOverlap(rectCollider1, circleCollider2);
 		}
 
 		if (rectCollider1 != nullptr && rectCollider2 != nullptr) {
-			return Physics::AreOverlapping(rectCollider1, rectCollider2);
+			return Physics::getOverlap(rectCollider1, rectCollider2);
 		}
 
 		throw std::exception("Collider::IsOvelapping cannot handle the given pair of colliders.");
 
-		return std::pair<bool, CollisionInfo>(false, CollisionInfo());
+		return Bounds();
 	}
 
 	void CircleCollider::SetScale(float scale) {

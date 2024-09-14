@@ -8,6 +8,9 @@ namespace aengine {
 		: minp(lu), maxp(rd) {
 	}
 
+	Bounds::Bounds(float minx, float miny, float maxx, float maxy) : minp(Vectorf(minx, miny)), maxp(Vectorf(maxx, maxy)) {
+	}
+
 	bool Bounds::operator==(const Bounds& other)
 	{
 		return this->minp == other.minp && this->maxp == other.maxp;
@@ -24,6 +27,10 @@ namespace aengine {
 
 	float Bounds::getArea() const {
 		return (maxp.x - minp.x) * (maxp.y - minp.y);
+	}
+
+	bool Bounds::isEmpty() const {
+		return getArea() == 0;
 	}
 
 	Vectorf Bounds::getSize() const {

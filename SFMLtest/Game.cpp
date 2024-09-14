@@ -49,6 +49,10 @@ namespace aengine {
 		this->PollEvents();
 
 		Time::Update();
+		
+		for (auto obj : gameobjects) {
+			obj->Update();
+		}
 
 		/*	TODO: If deltaTime is greater than fixedUpdateInterval
 			(On freeze generally when lagging) physics FixedUpdate
@@ -66,10 +70,6 @@ namespace aengine {
 
 		// convert it to world coordinates
 		worldPos = window->mapPixelToCoords(pixelPos.getsf());
-
-		for (auto obj : gameobjects) {
-			obj->Update();
-		}
 	}
 
 	void Game::Render() {

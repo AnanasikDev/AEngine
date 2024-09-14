@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Bounds.h"
+
 namespace aengine {
 
 	class CircleCollider;
 	class RectCollider;
-	class CollisionInfo;
 
 	class Physics {
 	public:
@@ -12,8 +13,8 @@ namespace aengine {
 		static const float airResistance;
 		static const int fixedUpdateIntervalMs;
 
-		static std::pair<bool, CollisionInfo> AreOverlapping(const CircleCollider* c1, const CircleCollider* c2);
-		static std::pair<bool, CollisionInfo> AreOverlapping(const RectCollider* c1, const CircleCollider* c2);
-		static std::pair<bool, CollisionInfo> AreOverlapping(const RectCollider* c1, const RectCollider* c2);
+		static Bounds getOverlap(const CircleCollider* c1, const CircleCollider* c2);
+		static Bounds getOverlap(const RectCollider* c1,   const CircleCollider* c2);
+		static Bounds getOverlap(const RectCollider* c1,   const RectCollider* c2);
 	};
 }

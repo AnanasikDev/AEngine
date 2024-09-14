@@ -60,9 +60,6 @@
     <ClCompile Include="Mathf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionInfo.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="List.h">
       <Filter>Header Files</Filter>
     </ClCompile>

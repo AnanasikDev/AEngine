@@ -4,7 +4,6 @@
 #include "Vector.h"
 #include <vector>
 #include "Bounds.h"
-#include "CollisionInfo.h"
 
 namespace aengine {
 
@@ -35,7 +34,7 @@ namespace aengine {
 		/// both to detect collision between any types
 		/// of colliders.
 		/// </summary>
-		virtual std::pair<bool, CollisionInfo> IsOverlapping(const Collider* other);
+		virtual Bounds IsOverlapping(const Collider* other);
 
 		/// <summary>
 		/// Multiplies size of the collider by given factor.

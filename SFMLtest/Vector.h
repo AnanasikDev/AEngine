@@ -65,6 +65,14 @@ namespace aengine {
 			return Vector<T>(this->x / fac, this->y / fac);
 		}
 
+		Vector<T> operator*(Vector<T> other) const {
+			return Vector<T>(this->x * other.x, this->y * other.y);
+		}
+
+		Vector<T> operator/(Vector<T> other) const {
+			return Vector<T>(this->x / other.x, this->y / other.y);
+		}
+
 		sf::Vector2<T> getsf() const {
 			return sf::Vector2<T>(this->x, this->y);
 		}
