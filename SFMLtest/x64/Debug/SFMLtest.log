@@ -1,9 +1,4 @@
-﻿  main.cpp
-C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(12,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
-C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(12,9): message : see declaration of 'aengine::Collider'
-C:\Archive\Code\C++\SFML-game\SFMLtest\main.cpp(29,56): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  Bounds.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\Bounds.cpp(65,16): warning C4101: 'height': unreferenced local variable
+C:\Archive\Code\C++\SFML-game\SFMLtest\Bounds.cpp(65,9): warning C4101: 'width': unreferenced local variable
   SFMLtest.vcxproj -> C:\Archive\Code\C++\SFML-game\x64\Debug\SFMLtest.exe

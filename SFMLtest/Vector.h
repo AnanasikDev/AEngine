@@ -20,19 +20,21 @@ namespace aengine {
 		static const Vector right;
 		static const Vector left;
 
-		Vector() {
-			this->x = 0;
-			this->y = 0;
-		}
+		Vector() : x(0), y(0) {}
 
-		Vector(T _x, T _y) {
-			this->x = _x;
-			this->y = _y;
-		}
+		Vector(T _x, T _y) : x(_x), y(_y) {}
 
 		Vector(sf::Vector2<T> sfother) {
 			this->x = sfother.x;
 			this->y = sfother.y;
+		}
+
+		bool operator==(const Vector<T>& other) {
+			return this->x == other.x && this->y == other.y;
+		}
+
+		bool operator!=(const Vector<T>& other) {
+			return this->x != other.x || this->y != other.y;
 		}
 
 		Vector<T>& operator+=(const Vector<T>& other) {
@@ -94,6 +96,11 @@ namespace aengine {
 	};
 
 	template <typename T>
+	std::ostream& operator<<(std::ostream& os, const Vector<T>& vec) {
+		return os << "Vector(" << vec.x << ", " << vec.y << ")";
+	}
+
+	template <typename T>
 	const Vector<T> Vector<T>::zero = Vector<T>(0, 0);
 
 	template <typename T>
@@ -111,6 +118,6 @@ namespace aengine {
 	template <typename T>
 	const Vector<T> Vector<T>::left = Vector<T>(-1, 0);
 
-	typedef Vector<float> Vectorf;
-	typedef Vector<int>   Vectori;
+	using Vectorf = Vector<float>;
+	using Vectori = Vector<int>;
 }

@@ -65,9 +65,13 @@ namespace aengine {
 
 	void Rigidbody::CheckCollisions() {
 		for (Collider* other : Collider::colliders) {
-			if (this->gameobject->collider != other && other->IsOverlapping(this->gameobject->collider)) {
+			
+			if (this->gameobject->collider == other) continue;
+
+			auto overlap = other->IsOverlapping(this->gameobject->collider);
+			if (overlap.first) {
 				// collision detected
-				std::cout << "Collision detected at: " << this->gameobject->getPosition().toStr() << " : " << other->gameobject->getPosition().toStr() << " " << this << " : " << other << std::endl;
+				std::cout << "Collision detected at: " << this->gameobject->name << " " << other->gameobject->name << std::endl;
 			}
 		}
 	}

@@ -23,4 +23,8 @@ namespace aengine {
 	Line Mathf::LineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
 		return Line();
 	}
+
+	int Mathf::Sign(float val) {
+		return val >= 0 ? 1 : -1;
+	}
 }

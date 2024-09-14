@@ -33,5 +33,10 @@ namespace aengine {
 		/// <param name="circleRadius"></param>
 		/// <returns></returns>
 		static Line LineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
+
+		/// <summary>
+		/// Returns -1 or 1 depending on sign of val
+		/// </summary>
+		static int Sign(float val);
 	};
 }

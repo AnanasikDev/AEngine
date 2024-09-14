@@ -45,8 +45,7 @@ namespace aengine {
 		throw std::exception("Failed to cast a collider to any of existing types (only circle and rect are supported");
 	}
 
-	bool Collider::IsOverlapping(const Collider* other) {
-		CollisionInfo* info = nullptr;
+	std::pair<bool, CollisionInfo> Collider::IsOverlapping(const Collider* other) {
 		auto circleCollider1 = dynamic_cast<const CircleCollider*>(this);
 		auto rectCollider1 = dynamic_cast<const RectCollider*>(this);
 
@@ -54,24 +53,24 @@ namespace aengine {
 		auto rectCollider2 = dynamic_cast<const RectCollider*>(other);
 
 		if (circleCollider1 != nullptr && circleCollider2 != nullptr) {
-			return Physics::AreOverlapping(circleCollider1, circleCollider2, info);
+			return Physics::AreOverlapping(circleCollider1, circleCollider2);
 		}
 
 		if (circleCollider1 != nullptr && rectCollider2 != nullptr) {
-			return Physics::AreOverlapping(rectCollider2, circleCollider1, info);
+			return Physics::AreOverlapping(rectCollider2, circleCollider1);
 		}
 
 		if (rectCollider1 != nullptr && circleCollider2 != nullptr) {
-			return Physics::AreOverlapping(rectCollider1, circleCollider2, info);
+			return Physics::AreOverlapping(rectCollider1, circleCollider2);
 		}
 
 		if (rectCollider1 != nullptr && rectCollider2 != nullptr) {
-			return Physics::AreOverlapping(rectCollider1, rectCollider2, info);
+			return Physics::AreOverlapping(rectCollider1, rectCollider2);
 		}
 
 		throw std::exception("Collider::IsOvelapping cannot handle the given pair of colliders.");
 
-		return false;
+		return std::pair<bool, CollisionInfo>(false, CollisionInfo());
 	}
 
 	void CircleCollider::SetScale(float scale) {
@@ -114,5 +113,10 @@ namespace aengine {
 
 	void Collider::Update(const Vectorf& position) {
 		this->worldCenter = position;
+	}
+
+	void RectCollider::Update(const Vectorf& position) {
+		Collider::Update(position);
+		this->bounds.setCenter(position);
 	}
 }
