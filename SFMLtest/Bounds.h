@@ -27,6 +27,7 @@ namespace aengine {
 		static bool areIntersecting(const Bounds& a, const Bounds& b);
 		Bounds getIntersectionBounds(const Bounds& other) const;
 		static Bounds getIntersectionBounds(const Bounds& a, const Bounds& b);
+		bool isPointInside(const Vectorf& point) const;
 
 		bool operator==(const Bounds& other);
 		bool operator!=(const Bounds& other);

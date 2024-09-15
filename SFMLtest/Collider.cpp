@@ -3,6 +3,7 @@
 #include "List.h"
 #include "Physics.h"
 #include "Gameobject.h"
+#include <string>
 
 namespace aengine {
 
@@ -36,12 +37,14 @@ namespace aengine {
 		
 		// If failed, try calculate for rect collider
 		auto rectCollider = dynamic_cast<RectCollider*>(this);
-		if (circleCollider != nullptr) {
-			return (circleCollider->worldCenter - point).getLength() <= circleCollider->radius;
+		if (rectCollider != nullptr) {
+			return rectCollider->bounds.isPointInside(point);
 		}
 
+		std::cout << "Failed to cast a collider to any of existing types (only circle and rect are supported) got:" << this->toString() << std::endl;
+
 		// If failed, crash with error message
-		throw std::exception("Failed to cast a collider to any of existing types (only circle and rect are supported");
+		throw std::exception("Failed to cast a collider to any of existing types (only circle and rect are supported)");
 	}
 
 	Bounds Collider::IsOverlapping(const Collider* other) {
@@ -117,5 +120,17 @@ namespace aengine {
 	void RectCollider::Update(const Vectorf& position) {
 		Collider::Update(position);
 		this->bounds.setCenter(position);
+	}
+
+	std::string Collider::toString() const {
+		return "Collider ";
+	}
+
+	std::string RectCollider::toString() const {
+		return Collider::toString() + ":Rect";
+	}
+
+	std::string CircleCollider::toString() const {
+		return Collider::toString() + ":Circle";
 	}
 }

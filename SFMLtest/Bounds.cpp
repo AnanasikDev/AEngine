@@ -180,4 +180,7 @@ namespace aengine {
 		return getIntersectionBounds(*this, other);
 	}
 
+	bool Bounds::isPointInside(const Vectorf& point) const {
+		return point.x > minp.x && point.x < maxp.x && point.y < maxp.y && point.y > minp.y;
+	}
 }

@@ -4,6 +4,7 @@
 #include "Vector.h"
 #include <vector>
 #include "Bounds.h"
+#include <string>
 
 namespace aengine {
 
@@ -40,6 +41,8 @@ namespace aengine {
 		/// Multiplies size of the collider by given factor.
 		/// </summary>
 		virtual void SetScale(float scale) = 0;
+
+		virtual std::string toString() const;
 	};
 
 
@@ -51,6 +54,7 @@ namespace aengine {
 		~CircleCollider() = default;
 
 		void SetScale(float scale) override;
+		std::string toString() const override;
 	};
 
 	struct RectCollider : public Collider {
@@ -64,5 +68,6 @@ namespace aengine {
 
 		void SetScale(float scale) override;
 		void Update(const Vectorf&) override;
+		std::string toString() const override;
 	};
 }
