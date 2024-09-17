@@ -26,7 +26,8 @@ int main() {
 	auto c1 = new Collectable("Coin1");
 	c1->SetPosition(Vectorf(300, 10));
 	auto c2 = new Collectable("Coin2");
-	c2->SetPosition(Vectorf(300, -30));
+	c2->SetPosition(Vectorf(150, -30));
+	c2->rigidbody->AddForce(Vectorf(150, 0));
 
 	/*for (int i = 0; i < 10; i++) {
 		auto c1 = new Collectable("Coin");

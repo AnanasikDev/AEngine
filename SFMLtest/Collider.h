@@ -35,7 +35,10 @@ namespace aengine {
 		/// both to detect collision between any types
 		/// of colliders.
 		/// </summary>
-		virtual Bounds IsOverlapping(const Collider* other);
+		/// <returns>
+		/// Returns Bounds of intersection (overlap) and normal as Vectorf
+		/// </returns>
+		virtual std::pair<Bounds, Vectorf> getOverlap(const Collider* other);
 
 		/// <summary>
 		/// Multiplies size of the collider by given factor.

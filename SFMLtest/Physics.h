@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Bounds.h"
+#include "Vector.h"
 
 namespace aengine {
 
@@ -13,8 +14,8 @@ namespace aengine {
 		static const float airResistance;
 		static const int fixedUpdateIntervalMs;
 
-		static Bounds getOverlap(const CircleCollider* c1, const CircleCollider* c2);
-		static Bounds getOverlap(const RectCollider* c1,   const CircleCollider* c2);
-		static Bounds getOverlap(const RectCollider* c1,   const RectCollider* c2);
+		static std::pair<Bounds, Vectorf> getOverlap(const CircleCollider* c1, const CircleCollider* c2);
+		static std::pair<Bounds, Vectorf> getOverlap(const RectCollider* c1,   const CircleCollider* c2);
+		static std::pair<Bounds, Vectorf> getOverlap(const RectCollider* c1,   const RectCollider* c2);
 	};
 }

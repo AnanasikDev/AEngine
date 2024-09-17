@@ -6,34 +6,37 @@
 
 namespace aengine {
 	const float Physics::g = -9.81f;
-	const float Physics::airResistance = 0.045f;
+	const float Physics::airResistance = 0.02f;
 	const int Physics::fixedUpdateIntervalMs = 20;
 
-	Bounds Physics::getOverlap(const CircleCollider* c1, const CircleCollider* c2) {
+	std::pair<Bounds, Vectorf> Physics::getOverlap(const CircleCollider* c1, const CircleCollider* c2) {
 		Vectorf delta = (c2->worldCenter - c1->worldCenter);
 		float distance = delta.getLength();
 		bool areover = distance <= c1->radius + c2->radius;
 		Bounds bounds;
 		// TEMPORARY IMPLEMENTATION
 		bounds.setCenterAndSize((c1->worldCenter + c2->worldCenter) / 2.f, Vectorf::one);
-		return bounds;
+		return std::make_pair(bounds, delta);
 	}
 
-	Bounds Physics::getOverlap(const RectCollider* c1, const CircleCollider* c2) {
+	std::pair<Bounds, Vectorf> Physics::getOverlap(const RectCollider* c1, const CircleCollider* c2) {
 		throw std::exception("Non-implemented function Physics::AreOverlapping (2) cannot be invoked.");
 		
-		return Bounds();
+		return std::make_pair<Bounds, Vectorf>(Bounds(), Vectorf());
 	}
 
-	Bounds Physics::getOverlap(const RectCollider* c1, const RectCollider* c2) {
-		Vectorf pos;
+	std::pair<Bounds, Vectorf> Physics::getOverlap(const RectCollider* c1, const RectCollider* c2) {
 		Vectorf normal;
 
 		Bounds bounds = Bounds::getIntersectionBounds(c1->bounds, c2->bounds);
-		Vectorf diff = c2->worldCenter - c1->worldCenter;
+		Vectorf diff = c1->worldCenter - c2->worldCenter;
 		Vectorf size = bounds.getSize();
-		normal = diff;
 
-		return bounds;
+		if (size.x > size.y)
+			normal.y = Mathf::Sign(diff.y);
+		else
+			normal.x = Mathf::Sign(diff.x);
+
+		return std::make_pair(bounds, normal);
 	}
 }

@@ -73,7 +73,7 @@ namespace aengine {
 			to achieve better performance
 		*/
 
-		this->fvelocity += 
+		this->fvelocity = this->fvelocity * (1 - Physics::airResistance) +
 			Vectorf::up * this->g;
 
 		CheckCollisions();
@@ -94,22 +94,34 @@ namespace aengine {
 			
 			if (this->gameobject->collider == other) continue;
 
-			auto overlap = other->IsOverlapping(this->gameobject->collider);
-			if (!overlap.isEmpty()) {
+			std::pair<Bounds, Vectorf> overlap = this->gameobject->collider->getOverlap(other);
+
+			Bounds bounds = overlap.first;
+			Vectorf normal = overlap.second;
+
+			if (!bounds.isEmpty()) {
 				// collision detected
-				Vectorf vec;
-				Vectorf size = overlap.getSize();
-				if (size.x > size.y)
-					vec.y = -Mathf::Sign(fvelocity.y);
-				else
-					vec.x = -Mathf::Sign(fvelocity.x);
-				setPosition(getPosition() + vec * (overlap.getSize() + Vectorf::one * 3));
+				Vectorf size = bounds.getSize();
+				//std::cout << overlap.second << std::endl;
+				setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 3));
 				//std::cout << "Collision detected at: " << this->gameobject->name << " " << other->gameobject->name << std::endl;
-				std::cout << getFrameVelocity() << std::endl;
+				//std::cout << getFrameVelocity() << std::endl;
 				if (getFrameVelocity().getLength() < stickiness)
 					fvelocity = Vectorf::zero;
 				else
-					AddForce(fvelocity * -1.f + fvelocity * -1.f * bounciness);
+				{
+					//AddForce(fvelocity * -1.f + fvelocity * -1.f * bounciness);
+
+					Vectorf f = fvelocity;
+					if (normal.x == 0)
+						f.y = -f.y;
+					else if (normal.y == 0)
+						f.x = -f.x;
+
+					std::cout << gameobject->name << " " << f << " | " << fvelocity << std::endl;
+
+					AddForce(f * (1 + bounciness));
+				}
 			}
 		}
 	}

@@ -47,7 +47,7 @@ namespace aengine {
 		throw std::exception("Failed to cast a collider to any of existing types (only circle and rect are supported)");
 	}
 
-	Bounds Collider::IsOverlapping(const Collider* other) {
+	std::pair<Bounds, Vectorf> Collider::getOverlap(const Collider* other) {
 		auto circleCollider1 = dynamic_cast<const CircleCollider*>(this);
 		auto rectCollider1 = dynamic_cast<const RectCollider*>(this);
 
@@ -72,7 +72,7 @@ namespace aengine {
 
 		throw std::exception("Collider::IsOvelapping cannot handle the given pair of colliders.");
 
-		return Bounds();
+		return std::make_pair(Bounds(), Vectorf());
 	}
 
 	void CircleCollider::SetScale(float scale) {
