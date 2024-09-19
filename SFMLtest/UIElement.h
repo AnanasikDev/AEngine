@@ -17,5 +17,7 @@ namespace aengine {
 		UIElement();
 		void Render();
 		void Update();
+
+		Gameobject* getGameobject() override;
 	};
 }

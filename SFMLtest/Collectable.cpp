@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "Rigidbody.h"
 #include <iostream>
+#include "Input.h"
 
 namespace agame {
 	Collectable::Collectable(std::string name) {
@@ -34,6 +35,8 @@ namespace agame {
 
 		this->rigidbody = new aengine::Rigidbody(this);
 		rigidbody->setBounciness(0.7f);
+
+		aengine::Input::onLeftMouseButtonPressed += [this]() { TryCollect(); };
 	}
 
 	void Collectable::Render() {
@@ -42,11 +45,12 @@ namespace agame {
 
 	void Collectable::Update() {
 		Gameobject::Update();
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
-				collected++;
-				this->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));
-			}
+	}
+
+	void Collectable::TryCollect() {
+		if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
+			collected++;
+			this->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));
 		}
 	}
 

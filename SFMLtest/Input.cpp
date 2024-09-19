@@ -10,7 +10,7 @@ namespace aengine {
 	Action<> Input::onAnyKeyPressed;
 
 	void Input::Update() {
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			onLeftMouseButtonPressed.Invoke();
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 			onRightMouseButtonPressed.Invoke();

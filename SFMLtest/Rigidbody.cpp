@@ -118,7 +118,7 @@ namespace aengine {
 					else if (normal.y == 0)
 						f.x = -f.x;
 
-					std::cout << gameobject->name << " " << f << " | " << fvelocity << std::endl;
+					//std::cout << gameobject->name << " " << f << " | " << fvelocity << std::endl;
 
 					AddForce(f * (1 + bounciness));
 				}

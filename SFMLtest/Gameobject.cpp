@@ -85,4 +85,8 @@ namespace aengine {
 	void Gameobject::Translate(float dx, float dy) {
 		Translate(Vectorf(dx, dy));
 	}
+
+	Gameobject* Gameobject::getGameobject() {
+		return this;
+	}
 }

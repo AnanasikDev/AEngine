@@ -4,7 +4,12 @@
 
 namespace aengine {
 
-	UIElement::UIElement() {
+	Gameobject* UIElement::getGameobject() {
+		return Gameobject::getGameobject();
+	}
+
+	UIElement::UIElement() : Gameobject::Gameobject(){
+		Gameobject::Init();
 		Input::onLeftMouseButtonPressed += [this]() { if (bounds.isPointInside(Input::getMousePosition())) onMouseDown.Invoke(); };
 	}
 

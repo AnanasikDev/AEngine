@@ -56,5 +56,7 @@ namespace aengine {
 		void Translate(float dx, float dy);
 
 		void SetScale(float scale);
+
+		virtual Gameobject* getGameobject();
 	};
 }

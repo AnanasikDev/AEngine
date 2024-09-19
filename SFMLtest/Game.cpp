@@ -49,6 +49,8 @@ namespace aengine {
 		this->PollEvents();
 
 		Time::Update();
+
+		Input::Update();
 		
 		for (auto obj : gameobjects) {
 			obj->Update();
@@ -65,7 +67,7 @@ namespace aengine {
 			msSinceFixedUpdate = 0;
 		}
 
-		//Canvas::Update();
+		Canvas::Update();
 
 		// get the current mouse position in the window
 		pixelPos = Vectori(sf::Mouse::getPosition(*window));

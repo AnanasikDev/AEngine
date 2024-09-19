@@ -27,8 +27,6 @@ namespace aengine {
 
 	bool Collider::IsPointInside(Vectorf& point) {
 
-		std::cout << "Is point inside call for point " << point.toStr() << std::endl;
-
 		// Try calculate for circle collider
 		auto circleCollider = dynamic_cast<CircleCollider*>(this);
 		if (circleCollider != nullptr) {

@@ -47,6 +47,10 @@ int main() {
 	floor->SetPosition(400, 600);
 
 	UIElement* button = Canvas::AddUIElement();
+	auto shape = new sf::RectangleShape(Vectorf(100, 50).getsf());
+	shape->setFillColor(sf::Color::Cyan);
+	button->getGameobject()->renderer = new ShapeRenderer(button->getGameobject(), game.getWindow(), shape);
+	button->bounds = Bounds(Vectorf(0, 0), Vectorf(100, 50));
 	button->onMouseDown += []() { std::cout << "BUTTON IS DOWN"; };
 
 	while (game.isRunning()) {

@@ -1,4 +1,39 @@
 ﻿  Canvas.cpp
+  Collectable.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(13,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(13,9): message : see declaration of 'aengine::Collider'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collectable.cpp(53,57): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Collider.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\Physics.h(8,22): warning C4099: 'aengine::CircleCollider': type name first seen using 'struct' now seen using 'class'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(52,9): message : see declaration of 'aengine::CircleCollider'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Physics.h(9,20): warning C4099: 'aengine::RectCollider': type name first seen using 'struct' now seen using 'class'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(63,9): message : see declaration of 'aengine::RectCollider'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Gameobject.h(9,16): warning C4099: 'aengine::Collider': type name first seen using 'struct' now seen using 'class'
+C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(13,9): message : see declaration of 'aengine::Collider'
+  Game.cpp
+  Input.cpp
+C:\Archive\Code\C++\SFML-game\SFMLtest\Input.cpp(33,26): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Archive\Code\C++\SFML-game\SFMLtest\Input.cpp(33,20): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
   UIElement.cpp
   main.cpp
 C:\Archive\Code\C++\SFML-game\SFMLtest\Collider.h(13,18): warning C4099: 'aengine::Collider': type name first seen using 'class' now seen using 'struct'
