@@ -4,6 +4,8 @@
 #include "Physics.h"
 #include <iostream>
 #include "Time.h"
+#include "Canvas.h"
+#include "Input.h"
 
 namespace aengine {
 
@@ -25,9 +27,7 @@ namespace aengine {
 	Game::~Game() {
 		delete this->window;
 		for (auto obj : gameobjects)
-		{
 			delete obj;
-		}
 		delete instance;
 		gameobjects.clear();
 	}
@@ -65,6 +65,8 @@ namespace aengine {
 			msSinceFixedUpdate = 0;
 		}
 
+		//Canvas::Update();
+
 		// get the current mouse position in the window
 		pixelPos = Vectori(sf::Mouse::getPosition(*window));
 
@@ -78,6 +80,8 @@ namespace aengine {
 		for (auto obj : gameobjects) {
 			obj->Render();
 		}
+
+		//Canvas::Render();
 		
 		this->window->display();
 		frame++;

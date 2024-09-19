@@ -1,5 +1,6 @@
 #pragma once
 
+#include "List.h"
 #include <functional>
 #include <vector>
 
@@ -8,14 +9,28 @@ namespace aengine {
 	template <typename... Args>
 	class Action {
 	private:
+
 		using handler = std::function<void(Args...)>;
 		std::vector<handler> handlers;
+
 	public:
 
-		Action() = default;
+		Action& operator+=(const handler& handler) {
+			Subscribe(handler);
+			return *this;
+		}
+
+		Action& operator-=(const handler& handler) {
+			Unsubscribe(handler);
+			return *this;
+		}
 
 		void Subscribe(const handler& func) {
 			handlers.push_back(func);
+		}
+
+		void Unsubscribe(const handler& func) {
+			List::Remove(handlers, func);
 		}
 
 		void Invoke(Args... args) {

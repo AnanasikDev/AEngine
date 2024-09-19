@@ -9,6 +9,8 @@
 #include <vector>
 #include "Event.h"
 #include "Mathf.h"
+#include "UIElement.h"
+#include "Canvas.h"
 
 using namespace aengine;
 using namespace agame;
@@ -43,6 +45,9 @@ int main() {
 	floor->collider = new aengine::RectCollider(floor, Vectorf(800, 30));
 	//floor->rigidbody = new Rigidbody(floor);
 	floor->SetPosition(400, 600);
+
+	UIElement* button = Canvas::AddUIElement();
+	button->onMouseDown += []() { std::cout << "BUTTON IS DOWN"; };
 
 	while (game.isRunning()) {
 
