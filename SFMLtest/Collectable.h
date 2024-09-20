@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Gameobject.h"
+#include "Event.h"
 
 namespace agame {
 	class Collectable : public aengine::Gameobject {

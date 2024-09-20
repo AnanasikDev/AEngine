@@ -10,13 +10,26 @@ namespace aengine {
 
 	UIElement::UIElement() : Gameobject::Gameobject(){
 		Gameobject::Init();
-		Input::onLeftMouseButtonPressed += [this]() { if (bounds.isPointInside(Input::getMousePosition())) onMouseDown.Invoke(); };
+
+		onMouseDownCallback = ActionCallback<>(
+			[this]()
+			{
+				if (bounds.isPointInside(Input::getMousePosition()))
+					onMouseDown.Invoke();
+			});
+
+		Input::onLeftMouseButtonPressed.Subscribe(onMouseDownCallback);
+	}
+
+	UIElement::~UIElement() {
+		Gameobject::~Gameobject();
+		Input::onLeftMouseButtonPressed.Unsubscribe(onMouseDownCallback);
 	}
 
 	void UIElement::Update() {
 		Gameobject::Update();
 	}
-
+		
 	void UIElement::Render() {
 		Gameobject::Render();
 	}

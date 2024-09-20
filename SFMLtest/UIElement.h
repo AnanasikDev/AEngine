@@ -10,11 +10,14 @@ namespace aengine {
 
 		Action<> onMouseOver;
 		Action<> onMouseDown;
+		ActionCallback<> onMouseDownCallback;
+
 		Action<> onMouseUp;
 
 		Bounds bounds;
 
 		UIElement();
+		~UIElement();
 		void Render();
 		void Update();
 

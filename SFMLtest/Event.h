@@ -10,31 +10,30 @@ namespace aengine {
 	class Action {
 	private:
 
-		using handler = std::function<void(Args...)>;
-		std::vector<handler> handlers;
+		std::vector<ActionCallback> handlers;
 
 	public:
 
-		Action& operator+=(const handler& handler) {
-			Subscribe(handler);
+		Action& operator+=(const ActionCallback& callback) {
+			Subscribe(callback);
 			return *this;
 		}
 
-		Action& operator-=(const handler& handler) {
-			Unsubscribe(handler);
+		Action& operator-=(const ActionCallback& callback) {
+			Unsubscribe(callback);
 			return *this;
 		}
 
-		void Subscribe(const handler& func) {
-			handlers.push_back(func);
+		void Subscribe(const ActionCallback& callback) {
+			handlers.push_back(callback);
 		}
 
-		void Unsubscribe(const handler& func) {
-			List::Remove(handlers, func);
+		void Unsubscribe(const ActionCallback& callback) {
+			List::Remove(handlers, callback);
 		}
 
 		void Invoke(Args... args) {
-			for (const handler& h : handlers) {
+			for (const ActionCallback& h : handlers) {
 				h(args...);
 			}
 		}
@@ -57,6 +56,19 @@ namespace aengine {
 			for (const handler& h : handlers) {
 				h(args...);
 			}
+		}
+	};
+
+	template <typename... Args>
+	class ActionCallback {
+	public:
+		using handler = std::function<void(Args...)>;
+		handler function;
+
+		ActionCallback() = default;
+
+		ActionCallback(const handler& action) {
+			function = action;
 		}
 	};
 }
