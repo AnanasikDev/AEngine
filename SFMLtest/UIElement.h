@@ -10,8 +10,6 @@ namespace aengine {
 
 		Action<> onMouseOver;
 		Action<> onMouseDown;
-		ActionCallback<> onMouseDownCallback;
-
 		Action<> onMouseUp;
 
 		Bounds bounds;
@@ -22,5 +20,7 @@ namespace aengine {
 		void Update();
 
 		Gameobject* getGameobject() override;
+
+		void OnMouseDown();
 	};
 }

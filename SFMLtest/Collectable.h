@@ -8,8 +8,10 @@ namespace agame {
 	public:
 		static unsigned int collected;
 
+		unsigned int onLeftMouseButtonPressedCallback;
+
 		Collectable(std::string name);
-		~Collectable() = default;
+		~Collectable();
 
 		void Init() override;
 		void Render() override;

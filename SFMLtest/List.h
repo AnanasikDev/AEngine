@@ -12,5 +12,10 @@ namespace aengine {
 				vec.erase(it);
 			}
 		}
+
+		template <typename T>
+		static void RemoveAt(std::vector<T>& vec, int index) {
+			vec.erase(vec.begin() + index);
+		}
 	};
 }

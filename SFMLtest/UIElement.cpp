@@ -1,6 +1,7 @@
 #include "UIElement.h"
 #include "Canvas.h"
 #include "Input.h"
+#include <functional>
 
 namespace aengine {
 
@@ -11,19 +12,12 @@ namespace aengine {
 	UIElement::UIElement() : Gameobject::Gameobject(){
 		Gameobject::Init();
 
-		onMouseDownCallback = ActionCallback<>(
-			[this]()
-			{
-				if (bounds.isPointInside(Input::getMousePosition()))
-					onMouseDown.Invoke();
-			});
-
-		Input::onLeftMouseButtonPressed.Subscribe(onMouseDownCallback);
+		//Input::onLeftMouseButtonPressed.Subscribe(&OnMouseDown);
 	}
 
 	UIElement::~UIElement() {
 		Gameobject::~Gameobject();
-		Input::onLeftMouseButtonPressed.Unsubscribe(onMouseDownCallback);
+		//Input::onLeftMouseButtonPressed.Unsubscribe(onMouseDownCallback);
 	}
 
 	void UIElement::Update() {
@@ -32,5 +26,10 @@ namespace aengine {
 		
 	void UIElement::Render() {
 		Gameobject::Render();
+	}
+
+	void UIElement::OnMouseDown() {
+		if (bounds.isPointInside(Input::getMousePosition()))
+			onMouseDown.Invoke();
 	}
 }

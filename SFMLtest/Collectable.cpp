@@ -6,6 +6,7 @@
 #include "Rigidbody.h"
 #include <iostream>
 #include "Input.h"
+#include "Event.h"
 
 namespace agame {
 	Collectable::Collectable(std::string name) {
@@ -34,9 +35,14 @@ namespace agame {
 		this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
 
 		this->rigidbody = new aengine::Rigidbody(this);
-		rigidbody->setBounciness(0.7f);
+		rigidbody->setBounciness(0.7f);	
 
-		aengine::Input::onLeftMouseButtonPressed += [this]() { TryCollect(); };
+		//onLeftMouseButtonPressedCallback = aengine::Input::onLeftMouseButtonPressed.Subscribe([this]() { TryCollect(); });
+	}
+
+	Collectable::~Collectable() {
+		Gameobject::~Gameobject();
+		//aengine::Input::onLeftMouseButtonPressed.Unsubscribe(onLeftMouseButtonPressedCallback);
 	}
 
 	void Collectable::Render() {
