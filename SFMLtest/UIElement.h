@@ -9,18 +9,25 @@ namespace aengine {
 	public:
 
 		Action<> onMouseOver;
-		Action<> onMouseDown;
-		Action<> onMouseUp;
+		backdrop onMouseOverBackdrop;
+		Action<> onLMBHold;
+		backdrop onLMBHoldBackdrop;
+		Action<> onLMBPressed;
+		backdrop onLMBPressedBackdrop;
+		Action<> onLMBReleased;
+		backdrop onLMBReleasedBackdrop;
 
 		Bounds bounds;
 
 		UIElement();
 		~UIElement();
-		void Render();
-		void Update();
+		virtual void Render();
+		virtual void Update();
 
 		Gameobject* getGameobject() override;
 
-		void OnMouseDown();
+		virtual void OnLMBPressed();
+		virtual void OnLMBReleased();
+		virtual void OnLMBHold();
 	};
 }

@@ -6,42 +6,45 @@
 
 namespace aengine {
 
+	using backdrop = unsigned int;
+
 	template <typename... Args>
 	class Action {
 	private:
 
 		using handler = std::function<void(Args...)>;
 		std::vector<handler> handlers;
-		template <typename TThisPtr>
-		std::vector<std::function<void(TThisPtr, Args...)>> handlers2;
 
 	public:
 
-		Action& operator+=(const handler& func) {
-			Subscribe(func);
-			return *this;
-		}
-
-		Action& operator-=(const handler& func) {
-			Unsubscribe(func);
-			return *this;
-		}
-
-		void Subscribe(const handler& func) {
+		/// <summary>
+		/// If no later unsubscription needed it can be used directly as
+		/// myEvent.Subscribe(myFunction);
+		/// Otherwise, for later unsubscription the return value must be 
+		/// stored like so:
+		/// this->myEventBackdrop = myEvent.Subscribe(myFunction);
+		/// ...
+		/// myEvent.Unsubscribe(this->myEventBackdrop);
+		/// 
+		/// Lambdas (anonymous functions) CAN also be subscribed and unsubscribed
+		/// just like any other function, like so:
+		/// myEvent.Subscribe([this](){ this->myMethod(); });
+		/// </summary>
+		/// <param name="func">Any kind of function (lambda, named function or method) that matches the template</param>
+		/// <returns></returns>
+		backdrop Subscribe(const handler& func) {
 			handlers.push_back(func);
+			return handlers.size() - 1;
 		}
 
-		void Unsubscribe(const handler& func) {
-			for (int i = 0; i < handlers.size(); i++) {
-
-				auto hash1 = static_cast<const void (*)(Args...)>(&handlers[i]);
-				auto hash2 = static_cast<const void (*)(Args...)>(&func);
-
-				if (hash1 == hash2) {
-					List::RemoveAt(handlers, i);
-					return;
-				}
-			}
+		/// <summary>
+		/// Unsubscribes function (callback) from this event by function id
+		/// (its index in the handlers list).
+		/// </summary>
+		/// <param name="id">ID of the desired function to unsubscribe. Unsigned Int = Backdrop</param>
+		void Unsubscribe(const backdrop id) {
+			// TODO: WHEN PREVIOUSLY SUBSCRIBED FUNCTIONS ARE UNSUBSCRIBED, THE INDEX OF THIS IS WRONG. NEEDS A FIX (MAP)
+			List::RemoveAt(handlers, id);
 		}
 
 		void Invoke(Args... args) {

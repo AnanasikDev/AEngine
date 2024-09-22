@@ -12,12 +12,29 @@ namespace aengine {
 	UIElement::UIElement() : Gameobject::Gameobject(){
 		Gameobject::Init();
 
-		//Input::onLeftMouseButtonPressed.Subscribe(&OnMouseDown);
+		onLMBPressedBackdrop = Input::onLMBPressed.Subscribe( [this]() { 
+			if (bounds.isPointInside(Input::getMousePosition())) {
+				onLMBPressed.Invoke();
+				OnLMBPressed();
+			}
+			} );
+		onLMBReleasedBackdrop = Input::onLMBReleased.Subscribe( [this]() { 
+			if (bounds.isPointInside(Input::getMousePosition())) {
+				onLMBReleased.Invoke();
+				OnLMBReleased();
+			}
+			} );
+		onLMBHoldBackdrop = Input::onLMBHold.Subscribe( [this]() { 
+			if (bounds.isPointInside(Input::getMousePosition())) {
+				onLMBHold.Invoke();
+				OnLMBHold();
+			}
+			} );
 	}
 
 	UIElement::~UIElement() {
 		Gameobject::~Gameobject();
-		//Input::onLeftMouseButtonPressed.Unsubscribe(onMouseDownCallback);
+		Input::onLMBPressed.Unsubscribe(onLMBHoldBackdrop);
 	}
 
 	void UIElement::Update() {
@@ -28,8 +45,12 @@ namespace aengine {
 		Gameobject::Render();
 	}
 
-	void UIElement::OnMouseDown() {
-		if (bounds.isPointInside(Input::getMousePosition()))
-			onMouseDown.Invoke();
+	void UIElement::OnLMBPressed() {
+	}
+
+	void UIElement::OnLMBReleased() {
+	}
+
+	void UIElement::OnLMBHold() {
 	}
 }

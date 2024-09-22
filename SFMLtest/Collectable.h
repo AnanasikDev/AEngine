@@ -8,7 +8,7 @@ namespace agame {
 	public:
 		static unsigned int collected;
 
-		unsigned int onLeftMouseButtonPressedCallback;
+		aengine::backdrop onLMBDownBackdrop;
 
 		Collectable(std::string name);
 		~Collectable();

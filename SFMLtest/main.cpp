@@ -51,7 +51,8 @@ int main() {
 	shape->setFillColor(sf::Color::Cyan);
 	button->getGameobject()->renderer = new ShapeRenderer(button->getGameobject(), game.getWindow(), shape);
 	button->bounds = Bounds(Vectorf(0, 0), Vectorf(100, 50));
-	button->onMouseDown += []() { std::cout << "BUTTON IS DOWN"; };
+	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
+	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
 
 	while (game.isRunning()) {
 
