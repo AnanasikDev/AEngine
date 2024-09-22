@@ -37,7 +37,7 @@ namespace agame {
 		this->rigidbody = new aengine::Rigidbody(this);
 		rigidbody->setBounciness(0.7f);	
 
-		onLMBDownBackdrop = aengine::Input::onLMBPressed.Subscribe( [this]() { TryCollect(); } );
+		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe( [this]() { TryCollect(); } );
 	}
 
 	Collectable::~Collectable() {

@@ -12,19 +12,19 @@ namespace aengine {
 	UIElement::UIElement() : Gameobject::Gameobject(){
 		Gameobject::Init();
 
-		onLMBPressedBackdrop = Input::onLMBPressed.Subscribe( [this]() { 
+		onLMBPressedBackdrop = Input::Mouse::LMB.onReleased.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBPressed.Invoke();
 				OnLMBPressed();
 			}
 			} );
-		onLMBReleasedBackdrop = Input::onLMBReleased.Subscribe( [this]() { 
+		onLMBReleasedBackdrop = Input::Mouse::LMB.onReleased.Subscribe( [this]() { 
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBReleased.Invoke();
 				OnLMBReleased();
 			}
 			} );
-		onLMBHoldBackdrop = Input::onLMBHold.Subscribe( [this]() { 
+		onLMBHoldBackdrop = Input::Mouse::LMB.onHold.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBHold.Invoke();
 				OnLMBHold();
@@ -34,7 +34,9 @@ namespace aengine {
 
 	UIElement::~UIElement() {
 		Gameobject::~Gameobject();
-		Input::onLMBPressed.Unsubscribe(onLMBHoldBackdrop);
+		Input::Mouse::LMB.onPressed.Unsubscribe(onLMBPressedBackdrop);
+		Input::Mouse::LMB.onReleased.Unsubscribe(onLMBReleasedBackdrop);
+		Input::Mouse::LMB.onHold.Unsubscribe(onLMBHoldBackdrop);
 	}
 
 	void UIElement::Update() {
