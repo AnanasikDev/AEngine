@@ -41,7 +41,7 @@ int main() {
 	auto rect = new sf::RectangleShape(Vectorf(800, 30).getsf());
 	rect->setFillColor(sf::Color::Magenta);
 	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
-	floor->renderer->SetOrigin(Vectorf(400, 15));
+	floor->renderer->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
 	floor->collider = new aengine::RectCollider(floor, Vectorf(800, 30));
 	//floor->rigidbody = new Rigidbody(floor);
 	floor->SetPosition(400, 600);
@@ -53,18 +53,23 @@ int main() {
 	button->bounds = Bounds(Vectorf(0, 0), Vectorf(100, 50));
 	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
 	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
+	button->getGameobject()->renderer->SetRelativeOrigin(Vectorf(0, 0));
 
-	//TextRenderer::LoadFont();
+	TextRenderer::LoadFont();
 
-	//Gameobject* txt = new Gameobject("MyText");
-	//TextRenderer* textRenderer = new TextRenderer();
-	//txt->renderer = textRenderer;
+	Gameobject* txt = new Gameobject("MyText");
+	txt->SetPosition(game.getWindow()->getSize().x / 2.f, 20);
+	TextRenderer* textRenderer = new TextRenderer();
+	textRenderer->SetRelativeOrigin(Vectorf::zero);
+	txt->renderer = textRenderer;
 
 	game.Start();
 
 	while (game.isRunning()) {
 
 		game.Update();
+		textRenderer->text.setString(std::to_string(Collectable::collected));
+		textRenderer->UpdateRelativeOrigin();
 
 		game.Render();
 	}

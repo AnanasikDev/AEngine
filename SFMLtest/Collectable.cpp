@@ -20,12 +20,10 @@ namespace agame {
 		aengine::ShapeRenderer* sp = static_cast<aengine::ShapeRenderer*>(this->renderer);
 
 		sf::CircleShape* circle = new sf::CircleShape();
-
-		sp->shape = circle;
-
-		circle->setFillColor(sf::Color(250, 220, 20));
 		circle->setRadius(15);
-		sp->SetOrigin(aengine::Vectorf(15, 15));
+		sp->shape = circle;
+		sp->UpdateRelativeOrigin();
+		circle->setFillColor(sf::Color(250, 220, 20));
 
 		//aengine::CircleCollider* collider 
 			//= new aengine::CircleCollider(this);
@@ -45,7 +43,7 @@ namespace agame {
 
 	Collectable::~Collectable() {
 		Gameobject::~Gameobject();
-		//aengine::Input::onLeftMouseButtonPressed.Unsubscribe(onLeftMouseButtonPressedCallback);
+		aengine::Input::Mouse::LMB.onPressed.Unsubscribe(onLMBDownBackdrop);
 	}
 
 	void Collectable::Render() {

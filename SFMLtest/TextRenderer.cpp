@@ -4,7 +4,8 @@
 namespace aengine {
 
 	sf::Font TextRenderer::font;
-	const unsigned int TextRenderer::defaultFontSize = 16;
+	const unsigned int TextRenderer::defaultFontSize = 25;
+	const sf::Color TextRenderer::defaultColor = sf::Color::Black;
 
 	void TextRenderer::LoadFont() {
 
@@ -18,6 +19,7 @@ namespace aengine {
 		text.setFont(font);
 		text.setCharacterSize(defaultFontSize);
 		text.setString("Text");
+		text.setFillColor(defaultColor);
 	}
 
 	void TextRenderer::Render() {
@@ -26,5 +28,10 @@ namespace aengine {
 
 	void TextRenderer::Update(const Vectorf position) {
 		text.setPosition(position.getsf());
+	}
+
+	void TextRenderer::SetRelativeOrigin(const aengine::Vectorf& localOrigin) {
+		Renderer::SetRelativeOrigin(localOrigin);
+		text.setOrigin(Vectorf(origin.x * text.getGlobalBounds().width, origin.y * text.getGlobalBounds().height).getsf());
 	}
 }

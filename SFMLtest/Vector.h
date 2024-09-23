@@ -65,11 +65,11 @@ namespace aengine {
 			return Vector<T>(this->x / fac, this->y / fac);
 		}
 
-		Vector<T> operator*(Vector<T> other) const {
+		Vector<T> operator*(const Vector<T> other) const {
 			return Vector<T>(this->x * other.x, this->y * other.y);
 		}
 
-		Vector<T> operator/(Vector<T> other) const {
+		Vector<T> operator/(const Vector<T> other) const {
 			return Vector<T>(this->x / other.x, this->y / other.y);
 		}
 
@@ -100,6 +100,10 @@ namespace aengine {
 			char buff[50];
 			sprintf_s(buff, 50, "(%.4f, %.4f)", (float)(this->x), (float)(this->y));
 			return buff;
+		}
+
+		static Vector<T> fromsf(sf::Vector2<T> sfvec) {
+			return Vector<T>(sfvec.x, sfvec.y);
 		}
 	};
 

@@ -10,6 +10,13 @@ namespace aengine {
 		class Gameobject* gameobject;
 		sf::RenderWindow* surface;
 
+		/// <summary>
+		/// Local relative origin on the renderer within the range 0.0 - 1.0 for each axis
+		/// </summary>
+		Vectorf origin = defaultRelativeOrigin;
+
+		static Vectorf defaultRelativeOrigin;
+
 		Renderer() = default;
 
 		virtual void Update(const aengine::Vectorf position) = 0;
@@ -17,9 +24,17 @@ namespace aengine {
 
 		virtual void SetScale(float scale) {};
 
-		void SetOrigin(const aengine::Vectorf& localOrigin);
+		/// <summary>
+		/// Sets the relative origin point. Automatically applies the changes.
+		/// </summary>
+		/// <param name="localOrigin">Local relative origin point within range 0.0 - 1.0 for each axis</param>
+		virtual void SetRelativeOrigin(const aengine::Vectorf& localOrigin);
+		void UpdateRelativeOrigin();
 	};
 
+	/// <summary>
+	/// Renderer for primitives such as Rectangles and Circles (only they are supported at the moment). Can be used for gameobjects as their renderer.
+	/// </summary>
 	class ShapeRenderer : public Renderer {
 	public:
 		sf::Shape* shape;
@@ -31,6 +46,12 @@ namespace aengine {
 		void Render() override;
 		void Update(const aengine::Vectorf position) override;
 		void SetScale(float scale) override;
+
+		/// <summary>
+		/// Sets the relative origin point. Automatically applies the changes.
+		/// </summary>
+		/// <param name="localOrigin">Local relative origin point within range 0.0 - 1.0 for each axis</param>
+		void SetRelativeOrigin(const aengine::Vectorf& localOrigin) override;
 
 		~ShapeRenderer();
 	};
