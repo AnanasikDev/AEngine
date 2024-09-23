@@ -12,7 +12,7 @@ namespace aengine {
 	UIElement::UIElement() : Gameobject::Gameobject(){
 		Gameobject::Init();
 
-		onLMBPressedBackdrop = Input::Mouse::LMB.onReleased.Subscribe( [this]() {
+		onLMBPressedBackdrop = Input::Mouse::LMB.onPressed.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBPressed.Invoke();
 				OnLMBPressed();
