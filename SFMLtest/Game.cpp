@@ -36,6 +36,12 @@ namespace aengine {
 		return this->window;
 	}
 
+	void Game::Start() {
+		for (Gameobject* go : gameobjects) {
+			go->Start();
+		}
+	}
+
 	void Game::FixedUpdate() {
 		for (Gameobject* go : gameobjects) {
 			if (go->rigidbody != nullptr) {

@@ -2,6 +2,7 @@
 #include "Canvas.h"
 #include "Input.h"
 #include <functional>
+#include "TextRenderer.h"
 
 namespace aengine {
 
@@ -10,8 +11,6 @@ namespace aengine {
 	}
 
 	UIElement::UIElement() : Gameobject::Gameobject(){
-		Gameobject::Init();
-
 		onLMBPressedBackdrop = Input::Mouse::LMB.onPressed.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBPressed.Invoke();

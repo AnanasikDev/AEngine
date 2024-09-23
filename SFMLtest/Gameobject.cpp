@@ -12,11 +12,35 @@ namespace aengine {
 	Gameobject::Gameobject() {
 		position = Vectorf(0, 0);
 		name = "";
+		Register();
 	}
 
 	Gameobject::Gameobject(std::string name) {
 		this->name = name;
 		this->position = Vectorf(0, 0);
+		Register();
+	}
+
+	Gameobject::Gameobject(std::string name, Renderer* renderer) {
+		this->name = name;
+		this->position = Vectorf(0, 0);
+		this->renderer = renderer;
+		Register();
+	}
+
+	Gameobject::Gameobject(std::string name, Renderer* renderer, Collider* collider, Rigidbody* rigidbody) {
+		this->name = name;
+		this->position = Vectorf(0, 0);
+		this->renderer = renderer;
+		this->collider = collider;
+		this->rigidbody = rigidbody;
+		Register();
+	}
+
+	Gameobject::Gameobject(const Gameobject& other) {
+		this->position = other.position;
+		this->name = other.name;
+		Register();
 	}
 
 	Gameobject::~Gameobject() {
@@ -49,18 +73,17 @@ namespace aengine {
 		}
 	}
 
-	void Gameobject::Init() {
+	void Gameobject::Register() {
 		aengine::Game::instance->gameobjects.push_back(this);
+	}
+
+	void Gameobject::Start() {
+
 	}
 
 	void Gameobject::SetScale(float scale) {
 		if (renderer != nullptr) renderer->SetScale(scale);
 		if (collider != nullptr) collider->SetScale(scale);
-	}
-
-	Gameobject::Gameobject(const Gameobject& other) {
-		this->position = other.position;
-		this->name = other.name;
 	}
 
 	void Gameobject::SetPosition(Vectorf pos) {

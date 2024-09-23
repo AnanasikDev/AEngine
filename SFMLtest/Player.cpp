@@ -6,12 +6,10 @@
 
 namespace agame {
 
-	Player::Player(std::string name) {
-		this->name = name;
+	Player::Player(std::string name) : Gameobject(name) {
 	}
 
-    void Player::Init() {
-        Gameobject::Init();
+    void Player::Start() {
         // Create a ShapeRenderer and store it in the Renderer pointer
         this->renderer = new aengine::ShapeRenderer(
             this,

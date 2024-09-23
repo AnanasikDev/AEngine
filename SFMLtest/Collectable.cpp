@@ -9,13 +9,12 @@
 #include "Event.h"
 
 namespace agame {
-	Collectable::Collectable(std::string name) {
-		this->name = name;
-		Init();
-	}
 
-	void Collectable::Init() {
-		Gameobject::Init();
+	unsigned int Collectable::collected = 0;
+
+	Collectable::Collectable(std::string name) : Gameobject(name) {
+		onLMBDownBackdrop = 0;
+
 		this->renderer = new aengine::ShapeRenderer(this, aengine::Game::instance->getWindow());
 
 		aengine::ShapeRenderer* sp = static_cast<aengine::ShapeRenderer*>(this->renderer);
@@ -35,9 +34,13 @@ namespace agame {
 		this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
 
 		this->rigidbody = new aengine::Rigidbody(this);
-		rigidbody->setBounciness(0.7f);	
+		rigidbody->setBounciness(0.7f);
 
-		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe( [this]() { TryCollect(); } );
+		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe([this]() { TryCollect(); });
+	}
+
+	void Collectable::Start() {
+		
 	}
 
 	Collectable::~Collectable() {
@@ -59,6 +62,4 @@ namespace agame {
 			this->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));
 		}
 	}
-
-	unsigned int Collectable::collected = 0;
 }

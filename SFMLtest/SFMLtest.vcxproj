@@ -207,6 +207,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="UIElement.cpp" />
   </ItemGroup>
@@ -225,6 +226,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector.h" />

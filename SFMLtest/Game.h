@@ -36,6 +36,7 @@ namespace aengine {
 		void InitWindow();
 		sf::RenderWindow* getWindow() const;
 
+		void Start();
 		void FixedUpdate();
 		void Update();
 		void Render();

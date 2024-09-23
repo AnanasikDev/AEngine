@@ -13,7 +13,7 @@ namespace agame {
 		Collectable(std::string name);
 		~Collectable();
 
-		void Init() override;
+		void Start() override;
 		void Render() override;
 		void Update() override;
 		void TryCollect();

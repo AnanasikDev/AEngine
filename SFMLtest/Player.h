@@ -10,7 +10,7 @@ namespace agame {
 	public:
 		Player(std::string name);
 
-		void Init() override;
+		void Start() override;
 		void Update() override;
 		void Render() override;
 	};

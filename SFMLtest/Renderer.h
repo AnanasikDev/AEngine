@@ -15,7 +15,7 @@ namespace aengine {
 		virtual void Update(const aengine::Vectorf position) = 0;
 		virtual void Render() = 0;
 
-		virtual void SetScale(float scale) = 0;
+		virtual void SetScale(float scale) {};
 
 		void SetOrigin(const aengine::Vectorf& localOrigin);
 	};

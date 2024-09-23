@@ -24,14 +24,20 @@ namespace aengine {
 
 		Gameobject();
 		Gameobject(std::string name);
+		Gameobject(std::string name, Renderer* renderer);
+		Gameobject(std::string name, Renderer* renderer, Collider* collider, Rigidbody* rigidbody);
 		~Gameobject();
 
 		/// <summary>
 		/// Registers itself in global list
-		/// of instantiates gameobjects. Can
-		/// be overriden
+		/// of instantiates gameobjects.
 		/// </summary>
-		virtual void Init();
+		void Register();
+
+		/// <summary>
+		/// Called once at the moment of creation of the gameobject. Can be overriden.
+		/// </summary>
+		virtual void Start();
 
 		/// <summary>
 		/// Renders the gameobject. Called after

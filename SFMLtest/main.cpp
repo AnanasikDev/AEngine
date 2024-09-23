@@ -11,6 +11,7 @@
 #include "Mathf.h"
 #include "UIElement.h"
 #include "Canvas.h"
+#include "TextRenderer.h"
 
 using namespace aengine;
 using namespace agame;
@@ -22,7 +23,6 @@ int main() {
 	game.getWindow()->setFramerateLimit(60);
 
 	Player* player = new Player("Player");
-	player->Init();
 
 	std::vector<Collectable*> coins;
 
@@ -38,7 +38,6 @@ int main() {
 	}*/
 
 	Gameobject* floor = new Gameobject("floor");
-	floor->Init();
 	auto rect = new sf::RectangleShape(Vectorf(800, 30).getsf());
 	rect->setFillColor(sf::Color::Magenta);
 	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
@@ -54,6 +53,14 @@ int main() {
 	button->bounds = Bounds(Vectorf(0, 0), Vectorf(100, 50));
 	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
 	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
+
+	//TextRenderer::LoadFont();
+
+	//Gameobject* txt = new Gameobject("MyText");
+	//TextRenderer* textRenderer = new TextRenderer();
+	//txt->renderer = textRenderer;
+
+	game.Start();
 
 	while (game.isRunning()) {
 
