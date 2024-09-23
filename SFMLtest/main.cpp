@@ -16,6 +16,7 @@ using namespace aengine;
 using namespace agame;
 
 int main() {
+
 	Game game;
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
