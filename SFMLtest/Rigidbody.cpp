@@ -73,10 +73,13 @@ namespace aengine {
 			to achieve better performance
 		*/
 
-		this->fvelocity = this->fvelocity * (1 - Physics::airResistance) +
-			Vectorf::up * this->g;
+		//this->fvelocity = this->fvelocity * (1 - Physics::airResistance) + Vectorf::up * this->g;
+
+		this->fvelocity = (this->fvelocity + Vectorf::up * this->g) * (1 - Physics::airResistance);
+
 
 		CheckCollisions();
+
 	}
 
 	void Rigidbody::Update() {
@@ -92,6 +95,7 @@ namespace aengine {
 	void Rigidbody::CheckCollisions() {
 		for (Collider* other : Collider::colliders) {
 			
+			// no self collisions
 			if (this->gameobject->collider == other) continue;
 
 			std::pair<Bounds, Vectorf> overlap = this->gameobject->collider->getOverlap(other);
@@ -99,29 +103,27 @@ namespace aengine {
 			Bounds bounds = overlap.first;
 			Vectorf normal = overlap.second;
 
-			if (!bounds.isEmpty()) {
-				// collision detected
-				Vectorf size = bounds.getSize();
-				//std::cout << overlap.second << std::endl;
-				setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 3));
-				//std::cout << "Collision detected at: " << this->gameobject->name << " " << other->gameobject->name << std::endl;
-				//std::cout << getFrameVelocity() << std::endl;
-				if (getFrameVelocity().getLength() < stickiness)
-					fvelocity = Vectorf::zero;
-				else
-				{
-					//AddForce(fvelocity * -1.f + fvelocity * -1.f * bounciness);
+			if (bounds.isEmpty()) continue;
 
-					Vectorf f = fvelocity;
-					if (normal.x == 0)
-						f.y = -f.y;
-					else if (normal.y == 0)
-						f.x = -f.x;
+			// collision detected
 
-					//std::cout << gameobject->name << " " << f << " | " << fvelocity << std::endl;
+			Vectorf size = bounds.getSize();
+			setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 3));
+			if (getFrameVelocity().getLength() < stickiness) {
+				fvelocity = Vectorf::zero;
+			}
+			else
+			{
+				Vectorf f = fvelocity;
+				if (normal.x == 0)
+					f.y = -f.y;
+				else if (normal.y == 0)
+					f.x = -f.x;
 
-					AddForce(f * (1 + bounciness));
-				}
+				this->fvelocity = f * bounciness;
+
+				// Add force to the other object of collision, with regard of velocity and mass of this object
+				//AddForce(f * (1 + bounciness));
 			}
 		}
 	}

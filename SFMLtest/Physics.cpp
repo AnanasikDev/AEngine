@@ -5,8 +5,18 @@
 #include <iostream>
 
 namespace aengine {
+
 	const float Physics::g = -9.81f;
-	const float Physics::airResistance = 0.02f;
+
+	/// <summary>
+	/// Second-long influence equals (1 - airResistance) ^ (1000 / fixedUpdateIntervalMs):
+	/// With default parameters it is 0.998 ^ 50 = 0.905 ~ -10% of velocity per second
+	/// </summary>
+	const float Physics::airResistance = 0.002f;
+	
+	/// <summary>
+	/// Interval between FixedUpdate calls in milliseconds. It is highly not recommended to change this value as it might cause unexpected behaviour, inaccuracy or glitches.
+	/// </summary>
 	const int Physics::fixedUpdateIntervalMs = 20;
 
 	std::pair<Bounds, Vectorf> Physics::getOverlap(const CircleCollider* c1, const CircleCollider* c2) {
