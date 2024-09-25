@@ -57,10 +57,7 @@ namespace aengine {
 	}
 
 	void Gameobject::Update() {
-
-		// if rigidbody is applied, it takes control over GO's position
 		if (rigidbody != nullptr) {
-			this->position = rigidbody->getPosition();
 			rigidbody->Update();
 		}
 		
@@ -88,9 +85,7 @@ namespace aengine {
 
 	void Gameobject::SetPosition(Vectorf pos) {
 		position = pos;
-		if (rigidbody != nullptr) {
-			rigidbody->setPosition(pos);
-		}
+		if (collider != nullptr) collider->Update(position);
 	}
 
 	void Gameobject::SetPosition(float x, float y) {
@@ -102,7 +97,7 @@ namespace aengine {
 	}
 
 	void Gameobject::Translate(Vectorf delta) {
-		position += delta;
+		SetPosition(position + delta);
 	}
 
 	void Gameobject::Translate(float dx, float dy) {

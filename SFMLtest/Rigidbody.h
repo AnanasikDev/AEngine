@@ -7,7 +7,6 @@ namespace aengine {
 	class Rigidbody {
 	private:
 		Vectorf fvelocity;
-		Vectorf position;
 		class Gameobject* gameobject;
 
 		float g;
@@ -38,9 +37,6 @@ namespace aengine {
 
 		Vectorf getVelocity() const;
 		Vectorf getFrameVelocity() const;
-
-		Vectorf getPosition() const;
-		void setPosition(Vectorf value);
 
 		float getBounciness() const;
 		void setBounciness(float value);

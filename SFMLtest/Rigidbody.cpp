@@ -27,7 +27,6 @@ namespace aengine {
 		stickiness = 2.f;
 		facceleration = Vectorf();
 		this->gameobject = gameobject;
-		this->position = gameobject->getPosition();
 	}
 
 	Vectorf Rigidbody::getVelocity() const {
@@ -44,14 +43,6 @@ namespace aengine {
 
 	void Rigidbody::setBounciness(float value) {
 		this->bounciness = value;
-	}
-
-	Vectorf Rigidbody::getPosition() const {
-		return this->position;
-	}
-
-	void Rigidbody::setPosition(Vectorf value) {
-		this->position = value;
 	}
 
 	float Rigidbody::getStickiness() const {
@@ -90,7 +81,7 @@ namespace aengine {
 			such as transformations
 		*/
 
-		this->position += (this->fvelocity * Time::getDeltaTimeMs() / 1000.f);
+		this->gameobject->Translate(this->fvelocity * Time::getDeltaTimeMs() / 1000.f);
 	}
 
 	void Rigidbody::CheckCollisions() {
@@ -113,7 +104,7 @@ namespace aengine {
 			Vectorf size = bounds.getSize();
 			
 			if (respondToImpulse)
-				setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 5));
+				gameobject->Translate(normal * (bounds.getSize() + Vectorf::one * 3));
 
 			auto otherRigidbody = other->gameobject->rigidbody;
 			if (otherRigidbody != nullptr) {
@@ -123,7 +114,7 @@ namespace aengine {
 				OnCollision(bounds, normal, vel - otherRigidbody->fvelocity); // - otherRigidbody->fvelocity
 
 				// Add force to the other object of collision, with regard of velocity and mass of this object
-				//otherRigidbody->OnCollision(bounds, -normal, otherRigidbody->fvelocity - vel);
+				otherRigidbody->OnCollision(bounds, -normal, otherRigidbody->fvelocity - vel);
 			}
 			else {
 				OnCollision(bounds, normal, fvelocity);

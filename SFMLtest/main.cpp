@@ -57,7 +57,7 @@ int main() {
 	block2->rigidbody = new Rigidbody(block2);
 	block2->SetPosition(500, 100);
 	block2->rigidbody->makeKinematic();
-	block2->rigidbody->AddForce(Vectorf(-100, 0));
+	block2->rigidbody->AddForce(Vectorf(-200, 0));
 
 	/*for (int i = 0; i < 10; i++) {
 		auto c1 = new Collectable("Coin");
