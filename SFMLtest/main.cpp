@@ -26,11 +26,39 @@ int main() {
 
 	std::vector<Collectable*> coins;
 
-	//auto c1 = new Collectable("Coin1");
-	//c1->SetPosition(Vectorf(300, 10));
+	auto c1 = new Collectable("Coin1");
+	c1->SetPosition(Vectorf(300, 300));
+	c1->rigidbody->AddForce(Vectorf(-80, -130));
 	auto c2 = new Collectable("Coin2");
 	c2->SetPosition(Vectorf(50, 400));
 	c2->rigidbody->AddForce(Vectorf(80, -200));
+
+	Gameobject* block1 = new Gameobject("block1");
+	sf::RectangleShape* block1rect = new sf::RectangleShape();
+	block1rect->setSize(Vectorf(90, 90).getsf());
+	block1rect->setFillColor(sf::Color::Green);
+	ShapeRenderer* block1rend = new ShapeRenderer(block1, game.getWindow(), block1rect);
+	block1rend->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
+	block1->renderer = block1rend;
+	block1->collider = new RectCollider(block1, Vectorf(90, 90));
+	block1->rigidbody = new Rigidbody(block1);
+	block1->SetPosition(200, 100);
+	block1->rigidbody->makeKinematic();
+	block1->rigidbody->AddForce(Vectorf(15, 0));
+
+
+	Gameobject* block2 = new Gameobject("block2");
+	sf::RectangleShape* block2rect = new sf::RectangleShape();
+	block2rect->setSize(Vectorf(90, 90).getsf());
+	block2rect->setFillColor(sf::Color::Green);
+	ShapeRenderer* block2rend = new ShapeRenderer(block2, game.getWindow(), block2rect);
+	block2rend->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
+	block2->renderer = block2rend;
+	block2->collider = new RectCollider(block2, Vectorf(90, 90));
+	block2->rigidbody = new Rigidbody(block2);
+	block2->SetPosition(500, 100);
+	block2->rigidbody->makeKinematic();
+	block2->rigidbody->AddForce(Vectorf(-100, 0));
 
 	/*for (int i = 0; i < 10; i++) {
 		auto c1 = new Collectable("Coin");
@@ -43,8 +71,9 @@ int main() {
 	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
 	floor->renderer->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
 	floor->collider = new aengine::RectCollider(floor, Vectorf(800, 30));
-	//floor->rigidbody = new Rigidbody(floor);
-	floor->SetPosition(400, 600);
+	floor->rigidbody = new Rigidbody(floor);
+	floor->rigidbody->makeStatic();
+	floor->SetPosition(400, 550);
 
 	UIElement* button = Canvas::AddUIElement();
 	auto shape = new sf::RectangleShape(Vectorf(100, 50).getsf());

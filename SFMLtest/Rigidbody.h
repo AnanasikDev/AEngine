@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector.h"
+#include "Bounds.h"
 
 namespace aengine {
 	class Rigidbody {
@@ -18,8 +19,18 @@ namespace aengine {
 		float stickiness;
 
 	public:
-		
+
+		/// <summary>
+		/// If true, it calculates all collisions and detections but does not collide (can overlap, cannot respond to impulses)
+		/// </summary>
+		bool isTrigger = false;
+
 		bool useGravity = true;
+
+		/// <summary>
+		/// If true, receives forces from objects when collided
+		/// </summary>
+		bool respondToImpulse = true;
 
 		Rigidbody();
 		Rigidbody(Gameobject* gameobject);
@@ -38,6 +49,21 @@ namespace aengine {
 		void setStickiness(float value);
 
 		/// <summary>
+		/// Preset for respondToImpulse and useGravity fields. No response to impulse and no use of gravity
+		/// </summary>
+		void makeStatic();
+
+		/// <summary>
+		/// Preset for respondToImpulse and useGravity fields. Response to impulse and no use of gravity
+		/// </summary>
+		void makeKinematic();
+
+		/// <summary>
+		/// Preset for respondToImpulse and useGravity fields. Response to impulse and use of gravity
+		/// </summary>
+		void makeDynamic();
+
+		/// <summary>
 		/// Applies forces, computes collisions, 
 		/// updates gameobject position
 		/// </summary>
@@ -51,5 +77,6 @@ namespace aengine {
 		void AddForce(Vectorf force);
 
 		void CheckCollisions();
+		void OnCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity);
 	};
 }

@@ -73,6 +73,10 @@ namespace aengine {
 			return Vector<T>(this->x / other.x, this->y / other.y);
 		}
 
+		Vector<T> operator-() const {
+			return Vector<T>(-this->x, -this->y);
+		}
+
 		sf::Vector2<T> getsf() const {
 			return sf::Vector2<T>(this->x, this->y);
 		}

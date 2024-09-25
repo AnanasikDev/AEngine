@@ -63,6 +63,7 @@ namespace aengine {
 	}
 
 	void Rigidbody::AddForce(Vectorf force) {
+		// may be enforced to not be able to add force to static rigidbodies
 		this->fvelocity += force;
 	}
 
@@ -73,10 +74,10 @@ namespace aengine {
 			to achieve better performance
 		*/
 
-		//this->fvelocity = this->fvelocity * (1 - Physics::airResistance) + Vectorf::up * this->g;
+		if (useGravity)
+			fvelocity += Vectorf::up * this->g;
 
-		this->fvelocity = (this->fvelocity + Vectorf::up * this->g) * (1 - Physics::airResistance);
-
+		this->fvelocity = this->fvelocity * (1 - Physics::airResistance);
 
 		CheckCollisions();
 
@@ -108,23 +109,57 @@ namespace aengine {
 			// collision detected
 
 			Vectorf size = bounds.getSize();
-			setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 3));
-			if (getFrameVelocity().getLength() < stickiness) {
-				fvelocity = Vectorf::zero;
-			}
-			else
-			{
-				Vectorf f = fvelocity;
-				if (normal.x == 0)
-					f.y = -f.y;
-				else if (normal.y == 0)
-					f.x = -f.x;
+			
+			if (respondToImpulse)
+				setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 3));
 
-				this->fvelocity = f * bounciness;
+			auto otherRigidbody = other->gameobject->rigidbody;
+			if (otherRigidbody != nullptr) {
+				
+				Vectorf vel = fvelocity;
+
+				OnCollision(bounds, normal, vel); // - otherRigidbody->fvelocity
 
 				// Add force to the other object of collision, with regard of velocity and mass of this object
-				//AddForce(f * (1 + bounciness));
+				otherRigidbody->OnCollision(bounds, -normal, otherRigidbody->fvelocity);
+			}
+			else {
+				OnCollision(bounds, normal, fvelocity);
+			}
+
+			std::cout << gameobject->name << " collided with " << other->gameobject->name << std::endl;
+
+			if (getFrameVelocity().getLength() < stickiness) {
+				//fvelocity = Vectorf::zero;
 			}
 		}
+	}
+
+	void Rigidbody::OnCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity) {
+		
+		if (!respondToImpulse) return;
+
+		if (normal.x == 0)
+			velocity.y = -velocity.y;
+		else if (normal.y == 0)
+			velocity.x = -velocity.x;
+
+		this->fvelocity = velocity * bounciness;
+	}
+
+	
+	void Rigidbody::makeDynamic() {
+		this->respondToImpulse = true;
+		this->useGravity = true;
+	}
+
+	void Rigidbody::makeKinematic() {
+		this->respondToImpulse = true;
+		this->useGravity = false;
+	}
+
+	void Rigidbody::makeStatic() {
+		this->respondToImpulse = false;
+		this->useGravity = false;
 	}
 }

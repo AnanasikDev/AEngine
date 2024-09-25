@@ -10,9 +10,9 @@ namespace aengine {
 
 	/// <summary>
 	/// Second-long influence equals (1 - airResistance) ^ (1000 / fixedUpdateIntervalMs):
-	/// With default parameters it is 0.998 ^ 50 = 0.905 ~ -10% of velocity per second
+	/// With default value of 0.002f it is 0.998 ^ 50 = 0.905 ~ -10% of velocity per second
 	/// </summary>
-	const float Physics::airResistance = 0.002f;
+	const float Physics::airResistance = 0.005f;
 	
 	/// <summary>
 	/// Interval between FixedUpdate calls in milliseconds. It is highly not recommended to change this value as it might cause unexpected behaviour, inaccuracy or glitches.
