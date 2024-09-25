@@ -106,22 +106,24 @@ namespace aengine {
 
 			if (bounds.isEmpty()) continue;
 
+			std::cout << gameobject->name << " " << bounds << std::endl;
+
 			// collision detected
 
 			Vectorf size = bounds.getSize();
 			
 			if (respondToImpulse)
-				setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 3));
+				setPosition(getPosition() + normal * (bounds.getSize() + Vectorf::one * 5));
 
 			auto otherRigidbody = other->gameobject->rigidbody;
 			if (otherRigidbody != nullptr) {
 				
 				Vectorf vel = fvelocity;
 
-				OnCollision(bounds, normal, vel); // - otherRigidbody->fvelocity
+				OnCollision(bounds, normal, vel - otherRigidbody->fvelocity); // - otherRigidbody->fvelocity
 
 				// Add force to the other object of collision, with regard of velocity and mass of this object
-				otherRigidbody->OnCollision(bounds, -normal, otherRigidbody->fvelocity);
+				//otherRigidbody->OnCollision(bounds, -normal, otherRigidbody->fvelocity - vel);
 			}
 			else {
 				OnCollision(bounds, normal, fvelocity);

@@ -17,7 +17,6 @@ using namespace aengine;
 using namespace agame;
 
 int main() {
-
 	Game game;
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
@@ -38,7 +37,7 @@ int main() {
 	block1rect->setSize(Vectorf(90, 90).getsf());
 	block1rect->setFillColor(sf::Color::Green);
 	ShapeRenderer* block1rend = new ShapeRenderer(block1, game.getWindow(), block1rect);
-	block1rend->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
+	block1rend->SetRelativeOrigin(Vectorf::half);
 	block1->renderer = block1rend;
 	block1->collider = new RectCollider(block1, Vectorf(90, 90));
 	block1->rigidbody = new Rigidbody(block1);
@@ -52,7 +51,7 @@ int main() {
 	block2rect->setSize(Vectorf(90, 90).getsf());
 	block2rect->setFillColor(sf::Color::Green);
 	ShapeRenderer* block2rend = new ShapeRenderer(block2, game.getWindow(), block2rect);
-	block2rend->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
+	block2rend->SetRelativeOrigin(Vectorf::half);
 	block2->renderer = block2rend;
 	block2->collider = new RectCollider(block2, Vectorf(90, 90));
 	block2->rigidbody = new Rigidbody(block2);
@@ -69,7 +68,7 @@ int main() {
 	auto rect = new sf::RectangleShape(Vectorf(800, 30).getsf());
 	rect->setFillColor(sf::Color::Magenta);
 	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
-	floor->renderer->SetRelativeOrigin(Vectorf(0.5f, 0.5f));
+	floor->renderer->SetRelativeOrigin(Vectorf::half);
 	floor->collider = new aengine::RectCollider(floor, Vectorf(800, 30));
 	floor->rigidbody = new Rigidbody(floor);
 	floor->rigidbody->makeStatic();
@@ -82,7 +81,7 @@ int main() {
 	button->bounds = Bounds(Vectorf(0, 0), Vectorf(100, 50));
 	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
 	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
-	button->getGameobject()->renderer->SetRelativeOrigin(Vectorf(0, 0));
+	button->getGameobject()->renderer->SetRelativeOrigin(Vectorf::zero);
 
 	TextRenderer::LoadFont();
 

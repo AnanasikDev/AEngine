@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "Event.h"
+#include <iostream>
 
 namespace aengine {
 
@@ -14,6 +16,7 @@ namespace aengine {
 		T y;
 
 		static const Vector zero;
+		static const Vector half;
 		static const Vector one;
 		static const Vector up;
 		static const Vector down;
@@ -22,11 +25,21 @@ namespace aengine {
 
 		Vector() : x(0), y(0) {}
 
-		Vector(T _x, T _y) : x(_x), y(_y) {}
+		Vector(T _x, T _y) : x(_x), y(_y) {
+		}
 
 		Vector(sf::Vector2<T> sfother) {
 			this->x = sfother.x;
 			this->y = sfother.y;
+		}
+
+		Action<> onValueChanged;
+
+		Vector<T>& operator=(const Vector<T>& other) {
+			this->x = other.x;
+			this->y = other.y;
+			onValueChanged.Invoke();
+			return *this;
 		}
 
 		bool operator==(const Vector<T>& other) {
@@ -40,12 +53,28 @@ namespace aengine {
 		Vector<T>& operator+=(const Vector<T>& other) {
 			this->x += other.x;
 			this->y += other.y;
+			onValueChanged.Invoke();
 			return *this;
 		}
 
 		Vector<T>& operator*=(const float other) {
 			this->x *= other;
 			this->y *= other;
+			onValueChanged.Invoke();
+			return *this;
+		}
+
+		Vector<T>& operator-=(const Vector<T>& other) {
+			this->x -= other.x;
+			this->y -= other.y;
+			onValueChanged.Invoke();
+			return *this;
+		}
+
+		Vector<T>& operator/=(const float other) {
+			this->x /= other;
+			this->y /= other;
+			onValueChanged.Invoke();
 			return *this;
 		}
 
@@ -118,6 +147,9 @@ namespace aengine {
 
 	template <typename T>
 	const Vector<T> Vector<T>::zero = Vector<T>(0, 0);
+
+	template <typename T>
+	const Vector<T> Vector<T>::half = Vector<T>(0.5f, 0.5f);
 
 	template <typename T>
 	const Vector<T> Vector<T>::one = Vector<T>(1, 1);
