@@ -67,10 +67,9 @@ namespace aengine {
 			and Update should take that in consideration and 
 			scale their changes according to deltaTime.
 		*/
-		msSinceFixedUpdate += Time::getDeltaTimeMs();
-		if (msSinceFixedUpdate >= Physics::fixedUpdateIntervalMs) {
+		if (Time::getFixedDeltaTime() * 1000.f >= Physics::fixedUpdateIntervalMs) {
 			FixedUpdate();
-			msSinceFixedUpdate = 0;
+			Time::RecordFixedUpdate();
 		}
 
 		Canvas::Update();

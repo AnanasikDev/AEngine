@@ -12,6 +12,7 @@
 #include "UIElement.h"
 #include "Canvas.h"
 #include "TextRenderer.h"
+#include "Time.h"
 
 using namespace aengine;
 using namespace agame;
@@ -90,6 +91,8 @@ int main() {
 	TextRenderer* textRenderer = new TextRenderer();
 	textRenderer->SetRelativeOrigin(Vectorf::zero);
 	txt->renderer = textRenderer;
+
+	Time::InvokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
 	game.Start();
 

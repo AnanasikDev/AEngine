@@ -1,14 +1,22 @@
 #include "Time.h"
 #include <chrono>
+#include "List.h"
 
 namespace aengine {
 
-	int Time::deltaTimeMs = 0;
+	float Time::deltaTime = 0;
+	float Time::fixedDeltaTime = 0;
 	float Time::timeScale = 1.f;
-	uint64_t Time::lastTime = 0;
+	uint64_t Time::lastUpdate = 0;
+	uint64_t Time::lastFixedUpdate = 0;
+	std::vector<Time::Coroutine> Time::coroutines;
 
-	int Time::getDeltaTimeMs() {
-		return deltaTimeMs;
+	float Time::getDeltaTime() {
+		return deltaTime;
+	}
+
+	float Time::getFixedDeltaTime() {
+		return fixedDeltaTime;
 	}
 
 	float Time::getTimeScale() {
@@ -24,12 +32,65 @@ namespace aengine {
 	}
 
 	void Time::Init() {
-		lastTime = getTime();
+		lastUpdate = getTime();
+		lastFixedUpdate = getTime();
 	}
 
 	void Time::Update() {
 		auto now = getTime();
-		deltaTimeMs = (now - lastTime) * timeScale;
-		lastTime = now;
+		deltaTime = (now - lastUpdate) * timeScale / 1000.f;
+		fixedDeltaTime = (now - lastFixedUpdate) * timeScale / 1000.f;
+		lastUpdate = now;
+		// lastFixedUpdate is updated in RecordFixedUpdate
+
+		for (int i = 0; i < coroutines.size(); i++) {
+
+			coroutines[i].waitingTime += deltaTime;
+			
+			if (!coroutines[i].invoked) {
+				// never been invoked, try for the first time
+				if (coroutines[i].waitingTime >= coroutines[i].startDelay) {
+					coroutines[i].Execute();
+
+					// if not repetitive, delete
+					if (coroutines[i].repeating == false) {
+						List::RemoveAt(coroutines, i);
+					}
+				}
+			}
+			else {
+				// has already been invoked hence repetitive
+				if (coroutines[i].waitingTime >= coroutines[i].delay) {
+					coroutines[i].Execute();
+				}
+			}
+		}
+	}
+
+	void Time::RecordFixedUpdate() {
+		lastFixedUpdate = getTime();
+	}
+
+	void Time::Coroutine::Execute() {
+		this->func();
+		invoked = true;
+		waitingTime = 0;
+	}
+
+	void Time::Invoke(std::function<void()> func, float delaySeconds) {
+		auto cor = Coroutine();
+		cor.func = func;
+		cor.startDelay = delaySeconds;
+		cor.repeating = false;
+		coroutines.push_back(cor);
+	}
+
+	void Time::InvokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds) {
+		auto cor = Coroutine();
+		cor.func = func;
+		cor.startDelay = startDelaySeconds;
+		cor.delay = delaySeconds;
+		cor.repeating = true;
+		coroutines.push_back(cor);
 	}
 }

@@ -34,7 +34,7 @@ namespace aengine {
 	}
 
 	Vectorf Rigidbody::getFrameVelocity() const {
-		return fvelocity / 1000. * Time::getDeltaTimeMs();
+		return fvelocity / Time::getDeltaTime();
 	}
 
 	float Rigidbody::getBounciness() const {
@@ -81,7 +81,7 @@ namespace aengine {
 			such as transformations
 		*/
 
-		this->gameobject->Translate(this->fvelocity * Time::getDeltaTimeMs() / 1000.f);
+		this->gameobject->Translate(this->fvelocity * Time::getDeltaTime());
 	}
 
 	void Rigidbody::CheckCollisions() {

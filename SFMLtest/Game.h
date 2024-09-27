@@ -18,7 +18,6 @@ namespace aengine {
 		sf::VideoMode videoMode;
 		sf::Event event;
 		sf::Color defaultColor;
-		int msSinceFixedUpdate;
 
 	public:
 		Vector<int> pixelPos;
