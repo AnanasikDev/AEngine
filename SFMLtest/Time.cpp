@@ -6,9 +6,11 @@ namespace aengine {
 
 	float Time::deltaTime = 0;
 	float Time::fixedDeltaTime = 0;
+	float Time::timeSinceStartup = 0;
+	std::uint64_t Time::startupTime = 0;
 	float Time::timeScale = 1.f;
-	uint64_t Time::lastUpdate = 0;
-	uint64_t Time::lastFixedUpdate = 0;
+	float Time::lastUpdate = 0;
+	float Time::lastFixedUpdate = 0;
 	std::vector<Time::Coroutine> Time::coroutines;
 
 	float Time::getDeltaTime() {
@@ -27,19 +29,31 @@ namespace aengine {
 		timeScale = scale;
 	}
 
-	uint64_t Time::getTime(){
+	void Time::computeTime(){
+		timeSinceStartup = (getTimeSinceUNIX() - startupTime) / 1000.0f;
+	}
+
+	float Time::getTime() {
+		return timeSinceStartup;
+	}
+
+	std::uint64_t Time::getTimeSinceUNIX() {
 		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	}
 
 	void Time::Init() {
+		startupTime = getTimeSinceUNIX();
 		lastUpdate = getTime();
 		lastFixedUpdate = getTime();
 	}
 
 	void Time::Update() {
+
+		computeTime(); 
+
 		auto now = getTime();
-		deltaTime = (now - lastUpdate) * timeScale / 1000.f;
-		fixedDeltaTime = (now - lastFixedUpdate) * timeScale / 1000.f;
+		deltaTime = (now - lastUpdate) * timeScale;
+		fixedDeltaTime = (now - lastFixedUpdate) * timeScale;
 		lastUpdate = now;
 		// lastFixedUpdate is updated in RecordFixedUpdate
 
