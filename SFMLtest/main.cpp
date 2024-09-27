@@ -21,15 +21,15 @@ int main() {
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
 
-	Player* player = new Player("Player");
+	//Player* player = new Player("Player");
 
 	std::vector<Collectable*> coins;
 
 	auto c1 = new Collectable("Coin1");
-	c1->SetPosition(Vectorf(300, 300));
+	c1->SetPosition(Vectorf(300, 400));
 	c1->rigidbody->AddForce(Vectorf(-80, -130));
 	auto c2 = new Collectable("Coin2");
-	c2->SetPosition(Vectorf(50, 400));
+	c2->SetPosition(Vectorf(50, 500));
 	c2->rigidbody->AddForce(Vectorf(80, -200));
 
 	Gameobject* block1 = new Gameobject("block1");
@@ -41,23 +41,24 @@ int main() {
 	block1->renderer = block1rend;
 	block1->collider = new RectCollider(block1, Vectorf(90, 90));
 	block1->rigidbody = new Rigidbody(block1);
-	block1->SetPosition(200, 100);
+	block1->SetPosition(100, 100);
 	block1->rigidbody->makeKinematic();
-	block1->rigidbody->AddForce(Vectorf(15, 0));
+	block1->rigidbody->AddForce(Vectorf(80, 0));
 
 
 	Gameobject* block2 = new Gameobject("block2");
 	sf::RectangleShape* block2rect = new sf::RectangleShape();
 	block2rect->setSize(Vectorf(90, 90).getsf());
-	block2rect->setFillColor(sf::Color::Green);
+	block2rect->setFillColor(sf::Color(0, 200, 0));
 	ShapeRenderer* block2rend = new ShapeRenderer(block2, game.getWindow(), block2rect);
 	block2rend->SetRelativeOrigin(Vectorf::half);
 	block2->renderer = block2rend;
 	block2->collider = new RectCollider(block2, Vectorf(90, 90));
 	block2->rigidbody = new Rigidbody(block2);
-	block2->SetPosition(500, 100);
+	block2->SetPosition(600, 100);
 	block2->rigidbody->makeKinematic();
-	block2->rigidbody->AddForce(Vectorf(-200, 0));
+	block1->rigidbody->setMass(4.f);
+	block2->rigidbody->AddForce(Vectorf(-80, 0));
 
 	/*for (int i = 0; i < 10; i++) {
 		auto c1 = new Collectable("Coin");

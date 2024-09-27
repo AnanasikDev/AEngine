@@ -53,6 +53,13 @@ namespace aengine {
 		this->stickiness = value;
 	}
 
+	float Rigidbody::getMass() const {
+		return this->mass;
+	}
+	void Rigidbody::setMass(float value) {
+		this->mass = value;
+	}
+
 	void Rigidbody::AddForce(Vectorf force) {
 		// may be enforced to not be able to add force to static rigidbodies
 		this->fvelocity += force;
@@ -97,7 +104,7 @@ namespace aengine {
 
 			if (bounds.isEmpty()) continue;
 
-			std::cout << gameobject->name << " " << bounds << std::endl;
+			//std::cout << gameobject->name << " " << bounds << std::endl;
 
 			// collision detected
 
@@ -111,10 +118,25 @@ namespace aengine {
 				
 				Vectorf vel = fvelocity;
 
-				OnCollision(bounds, normal, vel - otherRigidbody->fvelocity); // - otherRigidbody->fvelocity
+				Vectorf v1 = fvelocity;
+				Vectorf v2 = otherRigidbody->fvelocity;
+				float m2 = mass;
+				float m1 = otherRigidbody->mass;
+
+				//Vectorf impulse = vel * mass / otherRigidbody->mass;
+				Vectorf impulse1 = v1 * (m1 - m2) / (m1 + m2) + v2 * (2 * m2) / (m1 + m2); //(fvelocity + otherRigidbody->fvelocity) * (otherRigidbody->mass / mass);
+
+				OnCollision(bounds, normal, impulse1); // - otherRigidbody->fvelocity
 
 				// Add force to the other object of collision, with regard of velocity and mass of this object
-				otherRigidbody->OnCollision(bounds, -normal, otherRigidbody->fvelocity - vel);
+				//Vectorf impulse2 = otherRigidbody->fvelocity * otherRigidbody->mass / mass;
+				//Vectorf impulse2 = (otherRigidbody->fvelocity + fvelocity) * (mass / otherRigidbody->mass);
+
+				Vectorf impulse2 = v1 * (2 * m1) / (m1 + m2) + v2 * (m2 - m1) / (m1 + m2);
+
+				std::cout << "impulse 1: " << impulse1 << " | impulse 2: " << impulse2 << "m1 = " << mass << " m2 = " << otherRigidbody-> mass << std::endl;
+
+				otherRigidbody->OnCollision(bounds, -normal, impulse2);
 			}
 			else {
 				OnCollision(bounds, normal, fvelocity);
@@ -132,10 +154,10 @@ namespace aengine {
 		
 		if (!respondToImpulse) return;
 
-		if (normal.x == 0)
+		/*if (normal.x == 0)
 			velocity.y = -velocity.y;
 		else if (normal.y == 0)
-			velocity.x = -velocity.x;
+			velocity.x = -velocity.x;*/
 
 		this->fvelocity = velocity * bounciness;
 	}
