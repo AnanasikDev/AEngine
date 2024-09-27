@@ -12,6 +12,7 @@
 #include "UIElement.h"
 #include "Canvas.h"
 #include "TextRenderer.h"
+#include "Time.h"
 
 using namespace aengine;
 using namespace agame;
@@ -43,7 +44,7 @@ int main() {
 	block1->rigidbody = new Rigidbody(block1);
 	block1->SetPosition(100, 100);
 	block1->rigidbody->makeKinematic();
-	block1->rigidbody->AddForce(Vectorf(80, 0));
+	block1->rigidbody->AddForce(Vectorf(200, 0));
 
 
 	Gameobject* block2 = new Gameobject("block2");
@@ -57,8 +58,17 @@ int main() {
 	block2->rigidbody = new Rigidbody(block2);
 	block2->SetPosition(600, 100);
 	block2->rigidbody->makeKinematic();
-	block1->rigidbody->setMass(4.f);
+	block2->rigidbody->setMass(10.f);
 	block2->rigidbody->AddForce(Vectorf(-80, 0));
+
+	Gameobject* block3 = new Gameobject("block3");
+	sf::RectangleShape* block3rect = new sf::RectangleShape();
+	block3rect->setSize(Vectorf(40, 40).getsf());
+	block3rect->setFillColor(sf::Color(0, 0, 0));
+	ShapeRenderer* block3rend = new ShapeRenderer(block3, game.getWindow(), block3rect);
+	block3rend->SetRelativeOrigin(Vectorf::half);
+	block3->renderer = block3rend;
+	block3->SetPosition(400, 400);
 
 	/*for (int i = 0; i < 10; i++) {
 		auto c1 = new Collectable("Coin");
@@ -99,6 +109,10 @@ int main() {
 		game.Update();
 		textRenderer->text.setString(std::to_string(Collectable::collected));
 		textRenderer->UpdateRelativeOrigin();
+
+		//std::cout << Time::getTime() / 1000.f << "  " << Mathf::Repeat(Time::getTime() / 1000.f, 0, 200) << std::endl;
+
+		//block3->SetPosition(Vectorf(Mathf::Repeat(Time::getTime(), 0, 200), block3->getPosition().y));
 
 		game.Render();
 	}

@@ -38,5 +38,15 @@ namespace aengine {
 		/// Returns -1 or 1 depending on sign of val
 		/// </summary>
 		static int Sign(float val);
+
+		static float Clamp(float value, float min, float max);
+
+		static float ClampMin(float value, float min);
+
+		static float ClampMax(float value, float max);
+
+		static float Repeat(float value, float min, float max);
+
+		static float Remainder(float value, float divider);
 	};
 }

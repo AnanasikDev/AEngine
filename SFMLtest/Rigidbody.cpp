@@ -120,8 +120,8 @@ namespace aengine {
 
 				Vectorf v1 = fvelocity;
 				Vectorf v2 = otherRigidbody->fvelocity;
-				float m2 = mass;
-				float m1 = otherRigidbody->mass;
+				float m1 = mass;
+				float m2 = otherRigidbody->mass;
 
 				//Vectorf impulse = vel * mass / otherRigidbody->mass;
 				Vectorf impulse1 = v1 * (m1 - m2) / (m1 + m2) + v2 * (2 * m2) / (m1 + m2); //(fvelocity + otherRigidbody->fvelocity) * (otherRigidbody->mass / mass);

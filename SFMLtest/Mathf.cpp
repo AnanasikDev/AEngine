@@ -27,4 +27,24 @@ namespace aengine {
 	int Mathf::Sign(float val) {
 		return val >= 0 ? 1 : -1;
 	}
+
+	float Mathf::Clamp(float value, float min, float max) {
+		return value > max ? max : (value < min ? min : value);
+	}
+
+	float Mathf::ClampMin(float value, float min) {
+		return value < min ? min : value;
+	}
+
+	float Mathf::ClampMax(float value, float max) {
+		return value > max ? max : value;
+	}
+
+	float Mathf::Remainder(float value, float divider){
+		return remainderf(value, divider);
+	}
+
+	float Mathf::Repeat(float value, float min, float max) {
+		return value < min ? max - Remainder(min - value, max - min) : (value > max ? min + Remainder(value - max, max - min) : value);
+	}
 }
