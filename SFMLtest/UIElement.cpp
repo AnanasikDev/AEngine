@@ -11,6 +11,7 @@ namespace aengine {
 	}
 
 	UIElement::UIElement() : Gameobject::Gameobject(){
+		isAttachedToCamera = true;
 		onLMBPressedBackdrop = Input::Mouse::LMB.onPressed.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBPressed.Invoke();

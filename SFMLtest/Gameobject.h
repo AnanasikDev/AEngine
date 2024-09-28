@@ -21,6 +21,7 @@ namespace aengine {
 		Collider* collider;
 		Renderer* renderer;
 		Rigidbody* rigidbody;
+		bool isAttachedToCamera = false;
 
 		Gameobject();
 		Gameobject(std::string name);

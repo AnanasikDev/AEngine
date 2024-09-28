@@ -91,6 +91,7 @@ int main() {
 	TextRenderer* textRenderer = new TextRenderer();
 	textRenderer->SetRelativeOrigin(Vectorf::zero);
 	txt->renderer = textRenderer;
+	txt->isAttachedToCamera = true;
 
 	Time::InvokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
