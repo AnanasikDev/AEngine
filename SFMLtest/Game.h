@@ -29,6 +29,11 @@ namespace aengine {
 
 		std::vector<Gameobject*> gameobjects;
 
+		/// <summary>
+		/// Gameobjects which 
+		/// </summary>
+		std::vector<Gameobject*> rootGameobjects;
+
 		Game();
 		~Game();
 

@@ -14,6 +14,7 @@ namespace aengine {
 
 	private:
 		Vectorf position;
+		Gameobject* parent;
 	
 	public:
 		std::string name;
@@ -22,6 +23,7 @@ namespace aengine {
 		Renderer* renderer;
 		Rigidbody* rigidbody;
 		bool isAttachedToCamera = false;
+		std::vector<Gameobject*> children;
 
 		Gameobject();
 		Gameobject(std::string name);
@@ -63,6 +65,10 @@ namespace aengine {
 		void Translate(float dx, float dy);
 
 		void SetScale(float scale);
+
+		void SetParent(Gameobject* gameobject);
+		Gameobject* getParent() const;
+		void ForAllChildrenRecursive(std::function<void(Gameobject*)> func);
 
 		virtual Gameobject* getGameobject();
 	};

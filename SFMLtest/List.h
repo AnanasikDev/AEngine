@@ -17,5 +17,11 @@ namespace aengine {
 		static void RemoveAt(std::vector<T>& vec, int index) {
 			vec.erase(vec.begin() + index);
 		}
+
+		template <typename T>
+		static bool Contains(std::vector<T>& vec, T obj) {
+			auto it = std::find(vec.begin(), vec.end(), obj);
+			return it != vec.end();
+		}
 	};
 }
