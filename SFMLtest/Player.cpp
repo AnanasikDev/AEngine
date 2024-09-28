@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Game.h"
 #include <iostream>
+#include "Camera.h"
 
 namespace agame {
 
@@ -41,6 +42,7 @@ namespace agame {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) delta.y =  1 * movementSpeed;
 
         Translate(delta);
+        aengine::Camera::Translate(delta);
 	}
 
 	void Player::Render() {

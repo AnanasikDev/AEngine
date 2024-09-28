@@ -188,6 +188,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Users\Zephyr\Downloads\catch_amalgamated.cpp" />
     <ClCompile Include="Bounds.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -214,6 +215,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Users\Zephyr\Downloads\catch_amalgamated.hpp" />
     <ClInclude Include="Bounds.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="Collider.h" />
