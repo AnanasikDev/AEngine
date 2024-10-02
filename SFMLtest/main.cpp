@@ -22,9 +22,11 @@ int main() {
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
 
-	//Player* player = new Player("Player");
+	Player* player = new Player("Player");
 
-	std::vector<Collectable*> coins;
+	auto gg = new Gameobject();
+	
+	//std::vector<Collectable*> coins;
 
 	auto c1 = new Collectable("Coin1");
 	c1->SetPosition(Vectorf(300, 400));

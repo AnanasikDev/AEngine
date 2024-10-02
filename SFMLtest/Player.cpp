@@ -8,6 +8,16 @@
 namespace agame {
 
 	Player::Player(std::string name) : Gameobject(name) {
+
+        Gameobject* child = new Gameobject();
+        child->SetParent(this);
+        sf::CircleShape* c2 = new sf::CircleShape();
+        c2->setRadius(8);
+        c2->setFillColor(sf::Color::White);
+        aengine::ShapeRenderer* rend = new aengine::ShapeRenderer(child, aengine::Game::instance->getWindow(), c2);
+        child->renderer = rend;
+        child->SetPosition(200, 230);
+
 	}
 
     void Player::Start() {
@@ -30,15 +40,6 @@ namespace agame {
         circle->setFillColor(sf::Color(255, 100, 10));
         SetPosition(40, 50);
         circle->setPosition(getPosition().getsf());
-
-        auto child = new Gameobject();
-        child->SetParent(this);
-        sf::CircleShape* c2 = new sf::CircleShape();
-        c2->setRadius(8);
-        c2->setFillColor(sf::Color::White);
-        aengine::ShapeRenderer* rend = new aengine::ShapeRenderer(child, aengine::Game::instance->getWindow(), c2);
-        child->renderer = rend;
-        child->SetPosition(200, 230);
     }
 
 	void Player::Update() {
