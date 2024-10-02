@@ -93,6 +93,12 @@ namespace aengine {
 
 	}
 
+	CircleCollider::CircleCollider(Gameobject* gameobject, float radius) :
+		Collider(gameobject), radius(radius)
+	{
+
+	}
+
 	RectCollider::RectCollider() :
 		Collider(), size()
 	{

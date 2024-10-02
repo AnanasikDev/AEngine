@@ -22,29 +22,37 @@ namespace aengine {
 
 		std::unique_ptr<Collider> collider;
 		std::unique_ptr<Renderer> renderer;
-		Rigidbody* rigidbody;
+		std::unique_ptr<Rigidbody> rigidbody;
 		bool isAttachedToCamera = false;
 		std::vector<Gameobject*> children;
 
 		Gameobject();
 		Gameobject(std::string name);
 		Gameobject(std::string name, std::unique_ptr<Renderer> renderer);										
-		Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody);
+		Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody);
 		Gameobject(const Gameobject& other);
 		~Gameobject();
 
 		template <typename T>
-		void SetRenderer(std::unique_ptr<T> _renderer) {
+		T* SetRenderer(std::unique_ptr<T> _renderer) {
 			static_assert(std::is_base_of<Renderer, T>::value, "T must be derived from Renderer");
 			this->renderer = std::move(_renderer);
+			return static_cast<T*>(this->renderer.get());
 		}
 
 		template <typename T>
-		void SetCollider(std::unique_ptr<T> _collider) {
+		T* SetCollider(std::unique_ptr<T> _collider) {
 			static_assert(std::is_base_of<Collider, T>::value, "T must be derived from Collider");
 			this->collider = std::move(_collider);
+			return static_cast<T*>(this->collider.get());
 		}
-		//void SetRigidbody(std::unique_ptr<Rigidbody> _rigidbody);
+
+		template <typename T>
+		T* SetRigidbody(std::unique_ptr<T> _rigidbody) {
+			static_assert(std::is_base_of<Rigidbody, T>::value, "T must be derived from Rigidbody");
+			this->rigidbody = std::move(_rigidbody);
+			return static_cast<T*>(this->rigidbody.get());
+		}
 
 		/// <summary>
 		/// Registers itself in global list

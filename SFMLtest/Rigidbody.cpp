@@ -113,7 +113,7 @@ namespace aengine {
 			if (respondToImpulse)
 				gameobject->Translate(normal * (bounds.getSize() + Vectorf::one * 3));
 
-			auto otherRigidbody = other->gameobject->rigidbody;
+			auto otherRigidbody = other->gameobject->rigidbody.get();
 			if (otherRigidbody != nullptr) {
 				
 				Vectorf vel = fvelocity;

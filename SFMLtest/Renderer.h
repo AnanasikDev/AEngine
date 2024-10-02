@@ -38,11 +38,17 @@ namespace aengine {
 	/// </summary>
 	class ShapeRenderer : public Renderer {
 	public:
-		sf::Shape* shape;
+		std::unique_ptr<sf::Shape> shape;
 
-		ShapeRenderer(const ShapeRenderer& other);
+		//ShapeRenderer(const ShapeRenderer& other);
 		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface);
-		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, sf::Shape* shape);
+		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape);
+
+		sf::Shape* SetShape(std::unique_ptr<sf::Shape> _shape);
+		template <typename R>
+		R* GetShapeAs() {
+			return static_cast<R*>(shape.get());
+		}
 
 		void Render() override;
 		void Update(const aengine::Vectorf position) override;

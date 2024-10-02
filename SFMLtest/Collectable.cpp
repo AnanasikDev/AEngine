@@ -15,23 +15,16 @@ namespace agame {
 	Collectable::Collectable(std::string name) : Gameobject(name) {
 		onLMBDownBackdrop = 0;
 
-		auto sp = std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow());
+		auto shapeRenderer =
+			this->SetRenderer(std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow()))
+			->to<aengine::ShapeRenderer>();
+		shapeRenderer->SetShape(std::make_unique<sf::CircleShape>(15));
+		shapeRenderer->UpdateRelativeOrigin();
+		shapeRenderer->GetShapeAs<sf::CircleShape>()->setFillColor(sf::Color(250, 220, 20));
 
-		this->SetRenderer(std::move(sp));
+		SetCollider(std::make_unique<aengine::RectCollider>(this, aengine::Vectorf(30, 30)));
 
-		sf::CircleShape* circle = new sf::CircleShape();
-		circle->setRadius(15);
-		sp->shape = circle;
-		sp->UpdateRelativeOrigin();
-		circle->setFillColor(sf::Color(250, 220, 20));
-
-		//aengine::CircleCollider* collider 
-			//= new aengine::CircleCollider(this);
-		//collider->radius = 15;
-
-		//this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
-
-		this->rigidbody = new aengine::Rigidbody(this);
+		this->SetRigidbody(std::make_unique<aengine::Rigidbody>(this));
 		rigidbody->setBounciness(0.7f);
 
 		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe([this]() { TryCollect(); });

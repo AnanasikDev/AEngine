@@ -7,29 +7,28 @@ namespace aengine {
 
 	Vectorf Renderer::defaultRelativeOrigin = Vectorf(0.5f, 0.5f);
 
-	ShapeRenderer::ShapeRenderer(const ShapeRenderer& other) {
+	/*ShapeRenderer::ShapeRenderer(const ShapeRenderer& other) {
 		this->gameobject = other.gameobject;
 		this->surface = other.surface;
-		this->shape = other.shape;
+		this->shape = std::make_unique<sf::Shape>(other.shape.get());
 		SetRelativeOrigin(defaultRelativeOrigin);
-	}
+	}*/
 
 	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface) {
 		this->gameobject = gameobject;
 		this->surface = surface;
-		this->shape = nullptr;
 		SetRelativeOrigin(defaultRelativeOrigin);
 	}
 
-	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, sf::Shape* shape) {
+	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape) {
 		this->gameobject = gameobject;
 		this->surface = surface;
-		this->shape = shape;
+		this->shape = std::move(shape);
 		SetRelativeOrigin(defaultRelativeOrigin);
 	}
 
 	ShapeRenderer::~ShapeRenderer() {
-		delete shape;
+		//delete shape;
 	}
 
 	void ShapeRenderer::Render() {
@@ -53,17 +52,24 @@ namespace aengine {
 	}
 
 	void ShapeRenderer::SetRelativeOrigin(const aengine::Vectorf& localOrigin) {
+		
 		Renderer::SetRelativeOrigin(localOrigin);
-		auto rect = dynamic_cast<sf::RectangleShape*>(shape);
+		auto rect = dynamic_cast<sf::RectangleShape*>(shape.get());
 		if (rect != nullptr) {
 			rect->setOrigin((Vectorf::fromsf(rect->getSize()) * localOrigin).getsf());
 			return;
 		}
 
-		auto circle = dynamic_cast<sf::CircleShape*>(shape);
+		auto circle = dynamic_cast<sf::CircleShape*>(shape.get());
 		if (circle != nullptr) {
 			circle->setOrigin((localOrigin * circle->getRadius() * 2).getsf());
 			return;
 		}
+	}
+
+	sf::Shape* ShapeRenderer::SetShape(std::unique_ptr<sf::Shape> _shape)
+	{
+		this->shape = std::move(_shape);
+		return this->shape.get();
 	}
 }

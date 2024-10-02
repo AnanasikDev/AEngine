@@ -31,13 +31,13 @@ namespace aengine {
 		Register();
 	}
 
-	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody) {
+	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody) {
 		this->name = name;
 		SetParent(nullptr);
 		this->position = Vectorf(0, 0);
 		this->renderer = std::move(renderer);
 		this->collider = std::move(collider);
-		this->rigidbody = rigidbody;
+		this->rigidbody = std::move(rigidbody);
 		Register();
 	}
 
@@ -60,7 +60,7 @@ namespace aengine {
 
 		//if (renderer != nullptr) delete renderer;
 		//if (collider != nullptr) delete collider;
-		if (rigidbody != nullptr) delete rigidbody;
+		//if (rigidbody != nullptr) delete rigidbody;
 
 		List::Remove<Gameobject*>(aengine::Game::instance->gameobjects, this);
 	}

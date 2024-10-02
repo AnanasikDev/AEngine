@@ -54,6 +54,7 @@ namespace aengine {
 
 		CircleCollider();
 		CircleCollider(Gameobject* gameobject);
+		CircleCollider(Gameobject* gameobject, float radius);
 		~CircleCollider() = default;
 
 		void SetScale(float scale) override;

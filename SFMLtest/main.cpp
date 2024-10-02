@@ -22,70 +22,56 @@ int main() {
 	game.InitWindow();
 	game.getWindow()->setFramerateLimit(60);
 
-	//Player* player = new Player("Player");
+	Player* player = new Player("Player");
 
-	auto gg = new Gameobject();
-	
-	//std::vector<Collectable*> coins;
-
-	/*auto c1 = new Collectable("Coin1");
+	auto c1 = new Collectable("Coin1");
 	c1->SetPosition(Vectorf(300, 400));
 	c1->rigidbody->AddForce(Vectorf(-80, -130));
 	auto c2 = new Collectable("Coin2");
 	c2->SetPosition(Vectorf(50, 500));
-	c2->rigidbody->AddForce(Vectorf(80, -200));*/
+	c2->rigidbody->AddForce(Vectorf(80, -200));
 
 	Gameobject* block1 = new Gameobject("block1");
-	sf::RectangleShape* block1rect = new sf::RectangleShape();
+	auto block1rend = block1->SetRenderer(std::make_unique<ShapeRenderer>(block1, game.getWindow()));
+	block1rend->SetShape(std::make_unique<sf::RectangleShape>());
+	auto block1rect = block1rend->GetShapeAs<sf::RectangleShape>();
 	block1rect->setSize(Vectorf(90, 90).getsf());
 	block1rect->setFillColor(sf::Color::Green);
-	block1->SetRenderer(std::make_unique<ShapeRenderer>(block1, game.getWindow(), block1rect));
-	auto block1rend = block1->renderer->to<ShapeRenderer>();
 	block1rend->SetRelativeOrigin(Vectorf::half);
 	block1->collider = std::make_unique<RectCollider>(block1, Vectorf(90, 90));
-	block1->rigidbody = new Rigidbody(block1);
+	block1->SetRigidbody(std::make_unique<Rigidbody>(block1));
 	block1->SetPosition(100, 100);
 	block1->rigidbody->makeKinematic();
 	block1->rigidbody->AddForce(Vectorf(200, 0));
 
 	Gameobject* block2 = new Gameobject("block2");
-	sf::RectangleShape* block2rect = new sf::RectangleShape();
+	auto block2rend = block2->SetRenderer(std::make_unique<ShapeRenderer>(block2, game.getWindow()));
+	block2rend->SetShape(std::make_unique<sf::RectangleShape>());
+	auto block2rect = block2rend->GetShapeAs<sf::RectangleShape>();
 	block2rect->setSize(Vectorf(90, 90).getsf());
 	block2rect->setFillColor(sf::Color(0, 200, 0));
-	block2->SetRenderer<ShapeRenderer>(std::make_unique<ShapeRenderer>(block2, game.getWindow(), block2rect));
-	auto block2rend = block2->renderer->to<ShapeRenderer>();
 	block2rend->SetRelativeOrigin(Vectorf::half);
 	block2->collider = std::make_unique<RectCollider>(block2, Vectorf(90, 90));
-
-	block2->rigidbody = new Rigidbody(block2);
+	block2->SetRigidbody(std::make_unique<Rigidbody>(block2));
 	block2->SetPosition(600, 100);
 	block2->rigidbody->makeKinematic();
 	block2->rigidbody->setMass(10.f);
 	block2->rigidbody->AddForce(Vectorf(-80, 0));
 
-	Gameobject* block3 = new Gameobject("block3");
-	sf::RectangleShape* block3rect = new sf::RectangleShape();
-	block3rect->setSize(Vectorf(40, 40).getsf());
-	block3rect->setFillColor(sf::Color(0, 0, 0));
-	std::unique_ptr<ShapeRenderer> block3rend = std::make_unique<ShapeRenderer>(block3, game.getWindow(), block3rect);
-	block3rend->SetRelativeOrigin(Vectorf::half);
-	block3->SetRenderer(std::move(block3rend));
-	block3->SetPosition(400, 400);
+	Gameobject* floor = new Gameobject("floor");
 
-	/*for (int i = 0; i < 10; i++) {
-		auto c1 = new Collectable("Coin");
-		c1->SetPosition(60 + i * 35, i * 10);
-	}*/
+ 	auto floorRend = floor->SetRenderer(std::make_unique<ShapeRenderer>(floor, game.getWindow()))->to<ShapeRenderer>();
 
-	/*Gameobject* floor = new Gameobject("floor");
-	auto rect = new sf::RectangleShape(Vectorf(800, 30).getsf());
-	rect->setFillColor(sf::Color::Magenta);
-	floor->renderer = new aengine::ShapeRenderer(floor, game.getWindow(), rect);
+	floorRend->SetShape(std::make_unique<sf::RectangleShape>(Vectorf(800, 30).getsf()));
+	
+	auto floorRect = floorRend->GetShapeAs<sf::RectangleShape>();
+	floorRect->setFillColor(sf::Color::Magenta);
 	floor->renderer->SetRelativeOrigin(Vectorf::half);
-	floor->collider = new aengine::RectCollider(floor, Vectorf(800, 30));
-	floor->rigidbody = new Rigidbody(floor);
+	
+	floor->SetCollider(std::make_unique<RectCollider>(floor, Vectorf(800, 30)));
+	floor->SetRigidbody(std::make_unique<Rigidbody>(floor));
 	floor->rigidbody->makeStatic();
-	floor->SetPosition(400, 550);*/
+	floor->SetPosition(400, 550);
 
 	/*UIElement* button = Canvas::AddUIElement();
 	auto shape = new sf::RectangleShape(Vectorf(100, 50).getsf());
