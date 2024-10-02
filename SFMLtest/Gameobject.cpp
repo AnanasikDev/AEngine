@@ -23,19 +23,19 @@ namespace aengine {
 		Register();
 	}
 
-	Gameobject::Gameobject(std::string name, Renderer* renderer) {
+	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer) {
 		this->name = name;
 		SetParent(nullptr);
 		this->position = Vectorf(0, 0);
-		this->renderer = renderer;
+		this->renderer = std::move(renderer);
 		Register();
 	}
 
-	Gameobject::Gameobject(std::string name, Renderer* renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody) {
+	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody) {
 		this->name = name;
 		SetParent(nullptr);
 		this->position = Vectorf(0, 0);
-		this->renderer = renderer;
+		this->renderer = std::move(renderer);
 		this->collider = std::move(collider);
 		this->rigidbody = rigidbody;
 		Register();
@@ -58,7 +58,7 @@ namespace aengine {
 			List::Remove(parent->children, this);
 		}
 
-		if (renderer != nullptr) delete renderer;
+		//if (renderer != nullptr) delete renderer;
 		//if (collider != nullptr) delete collider;
 		if (rigidbody != nullptr) delete rigidbody;
 

@@ -15,9 +15,9 @@ namespace agame {
 	Collectable::Collectable(std::string name) : Gameobject(name) {
 		onLMBDownBackdrop = 0;
 
-		this->renderer = new aengine::ShapeRenderer(this, aengine::Game::instance->getWindow());
+		auto sp = std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow());
 
-		aengine::ShapeRenderer* sp = static_cast<aengine::ShapeRenderer*>(this->renderer);
+		this->SetRenderer(std::move(sp));
 
 		sf::CircleShape* circle = new sf::CircleShape();
 		circle->setRadius(15);

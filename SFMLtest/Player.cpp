@@ -14,21 +14,18 @@ namespace agame {
         sf::CircleShape* c2 = new sf::CircleShape();
         c2->setRadius(8);
         c2->setFillColor(sf::Color::White);
-        aengine::ShapeRenderer* rend = new aengine::ShapeRenderer(child, aengine::Game::instance->getWindow(), c2);
-        child->renderer = rend;
+        auto rend = std::make_unique<aengine::ShapeRenderer>(child, aengine::Game::instance->getWindow(), c2);
+        child->renderer = std::move(rend);
         child->SetPosition(200, 230);
 
 	}
 
     void Player::Start() {
         // Create a ShapeRenderer and store it in the Renderer pointer
-        this->renderer = new aengine::ShapeRenderer(
-            this,
-            aengine::Game::instance->getWindow()
-            );
+        this->renderer = std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow());
 
         // Safely cast the renderer to ShapeRenderer to access the shape property
-        aengine::ShapeRenderer* shapeRenderer = static_cast<aengine::ShapeRenderer*>(this->renderer);
+        aengine::ShapeRenderer* shapeRenderer = static_cast<aengine::ShapeRenderer*>(this->renderer.get());
 
         // Create and manage CircleShape with std::make_unique
         shapeRenderer->shape = new sf::CircleShape(30);

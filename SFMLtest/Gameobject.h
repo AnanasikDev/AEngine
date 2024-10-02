@@ -21,16 +21,30 @@ namespace aengine {
 		std::string name;
 
 		std::unique_ptr<Collider> collider;
-		Renderer* renderer;
+		std::unique_ptr<Renderer> renderer;
 		Rigidbody* rigidbody;
 		bool isAttachedToCamera = false;
 		std::vector<Gameobject*> children;
 
 		Gameobject();
 		Gameobject(std::string name);
-		Gameobject(std::string name, Renderer* renderer);
-		Gameobject(std::string name, Renderer* renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody);
+		Gameobject(std::string name, std::unique_ptr<Renderer> renderer);										
+		Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody);
+		Gameobject(const Gameobject& other);
 		~Gameobject();
+
+		template <typename T>
+		void SetRenderer(std::unique_ptr<T> _renderer) {
+			static_assert(std::is_base_of<Renderer, T>::value, "T must be derived from Renderer");
+			this->renderer = std::move(_renderer);
+		}
+
+		template <typename T>
+		void SetCollider(std::unique_ptr<T> _collider) {
+			static_assert(std::is_base_of<Collider, T>::value, "T must be derived from Collider");
+			this->collider = std::move(_collider);
+		}
+		//void SetRigidbody(std::unique_ptr<Rigidbody> _rigidbody);
 
 		/// <summary>
 		/// Registers itself in global list
@@ -55,8 +69,6 @@ namespace aengine {
 		/// Called each frame.
 		/// </summary>
 		virtual void Update();
-
-		Gameobject(const Gameobject& other);
 
 		void SetPosition(Vectorf pos);
 		void SetPosition(float x, float y);
