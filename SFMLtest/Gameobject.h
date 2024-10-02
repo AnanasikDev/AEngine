@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Vector.h"
+#include <memory>
 
 namespace aengine {
 
@@ -19,7 +20,7 @@ namespace aengine {
 	public:
 		std::string name;
 
-		Collider* collider;
+		std::unique_ptr<Collider> collider;
 		Renderer* renderer;
 		Rigidbody* rigidbody;
 		bool isAttachedToCamera = false;
@@ -28,7 +29,7 @@ namespace aengine {
 		Gameobject();
 		Gameobject(std::string name);
 		Gameobject(std::string name, Renderer* renderer);
-		Gameobject(std::string name, Renderer* renderer, Collider* collider, Rigidbody* rigidbody);
+		Gameobject(std::string name, Renderer* renderer, std::unique_ptr<Collider> collider, Rigidbody* rigidbody);
 		~Gameobject();
 
 		/// <summary>

@@ -29,7 +29,7 @@ namespace agame {
 			//= new aengine::CircleCollider(this);
 		//collider->radius = 15;
 
-		this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
+		//this->collider = new aengine::RectCollider(this, aengine::Vectorf(30, 30));
 
 		this->rigidbody = new aengine::Rigidbody(this);
 		rigidbody->setBounciness(0.7f);

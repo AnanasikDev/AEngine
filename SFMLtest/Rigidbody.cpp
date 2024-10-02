@@ -95,7 +95,7 @@ namespace aengine {
 		for (Collider* other : Collider::colliders) {
 			
 			// no self collisions
-			if (this->gameobject->collider == other) continue;
+			if (this->gameobject->collider.get() == other) continue;
 
 			std::pair<Bounds, Vectorf> overlap = this->gameobject->collider->getOverlap(other);
 
