@@ -44,6 +44,9 @@ namespace aengine {
 		float getStickiness() const;
 		void setStickiness(float value);
 
+		float getMass() const;
+		void setMass(float value);
+
 		/// <summary>
 		/// Preset for respondToImpulse and useGravity fields. No response to impulse and no use of gravity
 		/// </summary>
