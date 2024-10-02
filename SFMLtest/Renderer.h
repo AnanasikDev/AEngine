@@ -2,10 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "Vector.h"
+#include "Component.h"
 
 namespace aengine {
 
-	class Renderer {
+	class Renderer : public Component {
 	public:
 		class Gameobject* gameobject;
 		sf::RenderWindow* surface;

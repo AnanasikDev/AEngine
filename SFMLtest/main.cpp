@@ -39,23 +39,22 @@ int main() {
 	sf::RectangleShape* block1rect = new sf::RectangleShape();
 	block1rect->setSize(Vectorf(90, 90).getsf());
 	block1rect->setFillColor(sf::Color::Green);
-	std::unique_ptr<ShapeRenderer> block1rend = std::make_unique<ShapeRenderer>(block1, game.getWindow(), block1rect);
+	block1->SetRenderer(std::make_unique<ShapeRenderer>(block1, game.getWindow(), block1rect));
+	auto block1rend = block1->renderer->to<ShapeRenderer>();
 	block1rend->SetRelativeOrigin(Vectorf::half);
-	block1->SetRenderer(std::move(block1rend));
 	block1->collider = std::make_unique<RectCollider>(block1, Vectorf(90, 90));
 	block1->rigidbody = new Rigidbody(block1);
 	block1->SetPosition(100, 100);
 	block1->rigidbody->makeKinematic();
 	block1->rigidbody->AddForce(Vectorf(200, 0));
 
-
 	Gameobject* block2 = new Gameobject("block2");
 	sf::RectangleShape* block2rect = new sf::RectangleShape();
 	block2rect->setSize(Vectorf(90, 90).getsf());
 	block2rect->setFillColor(sf::Color(0, 200, 0));
-	std::unique_ptr<ShapeRenderer> block2rend = std::make_unique<ShapeRenderer>(block2, game.getWindow(), block2rect);
+	block2->SetRenderer<ShapeRenderer>(std::make_unique<ShapeRenderer>(block2, game.getWindow(), block2rect));
+	auto block2rend = block2->renderer->to<ShapeRenderer>();
 	block2rend->SetRelativeOrigin(Vectorf::half);
-	block2->SetRenderer<ShapeRenderer>(std::move(block2rend));
 	block2->collider = std::make_unique<RectCollider>(block2, Vectorf(90, 90));
 
 	block2->rigidbody = new Rigidbody(block2);
