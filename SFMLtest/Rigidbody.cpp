@@ -123,8 +123,17 @@ namespace aengine {
 				float m1 = mass;
 				float m2 = otherRigidbody->mass;
 
-				//Vectorf impulse = vel * mass / otherRigidbody->mass;
-				Vectorf impulse1 = v1 * (m1 - m2) / (m1 + m2) + v2 * (2 * m2) / (m1 + m2); //(fvelocity + otherRigidbody->fvelocity) * (otherRigidbody->mass / mass);
+				Vectorf impulse1;
+				if (otherRigidbody->respondToImpulse) {
+					impulse1 = v1 * (m1 - m2) / (m1 + m2) + v2 * (2 * m2) / (m1 + m2);
+				}
+				else {
+					impulse1 = v1;
+					if (normal.x == 0)
+						impulse1.y = -impulse1.y;
+					else if (normal.y == 0)
+						impulse1.x = -impulse1.x;
+				}
 
 				OnCollision(bounds, normal, impulse1); // - otherRigidbody->fvelocity
 
