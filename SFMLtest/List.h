@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <functional>
 
 namespace aengine {
 	class List {
@@ -10,6 +11,17 @@ namespace aengine {
 			auto it = std::find(vec.begin(), vec.end(), obj);
 			if (it != vec.end()) {
 				vec.erase(it);
+			}
+		}
+
+		template <typename T>
+		static void RemoveIf(std::vector<T>& vec, std::function<bool(T)> condition) {
+			for (int i = 0; i < vec.size(); i++) {
+				if (condition(vec[i]))
+				{
+					RemoveAt(vec, i);
+					return;
+				}
 			}
 		}
 

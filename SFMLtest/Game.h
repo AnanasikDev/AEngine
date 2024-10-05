@@ -27,12 +27,7 @@ namespace aengine {
 
 		static Game* instance;
 
-		std::vector<Gameobject*> gameobjects;
-
-		/// <summary>
-		/// Gameobjects which 
-		/// </summary>
-		std::vector<Gameobject*> rootGameobjects;
+		std::vector<std::unique_ptr<Gameobject>> gameobjects;
 
 		Game();
 		~Game();
@@ -45,6 +40,9 @@ namespace aengine {
 		void Update();
 		void Render();
 		void Close();
+		void AddGameobject(Gameobject* gameobject);
+
+		const bool Contains(Gameobject* gameobject) const;
 
 		void PollEvents();
 

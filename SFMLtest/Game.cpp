@@ -26,10 +26,14 @@ namespace aengine {
 
 	Game::~Game() {
 		delete this->window;
-		for (auto obj : gameobjects)
-			delete obj;
 		delete instance;
+
+		// automatically delete all gameobjects
 		gameobjects.clear();
+	}
+
+	void Game::AddGameobject(Gameobject* gameobject) {
+		gameobjects.push_back(std::make_unique<Gameobject>(gameobject));
 	}
 
 	sf::RenderWindow* Game::getWindow() const {
@@ -37,15 +41,15 @@ namespace aengine {
 	}
 
 	void Game::Start() {
-		for (Gameobject* go : gameobjects) {
-			go->Start();
+		for (int i = 0; i < gameobjects.size(); i++) {
+			gameobjects[i]->Start();
 		}
 	}
 
 	void Game::FixedUpdate() {
-		for (Gameobject* go : gameobjects) {
-			if (go->rigidbody != nullptr) {
-				go->rigidbody->FixedUpdate();
+		for (int i = 0; i < gameobjects.size(); i++) {
+			if (gameobjects[i]->rigidbody != nullptr) {
+				gameobjects[i]->rigidbody->FixedUpdate();
 			}
 		}
 	}
@@ -58,8 +62,8 @@ namespace aengine {
 
 		Input::Update();
 		
-		for (auto obj : gameobjects) {
-			obj->Update();
+		for (int i = 0; i < gameobjects.size(); i++) {
+			gameobjects[i]->Update();
 		}
 
 		/*	TODO: If deltaTime is greater than fixedUpdateInterval
@@ -84,8 +88,8 @@ namespace aengine {
 	void Game::Render() {
 		this->window->clear(this->defaultColor);
 
-		for (auto obj : gameobjects) {
-			obj->Render();
+		for (int i = 0; i < gameobjects.size(); i++) {
+			gameobjects[i]->Render();
 		}
 
 		//Canvas::Render();
@@ -100,6 +104,14 @@ namespace aengine {
 
 	const bool Game::isRunning() const {
 		return this->window->isOpen();
+	}
+
+	const bool Game::Contains(Gameobject* gameobject) const {
+		for (int i = 0; i < gameobjects.size(); i++) {
+			if (gameobjects[i].get() == gameobject)
+				return true;
+		}
+		return false;
 	}
 
 	/// <summary>

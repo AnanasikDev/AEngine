@@ -31,7 +31,9 @@ namespace aengine {
 		Gameobject(std::string name, std::unique_ptr<Renderer> renderer);										
 		Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody);
 		Gameobject(const Gameobject& other);
-		~Gameobject();
+		~Gameobject() = default;
+
+		void Destroy();
 
 		template <typename T>
 		T* SetRenderer(std::unique_ptr<T> _renderer) {
@@ -78,12 +80,22 @@ namespace aengine {
 		/// </summary>
 		virtual void Update();
 
-		void SetPosition(Vectorf pos);
-		void SetPosition(float x, float y);
+		/// <summary>
+	/// Sets position of the gameobject to. If includeChildren set to true, all children will be recursively translated too.
+	/// </summary>
+		void SetPosition(Vectorf pos, bool includeChildren = true);
+		void SetPosition(float x, float y, bool includeChildren = true);
 		Vectorf getPosition() const;
 
-		void Translate(Vectorf delta);
-		void Translate(float dx, float dy);
+		/// <summary>
+		/// Translates (moves) gameobject by the given delta. If includeChildren set to true, all children will be recursively translated too.
+		/// </summary>
+		void Translate(Vectorf delta, bool includeChildren = true);
+
+		/// <summary>
+		/// Translates (moves) gameobject by the given delta. If includeChildren set to true, all children will be recursively translated too.
+		/// </summary>
+		void Translate(float dx, float dy, bool includeChildren = true);
 
 		void SetScale(float scale);
 
