@@ -5,25 +5,25 @@ namespace aengine {
 
 	std::vector<UIElement*> Canvas::elements;
 
-	void Canvas::Render() {
+	void Canvas::render() {
 		for (UIElement* element : elements) {
-			element->Render();
+			element->render();
 		}
 	}
 
-	void Canvas::Update() {
+	void Canvas::update() {
 		for (UIElement* element : elements) {
-			element->Update();
+			element->update();
 		}
 	}
 
-	void Canvas::Record(UIElement* element) {
+	void Canvas::record(UIElement* element) {
 		elements.push_back(element);
 	}
 
-	UIElement* Canvas::AddUIElement() {
+	UIElement* Canvas::addUIElement() {
 		auto uielement = new UIElement();
-		Record(uielement);
+		record(uielement);
 		return uielement;
 	}
 }

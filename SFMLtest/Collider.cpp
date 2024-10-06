@@ -22,10 +22,10 @@ namespace aengine {
 	}
 
 	Collider::~Collider() {
-		List::Remove<Collider*>(Collider::colliders, this);
+		List::remove<Collider*>(Collider::colliders, this);
 	}
 
-	bool Collider::IsPointInside(Vectorf& point) {
+	bool Collider::isPointInside(Vectorf& point) {
 
 		// Try calculate for circle collider
 		auto circleCollider = dynamic_cast<CircleCollider*>(this);
@@ -73,11 +73,11 @@ namespace aengine {
 		return std::make_pair(Bounds(), Vectorf());
 	}
 
-	void CircleCollider::SetScale(float scale) {
+	void CircleCollider::setScale(float scale) {
 		this->radius *= scale;
 	}
 
-	void RectCollider::SetScale(float scale) {
+	void RectCollider::setScale(float scale) {
 		this->size *= scale;
 	}
 
@@ -117,12 +117,12 @@ namespace aengine {
 		bounds.setCenterAndSize(gameobject->getPosition(), size);
 	}
 
-	void Collider::Update(const Vectorf& position) {
+	void Collider::update(const Vectorf& position) {
 		this->worldCenter = position;
 	}
 
-	void RectCollider::Update(const Vectorf& position) {
-		Collider::Update(position);
+	void RectCollider::update(const Vectorf& position) {
+		Collider::update(position);
 		this->bounds.setCenter(position);
 	}
 

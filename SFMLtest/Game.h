@@ -32,20 +32,20 @@ namespace aengine {
 		Game();
 		~Game();
 
-		void InitWindow();
+		void initWindow();
 		sf::RenderWindow* getWindow() const;
 
-		void Start();
-		void FixedUpdate();
-		void Update();
-		void Render();
-		void Close();
-		void AddGameobject(Gameobject* gameobject);
+		void start();
+		void fixedUpdate();
+		void update();
+		void render();
+		void close();
+		void addGameobject(Gameobject* gameobject);
 
-		const bool Contains(Gameobject* gameobject) const;
-		void DestroyGameobject(Gameobject* gameobject);
+		const bool contains(Gameobject* gameobject) const;
+		void destroyGameobject(Gameobject* gameobject);
 
-		void PollEvents();
+		void pollEvents();
 
 		const bool isRunning() const;
 	};

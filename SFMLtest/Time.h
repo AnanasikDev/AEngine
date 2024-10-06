@@ -73,15 +73,15 @@ namespace aengine {
 
 		static float getTime();
 
-		static void Init();
-		static void Update();
+		static void init();
+		static void update();
 
 		/// <summary>
 		/// Updates lastFixedUpdate variable
 		/// </summary>
-		static void RecordFixedUpdate();
+		static void recordFixedUpdate();
 
-		static void Invoke(std::function<void()> func, float delaySeconds);
-		static void InvokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds);
+		static void invoke(std::function<void()> func, float delaySeconds);
+		static void invokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds);
 	};
 }

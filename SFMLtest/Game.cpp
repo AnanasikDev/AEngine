@@ -10,7 +10,7 @@
 
 namespace aengine {
 
-	void Game::InitWindow() {
+	void Game::initWindow() {
 		this->videoMode.width = 800;
 		this->videoMode.height = 600;
 		this->defaultColor = sf::Color(220, 220, 255);
@@ -22,7 +22,7 @@ namespace aengine {
 		instance = this;
 		pixelPos = Vectori();
 		worldPos = Vectorf();
-		Time::Init();
+		Time::init();
 	}
 
 	Game::~Game() {
@@ -33,7 +33,7 @@ namespace aengine {
 		gameobjects.clear();
 	}
 
-	void Game::AddGameobject(Gameobject* gameobject) {
+	void Game::addGameobject(Gameobject* gameobject) {
 		gameobjects.push_back(std::unique_ptr<Gameobject>(gameobject));
 	}
 
@@ -41,30 +41,30 @@ namespace aengine {
 		return this->window;
 	}
 
-	void Game::Start() {
+	void Game::start() {
 		for (int i = 0; i < gameobjects.size(); i++) {
-			gameobjects[i]->Start();
+			gameobjects[i]->start();
 		}
 	}
 
-	void Game::FixedUpdate() {
+	void Game::fixedUpdate() {
 		for (int i = 0; i < gameobjects.size(); i++) {
 			if (gameobjects[i]->rigidbody != nullptr) {
-				gameobjects[i]->rigidbody->FixedUpdate();
+				gameobjects[i]->rigidbody->fixedUpdate();
 			}
 		}
 	}
 
-	void Game::Update() {
+	void Game::update() {
 
-		this->PollEvents();
+		this->pollEvents();
 
-		Time::Update();
+		Time::update();
 
 		Input::Update();
 		
 		for (int i = 0; i < gameobjects.size(); i++) {
-			gameobjects[i]->Update();
+			gameobjects[i]->update();
 		}
 
 		/*	TODO: If deltaTime is greater than fixedUpdateInterval
@@ -73,11 +73,11 @@ namespace aengine {
 			scale their changes according to deltaTime.
 		*/
 		if (Time::getFixedDeltaTime() * 1000.f >= Physics::fixedUpdateIntervalMs) {
-			FixedUpdate();
-			Time::RecordFixedUpdate();
+			fixedUpdate();
+			Time::recordFixedUpdate();
 		}
 
-		Canvas::Update();
+		Canvas::update();
 
 		// get the current mouse position in the window
 		pixelPos = Vectori(sf::Mouse::getPosition(*window));
@@ -86,11 +86,11 @@ namespace aengine {
 		worldPos = window->mapPixelToCoords(pixelPos.getsf());
 	}
 
-	void Game::Render() {
+	void Game::render() {
 		this->window->clear(this->defaultColor);
 
 		for (int i = 0; i < gameobjects.size(); i++) {
-			gameobjects[i]->Render();
+			gameobjects[i]->render();
 		}
 
 		//Canvas::Render();
@@ -99,7 +99,7 @@ namespace aengine {
 		frame++;
 	}
 
-	void Game::Close() {
+	void Game::close() {
 		this->window->close();
 	}
 
@@ -107,7 +107,7 @@ namespace aengine {
 		return this->window->isOpen();
 	}
 
-	const bool Game::Contains(Gameobject* gameobject) const {
+	const bool Game::contains(Gameobject* gameobject) const {
 		for (int i = 0; i < gameobjects.size(); i++) {
 			if (gameobjects[i].get() == gameobject)
 				return true;
@@ -115,7 +115,7 @@ namespace aengine {
 		return false;
 	}
 
-	void Game::DestroyGameobject(Gameobject* gameobject)
+	void Game::destroyGameobject(Gameobject* gameobject)
 	{
 		for (int i = 0; i < gameobjects.size(); i++) {
 			if (gameobjects[i].get() == gameobject)
@@ -126,7 +126,7 @@ namespace aengine {
 	/// <summary>
 	/// Polls SFML events (Window, keyboard, etc.)
 	/// </summary>
-	void Game::PollEvents() {
+	void Game::pollEvents() {
 		while (window->pollEvent(event)) {
 			switch (event.type)
 			{

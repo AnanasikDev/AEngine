@@ -41,13 +41,13 @@ namespace aengine {
 		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	}
 
-	void Time::Init() {
+	void Time::init() {
 		startupTime = getTimeSinceUNIX();
 		lastUpdate = getTime();
 		lastFixedUpdate = getTime();
 	}
 
-	void Time::Update() {
+	void Time::update() {
 
 		computeTime(); 
 
@@ -81,7 +81,7 @@ namespace aengine {
 		}
 	}
 
-	void Time::RecordFixedUpdate() {
+	void Time::recordFixedUpdate() {
 		lastFixedUpdate = getTime();
 	}
 
@@ -91,7 +91,7 @@ namespace aengine {
 		waitingTime = 0;
 	}
 
-	void Time::Invoke(std::function<void()> func, float delaySeconds) {
+	void Time::invoke(std::function<void()> func, float delaySeconds) {
 		auto cor = Coroutine();
 		cor.func = func;
 		cor.startDelay = delaySeconds;
@@ -99,7 +99,7 @@ namespace aengine {
 		coroutines.push_back(cor);
 	}
 
-	void Time::InvokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds) {
+	void Time::invokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds) {
 		auto cor = Coroutine();
 		cor.func = func;
 		cor.startDelay = startDelaySeconds;

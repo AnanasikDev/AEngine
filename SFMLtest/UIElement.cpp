@@ -14,20 +14,20 @@ namespace aengine {
 		isAttachedToCamera = true;
 		onLMBPressedBackdrop = Input::Mouse::LMB.onPressed.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
-				onLMBPressed.Invoke();
-				OnLMBPressed();
+				onLMBPressedEvent.Invoke();
+				onLMBPressed();
 			}
 			} );
 		onLMBReleasedBackdrop = Input::Mouse::LMB.onReleased.Subscribe( [this]() { 
 			if (bounds.isPointInside(Input::getMousePosition())) {
-				onLMBReleased.Invoke();
-				OnLMBReleased();
+				onLMBReleasedEvent.Invoke();
+				onLMBReleased();
 			}
 			} );
 		onLMBHoldBackdrop = Input::Mouse::LMB.onHold.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
-				onLMBHold.Invoke();
-				OnLMBHold();
+				onLMBHoldEvent.Invoke();
+				onLMBHold();
 			}
 			} );
 	}
@@ -39,20 +39,20 @@ namespace aengine {
 		Input::Mouse::LMB.onHold.Unsubscribe(onLMBHoldBackdrop);
 	}
 
-	void UIElement::Update() {
-		Gameobject::Update();
+	void UIElement::update() {
+		Gameobject::update();
 	}
 		
-	void UIElement::Render() {
-		Gameobject::Render();
+	void UIElement::render() {
+		Gameobject::render();
 	}
 
-	void UIElement::OnLMBPressed() {
+	void UIElement::onLMBPressed() {
 	}
 
-	void UIElement::OnLMBReleased() {
+	void UIElement::onLMBReleased() {
 	}
 
-	void UIElement::OnLMBHold() {
+	void UIElement::onLMBHold() {
 	}
 }

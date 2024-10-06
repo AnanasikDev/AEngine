@@ -43,9 +43,9 @@ namespace aengine {
 		Vectorf size = bounds.getSize();
 
 		if (size.x > size.y)
-			normal.y = Mathf::Sign(diff.y);
+			normal.y = Mathf::sign(diff.y);
 		else
-			normal.x = Mathf::Sign(diff.x);
+			normal.x = Mathf::sign(diff.x);
 
 		return std::make_pair(bounds, normal);
 	}

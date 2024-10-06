@@ -21,13 +21,13 @@ namespace aengine {
 		Collider(Gameobject* gameobject);
 		~Collider();
 
-		virtual void Update(const Vectorf& position);
+		virtual void update(const Vectorf& position);
 
 		/// <summary>
 		/// Detects whether the given point is
 		/// inside or outside of the collider.
 		/// </summary>
-		virtual bool IsPointInside(Vectorf& point);
+		virtual bool isPointInside(Vectorf& point);
 
 		/// <summary>
 		/// Detects collision between the pair
@@ -43,7 +43,7 @@ namespace aengine {
 		/// <summary>
 		/// Multiplies size of the collider by given factor.
 		/// </summary>
-		virtual void SetScale(float scale) = 0;
+		virtual void setScale(float scale) = 0;
 
 		virtual std::string toString() const;
 	};
@@ -57,7 +57,7 @@ namespace aengine {
 		CircleCollider(Gameobject* gameobject, float radius);
 		~CircleCollider() = default;
 
-		void SetScale(float scale) override;
+		void setScale(float scale) override;
 		std::string toString() const override;
 	};
 
@@ -70,8 +70,8 @@ namespace aengine {
 		RectCollider(Gameobject* gameobject, Vectorf size);
 		~RectCollider() = default;
 
-		void SetScale(float scale) override;
-		void Update(const Vectorf&) override;
+		void setScale(float scale) override;
+		void update(const Vectorf&) override;
 		std::string toString() const override;
 	};
 }

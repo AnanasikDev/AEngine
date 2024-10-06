@@ -7,7 +7,7 @@ namespace aengine {
 	const unsigned int TextRenderer::defaultFontSize = 25;
 	const sf::Color TextRenderer::defaultColor = sf::Color::Black;
 
-	void TextRenderer::LoadFont() {
+	void TextRenderer::loadFont() {
 
 		if (!font.loadFromFile("Arial.ttf"))
 		{
@@ -22,16 +22,16 @@ namespace aengine {
 		text.setFillColor(defaultColor);
 	}
 
-	void TextRenderer::Render() {
+	void TextRenderer::render() {
 		Game::instance->getWindow()->draw(text);
 	}
 
-	void TextRenderer::Update(const Vectorf position) {
+	void TextRenderer::update(const Vectorf position) {
 		text.setPosition(position.getsf());
 	}
 
-	void TextRenderer::SetRelativeOrigin(const aengine::Vectorf& localOrigin) {
-		Renderer::SetRelativeOrigin(localOrigin);
+	void TextRenderer::setRelativeOrigin(const aengine::Vectorf& localOrigin) {
+		Renderer::setRelativeOrigin(localOrigin);
 		text.setOrigin(Vectorf(origin.x * text.getGlobalBounds().width, origin.y * text.getGlobalBounds().height).getsf());
 	}
 }

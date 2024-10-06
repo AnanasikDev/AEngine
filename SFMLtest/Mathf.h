@@ -32,21 +32,21 @@ namespace aengine {
 		/// <param name="circleCenter"></param>
 		/// <param name="circleRadius"></param>
 		/// <returns></returns>
-		static Line LineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
+		static Line lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
 
 		/// <summary>
 		/// Returns -1 or 1 depending on sign of val
 		/// </summary>
-		static int Sign(float val);
+		static int sign(float val);
 
-		static float Clamp(float value, float min, float max);
+		static float clamp(float value, float min, float max);
 
-		static float ClampMin(float value, float min);
+		static float clampMin(float value, float min);
 
-		static float ClampMax(float value, float max);
+		static float clampMax(float value, float max);
 
-		static float Repeat(float value, float min, float max);
+		static float repeat(float value, float min, float max);
 
-		static float Remainder(float value, float divider);
+		static float remainder(float value, float divider);
 	};
 }

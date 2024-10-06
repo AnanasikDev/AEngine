@@ -33,75 +33,69 @@ namespace aengine {
 		Gameobject(const Gameobject& other);
 		~Gameobject() = default;
 
-		void Destroy();
+		void destroy();
 
 		template <typename T>
-		T* SetRenderer(std::unique_ptr<T> _renderer) {
+		T* setRenderer(std::unique_ptr<T> _renderer) {
 			static_assert(std::is_base_of<Renderer, T>::value, "T must be derived from Renderer");
 			this->renderer = std::move(_renderer);
 			return static_cast<T*>(this->renderer.get());
 		}
 
 		template <typename T>
-		T* SetCollider(std::unique_ptr<T> _collider) {
+		T* setCollider(std::unique_ptr<T> _collider) {
 			static_assert(std::is_base_of<Collider, T>::value, "T must be derived from Collider");
 			this->collider = std::move(_collider);
 			return static_cast<T*>(this->collider.get());
 		}
 
 		template <typename T>
-		T* SetRigidbody(std::unique_ptr<T> _rigidbody) {
+		T* setRigidbody(std::unique_ptr<T> _rigidbody) {
 			static_assert(std::is_base_of<Rigidbody, T>::value, "T must be derived from Rigidbody");
 			this->rigidbody = std::move(_rigidbody);
 			return static_cast<T*>(this->rigidbody.get());
 		}
 
 		/// <summary>
-		/// Registers itself in global list
-		/// of instantiates gameobjects.
-		/// </summary>
-		void Register();
-
-		/// <summary>
 		/// Called once at the moment of creation of the gameobject. Can be overriden.
 		/// </summary>
-		virtual void Start();
+		virtual void start();
 
 		/// <summary>
 		/// Renders the gameobject. Called after
 		/// Update function each frame.
 		/// </summary>
-		virtual void Render();
+		virtual void render();
 		
 		/// <summary>
 		/// Virtual function, can and should
 		/// be overriden by its inheritor.
 		/// Called each frame.
 		/// </summary>
-		virtual void Update();
+		virtual void update();
 
 		/// <summary>
 	/// Sets position of the gameobject to. If includeChildren set to true, all children will be recursively translated too.
 	/// </summary>
-		void SetPosition(Vectorf pos, bool includeChildren = true);
-		void SetPosition(float x, float y, bool includeChildren = true);
+		void setPosition(Vectorf pos, bool includeChildren = true);
+		void setPosition(float x, float y, bool includeChildren = true);
 		Vectorf getPosition() const;
 
 		/// <summary>
 		/// Translates (moves) gameobject by the given delta. If includeChildren set to true, all children will be recursively translated too.
 		/// </summary>
-		void Translate(Vectorf delta, bool includeChildren = true);
+		void translate(Vectorf delta, bool includeChildren = true);
 
 		/// <summary>
 		/// Translates (moves) gameobject by the given delta. If includeChildren set to true, all children will be recursively translated too.
 		/// </summary>
-		void Translate(float dx, float dy, bool includeChildren = true);
+		void translate(float dx, float dy, bool includeChildren = true);
 
-		void SetScale(float scale);
+		void setScale(float scale);
 
-		void SetParent(Gameobject* gameobject);
+		void setParent(Gameobject* gameobject);
 		Gameobject* getParent() const;
-		void ForAllChildrenRecursive(std::function<void(Gameobject*)> func);
+		void forAllChildrenRecursive(std::function<void(Gameobject*)> func);
 
 		virtual Gameobject* getGameobject();
 	};

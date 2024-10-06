@@ -20,31 +20,31 @@ namespace aengine {
 		return Vectorf(1, tangent).normalized();
 	}
 
-	Line Mathf::LineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
+	Line Mathf::lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
 		return Line();
 	}
 
-	int Mathf::Sign(float val) {
+	int Mathf::sign(float val) {
 		return val >= 0 ? 1 : -1;
 	}
 
-	float Mathf::Clamp(float value, float min, float max) {
+	float Mathf::clamp(float value, float min, float max) {
 		return value > max ? max : (value < min ? min : value);
 	}
 
-	float Mathf::ClampMin(float value, float min) {
+	float Mathf::clampMin(float value, float min) {
 		return value < min ? min : value;
 	}
 
-	float Mathf::ClampMax(float value, float max) {
+	float Mathf::clampMax(float value, float max) {
 		return value > max ? max : value;
 	}
 
-	float Mathf::Remainder(float value, float divider){
+	float Mathf::remainder(float value, float divider){
 		return remainderf(value, divider);
 	}
 
-	float Mathf::Repeat(float value, float min, float max) {
-		return value < min ? max - Remainder(min - value, max - min) : (value > max ? min + Remainder(value - max, max - min) : value);
+	float Mathf::repeat(float value, float min, float max) {
+		return value < min ? max - remainder(min - value, max - min) : (value > max ? min + remainder(value - max, max - min) : value);
 	}
 }

@@ -19,59 +19,59 @@ using namespace agame;
 
 int main() {
 	Game game;
-	game.InitWindow();
+	game.initWindow();
 	game.getWindow()->setFramerateLimit(60);
 
 	Player* player = new Player("Player");
 
 	auto c1 = new Collectable("Coin1");
-	c1->SetPosition(Vectorf(300, 400));
-	c1->rigidbody->AddForce(Vectorf(-80, -130));
+	c1->setPosition(Vectorf(300, 400));
+	c1->rigidbody->addForce(Vectorf(-80, -130));
 	auto c2 = new Collectable("Coin2");
-	c2->SetPosition(Vectorf(50, 500));
-	c2->rigidbody->AddForce(Vectorf(80, -200));
+	c2->setPosition(Vectorf(50, 500));
+	c2->rigidbody->addForce(Vectorf(80, -200));
 
 	Gameobject* block1 = new Gameobject("block1");
-	auto block1rend = block1->SetRenderer(std::make_unique<ShapeRenderer>(block1, game.getWindow()));
-	block1rend->SetShape(std::make_unique<sf::RectangleShape>());
-	auto block1rect = block1rend->GetShapeAs<sf::RectangleShape>();
+	auto block1rend = block1->setRenderer(std::make_unique<ShapeRenderer>(block1, game.getWindow()));
+	block1rend->setShape(std::make_unique<sf::RectangleShape>());
+	auto block1rect = block1rend->getShapeAs<sf::RectangleShape>();
 	block1rect->setSize(Vectorf(90, 90).getsf());
 	block1rect->setFillColor(sf::Color::Green);
-	block1rend->SetRelativeOrigin(Vectorf::half);
+	block1rend->setRelativeOrigin(Vectorf::half);
 	block1->collider = std::make_unique<RectCollider>(block1, Vectorf(90, 90));
-	block1->SetRigidbody(std::make_unique<Rigidbody>(block1));
-	block1->SetPosition(100, 100);
+	block1->setRigidbody(std::make_unique<Rigidbody>(block1));
+	block1->setPosition(100, 100);
 	block1->rigidbody->makeKinematic();
-	block1->rigidbody->AddForce(Vectorf(200, 0));
+	block1->rigidbody->addForce(Vectorf(200, 0));
 
 	Gameobject* block2 = new Gameobject("block2");
-	auto block2rend = block2->SetRenderer(std::make_unique<ShapeRenderer>(block2, game.getWindow()));
-	block2rend->SetShape(std::make_unique<sf::RectangleShape>());
-	auto block2rect = block2rend->GetShapeAs<sf::RectangleShape>();
+	auto block2rend = block2->setRenderer(std::make_unique<ShapeRenderer>(block2, game.getWindow()));
+	block2rend->setShape(std::make_unique<sf::RectangleShape>());
+	auto block2rect = block2rend->getShapeAs<sf::RectangleShape>();
 	block2rect->setSize(Vectorf(90, 90).getsf());
 	block2rect->setFillColor(sf::Color(0, 200, 0));
-	block2rend->SetRelativeOrigin(Vectorf::half);
+	block2rend->setRelativeOrigin(Vectorf::half);
 	block2->collider = std::make_unique<RectCollider>(block2, Vectorf(90, 90));
-	block2->SetRigidbody(std::make_unique<Rigidbody>(block2));
-	block2->SetPosition(600, 100);
+	block2->setRigidbody(std::make_unique<Rigidbody>(block2));
+	block2->setPosition(600, 100);
 	block2->rigidbody->makeKinematic();
 	block2->rigidbody->setMass(10.f);
-	block2->rigidbody->AddForce(Vectorf(-80, 0));
+	block2->rigidbody->addForce(Vectorf(-80, 0));
 
 	Gameobject* floor = new Gameobject("floor");
 
- 	auto floorRend = floor->SetRenderer(std::make_unique<ShapeRenderer>(floor, game.getWindow()))->to<ShapeRenderer>();
+ 	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor, game.getWindow()))->to<ShapeRenderer>();
 
-	floorRend->SetShape(std::make_unique<sf::RectangleShape>(Vectorf(800, 30).getsf()));
+	floorRend->setShape(std::make_unique<sf::RectangleShape>(Vectorf(800, 30).getsf()));
 	
-	auto floorRect = floorRend->GetShapeAs<sf::RectangleShape>();
+	auto floorRect = floorRend->getShapeAs<sf::RectangleShape>();
 	floorRect->setFillColor(sf::Color::Magenta);
-	floor->renderer->SetRelativeOrigin(Vectorf::half);
+	floor->renderer->setRelativeOrigin(Vectorf::half);
 	
-	floor->SetCollider(std::make_unique<RectCollider>(floor, Vectorf(800, 30)));
-	floor->SetRigidbody(std::make_unique<Rigidbody>(floor));
+	floor->setCollider(std::make_unique<RectCollider>(floor, Vectorf(800, 30)));
+	floor->setRigidbody(std::make_unique<Rigidbody>(floor));
 	floor->rigidbody->makeStatic();
-	floor->SetPosition(400, 550);
+	floor->setPosition(400, 550);
 
 	/*UIElement* button = Canvas::AddUIElement();
 	auto shape = new sf::RectangleShape(Vectorf(100, 50).getsf());
@@ -91,13 +91,13 @@ int main() {
 	txt->renderer = textRenderer;
 	txt->isAttachedToCamera = true;*/
 
-	Time::InvokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
+	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
-	game.Start();
+	game.start();
 
 	while (game.isRunning()) {
 
-		game.Update();
+		game.update();
 		//textRenderer->text.setString(std::to_string(Collectable::collected));
 		//textRenderer->UpdateRelativeOrigin();
 
@@ -105,7 +105,7 @@ int main() {
 
 		//block3->SetPosition(Vectorf(Mathf::Repeat(Time::getTime(), 0, 200), block3->getPosition().y));
 
-		game.Render();
+		game.render();
 	}
 
 	return 0;

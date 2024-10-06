@@ -60,12 +60,12 @@ namespace aengine {
 		this->mass = value;
 	}
 
-	void Rigidbody::AddForce(Vectorf force) {
+	void Rigidbody::addForce(Vectorf force) {
 		// may be enforced to not be able to add force to static rigidbodies
 		this->fvelocity += force;
 	}
 
-	void Rigidbody::FixedUpdate() {
+	void Rigidbody::fixedUpdate() {
 
 		/*
 			Heavy physics computations done in FixedUpdate
@@ -77,21 +77,21 @@ namespace aengine {
 
 		this->fvelocity = this->fvelocity * (1 - Physics::airResistance);
 
-		CheckCollisions();
+		checkCollisions();
 
 	}
 
-	void Rigidbody::Update() {
+	void Rigidbody::update() {
 
 		/*
 			Light computations for seamless updates,
 			such as transformations
 		*/
 
-		this->gameobject->Translate(this->fvelocity * Time::getDeltaTime());
+		this->gameobject->translate(this->fvelocity * Time::getDeltaTime());
 	}
 
-	void Rigidbody::CheckCollisions() {
+	void Rigidbody::checkCollisions() {
 		for (Collider* other : Collider::colliders) {
 			
 			// no self collisions
@@ -111,7 +111,7 @@ namespace aengine {
 			Vectorf size = bounds.getSize();
 			
 			if (respondToImpulse)
-				gameobject->Translate(normal * (bounds.getSize() + Vectorf::one * 3));
+				gameobject->translate(normal * (bounds.getSize() + Vectorf::one * 3));
 
 			auto otherRigidbody = other->gameobject->rigidbody.get();
 			if (otherRigidbody != nullptr) {
@@ -135,7 +135,7 @@ namespace aengine {
 						impulse1.x = -impulse1.x;
 				}
 
-				OnCollision(bounds, normal, impulse1); // - otherRigidbody->fvelocity
+				onCollision(bounds, normal, impulse1); // - otherRigidbody->fvelocity
 
 				// Add force to the other object of collision, with regard of velocity and mass of this object
 				//Vectorf impulse2 = otherRigidbody->fvelocity * otherRigidbody->mass / mass;
@@ -145,10 +145,10 @@ namespace aengine {
 
 				std::cout << "impulse 1: " << impulse1 << " | impulse 2: " << impulse2 << "m1 = " << mass << " m2 = " << otherRigidbody-> mass << std::endl;
 
-				otherRigidbody->OnCollision(bounds, -normal, impulse2);
+				otherRigidbody->onCollision(bounds, -normal, impulse2);
 			}
 			else {
-				OnCollision(bounds, normal, fvelocity);
+				onCollision(bounds, normal, fvelocity);
 			}
 
 			std::cout << gameobject->name << " collided with " << other->gameobject->name << std::endl;
@@ -159,7 +159,7 @@ namespace aengine {
 		}
 	}
 
-	void Rigidbody::OnCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity) {
+	void Rigidbody::onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity) {
 		
 		if (!respondToImpulse) return;
 

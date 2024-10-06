@@ -16,21 +16,21 @@ namespace agame {
 		onLMBDownBackdrop = 0;
 
 		auto shapeRenderer =
-			this->SetRenderer(std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow()))
+			this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow()))
 			->to<aengine::ShapeRenderer>();
-		shapeRenderer->SetShape(std::make_unique<sf::CircleShape>(15));
-		shapeRenderer->UpdateRelativeOrigin();
-		shapeRenderer->GetShapeAs<sf::CircleShape>()->setFillColor(sf::Color(250, 220, 20));
+		shapeRenderer->setShape(std::make_unique<sf::CircleShape>(15));
+		shapeRenderer->updateRelativeOrigin();
+		shapeRenderer->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(250, 220, 20));
 
-		SetCollider(std::make_unique<aengine::RectCollider>(this, aengine::Vectorf(30, 30)));
+		setCollider(std::make_unique<aengine::RectCollider>(this, aengine::Vectorf(30, 30)));
 
-		this->SetRigidbody(std::make_unique<aengine::Rigidbody>(this));
+		this->setRigidbody(std::make_unique<aengine::Rigidbody>(this));
 		rigidbody->setBounciness(0.7f);
 
-		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe([this]() { TryCollect(); });
+		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe([this]() { tryCollect(); });
 	}
 
-	void Collectable::Start() {
+	void Collectable::start() {
 		
 	}
 
@@ -39,18 +39,18 @@ namespace agame {
 		aengine::Input::Mouse::LMB.onPressed.Unsubscribe(onLMBDownBackdrop);
 	}
 
-	void Collectable::Render() {
-		Gameobject::Render();
+	void Collectable::render() {
+		Gameobject::render();
 	}
 
-	void Collectable::Update() {
-		Gameobject::Update();
+	void Collectable::update() {
+		Gameobject::update();
 	}
 
-	void Collectable::TryCollect() {
-		if (this->collider->IsPointInside(aengine::Game::instance->worldPos)) {
+	void Collectable::tryCollect() {
+		if (this->collider->isPointInside(aengine::Game::instance->worldPos)) {
 			collected++;
-			this->SetPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));
+			this->setPosition(aengine::Vectorf(std::rand() % 500 + 50, 0));
 		}
 	}
 }

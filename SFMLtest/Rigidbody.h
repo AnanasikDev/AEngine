@@ -66,16 +66,16 @@ namespace aengine {
 		/// Applies forces, computes collisions, 
 		/// updates gameobject position
 		/// </summary>
-		void FixedUpdate();
+		void fixedUpdate();
 
 		/// <summary>
 		/// Calculates and applies intermediate positions
 		/// </summary>
-		void Update();
+		void update();
 
-		void AddForce(Vectorf force);
+		void addForce(Vectorf force);
 
-		void CheckCollisions();
-		void OnCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity);
+		void checkCollisions();
+		void onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity);
 	};
 }

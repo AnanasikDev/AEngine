@@ -16,7 +16,7 @@ namespace aengine {
 
 		Camera() = default;
 
-		static void Translate(Vectorf delta);
-		static void SetPosition(Vectorf newPos);
+		static void translate(Vectorf delta);
+		static void setPosition(Vectorf newPos);
 	};
 }

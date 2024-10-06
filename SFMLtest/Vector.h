@@ -114,7 +114,7 @@ namespace aengine {
 			return sqrtf(x * x + y * y);
 		}
 
-		void Normalize() {
+		void normalize() {
 			float m = getLength();
 			if (m == 0) 
 				return;

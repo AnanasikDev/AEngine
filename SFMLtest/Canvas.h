@@ -9,15 +9,15 @@ namespace aengine {
 	class Canvas {
 	public:
 
-		static void Update();
-		static void Render();
+		static void update();
+		static void render();
 
-		static UIElement* AddUIElement();
+		static UIElement* addUIElement();
 
 		/// <summary>
 		/// Records a new UIElement for updates and rendering
 		/// </summary>
-		static void Record(UIElement* element);
+		static void record(UIElement* element);
 	private:
 
 		static std::vector<UIElement*> elements;

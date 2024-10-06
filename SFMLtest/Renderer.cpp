@@ -17,43 +17,43 @@ namespace aengine {
 	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface) {
 		this->gameobject = gameobject;
 		this->surface = surface;
-		SetRelativeOrigin(defaultRelativeOrigin);
+		setRelativeOrigin(defaultRelativeOrigin);
 	}
 
 	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape) {
 		this->gameobject = gameobject;
 		this->surface = surface;
 		this->shape = std::move(shape);
-		SetRelativeOrigin(defaultRelativeOrigin);
+		setRelativeOrigin(defaultRelativeOrigin);
 	}
 
 	ShapeRenderer::~ShapeRenderer() {
 		//delete shape;
 	}
 
-	void ShapeRenderer::Render() {
+	void ShapeRenderer::render() {
 		surface->draw(*shape);
 	}
 
-	void ShapeRenderer::Update(const aengine::Vectorf position) {
+	void ShapeRenderer::update(const aengine::Vectorf position) {
 		shape->setPosition(position.getsf());
 	}
 
-	void ShapeRenderer::SetScale(float scale) {
+	void ShapeRenderer::setScale(float scale) {
 		this->shape->setScale(sf::Vector2f(scale, scale));
 	}
 
-	void Renderer::UpdateRelativeOrigin() {
-		this->SetRelativeOrigin(this->origin);
+	void Renderer::updateRelativeOrigin() {
+		this->setRelativeOrigin(this->origin);
 	}
 
-	void Renderer::SetRelativeOrigin(const aengine::Vectorf& localOrigin) {
+	void Renderer::setRelativeOrigin(const aengine::Vectorf& localOrigin) {
 		this->origin = localOrigin;
 	}
 
-	void ShapeRenderer::SetRelativeOrigin(const aengine::Vectorf& localOrigin) {
+	void ShapeRenderer::setRelativeOrigin(const aengine::Vectorf& localOrigin) {
 		
-		Renderer::SetRelativeOrigin(localOrigin);
+		Renderer::setRelativeOrigin(localOrigin);
 		auto rect = dynamic_cast<sf::RectangleShape*>(shape.get());
 		if (rect != nullptr) {
 			rect->setOrigin((Vectorf::fromsf(rect->getSize()) * localOrigin).getsf());
@@ -67,7 +67,7 @@ namespace aengine {
 		}
 	}
 
-	sf::Shape* ShapeRenderer::SetShape(std::unique_ptr<sf::Shape> _shape)
+	sf::Shape* ShapeRenderer::setShape(std::unique_ptr<sf::Shape> _shape)
 	{
 		this->shape = std::move(_shape);
 		return this->shape.get();
