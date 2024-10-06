@@ -81,15 +81,16 @@ int main() {
 	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
 	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
 	button->getGameobject()->renderer->SetRelativeOrigin(Vectorf::zero);
+	*/
 
-	TextRenderer::LoadFont();
+	TextRenderer::loadFont();
+	
 
 	Gameobject* txt = new Gameobject("MyText");
-	txt->SetPosition(game.getWindow()->getSize().x / 2.f, 20);
-	TextRenderer* textRenderer = new TextRenderer();
-	textRenderer->SetRelativeOrigin(Vectorf::zero);
-	txt->renderer = textRenderer;
-	txt->isAttachedToCamera = true;*/
+	txt->setPosition(game.getWindow()->getSize().x / 2.f, 20);
+	auto textRenderer = txt->setRenderer(std::make_unique<aengine::TextRenderer>());
+	textRenderer->setRelativeOrigin(Vectorf::zero);
+	txt->isAttachedToCamera = true;
 
 	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
@@ -98,8 +99,8 @@ int main() {
 	while (game.isRunning()) {
 
 		game.update();
-		//textRenderer->text.setString(std::to_string(Collectable::collected));
-		//textRenderer->UpdateRelativeOrigin();
+		textRenderer->text.setString(std::to_string(Collectable::collected));
+		textRenderer->updateRelativeOrigin();
 
 		//std::cout << Time::getTime() / 1000.f << "  " << Mathf::Repeat(Time::getTime() / 1000.f, 0, 200) << std::endl;
 

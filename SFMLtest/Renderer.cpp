@@ -7,6 +7,16 @@ namespace aengine {
 
 	Vectorf Renderer::defaultRelativeOrigin = Vectorf(0.5f, 0.5f);
 
+	Renderer::Renderer() {
+		gameobject = nullptr;
+		surface = nullptr;
+	}
+
+	Renderer::Renderer(Gameobject* gameobject, sf::RenderWindow* surface) {
+		this->gameobject = gameobject;
+		this->surface = surface;
+	}
+
 	void Renderer::updateRelativeOrigin() {
 		this->setRelativeOrigin(this->origin);
 	}

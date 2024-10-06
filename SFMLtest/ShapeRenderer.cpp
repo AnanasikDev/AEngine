@@ -2,21 +2,17 @@
 
 namespace aengine {
 
-	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface) {
-		this->gameobject = gameobject;
-		this->surface = surface;
+	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface) : Renderer(gameobject, surface) {
 		setRelativeOrigin(defaultRelativeOrigin);
 	}
 
-	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape) {
-		this->gameobject = gameobject;
-		this->surface = surface;
+	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape) : Renderer(gameobject, surface) {
 		this->shape = std::move(shape);
 		setRelativeOrigin(defaultRelativeOrigin);
 	}
 
 	ShapeRenderer::~ShapeRenderer() {
-		//delete shape;
+		
 	}
 
 	void ShapeRenderer::render() {

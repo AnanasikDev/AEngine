@@ -18,7 +18,8 @@ namespace aengine {
 
 		static Vectorf defaultRelativeOrigin;
 
-		Renderer() = default;
+		Renderer();
+		Renderer(Gameobject* gameobject, sf::RenderWindow* surface);
 
 		virtual void update(const aengine::Vectorf position) = 0;
 		virtual void render() = 0;

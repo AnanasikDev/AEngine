@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Gameobject.h"
+#include "SpriteRenderer.h"
 #include "ShapeRenderer.h"
 #include "Game.h"
 #include <iostream>
@@ -20,18 +21,11 @@ namespace agame {
 	}
 
     void Player::start() {
-        this->renderer = std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow());
+        this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, aengine::Game::instance->getWindow(), "resources/Ananasik2.png"));
 
-        auto shapeRenderer = renderer->to<aengine::ShapeRenderer>();
+        auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
 
-        shapeRenderer->setShape(std::make_unique<sf::CircleShape>(30));
-
-        auto circle = shapeRenderer->getShapeAs<sf::CircleShape>();
-
-        circle->setRadius(30);
-        circle->setFillColor(sf::Color(255, 100, 10));
         setPosition(40, 50);
-        circle->setPosition(getPosition().getsf());
     }
 
 	void Player::update() {

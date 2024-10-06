@@ -111,6 +111,9 @@
     <ClCompile Include="ShapeRenderer.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameobject.h">
@@ -174,6 +177,9 @@
       <Filter>Header Files\Render</Filter>
     </ClInclude>
     <ClInclude Include="ShapeRenderer.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
   </ItemGroup>
