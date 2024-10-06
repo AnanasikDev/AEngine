@@ -32,6 +32,7 @@ namespace aengine {
 	}
 
 	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody) {
+
 		this->name = name;
 		SetParent(nullptr);
 		this->position = Vectorf(0, 0);
@@ -41,7 +42,7 @@ namespace aengine {
 		Register();
 	}
 
-	Gameobject::Gameobject(const Gameobject& other) {
+	Gameobject::Gameobject(const Gameobject& other){
 		this->position = other.position;
 		SetParent(other.getParent());
 		this->name = other.name;
@@ -49,17 +50,19 @@ namespace aengine {
 	}
 
 	void Gameobject::Destroy() {
+
+		ForAllChildrenRecursive([this](Gameobject* child) {
+
+			Game::instance->DestroyGameobject(child);
+
+			});
+		children.clear();
+
 		if (parent != nullptr) {
-			ForAllChildrenRecursive([this](Gameobject* child) {
-
-				delete child;
-
-				});
 			List::Remove(parent->children, this);
 		}
 
-		List::RemoveIf<std::unique_ptr<Gameobject>>(aengine::Game::instance->gameobjects, 
-			[this](std::unique_ptr<Gameobject> obj) { return obj.get() == this; });
+		Game::instance->DestroyGameobject(this);
 	}
 
 	void Gameobject::ForAllChildrenRecursive(std::function<void(Gameobject*)> func) {
@@ -89,7 +92,7 @@ namespace aengine {
 	}
 
 	void Gameobject::Register() {
-		aengine::Game::instance->gameobjects.push_back(std::make_unique<Gameobject>(this));
+		Game::instance->AddGameobject(this);
 	}
 
 	void Gameobject::Start() {
@@ -102,7 +105,7 @@ namespace aengine {
 	}
 
 	
-	void Gameobject::SetPosition(Vectorf newPos, bool includeChildren = true) {
+	void Gameobject::SetPosition(Vectorf newPos, bool includeChildren) {
 
 		if (includeChildren)
 		{
@@ -120,7 +123,7 @@ namespace aengine {
 		if (collider != nullptr) collider->Update(position);
 	}
 
-	void Gameobject::SetPosition(float x, float y, bool includeChildren = true) {
+	void Gameobject::SetPosition(float x, float y, bool includeChildren) {
 		SetPosition(Vectorf(x, y), includeChildren);
 	}
 
@@ -128,16 +131,17 @@ namespace aengine {
 		return this->position;
 	}
 
-	void Gameobject::Translate(Vectorf delta, bool includeChildren = true) {
+	void Gameobject::Translate(Vectorf delta, bool includeChildren) {
 		SetPosition(position + delta, includeChildren);
 	}
 
-	void Gameobject::Translate(float dx, float dy, bool includeChildren = true) {
+	void Gameobject::Translate(float dx, float dy, bool includeChildren) {
 		Translate(Vectorf(dx, dy), includeChildren);
 	}
 
 	void Gameobject::SetParent(Gameobject* gameobject) {
 		this->parent = gameobject;
+		if (gameobject != nullptr) gameobject->children.push_back(this);
 	}
 
 	Gameobject* Gameobject::getParent() const {

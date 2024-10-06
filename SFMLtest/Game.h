@@ -43,6 +43,7 @@ namespace aengine {
 		void AddGameobject(Gameobject* gameobject);
 
 		const bool Contains(Gameobject* gameobject) const;
+		void DestroyGameobject(Gameobject* gameobject);
 
 		void PollEvents();
 

@@ -5,11 +5,11 @@
 #include "Vector.h"
 #include <memory>
 
-namespace aengine {
+#include "Collider.h"
+#include "Renderer.h"
+#include "Rigidbody.h"
 
-	class Collider;
-	class Renderer;
-	class Rigidbody;
+namespace aengine {
 
 	class Gameobject {
 

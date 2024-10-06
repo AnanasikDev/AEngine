@@ -8,12 +8,12 @@ namespace aengine {
 
 	void Camera::Translate(Vectorf delta) {
 		position += delta;
-		for (Gameobject* go : Game::instance->rootGameobjects) {
+		for (int i = 0; i < Game::instance->gameobjects.size(); i++) {
 			
 			// if attached to camera leave it where it is
-			if (go->isAttachedToCamera) continue;
+			if (Game::instance->gameobjects[i]->isAttachedToCamera) continue;
 
-			go->Translate(-delta);
+			Game::instance->gameobjects[i]->Translate(-delta, false);
 		}
 	}
 

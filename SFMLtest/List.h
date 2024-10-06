@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <functional>
+#include <memory>
 
 namespace aengine {
 	class List {
@@ -18,6 +19,17 @@ namespace aengine {
 		static void RemoveIf(std::vector<T>& vec, std::function<bool(T)> condition) {
 			for (int i = 0; i < vec.size(); i++) {
 				if (condition(vec[i]))
+				{
+					RemoveAt(vec, i);
+					return;
+				}
+			}
+		}
+
+		template <typename T>
+		static void RemoveSmartPtr(std::vector<std::unique_ptr<T>>& vec, T* obj) {
+			for (int i = 0; i < vec.size(); i++) {
+				if (vec[i].get() == obj)
 				{
 					RemoveAt(vec, i);
 					return;

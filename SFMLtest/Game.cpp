@@ -6,6 +6,7 @@
 #include "Time.h"
 #include "Canvas.h"
 #include "Input.h"
+#include "List.h"
 
 namespace aengine {
 
@@ -33,7 +34,7 @@ namespace aengine {
 	}
 
 	void Game::AddGameobject(Gameobject* gameobject) {
-		gameobjects.push_back(std::make_unique<Gameobject>(gameobject));
+		gameobjects.push_back(std::unique_ptr<Gameobject>(gameobject));
 	}
 
 	sf::RenderWindow* Game::getWindow() const {
@@ -112,6 +113,14 @@ namespace aengine {
 				return true;
 		}
 		return false;
+	}
+
+	void Game::DestroyGameobject(Gameobject* gameobject)
+	{
+		for (int i = 0; i < gameobjects.size(); i++) {
+			if (gameobjects[i].get() == gameobject)
+				List::RemoveAt(gameobjects, i);
+		}
 	}
 
 	/// <summary>
