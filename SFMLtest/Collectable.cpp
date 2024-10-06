@@ -1,6 +1,6 @@
 #include "Collectable.h"
 #include "Gameobject.h"
-#include "Renderer.h"
+#include "ShapeRenderer.h"
 #include "Game.h"
 #include "Collider.h"
 #include "Rigidbody.h"

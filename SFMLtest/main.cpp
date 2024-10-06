@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Vector.h"
-#include "Renderer.h"
+#include "ShapeRenderer.h"
 #include "Collectable.h"
 #include "Rigidbody.h"
 #include "Collider.h"

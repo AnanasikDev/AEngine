@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Gameobject.h"
-#include "Renderer.h"
+#include "ShapeRenderer.h"
 #include "Game.h"
 #include <iostream>
 #include "Camera.h"
