@@ -1,4 +1,5 @@
 #include "Bounds.h"
+#include <array>
 
 namespace aengine {
 
@@ -47,20 +48,21 @@ namespace aengine {
 		maxp = center + size / 2.f;
 	}
 
-	std::tuple<Vectorf, Vectorf, Vectorf, Vectorf> Bounds::getPoints() const {
-		return std::tuple<Vectorf, Vectorf, Vectorf, Vectorf>(
+	std::array<Vectorf, 4> Bounds::getPoints() const {
+		return std::array<Vectorf, 4>{
 
 			minp,
 			minp + Vectorf::right * (maxp.x - minp.x),
 			maxp,
 			minp + Vectorf::down * (maxp.y - minp.y)
 
-			);
+		};
 	}
 
-	void Bounds::setCenterAndSize(Vectorf center, Vectorf size) {
+	Bounds Bounds::setCenterAndSize(Vectorf center, Vectorf size) {
 		minp = center - size / 2.f;
 		maxp = center + size / 2.f;
+		return *this;
 	}
 
 	void Bounds::setLUCornerAndSize(Vectorf luCorner, Vectorf size) {
@@ -182,5 +184,9 @@ namespace aengine {
 
 	bool Bounds::isPointInside(const Vectorf& point) const {
 		return point.x > minp.x && point.x < maxp.x && point.y < maxp.y && point.y > minp.y;
+	}
+
+	Bounds Bounds::extend(float right, float left, float top, float bottom) const {
+		return Bounds(minp.x - left, minp.y - top, maxp.x + right, maxp.y + bottom);
 	}
 }

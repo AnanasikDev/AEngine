@@ -190,6 +190,7 @@
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RectCollider.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Tests.cpp">
@@ -218,6 +220,7 @@
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RectCollider.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="TextRenderer.h" />

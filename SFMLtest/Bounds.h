@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Vector.h"
-#include <tuple>
+#include <array>
 
 namespace aengine {
 	class Bounds {
@@ -19,8 +19,12 @@ namespace aengine {
 		Vectorf getSize() const;
 		Vectorf getCenter() const;
 
-		std::tuple<Vectorf, Vectorf, Vectorf, Vectorf> getPoints() const;
-		void setCenterAndSize(Vectorf center, Vectorf size);
+		/// <summary>
+		/// Returns all 4 points (vertices) that comprise bounds in clockwise direction: left-up, right-up, right-down, left-down
+		/// </summary>
+		/// <returns></returns>
+		std::array<Vectorf, 4> getPoints() const;
+		Bounds setCenterAndSize(Vectorf center, Vectorf size);
 		void setLUCornerAndSize(Vectorf minp, Vectorf size);
 		void setCenter(Vectorf center);
 
@@ -28,6 +32,8 @@ namespace aengine {
 		Bounds getIntersectionBounds(const Bounds& other) const;
 		static Bounds getIntersectionBounds(const Bounds& a, const Bounds& b);
 		bool isPointInside(const Vectorf& point) const;
+
+		Bounds extend(float right, float left, float top, float bottom) const;
 
 		bool operator==(const Bounds& other);
 		bool operator!=(const Bounds& other);

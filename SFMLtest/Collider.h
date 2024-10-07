@@ -15,7 +15,7 @@ namespace aengine {
 
 		static std::vector<Collider*> colliders;
 
-		Vectorf worldCenter;
+		Vectorf center;
 
 		Collider();
 		Collider(Gameobject* gameobject);
@@ -46,32 +46,5 @@ namespace aengine {
 		virtual void setScale(float scale) = 0;
 
 		virtual std::string toString() const;
-	};
-
-
-	struct CircleCollider : public Collider {
-		float radius;
-
-		CircleCollider();
-		CircleCollider(Gameobject* gameobject);
-		CircleCollider(Gameobject* gameobject, float radius);
-		~CircleCollider() = default;
-
-		void setScale(float scale) override;
-		std::string toString() const override;
-	};
-
-	struct RectCollider : public Collider {
-		Vectorf size;
-		Bounds bounds;
-
-		RectCollider();
-		RectCollider(Gameobject* gameobject);
-		RectCollider(Gameobject* gameobject, Vectorf size);
-		~RectCollider() = default;
-
-		void setScale(float scale) override;
-		void update(const Vectorf&) override;
-		std::string toString() const override;
 	};
 }

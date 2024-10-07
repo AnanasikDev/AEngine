@@ -5,6 +5,8 @@
 #include "Collectable.h"
 #include "Rigidbody.h"
 #include "Collider.h"
+#include "RectCollider.h"
+#include "CircleCollider.h"
 #include <iostream>
 #include <vector>
 #include "Event.h"
@@ -98,6 +100,9 @@ int main() {
 	while (game.isRunning()) {
 
 		game.update();
+
+
+
 		//textRenderer->text.setString(std::to_string(Collectable::collected));
 		//textRenderer->UpdateRelativeOrigin();
 

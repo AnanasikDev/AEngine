@@ -1,4 +1,6 @@
 #include "Collider.h"
+#include "RectCollider.h"
+#include "CircleCollider.h"
 #include <iostream>
 #include "List.h"
 #include "Physics.h"
@@ -30,7 +32,7 @@ namespace aengine {
 		// Try calculate for circle collider
 		auto circleCollider = dynamic_cast<CircleCollider*>(this);
 		if (circleCollider != nullptr) {
-			return (circleCollider->worldCenter - point).getLength() <= circleCollider->radius;
+			return (circleCollider->center - point).getLength() <= circleCollider->radius;
 		}
 		
 		// If failed, try calculate for rect collider
@@ -73,68 +75,11 @@ namespace aengine {
 		return std::make_pair(Bounds(), Vectorf());
 	}
 
-	void CircleCollider::setScale(float scale) {
-		this->radius *= scale;
-	}
-
-	void RectCollider::setScale(float scale) {
-		this->size *= scale;
-	}
-
-	CircleCollider::CircleCollider() : 
-		Collider(), radius(0.f)
-	{
-
-	}
-
-	CircleCollider::CircleCollider(Gameobject* gameobject) : 
-		Collider(gameobject), radius(0.f)
-	{
-
-	}
-
-	CircleCollider::CircleCollider(Gameobject* gameobject, float radius) :
-		Collider(gameobject), radius(radius)
-	{
-
-	}
-
-	RectCollider::RectCollider() :
-		Collider(), size()
-	{
-
-	}
-
-	RectCollider::RectCollider(Gameobject* gameobject) :
-		Collider(gameobject), size()
-	{
-
-	}
-
-	RectCollider::RectCollider(Gameobject* gameobject, Vectorf size) :
-		Collider(gameobject), size(size)
-	{
-		bounds.setCenterAndSize(gameobject->getPosition(), size);
-	}
-
 	void Collider::update(const Vectorf& position) {
-		this->worldCenter = position;
-	}
-
-	void RectCollider::update(const Vectorf& position) {
-		Collider::update(position);
-		this->bounds.setCenter(position);
+		this->center = position;
 	}
 
 	std::string Collider::toString() const {
 		return "Collider ";
-	}
-
-	std::string RectCollider::toString() const {
-		return Collider::toString() + ":Rect";
-	}
-
-	std::string CircleCollider::toString() const {
-		return Collider::toString() + ":Circle";
 	}
 }

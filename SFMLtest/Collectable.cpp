@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Game.h"
 #include "Collider.h"
+#include "CircleCollider.h"
 #include "Rigidbody.h"
 #include <iostream>
 #include "Input.h"
@@ -22,7 +23,7 @@ namespace agame {
 		shapeRenderer->updateRelativeOrigin();
 		shapeRenderer->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(250, 220, 20));
 
-		setCollider(std::make_unique<aengine::RectCollider>(this, aengine::Vectorf(30, 30)));
+		setCollider(std::make_unique<aengine::CircleCollider>(this, 15));
 
 		this->setRigidbody(std::make_unique<aengine::Rigidbody>(this));
 		rigidbody->setBounciness(0.7f);
