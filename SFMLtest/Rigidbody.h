@@ -30,6 +30,11 @@ namespace aengine {
 		/// If true, receives forces from objects when collided
 		/// </summary>
 		bool respondToImpulse = true;
+		
+		/// <summary>
+		/// If true, rigidbody uses the continuous mode of collision detection which calculates collisions before they happend in preventive manner to avoid misses or overlaps.
+		/// </summary>
+		bool isContinuous = false;
 
 		Rigidbody();
 		Rigidbody(Gameobject* gameobject);

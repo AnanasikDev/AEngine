@@ -5,6 +5,8 @@
 #include <vector>
 #include "Bounds.h"
 #include <string>
+#include "Mathf.h"
+#include "Line.h"
 
 namespace aengine {
 
@@ -27,7 +29,7 @@ namespace aengine {
 		/// Detects whether the given point is
 		/// inside or outside of the collider.
 		/// </summary>
-		virtual bool isPointInside(Vectorf& point);
+		virtual bool isPointInside(const Vectorf& point) const;
 
 		/// <summary>
 		/// Detects collision between the pair
@@ -44,6 +46,8 @@ namespace aengine {
 		/// Multiplies size of the collider by given factor.
 		/// </summary>
 		virtual void setScale(float scale) = 0;
+
+		virtual Line getIntersection(const Line& line) const = 0;
 
 		virtual std::string toString() const;
 	};

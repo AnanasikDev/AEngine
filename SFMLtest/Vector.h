@@ -23,6 +23,8 @@ namespace aengine {
 		static const Vector right;
 		static const Vector left;
 
+		static const float eps;
+
 		Vector() : x(0), y(0) {}
 
 		Vector(T _x, T _y) : x(_x), y(_y) {
@@ -42,11 +44,11 @@ namespace aengine {
 			return *this;
 		}
 
-		bool operator==(const Vector<T>& other) {
-			return this->x == other.x && this->y == other.y;
+		bool operator==(const Vector<T>& other) const {
+			return abs(this->x - other.x) < eps && abs(this->y - other.y) < eps;
 		}
 
-		bool operator!=(const Vector<T>& other) {
+		bool operator!=(const Vector<T>& other) const {
 			return this->x != other.x || this->y != other.y;
 		}
 
@@ -106,6 +108,14 @@ namespace aengine {
 			return Vector<T>(-this->x, -this->y);
 		}
 
+		T dotProduct(const Vector<T> other) const {
+			return this->x * other.x + this->y * other.y;
+		}
+
+		T crossProduct(const Vector<T> other) const {
+			return this->x * other.y - this->y * other.x;
+		}
+
 		sf::Vector2<T> getsf() const {
 			return sf::Vector2<T>(this->x, this->y);
 		}
@@ -144,6 +154,9 @@ namespace aengine {
 	std::ostream& operator<<(std::ostream& os, const Vector<T>& vec) {
 		return os << "Vector(" << vec.x << ", " << vec.y << ")";
 	}
+
+	template <typename T>
+	const float Vector<T>::eps = 10e-6;
 
 	template <typename T>
 	const Vector<T> Vector<T>::zero = Vector<T>(0, 0);

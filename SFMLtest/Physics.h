@@ -2,9 +2,11 @@
 
 #include "Bounds.h"
 #include "Vector.h"
+#include "Mathf.h"
 
 namespace aengine {
 
+	class Collider;
 	class CircleCollider;
 	class RectCollider;
 
@@ -26,5 +28,7 @@ namespace aengine {
 		static std::pair<Bounds, Vectorf> getOverlap(const CircleCollider* c1, const CircleCollider* c2);
 		static std::pair<Bounds, Vectorf> getOverlap(const RectCollider* c1,   const CircleCollider* c2);
 		static std::pair<Bounds, Vectorf> getOverlap(const RectCollider* c1,   const RectCollider* c2);
+
+		//static std::vector<Collider*> raycastLine(const class Line& line);
 	};
 }

@@ -27,18 +27,18 @@ namespace aengine {
 		List::remove<Collider*>(Collider::colliders, this);
 	}
 
-	bool Collider::isPointInside(Vectorf& point) {
+	bool Collider::isPointInside(const Vectorf& point) const {
 
 		// Try calculate for circle collider
-		auto circleCollider = dynamic_cast<CircleCollider*>(this);
+		const CircleCollider* circleCollider = dynamic_cast<const CircleCollider*>(this);
 		if (circleCollider != nullptr) {
-			return (circleCollider->center - point).getLength() <= circleCollider->radius;
+			return circleCollider->isPointInside(point);
 		}
 		
 		// If failed, try calculate for rect collider
-		auto rectCollider = dynamic_cast<RectCollider*>(this);
+		const RectCollider* rectCollider = dynamic_cast<const RectCollider*>(this);
 		if (rectCollider != nullptr) {
-			return rectCollider->bounds.isPointInside(point);
+			return rectCollider->isPointInside(point);
 		}
 
 		std::cout << "Failed to cast a collider to any of existing types (only circle and rect are supported) got:" << this->toString() << std::endl;
