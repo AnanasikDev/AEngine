@@ -25,6 +25,12 @@ namespace aengine {
 	}
 
 	bool Line::areIntersecting(const Line& line1, const Line& line2) {
+
+		if (Line::isPointOnLine(line1, line2.p1) ||
+			Line::isPointOnLine(line1, line2.p2) ||
+			Line::isPointOnLine(line2, line1.p1) ||
+			Line::isPointOnLine(line2, line1.p2)) return true;
+
 		auto v1 = line1.asVector();
 		auto v2 = line2.asVector();
 
@@ -55,9 +61,6 @@ namespace aengine {
 	bool Line::isPointOnLine(const Line& line, const Vectorf& point) {
 		if (point == line.p1 || point == line.p2) return true;
 		float len = line.getLength();
-
-		std::cout << (line.p1 - point).normalized() << std::endl << (line.p1 - line.p2) / len << std::endl <<
-			(line.p2 - point).normalized() << std::endl << (line.p2 - line.p1) / len << std::endl;
 
 		return ((line.p1 - point).normalized() == (line.p1 - line.p2) / len &&
 			    (line.p2 - point).normalized() == (line.p2 - line.p1) / len);

@@ -76,11 +76,15 @@ namespace aengine {
 		Line c(Vectorf(4, 2), Vectorf(2, 6));
 		Line d(Vectorf(0, 3), Vectorf(1, -3));
 		Line e(Vectorf(-1, 3), Vectorf(1, -3));
+		Line f(Vectorf(-4, 3), Vectorf(-4, -10));
 
 		REQUIRE(Line::areIntersecting(a, b));
 		REQUIRE(Line::areIntersecting(a, c));
 		REQUIRE(Line::areIntersecting(a, d));
 		REQUIRE(Line::areIntersecting(a, e));
 		REQUIRE(!Line::areIntersecting(b, d));
+		REQUIRE(!Line::areIntersecting(a, f));
+		REQUIRE(!Line::areIntersecting(e, f));
+		REQUIRE(!Line::areIntersecting(c, f));
 	}
 }
