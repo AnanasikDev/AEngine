@@ -7,6 +7,7 @@
 #include "Canvas.h"
 #include "Input.h"
 #include "List.h"
+#include "Debug.h"
 
 namespace aengine {
 
@@ -23,6 +24,7 @@ namespace aengine {
 		pixelPos = Vectori();
 		worldPos = Vectorf();
 		Time::init();
+		Debug::setMethod(new Console());
 	}
 
 	Game::~Game() {

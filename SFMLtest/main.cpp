@@ -13,6 +13,7 @@
 #include "Canvas.h"
 #include "TextRenderer.h"
 #include "Time.h"
+#include "Debug.h"
 
 using namespace aengine;
 using namespace agame;
@@ -98,6 +99,8 @@ int main() {
 	while (game.isRunning()) {
 
 		game.update();
+
+		Debug::logInfo("hello");
 		//textRenderer->text.setString(std::to_string(Collectable::collected));
 		//textRenderer->UpdateRelativeOrigin();
 

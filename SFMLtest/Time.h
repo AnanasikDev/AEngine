@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <functional>
 #include <vector>
+#include <string>
 
 namespace aengine {
 	class Time {
@@ -49,11 +50,6 @@ namespace aengine {
 		static std::vector<Time::Coroutine> coroutines;
 
 		/// <summary>
-		/// Returns time in milliseconds from UNIX
-		/// </summary>
-		static std::uint64_t getTimeSinceUNIX();
-
-		/// <summary>
 		/// Computes current time in seconds, caches the result in the variable time which is can be widely used using getTime().
 		/// </summary>
 		static void computeTime();
@@ -72,6 +68,10 @@ namespace aengine {
 		static void setTimeScale(float scale);
 
 		static float getTime();
+		/// <summary>
+		/// Returns time in milliseconds from UNIX
+		/// </summary>
+		static std::uint64_t getTimeSinceUNIX();
 
 		static void init();
 		static void update();
@@ -83,5 +83,7 @@ namespace aengine {
 
 		static void invoke(std::function<void()> func, float delaySeconds);
 		static void invokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds);
+
+		static std::string getCurrentLocalTime(const std::string& format);
 	};
 }

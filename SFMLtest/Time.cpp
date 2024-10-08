@@ -107,4 +107,24 @@ namespace aengine {
 		cor.repeating = true;
 		coroutines.push_back(cor);
 	}
+
+	std::string Time::getCurrentLocalTime(const std::string& format) {
+		// Get the current time
+		auto now = std::chrono::system_clock::now();
+		std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+
+		// Convert to tm structure in a thread-safe way
+		std::tm local_tm;
+		{
+			std::mutex mtx;
+			std::lock_guard<std::mutex> lock(mtx);
+			localtime_s(&local_tm, &now_time); // thread-safe version of localtime
+		}
+
+		// Format the time as a string
+		std::ostringstream oss;
+		oss << std::put_time(&local_tm, format.c_str());
+		return oss.str();
+	}
+
 }
