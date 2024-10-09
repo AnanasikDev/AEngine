@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector.h"
+#include <optional>
 
 namespace aengine {
 
@@ -24,8 +25,12 @@ namespace aengine {
 
 		static bool areIntersecting(const Line& line1, const Line& line2);
 
+		static std::optional<Vectorf> getIntersection(const Line& l1, const Line& l2);
+
 		static Line lineBoundsIntersection(const Line& line, const Bounds& bounds);
 
 		static bool isPointOnLine(const Line& line, const Vectorf& point);
+
+		std::tuple<float, float, float> getABC() const;
 	};
 }

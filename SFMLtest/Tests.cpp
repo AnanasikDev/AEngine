@@ -87,4 +87,15 @@ namespace aengine {
 		REQUIRE(!Line::areIntersecting(e, f));
 		REQUIRE(!Line::areIntersecting(c, f));
 	}
+
+	TEST_CASE("Line_getIntersection") {
+		Line a(Vectorf(0, 0), Vectorf(6, 4));
+		Line b(Vectorf(0, 4), Vectorf(6, 0));
+		Line c(Vectorf(0, 2), Vectorf(10, 2));
+		Line d(Vectorf(2, -1), Vectorf(2, 5));
+		REQUIRE(Line::getIntersection(a, b).value() == Vectorf(3, 2));
+		REQUIRE(Line::getIntersection(a, c).value() == Vectorf(3, 2));
+		REQUIRE(Line::getIntersection(a, d).has_value());
+		REQUIRE(Line::getIntersection(b, d).has_value());
+	}
 }

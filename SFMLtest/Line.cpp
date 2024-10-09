@@ -54,6 +54,36 @@ namespace aengine {
 		return true;
 	}
 
+	std::optional<Vectorf> Line::getIntersection(const Line& l1, const Line& l2) {
+		float a1, b1, c1, a2, b2, c2;
+		std::tie(a1, b1, c1) = l1.getABC();
+		std::tie(a2, b2, c2) = l2.getABC();
+
+		Vectorf i;
+
+		// check if same
+		if (a1 / a2 == b1 / b2) {
+			// parallel
+
+			if (c1 / c2 == a1 / a2) {
+				// identical
+				return (l1.p1 + l1.p2) / 2.f;
+			}
+		}
+
+		// check if horizontal
+		if (a1) {
+			i.x = (c1 / b1 - c2 / b2) / a2;
+		}
+
+		
+		// calculate intersection
+		i.y = (c1 / a1 - c2 / a2) / (b2 / a2 - b1 / a1);
+		i.x = (-b1 * i.y - c1) / a1;
+
+		return std::make_optional<Vectorf>(i);
+	}
+
 	Line Line::lineBoundsIntersection(const Line& line, const Bounds& bounds) {
 		return Line();
 	}
@@ -64,5 +94,24 @@ namespace aengine {
 
 		return ((line.p1 - point).normalized() == (line.p1 - line.p2) / len &&
 			    (line.p2 - point).normalized() == (line.p2 - line.p1) / len);
+	}
+
+	std::tuple<float, float, float> Line::getABC() const {
+		if (p2.x - p1.x == 0) {
+			// no later division, vertical line
+
+			return std::make_tuple<float, float, float>(1 / p1.x, 0, 0);
+		}
+
+		if (p2.y - p1.y == 0) {
+			// horizontal line
+
+			return std::make_tuple<float, float, float>(0, 1 / p1.y, 0);
+		}
+		
+		const float tan = (p2.y - p1.y) / (p2.x - p1.x);
+		const float shift = p1.y - p1.x * tan;
+
+		return std::make_tuple<float, float, float>(-tan, 1, -shift);
 	}
 }
