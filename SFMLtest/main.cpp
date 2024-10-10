@@ -93,15 +93,27 @@ int main() {
 	txt->renderer = textRenderer;
 	txt->isAttachedToCamera = true;*/
 
+
+	Line a(Vectorf(0, 0), Vectorf(6, 4));
+	Line b(Vectorf(0, 4), Vectorf(6, 0));
+	Line c(Vectorf(0, 2), Vectorf(10, 2));
+	Line d(Vectorf(2, -1), Vectorf(2, 5));
+	Line e(Vectorf(6, -1), Vectorf(6, 5));
+	Line f(Vectorf(6, 100), Vectorf(6, 3));
+	Line g(Vectorf(-2, 15), Vectorf(25, 15));
+
 	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
 	game.start();
+	auto window = game.getWindow();
+	Vectorf windowSize = Vectorf(window->getSize().x, window->getSize().y);
+
+	Line axisX(Vectorf(0, windowSize.y / 2.f), Vectorf(windowSize.x, windowSize.y / 2.f));
+	Line axisY(Vectorf(windowSize.x / 2.f, 0), Vectorf(windowSize.x / 2.f, windowSize.y));
 
 	while (game.isRunning()) {
 
 		game.update();
-
-
 
 		//textRenderer->text.setString(std::to_string(Collectable::collected));
 		//textRenderer->UpdateRelativeOrigin();
@@ -111,6 +123,19 @@ int main() {
 		//block3->SetPosition(Vectorf(Mathf::Repeat(Time::getTime(), 0, 200), block3->getPosition().y));
 
 		game.render();
+
+		axisX.render(window, Vectorf::zero, 1, sf::Color::Red);
+		axisY.render(window, Vectorf::zero, 1, sf::Color::Green);
+
+		a.render(window, windowSize / 2.f, 10);
+		b.render(window, windowSize / 2.f, 10);
+		c.render(window, windowSize / 2.f, 10);
+		d.render(window, windowSize / 2.f, 10);
+		e.render(window, windowSize / 2.f, 10);
+		f.render(window, windowSize / 2.f, 10);
+		g.render(window, windowSize / 2.f, 10);
+
+		game.display();
 	}
 
 	return 0;

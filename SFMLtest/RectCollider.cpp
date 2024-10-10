@@ -56,6 +56,6 @@ namespace aengine {
 
 		}
 
-		return Line();
+		return Line(Vectorf(), Vectorf());
 	}
 }

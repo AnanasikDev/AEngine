@@ -93,9 +93,16 @@ namespace aengine {
 		Line b(Vectorf(0, 4), Vectorf(6, 0));
 		Line c(Vectorf(0, 2), Vectorf(10, 2));
 		Line d(Vectorf(2, -1), Vectorf(2, 5));
+		Line e(Vectorf(6, -1), Vectorf(6, 5));
+		Line f(Vectorf(6, 100), Vectorf(6, 3));
+		Line g(Vectorf(-2, 15), Vectorf(25, 15));
 		REQUIRE(Line::getIntersection(a, b).value() == Vectorf(3, 2));
 		REQUIRE(Line::getIntersection(a, c).value() == Vectorf(3, 2));
 		REQUIRE(Line::getIntersection(a, d).has_value());
 		REQUIRE(Line::getIntersection(b, d).has_value());
+		REQUIRE(!Line::getIntersection(d, e).has_value());
+		REQUIRE(!Line::getIntersection(d, f).has_value());
+		REQUIRE(!Line::getIntersection(e, f).has_value());
+		REQUIRE(Line::getIntersection(f, g).has_value());
 	}
 }

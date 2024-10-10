@@ -94,9 +94,11 @@ namespace aengine {
 		}
 
 		//Canvas::Render();
-		
-		this->window->display();
 		frame++;
+	}
+
+	void Game::display() {
+		this->window->display();
 	}
 
 	void Game::close() {

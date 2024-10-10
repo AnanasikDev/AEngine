@@ -32,6 +32,6 @@ namespace aengine {
 	}
 
 	Line CircleCollider::getIntersection(const Line& line) const {
-		return Line();
+		return Line(Vectorf(), Vectorf());
 	}
 }

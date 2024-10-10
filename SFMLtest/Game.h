@@ -39,6 +39,7 @@ namespace aengine {
 		void fixedUpdate();
 		void update();
 		void render();
+		void display();
 		void close();
 		void addGameobject(Gameobject* gameobject);
 

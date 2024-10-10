@@ -20,6 +20,7 @@ namespace agame {
 
         setCollider(std::make_unique<aengine::CircleCollider>(this, 30));
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
+        rigidbody->makeKinematic();
 
         circle->setFillColor(sf::Color(255, 100, 10));
         setPosition(40, 50);
@@ -34,6 +35,8 @@ namespace agame {
         
         aengine::Vectorf delta;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) delta.x = -1;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) delta.y = -1;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) delta.y = 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) delta.x =  1;
 
         if (delta != aengine::Vectorf::zero)
