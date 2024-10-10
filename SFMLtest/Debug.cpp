@@ -7,7 +7,11 @@ namespace aengine {
 
 	std::unique_ptr<DebugSink> Debug::sink = std::unique_ptr<DebugSink>();
 
-	void Debug::setMethod(std::unique_ptr<DebugSink> sink) {
+	bool Debug::useStyles = true;
+	bool Debug::showTime = false;
+	bool Debug::showPrefix = false;
+
+	void Debug::setDebugSink(std::unique_ptr<DebugSink> sink) {
 		
 		Debug::sink = std::move(sink);
 	}
@@ -24,21 +28,25 @@ namespace aengine {
 		sink->log(str, Debug::error);
 	}
 
-	std::string Console::getPrefix() const {
+	std::string Console::getTime() const {
 		return std::format("{} ", Time::getCurrentLocalTime("%H:%M:%S"));
+	}
+
+	std::string Console::colorify(const std::string& str, int color) const {
+		return "\033[" + std::to_string(color) + "m" + str + "\033[" + std::to_string(Debug::White) + "m";
 	}
 
 	void Console::log(const std::string& str, Debug::msgType type) const {
 		switch (type)
 		{
 		case Debug::info:
-			std::cout << getPrefix() << "INFO: " << str << std::endl;
+			std::cout << (Debug::showTime ? getTime() : "") << str << std::endl;
 			break;
 		case Debug::warning:
-			std::cout << getPrefix() << "WARNING: " << str << std::endl;
+			std::cout << colorify((Debug::showTime ? getTime() : "") + (Debug::showPrefix ? "Warning: " : "") + str, Debug::Yellow) << std::endl;
 			break;
 		case Debug::error:
-			std::cout << getPrefix() << "ERROR: " << str << std::endl;
+			std::cout << colorify((Debug::showTime ? getTime() : "") + (Debug::showPrefix ? "Error: " : "") + str, Debug::BrightRed) << std::endl;
 			break;
 		default:
 			break;

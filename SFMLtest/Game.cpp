@@ -25,7 +25,8 @@ namespace aengine {
 		worldPos = Vectorf();
 		Time::init();
 		std::unique_ptr<DebugSink> sink = std::make_unique<Console>();
-		Debug::setMethod(std::move(sink));
+		Debug::useStyles = true;
+		Debug::setDebugSink(std::move(sink));
 	}
 
 	Game::~Game() {
