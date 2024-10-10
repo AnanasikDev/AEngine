@@ -18,5 +18,6 @@ namespace aengine {
 
 		static void translate(Vectorf delta);
 		static void setPosition(Vectorf newPos);
+		static Vectorf getPosition();
 	};
 }

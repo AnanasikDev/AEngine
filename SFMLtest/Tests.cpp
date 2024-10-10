@@ -89,13 +89,16 @@ namespace aengine {
 	}
 
 	TEST_CASE("Line_getIntersection") {
+		// pair of diagonal intersecting lines
 		Line a(Vectorf(0, 0), Vectorf(6, 4));
 		Line b(Vectorf(0, 4), Vectorf(6, 0));
-		Line c(Vectorf(0, 2), Vectorf(10, 2));
-		Line d(Vectorf(2, -1), Vectorf(2, 5));
-		Line e(Vectorf(6, -1), Vectorf(6, 5));
-		Line f(Vectorf(6, 100), Vectorf(6, 3));
-		Line g(Vectorf(-2, 15), Vectorf(25, 15));
+
+		Line c(Vectorf(0, 2), Vectorf(10, 2)); // horizontal line
+		Line d(Vectorf(2, -1), Vectorf(2, 5)); // vertical line
+		Line e(Vectorf(6, -1), Vectorf(6, 5)); // vertical line
+		Line f(Vectorf(6, 100), Vectorf(6, 3)); // vetical line
+		Line g(Vectorf(-2, 15), Vectorf(25, 15)); // horizontal line
+
 		REQUIRE(Line::getIntersection(a, b).value() == Vectorf(3, 2));
 		REQUIRE(Line::getIntersection(a, c).value() == Vectorf(3, 2));
 		REQUIRE(Line::getIntersection(a, d).has_value());

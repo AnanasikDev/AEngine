@@ -41,6 +41,5 @@ namespace aengine {
 
 	private:
 		sf::VertexArray line;
-		static std::optional<Vectorf> oneWay(const Line& l1, const Line& l2, float a1, float b1, float c1, float a2, float b2, float c2);
 	};
 }

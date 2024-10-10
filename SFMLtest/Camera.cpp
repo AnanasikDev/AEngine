@@ -20,4 +20,8 @@ namespace aengine {
 	void Camera::setPosition(Vectorf newPos) {
 		translate(newPos - position);
 	}
+	
+	Vectorf Camera::getPosition() {
+		return position;
+	}
 }

@@ -15,6 +15,8 @@
 #include "Canvas.h"
 #include "TextRenderer.h"
 #include "Time.h"
+#include "Camera.h"
+#include "Input.h"
 
 using namespace aengine;
 using namespace agame;
@@ -94,13 +96,16 @@ int main() {
 	txt->isAttachedToCamera = true;*/
 
 
-	Line a(Vectorf(0, 0), Vectorf(6, 4));
-	Line b(Vectorf(0, 4), Vectorf(6, 0));
-	Line c(Vectorf(0, 2), Vectorf(10, 2));
-	Line d(Vectorf(2, -1), Vectorf(2, 5));
-	Line e(Vectorf(6, -1), Vectorf(6, 5));
-	Line f(Vectorf(6, 100), Vectorf(6, 3));
-	Line g(Vectorf(-2, 15), Vectorf(25, 15));
+	Line a(Vectorf(0, 0) * 10, Vectorf(6, 4) * 10);
+	Line b(Vectorf(0, 4) * 10, Vectorf(6, 0) * 10);
+	Line c(Vectorf(0, 2) * 10, Vectorf(10, 2) * 10);
+	Line d(Vectorf(2, -1) * 10, Vectorf(2, 5) * 10);
+	Line e(Vectorf(6, -1) * 10, Vectorf(6, 5) * 10);
+	Line f(Vectorf(6, 100) * 10, Vectorf(6, 3) * 10);
+	Line g(Vectorf(-2, 15) * 10, Vectorf(25, 15) * 10);
+
+	Line l1(Vectorf(-5, -4) * 10, Vectorf(1, 8) * 10);
+	Line l2(Vectorf(5, 6) * 10, Vectorf(-9, -1) * 10);
 
 	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
@@ -110,6 +115,9 @@ int main() {
 
 	Line axisX(Vectorf(0, windowSize.y / 2.f), Vectorf(windowSize.x, windowSize.y / 2.f));
 	Line axisY(Vectorf(windowSize.x / 2.f, 0), Vectorf(windowSize.x / 2.f, windowSize.y));
+
+	sf::CircleShape intersection(5);
+	intersection.setFillColor(sf::Color::Magenta);
 
 	while (game.isRunning()) {
 
@@ -127,13 +135,39 @@ int main() {
 		axisX.render(window, Vectorf::zero, 1, sf::Color::Red);
 		axisY.render(window, Vectorf::zero, 1, sf::Color::Green);
 
-		a.render(window, windowSize / 2.f, 10);
-		b.render(window, windowSize / 2.f, 10);
-		c.render(window, windowSize / 2.f, 10);
-		d.render(window, windowSize / 2.f, 10);
-		e.render(window, windowSize / 2.f, 10);
-		f.render(window, windowSize / 2.f, 10);
-		g.render(window, windowSize / 2.f, 10);
+		Vectorf shift = -aengine::Camera::getPosition(); // windowSize / 2.f;
+		Vectorf mouse = aengine::Input::getMousePosition() - shift;
+
+		l1.render(window, shift, 1, sf::Color::Blue);
+		l2.render(window, shift, 1, sf::Color::Yellow);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+			l1.setPoint1(mouse);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+			l1.setPoint2(mouse);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+			l2.setPoint1(mouse);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+			l2.setPoint2(mouse);
+		}
+
+		auto i = Line::getIntersection(l1, l2);
+		if (i.has_value())
+			intersection.setPosition(i.value().getsf() - sf::Vector2f(2.5f, 2.5f) + shift.getsf());
+		else
+			std::cout << "No point" << std::endl;
+		window->draw(intersection);
+
+		a.render(window, shift, 1);
+		b.render(window, shift, 1);
+		c.render(window, shift, 1);
+		d.render(window, shift, 1);
+		e.render(window, shift, 1);
+		f.render(window, shift, 1);
+		g.render(window, shift, 1);
 
 		game.display();
 	}
