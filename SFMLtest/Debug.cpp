@@ -5,10 +5,11 @@
 
 namespace aengine {
 
-	DebugSink* Debug::sink = nullptr;
+	std::unique_ptr<DebugSink> Debug::sink = std::unique_ptr<DebugSink>();
 
-	void Debug::setMethod(DebugSink* sink) {
-		Debug::sink = sink;
+	void Debug::setMethod(std::unique_ptr<DebugSink> sink) {
+		
+		Debug::sink = std::move(sink);
 	}
 
 	void Debug::logInfo(const std::string& str) {

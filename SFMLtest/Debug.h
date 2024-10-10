@@ -10,7 +10,7 @@ namespace aengine {
 	class Debug {
 	public:
 
-		static void setMethod(DebugSink* sink);
+		static void setMethod(std::unique_ptr<DebugSink> sink);
 
 		static void logInfo(const std::string& str);
 		static void logWarning(const std::string& str);
@@ -21,9 +21,8 @@ namespace aengine {
 			warning,
 			error
 		};
-
 	private:
-		static DebugSink* sink;
+		static std::unique_ptr<DebugSink> sink;
 	};
 
 	/// <summary>

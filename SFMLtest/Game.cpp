@@ -24,7 +24,8 @@ namespace aengine {
 		pixelPos = Vectori();
 		worldPos = Vectorf();
 		Time::init();
-		Debug::setMethod(new Console());
+		std::unique_ptr<DebugSink> sink = std::make_unique<Console>();
+		Debug::setMethod(std::move(sink));
 	}
 
 	Game::~Game() {
