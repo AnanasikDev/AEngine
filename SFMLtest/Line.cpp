@@ -38,7 +38,22 @@ namespace aengine {
 		return Line(Vectorf(), Vectorf()); // NEEDS IMPLEMENTATION
 	}
 
-	bool Line::areIntersecting(const Line& line1, const Line& line2) {
+	std::optional<Vectorf> Line::getLinesIntersection(const Line& l1, const Line& l2) {
+		float a1, b1, c1, a2, b2, c2;
+		std::tie(a1, b1, c1) = l1.getABC();
+		std::tie(a2, b2, c2) = l2.getABC();
+
+		float det = a1 * b2 - a2 * b1;
+		if (det == 0) {
+			return std::nullopt; // Lines are parallel
+		}
+
+		float x = (b1 * c2 - b2 * c1) / det;
+		float y = (a2 * c1 - a1 * c2) / det;
+		return Vectorf(x, y);
+	}
+
+	bool Line::areSegmentsIntersecting(const Line& line1, const Line& line2) {
 
 		if (Line::isPointOnLine(line1, line2.p1) ||
 			Line::isPointOnLine(line1, line2.p2) ||
@@ -59,8 +74,6 @@ namespace aengine {
 		float c3 = v2.crossProduct(v21);
 		float c4 = v2.crossProduct(v22);
 
-		//std::cout << c1 << "  " << c2 << "  " << c3 << "  " << c4 << "  " << std::endl;
-
 		if (Mathf::sign(c1) == Mathf::sign(c2)) return false;
 
 		if (Mathf::sign(c3) == Mathf::sign(c4)) return false;
@@ -68,19 +81,11 @@ namespace aengine {
 		return true;
 	}
 
-	std::optional<Vectorf> Line::getIntersection(const Line& l1, const Line& l2) {
-		float a1, b1, c1, a2, b2, c2;
-		std::tie(a1, b1, c1) = l1.getABC();
-		std::tie(a2, b2, c2) = l2.getABC();
-
-		float det = a1 * b2 - a2 * b1;
-		if (det == 0) {
-			return std::nullopt; // Lines are parallel
+	std::optional<Vectorf> Line::getSegmentsIntersection(const Line& l1, const Line& l2) {
+		if (areSegmentsIntersecting(l1, l2)) {
+			return getLinesIntersection(l1, l2);
 		}
-
-		float x = (b1 * c2 - b2 * c1) / det;
-		float y = (a2 * c1 - a1 * c2) / det;
-		return Vectorf(x, y);
+		return std::nullopt;
 	}
 
 	Line Line::lineBoundsIntersection(const Line& line, const Bounds& bounds) {

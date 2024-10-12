@@ -27,9 +27,11 @@ namespace aengine {
 
 		static Line lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
 
-		static bool areIntersecting(const Line& line1, const Line& line2);
+		static std::optional<Vectorf> getLinesIntersection(const Line& l1, const Line& l2);
 
-		static std::optional<Vectorf> getIntersection(const Line& l1, const Line& l2);
+		static bool areSegmentsIntersecting(const Line& line1, const Line& line2);
+
+		static std::optional<Vectorf> getSegmentsIntersection(const Line& l1, const Line& l2);
 
 		static Line lineBoundsIntersection(const Line& line, const Bounds& bounds);
 

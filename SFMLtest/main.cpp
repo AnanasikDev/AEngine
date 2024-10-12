@@ -154,7 +154,7 @@ int main() {
 			l2.setPoint2(mouse);
 		}
 
-		auto i = Line::getIntersection(l1, l2);
+		auto i = Line::getSegmentsIntersection(l1, l2);
 		if (i.has_value())
 			intersection.setPosition(i.value().getsf() - sf::Vector2f(2.5f, 2.5f) + shift.getsf());
 		else

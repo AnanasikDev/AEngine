@@ -78,14 +78,14 @@ namespace aengine {
 		Line e(Vectorf(-1, 3), Vectorf(1, -3));
 		Line f(Vectorf(-4, 3), Vectorf(-4, -10));
 
-		REQUIRE(Line::areIntersecting(a, b));
-		REQUIRE(Line::areIntersecting(a, c));
-		REQUIRE(Line::areIntersecting(a, d));
-		REQUIRE(Line::areIntersecting(a, e));
-		REQUIRE(!Line::areIntersecting(b, d));
-		REQUIRE(!Line::areIntersecting(a, f));
-		REQUIRE(!Line::areIntersecting(e, f));
-		REQUIRE(!Line::areIntersecting(c, f));
+		REQUIRE(Line::areSegmentsIntersecting(a, b));
+		REQUIRE(Line::areSegmentsIntersecting(a, c));
+		REQUIRE(Line::areSegmentsIntersecting(a, d));
+		REQUIRE(Line::areSegmentsIntersecting(a, e));
+		REQUIRE(!Line::areSegmentsIntersecting(b, d));
+		REQUIRE(!Line::areSegmentsIntersecting(a, f));
+		REQUIRE(!Line::areSegmentsIntersecting(e, f));
+		REQUIRE(!Line::areSegmentsIntersecting(c, f));
 	}
 
 	TEST_CASE("Line_getIntersection") {
@@ -99,13 +99,13 @@ namespace aengine {
 		Line f(Vectorf(6, 100), Vectorf(6, 3)); // vetical line
 		Line g(Vectorf(-2, 15), Vectorf(25, 15)); // horizontal line
 
-		REQUIRE(Line::getIntersection(a, b).value() == Vectorf(3, 2));
-		REQUIRE(Line::getIntersection(a, c).value() == Vectorf(3, 2));
-		REQUIRE(Line::getIntersection(a, d).has_value());
-		REQUIRE(Line::getIntersection(b, d).has_value());
-		REQUIRE(!Line::getIntersection(d, e).has_value());
-		REQUIRE(!Line::getIntersection(d, f).has_value());
-		REQUIRE(!Line::getIntersection(e, f).has_value());
-		REQUIRE(Line::getIntersection(f, g).has_value());
+		REQUIRE(Line::getLinesIntersection(a, b).value() == Vectorf(3, 2));
+		REQUIRE(Line::getLinesIntersection(a, c).value() == Vectorf(3, 2));
+		REQUIRE(Line::getLinesIntersection(a, d).has_value());
+		REQUIRE(Line::getLinesIntersection(b, d).has_value());
+		REQUIRE(!Line::getLinesIntersection(d, e).has_value());
+		REQUIRE(!Line::getLinesIntersection(d, f).has_value());
+		REQUIRE(!Line::getLinesIntersection(e, f).has_value());
+		REQUIRE(Line::getLinesIntersection(f, g).has_value());
 	}
 }
