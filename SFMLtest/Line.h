@@ -15,10 +15,15 @@ namespace aengine {
 		Vectorf p2;
 		bool isEmpty = false;
 
+		Line();
 		Line(Vectorf pos1, Vectorf pos2);
 
 		void setPoint1(Vectorf p1, sf::Color color = sf::Color::Black);
 		void setPoint2(Vectorf p2, sf::Color color = sf::Color::Black);
+
+		static bool linesEqual(const Line& l1, const Line& l2);
+
+		static bool segmentsEqual(const Line& l1, const Line& l2);
 
 		Vectorf getNormal() const;
 		inline float getLength() const;
@@ -48,7 +53,9 @@ namespace aengine {
 
 		static std::optional<Vectorf> getSegmentsIntersection(const Line& l1, const Line& l2);
 
-		static Line lineBoundsIntersection(const Line& line, const Bounds& bounds);
+		static bool areSegmentBoundsIntesecting(const Line& line, const Bounds& bounds);
+
+		static std::optional<Line> getSegmentBoundsIntersection(const Line& line, const Bounds& bounds);
 
 		static bool isPointOnLine(const Line& line, const Vectorf& point);
 

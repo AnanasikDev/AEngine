@@ -1,5 +1,6 @@
 #include "Bounds.h"
 #include <array>
+#include "Line.h"
 
 namespace aengine {
 
@@ -56,6 +57,16 @@ namespace aengine {
 			maxp,
 			minp + Vectorf::down * (maxp.y - minp.y)
 
+		};
+	}
+
+	std::array<const Line, 4> Bounds::getSegments() const {
+		auto points = getPoints();
+		return std::array<const Line, 4>{
+			Line(points[0], points[1]),
+			Line(points[1], points[2]),
+			Line(points[2], points[3]),
+			Line(points[3], points[0])
 		};
 	}
 
@@ -188,5 +199,12 @@ namespace aengine {
 
 	Bounds Bounds::extend(float right, float left, float top, float bottom) const {
 		return Bounds(minp.x - left, minp.y - top, maxp.x + right, maxp.y + bottom);
+	}
+
+	void Bounds::render(class sf::RenderWindow* window, Vectorf shift, float scale, sf::Color color) {
+		auto segments = getSegments();
+		for (auto segment : segments) {
+			segment.render(window, shift, scale, color);
+		}
 	}
 }

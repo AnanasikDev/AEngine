@@ -1,22 +1,7 @@
+#include "Engine.h"
 #include "Game.h"
 #include "Player.h"
-#include "Vector.h"
-#include "Renderer.h"
-#include "Collectable.h"
-#include "Rigidbody.h"
-#include "Collider.h"
-#include "RectCollider.h"
-#include "CircleCollider.h"
 #include <iostream>
-#include <vector>
-#include "Event.h"
-#include "Mathf.h"
-#include "UIElement.h"
-#include "Canvas.h"
-#include "TextRenderer.h"
-#include "Time.h"
-#include "Camera.h"
-#include "Input.h"
 
 using namespace aengine;
 using namespace agame;
@@ -108,7 +93,7 @@ int main() {
 	//Line l2(Vectorf(5, 6) * 10, Vectorf(-9, -1) * 10);
 
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
-	Line l2(Vectorf(0, 10) * -10, Vectorf(10, 20) * -10);
+	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
 
 	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
@@ -119,8 +104,7 @@ int main() {
 	Line axisX(Vectorf(0, windowSize.y / 2.f), Vectorf(windowSize.x, windowSize.y / 2.f));
 	Line axisY(Vectorf(windowSize.x / 2.f, 0), Vectorf(windowSize.x / 2.f, windowSize.y));
 
-	sf::CircleShape intersection(5);
-	intersection.setFillColor(sf::Color::Magenta);
+	Line intersection;
 
 	while (game.isRunning()) {
 
@@ -142,7 +126,7 @@ int main() {
 		Vectorf mouse = aengine::Input::getMousePosition() - shift;
 
 		l1.render(window, shift, 1, sf::Color::Blue);
-		l2.render(window, shift, 1, sf::Color::Yellow);
+		bounds.render(window, shift, 1, sf::Color::Yellow);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
 			l1.setPoint1(mouse);
@@ -150,28 +134,26 @@ int main() {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
 			l1.setPoint2(mouse);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-			l2.setPoint1(mouse);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-			l2.setPoint2(mouse);
-		}
 
-		auto i = Line::getSegmentsIntersection(l1, l2);
+		auto i = Line::getSegmentBoundsIntersection(l1, bounds);
 		if (i.has_value())
-			intersection.setPosition(i.value().getsf() - sf::Vector2f(2.5f, 2.5f) + shift.getsf());
+		{
+			intersection.setPoint1(i.value().p1);
+			intersection.setPoint2(i.value().p2);
+		}
 		//else
 		//	std::cout << "No point" << std::endl;
-		std::cout << std::boolalpha << Line::areLinesIntersecting(l1, l2) << std::endl;
-		window->draw(intersection);
+		std::cout << std::boolalpha << Line::areSegmentBoundsIntesecting(l1, bounds) << std::endl;
+		
+		intersection.render(window, shift, 1, sf::Color::Magenta);
 
-		a.render(window, shift, 1);
+		/*a.render(window, shift, 1);
 		b.render(window, shift, 1);
 		c.render(window, shift, 1);
 		d.render(window, shift, 1);
 		e.render(window, shift, 1);
 		f.render(window, shift, 1);
-		g.render(window, shift, 1);
+		g.render(window, shift, 1);*/
 
 		game.display();
 	}

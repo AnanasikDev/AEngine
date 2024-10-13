@@ -31,12 +31,17 @@ namespace aengine {
 		static bool areIntersecting(const Bounds& a, const Bounds& b);
 		Bounds getIntersectionBounds(const Bounds& other) const;
 		static Bounds getIntersectionBounds(const Bounds& a, const Bounds& b);
+
+		std::array<const class Line, 4> getSegments() const;
+
 		bool isPointInside(const Vectorf& point) const;
 
 		Bounds extend(float right, float left, float top, float bottom) const;
 
 		bool operator==(const Bounds& other);
 		bool operator!=(const Bounds& other);
+
+		void render(class sf::RenderWindow* window, Vectorf shift = Vectorf::zero, float scale = 1, sf::Color color = sf::Color::Black);
 
 		static Bounds empty;
 	};

@@ -108,4 +108,28 @@ namespace aengine {
 		REQUIRE(!Line::getLinesIntersection(e, f).has_value());
 		REQUIRE(Line::getLinesIntersection(f, g).has_value());
 	}
+
+	TEST_CASE("Line_linesEqual") {
+		Line l0;
+		Line l1(Vectorf(0, 0), Vectorf(5, 5));
+		Line l2(Vectorf(5, 5), Vectorf(0, 0));
+		Line l3(Vectorf(-10, -10), Vectorf(5, 5));
+		Line l4(Vectorf(-8, -8), Vectorf(-9, -9));
+		Line l5(Vectorf(-100, -99), Vectorf(0, 0));
+
+		REQUIRE(!Line::linesEqual(l0, l1));
+		REQUIRE(!Line::linesEqual(l0, l2));
+		REQUIRE(!Line::linesEqual(l0, l3));
+		REQUIRE(!Line::linesEqual(l0, l4));
+		REQUIRE(!Line::linesEqual(l0, l5));
+
+		REQUIRE(Line::linesEqual(l1, l2));
+	}
+
+	TEST_CASE("Line_getSegmentBoundsIntersection") {
+		Line l(Vectorf(0, 0), Vectorf(6, 3));
+		Bounds b(Vectorf(0, 0), Vectorf(6, 3));
+
+		REQUIRE((Line::segmentsEqual(Line::getSegmentBoundsIntersection(l, b).value(), l)));
+	}
 }

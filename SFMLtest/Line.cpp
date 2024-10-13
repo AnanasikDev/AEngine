@@ -1,8 +1,16 @@
 #include "Line.h"
 #include "Mathf.h"
 #include "SFML/Graphics.hpp"
+#include "Bounds.h"
 
 namespace aengine {
+
+	Line::Line() {
+		line = sf::VertexArray(sf::Lines, 2);
+		setPoint1(Vectorf());
+		setPoint2(Vectorf());
+	}
+
 	Line::Line(Vectorf pos1, Vectorf pos2) {
 		line = sf::VertexArray(sf::Lines, 2);
 		setPoint1(pos1);
@@ -19,6 +27,22 @@ namespace aengine {
 		this->p2 = p2;
 		line[1].position = p2.getsf();
 		line[1].color = color;
+	}
+
+	bool Line::linesEqual(const Line& l1, const Line& l2) {
+		Vectorf dir1 = l1.p2 - l1.p1;
+		Vectorf dir2 = l2.p2 - l2.p1;
+
+		// Check if directions are parallel
+		if (std::fabs(dir1.crossProduct(dir2)) > 1e-6) {
+			return false; // Lines are not parallel
+		}
+
+		return Line::isPointOnLine(l1, l2.p1);
+	}
+
+	bool Line::segmentsEqual(const Line& l1, const Line& l2) {
+		return l1.p1 == l2.p1 && l1.p2 == l2.p2 || l1.p1 == l2.p2 && l1.p2 == l2.p1;
 	}
 
 	float Line::getLength() const {
@@ -111,8 +135,72 @@ namespace aengine {
 		return std::nullopt;
 	}
 
-	Line Line::lineBoundsIntersection(const Line& line, const Bounds& bounds) {
-		return Line(Vectorf(), Vectorf());
+	bool Line::areSegmentBoundsIntesecting(const Line& line, const Bounds& bounds) {
+
+		if (bounds.isPointInside(line.p1) || bounds.isPointInside(line.p2)) return true;
+
+		auto segments = bounds.getSegments();
+
+		for (auto segment : segments) {
+			if (Line::areSegmentsIntersecting(segment, line)) return true;
+		}
+
+		return false;
+	}
+
+	std::optional<Line> Line::getSegmentBoundsIntersection(const Line& line, const Bounds& bounds) {
+		
+		bool p1Inside = bounds.isPointInside(line.p1);
+		bool p2Inside = bounds.isPointInside(line.p2);
+
+		if (p1Inside && p2Inside) return line;
+		
+		auto segments = bounds.getSegments();
+		
+		if (p1Inside) {
+			for (auto segment : segments) {
+				auto intersection = Line::getSegmentsIntersection(segment, line);
+				if (intersection.has_value()) 
+					return Line(line.p1, intersection.value());
+			}
+		}
+
+		if (p2Inside) {
+			for (auto segment : segments) {
+				auto intersection = Line::getSegmentsIntersection(segment, line);
+				if (intersection.has_value()) 
+					return Line(line.p2, intersection.value());
+			}
+		}
+
+		std::optional<Vectorf> p1 = std::nullopt;
+		std::optional<Vectorf> p2 = std::nullopt;
+
+		int i = 0;
+		for (i = 0; i < segments.size(); i++) {
+			auto intersection = Line::getSegmentsIntersection(segments[i], line);
+			if (intersection.has_value()) {
+				p1 = intersection.value();
+			}
+		}
+
+		for (int j = i; j < segments.size(); j++) {
+			auto intersection = Line::getSegmentsIntersection(segments[j], line);
+			if (intersection.has_value()) {
+				p2 = intersection.value();
+			}
+		}
+
+		if (!p1.has_value() && !p2.has_value())
+			return std::nullopt;
+
+		if (!p1.has_value())
+			return Line(p2.value(), p2.value());
+
+		if (!p2.has_value())
+			return Line(p1.value(), p1.value());
+
+		return Line(p1.value(), p2.value());
 	}
 
 	bool Line::isPointOnLine(const Line& line, const Vectorf& point) {
