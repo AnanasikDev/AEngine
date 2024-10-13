@@ -34,8 +34,31 @@ namespace aengine {
 		return p2 - p1;
 	}
 
+	bool Line::isPoint() const {
+		return p1 == p2;
+	}
+
 	Line Line::lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
 		return Line(Vectorf(), Vectorf()); // NEEDS IMPLEMENTATION
+	}
+
+	bool Line::areLinesIntersecting(const Line& l1, const Line& l2) {
+
+		bool isp1 = l1.isPoint();
+		bool isp2 = l2.isPoint();
+		// if both lines are indefinite (=point) OR only one line is indefinite but it doesn't lie on the other line
+		if (isp1 && isp2 || isp1 && Line::isPointOnLine(l2, l1.p1) || isp2 && Line::isPointOnLine(l1, l2.p1)) return false;
+
+		float a1, b1, c1, a2, b2, c2;
+		std::tie(a1, b1, c1) = l1.getABC();
+		std::tie(a2, b2, c2) = l2.getABC();
+
+		float det = a1 * b2 - a2 * b1;
+		if (det == 0) {
+			return false; // Lines are parallel
+		}
+		
+		return true;
 	}
 
 	std::optional<Vectorf> Line::getLinesIntersection(const Line& l1, const Line& l2) {

@@ -25,7 +25,22 @@ namespace aengine {
 
 		Vectorf asVector() const;
 
+		bool isPoint() const;
+
 		static Line lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
+
+		/// <summary>
+		/// <para>
+		/// Two lines intersect if they have 1 or more points of intersection
+		/// </para>
+		/// <para>
+		/// Lines do not intersect only if either is true:
+		/// </para>
+		/// 1. they are parallel
+		/// 2. both are defined as points that do not match OR one is indefinite (= point) and doesn't lie on the other line
+		/// </summary>
+		/// <returns></returns>
+		static bool areLinesIntersecting(const Line& line1, const Line& line2);
 
 		static std::optional<Vectorf> getLinesIntersection(const Line& l1, const Line& l2);
 

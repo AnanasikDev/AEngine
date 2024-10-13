@@ -70,7 +70,7 @@ namespace aengine {
 		REQUIRE(Line::isPointOnLine(a, Vectorf(7, 7)));
 	}
 
-	TEST_CASE("Line_areIntersecting") {
+	TEST_CASE("Line_areSegmentsIntersecting") {
 		Line a(Vectorf(0, 0), Vectorf(5, 4));
 		Line b(Vectorf(2, 6), Vectorf(4, 2));
 		Line c(Vectorf(4, 2), Vectorf(2, 6));
@@ -88,7 +88,7 @@ namespace aengine {
 		REQUIRE(!Line::areSegmentsIntersecting(c, f));
 	}
 
-	TEST_CASE("Line_getIntersection") {
+	TEST_CASE("Line_getSegmentsIntersection") {
 		// pair of diagonal intersecting lines
 		Line a(Vectorf(0, 0), Vectorf(6, 4));
 		Line b(Vectorf(0, 4), Vectorf(6, 0));

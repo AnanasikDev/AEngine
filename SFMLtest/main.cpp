@@ -104,8 +104,11 @@ int main() {
 	Line f(Vectorf(6, 100) * 10, Vectorf(6, 3) * 10);
 	Line g(Vectorf(-2, 15) * 10, Vectorf(25, 15) * 10);
 
-	Line l1(Vectorf(-5, -4) * 10, Vectorf(1, 8) * 10);
-	Line l2(Vectorf(5, 6) * 10, Vectorf(-9, -1) * 10);
+	//Line l1(Vectorf(-5, -4) * 10, Vectorf(1, 8) * 10);
+	//Line l2(Vectorf(5, 6) * 10, Vectorf(-9, -1) * 10);
+
+	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
+	Line l2(Vectorf(0, 10) * -10, Vectorf(10, 20) * -10);
 
 	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
@@ -157,8 +160,9 @@ int main() {
 		auto i = Line::getSegmentsIntersection(l1, l2);
 		if (i.has_value())
 			intersection.setPosition(i.value().getsf() - sf::Vector2f(2.5f, 2.5f) + shift.getsf());
-		else
-			std::cout << "No point" << std::endl;
+		//else
+		//	std::cout << "No point" << std::endl;
+		std::cout << std::boolalpha << Line::areLinesIntersecting(l1, l2) << std::endl;
 		window->draw(intersection);
 
 		a.render(window, shift, 1);
