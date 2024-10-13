@@ -30,11 +30,11 @@ namespace aengine {
 	}
 
 	bool Line::linesEqual(const Line& l1, const Line& l2) {
-		Vectorf dir1 = (l1.p2 - l1.p1).vabs();
-		Vectorf dir2 = (l2.p2 - l2.p1).vabs();
+		Vectorf dir1 = l1.asVector().vabs();
+		Vectorf dir2 = l2.asVector().vabs();
 
-		bool isUndef1 = dir1 == Vectorf::zero;
-		bool isUndef2 = dir2 == Vectorf::zero;
+		bool isUndef1 = l1.isPoint();
+		bool isUndef2 = l2.isPoint();
 
 		// Exactly one line is undefined
 		if (isUndef1 != isUndef2)
@@ -45,12 +45,12 @@ namespace aengine {
 			return false;
 
 		// Check if directions are parallel
-		std::cout << std::fabs(dir1.crossProduct(dir2)) << std::endl;
 		if (std::fabs(dir1.crossProduct(dir2)) > 1e-6) {
 			return false; // Lines are not parallel
 		}
 
-		return Line::isPointOnSegment(l1, l2.p1);
+		Vectorf vecToOther = l2.p1 - l1.p1;
+		return std::fabs(vecToOther.crossProduct(dir1)) < 1e-6; // Points are collinear
 	}
 
 	bool Line::segmentsEqual(const Line& l1, const Line& l2) {

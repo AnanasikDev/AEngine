@@ -126,38 +126,55 @@ namespace aengine {
 	}
 
 	TEST_CASE("Line_linesEqual") {
-		Line l0;
+		// empty lines
+		Line l01;
+		Line l02(Vectorf(11, 11), Vectorf(11, 11));
+
+		// y = x
 		Line l1(Vectorf(0, 0), Vectorf(5, 5));
 		Line l2(Vectorf(5, 5), Vectorf(0, 0));
 		Line l3(Vectorf(-10, -10), Vectorf(5, 5));
-		Line l4(Vectorf(-8, -8), Vectorf(-9, -9));
+		Line l4(Vectorf(2, 2), Vectorf(-9, -9));
+
+		// slight variation
 		Line l5(Vectorf(-100, -99), Vectorf(0, 0));
+
+		// y = x + c
 		Line l6(Vectorf(1.5f, 4), Vectorf(0, 2.5f));
-		Line l7(Vectorf(0, 0), Vectorf(-5, 5));
 
-		//REQUIRE(!Line::linesEqual(l0, l1));
-		//REQUIRE(!Line::linesEqual(l0, l2));
-		//REQUIRE(!Line::linesEqual(l0, l3));
-		//REQUIRE(!Line::linesEqual(l0, l4));
-		//REQUIRE(!Line::linesEqual(l0, l5));
+		// random other line
+		Line l7(Vectorf(0, 0), Vectorf(-5, 6));
 
-		//REQUIRE(Line::linesEqual(l1, l2));
+
+		// empty lines in different places are not equal
+		REQUIRE(!Line::linesEqual(l01, l02));
+
+		// empty line does not equal any non-empty line
+		REQUIRE(!Line::linesEqual(l01, l1));
+		REQUIRE(!Line::linesEqual(l01, l2));
+		REQUIRE(!Line::linesEqual(l01, l3));
+		REQUIRE(!Line::linesEqual(l01, l4));
+		REQUIRE(!Line::linesEqual(l01, l5));
+
+		// y = x lines are equal
+		REQUIRE(Line::linesEqual(l1, l2));
 		REQUIRE(Line::linesEqual(l1, l3));
-		//REQUIRE(Line::linesEqual(l2, l3));
-		/*REQUIRE(Line::linesEqual(l2, l4));
+		REQUIRE(Line::linesEqual(l2, l3));
+		REQUIRE(Line::linesEqual(l2, l4));
 		REQUIRE(Line::linesEqual(l3, l4));
+		REQUIRE(!Line::linesEqual(l1, l5)); // almost y = x (with variation)
 
-		REQUIRE(!Line::linesEqual(l1, l5));
-
+		// l6 is parallel to y = x. Parallel lines are not equal
 		REQUIRE(!Line::linesEqual(l1, l6));
 		REQUIRE(!Line::linesEqual(l2, l6));
 		REQUIRE(!Line::linesEqual(l3, l6));
 		REQUIRE(!Line::linesEqual(l4, l6));
 
+		// random line, not equal to y = x
 		REQUIRE(!Line::linesEqual(l1, l7));
 		REQUIRE(!Line::linesEqual(l2, l7));
 		REQUIRE(!Line::linesEqual(l3, l7));
-		REQUIRE(!Line::linesEqual(l4, l7));*/
+		REQUIRE(!Line::linesEqual(l4, l7));
 	}
 
 	TEST_CASE("Line_getSegmentBoundsIntersection") {
