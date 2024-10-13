@@ -177,6 +177,34 @@ namespace aengine {
 		REQUIRE(!Line::linesEqual(l4, l7));
 	}
 
+	TEST_CASE("Line_segmentsEqual") {
+
+		// empty segments
+		Line e1;
+		Line e2(Vectorf(3, 6), Vectorf(1, 0));
+
+		REQUIRE(!Line::segmentsEqual(e1, e2));
+
+		Line a1(Vectorf(1, 4), Vectorf(5, 8));
+		Line a2(Vectorf(2, 5), Vectorf(4, 7));
+		Line a3(Vectorf(2, 5), Vectorf(6, 9));
+		Line a4(Vectorf(0, 3), Vectorf(6, 9));
+
+		REQUIRE(!Line::segmentsEqual(a1, a2));
+		REQUIRE(!Line::segmentsEqual(a1, a3));
+		REQUIRE(!Line::segmentsEqual(a1, a4));
+
+		Line b1(Vectorf(1, 4), Vectorf(5, 8));
+		Line b2(Vectorf(5, 8), Vectorf(1, 4));
+
+		REQUIRE(Line::segmentsEqual(b1, b2));
+
+		Line c1(Vectorf(0, 0), Vectorf(10, 3));
+		Line c2(Vectorf(4, 2), Vectorf(-4, 3));
+
+		REQUIRE(!Line::segmentsEqual(c1, c2));
+	}
+
 	TEST_CASE("Line_getSegmentBoundsIntersection") {
 		Line l(Vectorf(0, 0), Vectorf(6, 3));
 		Bounds b(Vectorf(0, 0), Vectorf(6, 3));
