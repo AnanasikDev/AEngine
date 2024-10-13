@@ -124,19 +124,15 @@ namespace aengine {
 			return sqrtf(x * x + y * y);
 		}
 
-		void normalize() {
-			float m = getLength();
-			if (m == 0) 
-				return;
-			x /= m;
-			y /= m;
-		}
-
 		Vector<T> normalized() const {
 			float m = getLength();
 			if (m == 0)
 				return Vector<T>();
 			return Vector<T>(x / m, y / m);
+		}
+
+		Vector<T> vabs() const {
+			return Vector<T>(abs(x), abs(y));
 		}
 
 		std::string toStr() const {

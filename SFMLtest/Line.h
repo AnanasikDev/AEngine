@@ -13,7 +13,6 @@ namespace aengine {
 	public:
 		Vectorf p1;
 		Vectorf p2;
-		bool isEmpty = false;
 
 		Line();
 		Line(Vectorf pos1, Vectorf pos2);
@@ -56,6 +55,8 @@ namespace aengine {
 		static bool areSegmentBoundsIntesecting(const Line& line, const Bounds& bounds);
 
 		static std::optional<Line> getSegmentBoundsIntersection(const Line& line, const Bounds& bounds);
+
+		static bool isPointOnSegment(const Line& line, const Vectorf& point);
 
 		static bool isPointOnLine(const Line& line, const Vectorf& point);
 

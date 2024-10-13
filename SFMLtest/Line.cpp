@@ -30,15 +30,27 @@ namespace aengine {
 	}
 
 	bool Line::linesEqual(const Line& l1, const Line& l2) {
-		Vectorf dir1 = l1.p2 - l1.p1;
-		Vectorf dir2 = l2.p2 - l2.p1;
+		Vectorf dir1 = (l1.p2 - l1.p1).vabs();
+		Vectorf dir2 = (l2.p2 - l2.p1).vabs();
+
+		bool isUndef1 = dir1 == Vectorf::zero;
+		bool isUndef2 = dir2 == Vectorf::zero;
+
+		// Exactly one line is undefined
+		if (isUndef1 != isUndef2)
+			return false;
+
+		// Both are undefined and not equal
+		if (isUndef1 && isUndef2 && l1.p1 != l2.p1)
+			return false;
 
 		// Check if directions are parallel
+		std::cout << std::fabs(dir1.crossProduct(dir2)) << std::endl;
 		if (std::fabs(dir1.crossProduct(dir2)) > 1e-6) {
 			return false; // Lines are not parallel
 		}
 
-		return Line::isPointOnLine(l1, l2.p1);
+		return Line::isPointOnSegment(l1, l2.p1);
 	}
 
 	bool Line::segmentsEqual(const Line& l1, const Line& l2) {
@@ -71,7 +83,7 @@ namespace aengine {
 		bool isp1 = l1.isPoint();
 		bool isp2 = l2.isPoint();
 		// if both lines are indefinite (=point) OR only one line is indefinite but it doesn't lie on the other line
-		if (isp1 && isp2 || isp1 && Line::isPointOnLine(l2, l1.p1) || isp2 && Line::isPointOnLine(l1, l2.p1)) return false;
+		if (isp1 && isp2 || isp1 && Line::isPointOnSegment(l2, l1.p1) || isp2 && Line::isPointOnSegment(l1, l2.p1)) return false;
 
 		float a1, b1, c1, a2, b2, c2;
 		std::tie(a1, b1, c1) = l1.getABC();
@@ -102,10 +114,10 @@ namespace aengine {
 
 	bool Line::areSegmentsIntersecting(const Line& line1, const Line& line2) {
 
-		if (Line::isPointOnLine(line1, line2.p1) ||
-			Line::isPointOnLine(line1, line2.p2) ||
-			Line::isPointOnLine(line2, line1.p1) ||
-			Line::isPointOnLine(line2, line1.p2)) return true;
+		if (Line::isPointOnSegment(line1, line2.p1) ||
+			Line::isPointOnSegment(line1, line2.p2) ||
+			Line::isPointOnSegment(line2, line1.p1) ||
+			Line::isPointOnSegment(line2, line1.p2)) return true;
 
 		auto v1 = line1.asVector();
 		auto v2 = line2.asVector();
@@ -203,12 +215,23 @@ namespace aengine {
 		return Line(p1.value(), p2.value());
 	}
 
-	bool Line::isPointOnLine(const Line& line, const Vectorf& point) {
+	bool Line::isPointOnSegment(const Line& line, const Vectorf& point) {
 		if (point == line.p1 || point == line.p2) return true;
 		float len = line.getLength();
 
 		return ((line.p1 - point).normalized() == (line.p1 - line.p2) / len &&
 			    (line.p2 - point).normalized() == (line.p2 - line.p1) / len);
+	}
+
+	bool Line::isPointOnLine(const Line& line, const Vectorf& point) {
+		if (point == line.p1 || point == line.p2) return true;
+
+		if (line.isPoint())
+			return line.p1 == point;
+
+		auto d1 = (point - line.p1).normalized();
+		auto d2 = (point - line.p2).normalized();
+		return d1 == d2 || d1 == -d2;
 	}
 
 	std::tuple<float, float, float> Line::getABC() const {
