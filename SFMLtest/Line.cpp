@@ -83,15 +83,15 @@ namespace aengine {
 		bool isp1 = l1.isPoint();
 		bool isp2 = l2.isPoint();
 		// if both lines are indefinite (=point) OR only one line is indefinite but it doesn't lie on the other line
-		if (isp1 && isp2 || isp1 && Line::isPointOnSegment(l2, l1.p1) || isp2 && Line::isPointOnSegment(l1, l2.p1)) return false;
+		if (isp1 && isp2 && l1.p1 != l2.p1 || isp1 && Line::isPointOnSegment(l2, l1.p1) || isp2 && Line::isPointOnSegment(l1, l2.p1)) return false;
 
 		float a1, b1, c1, a2, b2, c2;
 		std::tie(a1, b1, c1) = l1.getABC();
 		std::tie(a2, b2, c2) = l2.getABC();
 
 		float det = a1 * b2 - a2 * b1;
-		if (det == 0) {
-			return false; // Lines are parallel
+		if (det == 0) { // lines are parallel
+			return std::abs(a1 * l2.p1.x + b1 * l2.p1.y + c1) < 1e-6; // true if lines are equal
 		}
 		
 		return true;
@@ -188,18 +188,24 @@ namespace aengine {
 		std::optional<Vectorf> p1 = std::nullopt;
 		std::optional<Vectorf> p2 = std::nullopt;
 
+		std::cout << "legit" << std::endl;
+
 		int i = 0;
 		for (i = 0; i < segments.size(); i++) {
 			auto intersection = Line::getSegmentsIntersection(segments[i], line);
 			if (intersection.has_value()) {
 				p1 = intersection.value();
+				std::cout << "p1 = " << p1.value() << segments[i] << std::endl;
+				//break;
 			}
 		}
 
 		for (int j = i; j < segments.size(); j++) {
 			auto intersection = Line::getSegmentsIntersection(segments[j], line);
-			if (intersection.has_value()) {
+			if (intersection.has_value() && p1 != intersection.value()) {
 				p2 = intersection.value();
+				std::cout << "p2 = " << p2.value() << std::endl;
+				//break;
 			}
 		}
 
@@ -238,13 +244,13 @@ namespace aengine {
 		if (p2.x - p1.x == 0) {
 			// no later division, vertical line
 
-			return std::make_tuple<float, float, float>(1 / p1.x, 0, 0);
+			return std::make_tuple<float, float, float>(1, 0, -p1.x);
 		}
 
 		if (p2.y - p1.y == 0) {
 			// horizontal line
 
-			return std::make_tuple<float, float, float>(0, 1 / p1.y, -1);
+			return std::make_tuple<float, float, float>(0, 1, -p1.y);
 		}
 		
 		const float tan = (p2.y - p1.y) / (p2.x - p1.x);
@@ -261,5 +267,9 @@ namespace aengine {
 		window->draw(line);
 		line[0].position = p1.getsf();
 		line[1].position = p2.getsf();
+	}
+
+	std::ostream& operator<<(std::ostream& os, const Line& line) {
+		return os << "Line(" << line.p1 << ", " << line.p2 << ")";
 	}
 }

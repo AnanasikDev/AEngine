@@ -194,7 +194,7 @@ namespace aengine {
 	}
 
 	bool Bounds::isPointInside(const Vectorf& point) const {
-		return point.x > minp.x && point.x < maxp.x && point.y < maxp.y && point.y > minp.y;
+		return point.x >= minp.x && point.x <= maxp.x && point.y <= maxp.y && point.y >= minp.y;
 	}
 
 	Bounds Bounds::extend(float right, float left, float top, float bottom) const {

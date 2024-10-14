@@ -67,4 +67,6 @@ namespace aengine {
 	private:
 		sf::VertexArray line;
 	};
+
+	std::ostream& operator<<(std::ostream& os, const Line& line);
 }

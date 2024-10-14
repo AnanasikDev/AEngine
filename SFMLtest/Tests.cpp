@@ -29,7 +29,7 @@ namespace aengine {
 		REQUIRE((a.crossProduct(a) == 0));
 	}
 
-	TEST_CASE("Bounds") {
+	TEST_CASE("Bounds_intersections") {
 		Bounds b;
 		REQUIRE(b.getArea() == 0);
 		b.setCenterAndSize(Vectorf::zero, Vectorf(10, 5));
@@ -57,6 +57,78 @@ namespace aengine {
 		REQUIRE((Bounds::getIntersectionBounds(Bounds(0, 385, 800, 415), Bounds(75, 380, 105, 410)) == Bounds::Bounds(75, 385, 105, 410)));
 
 		REQUIRE((b4.getCenter() == Vectorf(2, 3)));
+	}
+
+	TEST_CASE("Line_areLinesIntersecting") {
+		// empty lines
+		Line l01;
+		Line l02(Vectorf(1, 2), Vectorf(1, 2));
+
+		// Parallel lines
+		Line p1(Vectorf(0, 0), Vectorf(2, 3));
+		Line p2(Vectorf(2, 1), Vectorf(4, 4));
+		Line p3(Vectorf(9, 13), Vectorf(17, 25));
+
+		// Identical lines
+		Line eq1(Vectorf(1, 1), Vectorf(2, 2));
+		Line eq2(Vectorf(1, 1), Vectorf(0, 0));
+		Line eq3(Vectorf(5, 5), Vectorf(-2, -2));
+		Line eq4(Vectorf(-2, -2), Vectorf(5, 5));
+
+		// Random lines
+		Line ra1(Vectorf(-3, 2), Vectorf(0, 0));
+		Line ra2(Vectorf(-3, -3), Vectorf(1, 0));
+		Line ra3(Vectorf(7, 2), Vectorf(1, -2));
+
+		// Vertical lines
+		Line vert1(Vectorf(0, 0), Vectorf(0, 10));
+		Line vert2(Vectorf(3, 0), Vectorf(3, 10));
+		Line vert3(Vectorf(3, 5), Vectorf(3, 6));
+
+		// Horizontal lines
+		Line hor1(Vectorf(0, 0), Vectorf(7, 0));
+		Line hor2(Vectorf(0, -4), Vectorf(3, -4));
+		Line hor3(Vectorf(-3, 0), Vectorf(3, 0));
+
+		REQUIRE(Line::areLinesIntersecting(l01, eq1));
+		// Identical lines have intersections
+		REQUIRE(Line::areLinesIntersecting(eq1, eq1));
+		REQUIRE(Line::areLinesIntersecting(eq1, eq2));
+		REQUIRE(Line::areLinesIntersecting(eq1, eq3));
+		REQUIRE(Line::areLinesIntersecting(eq1, eq4));
+
+		// Parallel lines have no intersection
+		REQUIRE(!Line::areLinesIntersecting(p1, p2));
+		REQUIRE(!Line::areLinesIntersecting(p1, p3));
+		REQUIRE(!Line::areLinesIntersecting(p2, p3));
+
+		// Random lines intersect
+		REQUIRE(Line::areLinesIntersecting(ra1, ra2));
+		REQUIRE(Line::areLinesIntersecting(ra1, ra3));
+		REQUIRE(Line::areLinesIntersecting(ra2, ra3));
+
+		// Vertical lines
+		REQUIRE(!Line::areLinesIntersecting(vert1, vert2));
+		REQUIRE(Line::areLinesIntersecting(vert2, vert3));
+		REQUIRE(Line::areLinesIntersecting(vert1, ra1));
+		REQUIRE(Line::areLinesIntersecting(vert1, ra2));
+		REQUIRE(Line::areLinesIntersecting(vert1, ra3));
+		REQUIRE(Line::areLinesIntersecting(vert2, ra1));
+		REQUIRE(Line::areLinesIntersecting(vert2, ra2));
+		REQUIRE(Line::areLinesIntersecting(vert2, ra3));
+
+		// Horizontal lines
+		REQUIRE(!Line::areLinesIntersecting(hor1, hor2));
+		REQUIRE(!Line::areLinesIntersecting(hor2, hor3));
+		REQUIRE(Line::areLinesIntersecting(hor1, ra1));
+		REQUIRE(Line::areLinesIntersecting(hor1, ra2));
+		REQUIRE(Line::areLinesIntersecting(hor1, ra3));
+		REQUIRE(Line::areLinesIntersecting(hor2, ra1));
+		REQUIRE(Line::areLinesIntersecting(hor2, ra2));
+		REQUIRE(Line::areLinesIntersecting(hor2, ra3));
+		REQUIRE(Line::areLinesIntersecting(hor1, vert1));
+		REQUIRE(Line::areLinesIntersecting(hor1, vert2));
+		REQUIRE(Line::areLinesIntersecting(hor1, vert3));
 	}
 
 	TEST_CASE("Line_areSegmentsIntersecting") {
@@ -96,6 +168,38 @@ namespace aengine {
 		REQUIRE(!Line::getLinesIntersection(d, f).has_value());
 		REQUIRE(!Line::getLinesIntersection(e, f).has_value());
 		REQUIRE(Line::getLinesIntersection(f, g).has_value());
+	}
+
+	TEST_CASE("Bounds_isPointInside") {
+		Bounds b0;
+		Bounds b1(Vectorf(1, 2), Vectorf(4, 7));
+
+		// Empty bounds
+		REQUIRE(b0.isPointInside(Vectorf(0, 0)));
+		REQUIRE(!b0.isPointInside(Vectorf(0, 0.1f)));
+		REQUIRE(!b0.isPointInside(Vectorf(0.1f, 0)));
+
+		// Vertices
+		REQUIRE(b1.isPointInside(Vectorf(1, 2)));
+		REQUIRE(b1.isPointInside(Vectorf(4, 7)));
+		REQUIRE(b1.isPointInside(Vectorf(1, 7)));
+		REQUIRE(b1.isPointInside(Vectorf(4, 2)));
+
+		// Random points outside
+		REQUIRE(!b1.isPointInside(Vectorf(0, 0)));
+		REQUIRE(!b1.isPointInside(Vectorf(1, 1)));
+		REQUIRE(!b1.isPointInside(Vectorf(0, 7)));
+		REQUIRE(!b1.isPointInside(Vectorf(2, 0)));
+
+		// Points on edges
+		REQUIRE(b1.isPointInside(Vectorf(2, 2)));
+		REQUIRE(b1.isPointInside(Vectorf(1, 4)));
+		REQUIRE(b1.isPointInside(Vectorf(4, 4)));
+		
+		// Points inside
+		REQUIRE(b1.isPointInside(Vectorf(2, 6)));
+		REQUIRE(b1.isPointInside(Vectorf(3, 3)));
+		REQUIRE(b1.isPointInside(Vectorf(2.5f, 4.5f)));
 	}
 
 	TEST_CASE("Line_isPointOnLine") {
@@ -195,9 +299,11 @@ namespace aengine {
 		REQUIRE(!Line::segmentsEqual(a1, a4));
 
 		Line b1(Vectorf(1, 4), Vectorf(5, 8));
-		Line b2(Vectorf(5, 8), Vectorf(1, 4));
+		Line b2(Vectorf(1, 4), Vectorf(5, 8));
+		Line b3(Vectorf(5, 8), Vectorf(1, 4));
 
 		REQUIRE(Line::segmentsEqual(b1, b2));
+		REQUIRE(Line::segmentsEqual(b1, b3));
 
 		Line c1(Vectorf(0, 0), Vectorf(10, 3));
 		Line c2(Vectorf(4, 2), Vectorf(-4, 3));
@@ -209,6 +315,13 @@ namespace aengine {
 		Line l(Vectorf(0, 0), Vectorf(6, 3));
 		Bounds b(Vectorf(0, 0), Vectorf(6, 3));
 
-		REQUIRE((Line::segmentsEqual(Line::getSegmentBoundsIntersection(l, b).value(), l)));
+		//REQUIRE(Line::segmentsEqual(Line::getSegmentBoundsIntersection(l, b).value(), l));
+		Line l1 = Line::getSegmentBoundsIntersection(Line(l.p1 - Vectorf(5, 2.5f), l.p2 + Vectorf(4, 2)), b).value();
+		std::cout << l1 << std::endl;
+		REQUIRE(Line::segmentsEqual(l1, l));
+
+		//REQUIRE(Line::segmentsEqual(Line::getSegmentBoundsIntersection(Line(Vectorf(0, 0), Vectorf(0, 3)), b).value(), Line(Vectorf(0, 0), Vectorf(0, 3))));
+		//REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(-1, 0), Vectorf(-1, 3)), b).has_value() == false);
+		//REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(-1, 0), Vectorf(1, 3)), b).value().isPoint());
 	}
 }
