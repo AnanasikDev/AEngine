@@ -81,22 +81,8 @@ int main() {
 	txt->renderer = textRenderer;
 	txt->isAttachedToCamera = true;*/
 
-
-	Line a(Vectorf(0, 0) * 10, Vectorf(6, 4) * 10);
-	Line b(Vectorf(0, 4) * 10, Vectorf(6, 0) * 10);
-	Line c(Vectorf(0, 2) * 10, Vectorf(10, 2) * 10);
-	Line d(Vectorf(2, -1) * 10, Vectorf(2, 5) * 10);
-	Line e(Vectorf(6, -1) * 10, Vectorf(6, 5) * 10);
-	Line f(Vectorf(6, 100) * 10, Vectorf(6, 3) * 10);
-	Line g(Vectorf(-2, 15) * 10, Vectorf(25, 15) * 10);
-
-	//Line l1(Vectorf(-5, -4) * 10, Vectorf(1, 8) * 10);
-	//Line l2(Vectorf(5, 6) * 10, Vectorf(-9, -1) * 10);
-
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
-
-	Time::invokeRepeating([]() { std::cout << "Hello!" << std::endl; }, 0, 1.f);
 
 	game.start();
 	auto window = game.getWindow();
@@ -110,18 +96,6 @@ int main() {
 	while (game.isRunning()) {
 
 		game.update();
-
-		Debug::logInfo("hi");
-
-		Debug::logWarning("MyWarning!");
-		Debug::logError("MyError!");
-		//textRenderer->text.setString(std::to_string(Collectable::collected));
-		//textRenderer->UpdateRelativeOrigin();
-
-		//std::cout << Time::getTime() / 1000.f << "  " << Mathf::Repeat(Time::getTime() / 1000.f, 0, 200) << std::endl;
-
-		//block3->SetPosition(Vectorf(Mathf::Repeat(Time::getTime(), 0, 200), block3->getPosition().y));
-
 		game.render();
 
 		axisX.render(window, Vectorf::zero, 1, sf::Color::Red);
@@ -146,19 +120,7 @@ int main() {
 			intersection.setPoint1(i.value().p1);
 			intersection.setPoint2(i.value().p2);
 		}
-		//else
-		//	std::cout << "No point" << std::endl;
-		std::cout << std::boolalpha << Line::areSegmentBoundsIntesecting(l1, bounds) << std::endl;
-		
 		intersection.render(window, shift, 1, sf::Color::Magenta);
-
-		/*a.render(window, shift, 1);
-		b.render(window, shift, 1);
-		c.render(window, shift, 1);
-		d.render(window, shift, 1);
-		e.render(window, shift, 1);
-		f.render(window, shift, 1);
-		g.render(window, shift, 1);*/
 
 		game.display();
 	}

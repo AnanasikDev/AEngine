@@ -83,7 +83,7 @@ namespace aengine {
 		bool isp1 = l1.isPoint();
 		bool isp2 = l2.isPoint();
 		// if both lines are indefinite (=point) OR only one line is indefinite but it doesn't lie on the other line
-		if (isp1 && isp2 && l1.p1 != l2.p1 || isp1 && Line::isPointOnSegment(l2, l1.p1) || isp2 && Line::isPointOnSegment(l1, l2.p1)) return false;
+		if ((isp1 && isp2 && l1.p1 != l2.p1) || isp1 && !Line::isPointOnLine(l2, l1.p1) || isp2 && !Line::isPointOnLine(l1, l2.p1)) return false;
 
 		float a1, b1, c1, a2, b2, c2;
 		std::tie(a1, b1, c1) = l1.getABC();
@@ -98,12 +98,21 @@ namespace aengine {
 	}
 
 	std::optional<Vectorf> Line::getLinesIntersection(const Line& l1, const Line& l2) {
+		bool isp1 = l1.isPoint();
+		bool isp2 = l2.isPoint();
+		// if both lines are indefinite (=point) OR only one line is indefinite but it doesn't lie on the other line
+		if ((isp1 && isp2 && l1.p1 != l2.p1) || isp1 && !Line::isPointOnLine(l2, l1.p1) || isp2 && !Line::isPointOnLine(l1, l2.p1)) return std::nullopt;
+
 		float a1, b1, c1, a2, b2, c2;
 		std::tie(a1, b1, c1) = l1.getABC();
 		std::tie(a2, b2, c2) = l2.getABC();
 
+		std::cout << l1 << " " << l2 << " " << a1 << " " << b1 << " " << c1 << " " << a2 << " " << b2 << " " << c2 << " " << std::endl;
+
 		float det = a1 * b2 - a2 * b1;
 		if (det == 0) {
+			if (Line::isPointOnLine(l1, l2.p1)) // Lines are identical
+				return (l1.p1 + l1.p2 + l2.p1 + l2.p2) / 4.f;
 			return std::nullopt; // Lines are parallel
 		}
 
@@ -215,6 +224,22 @@ namespace aengine {
 			return Line(p1.value(), p1.value());
 
 		return Line(p1.value(), p2.value());
+	}
+
+	bool Line::areSegmentLineIntersecting(const Line& segment, const Line& line) {
+		// Edge case: if segment is a point
+		if (segment.isPoint()) {
+			return Line::isPointOnLine(line, segment.p1);
+		}
+		if (line.isPoint()) {
+			return Line::isPointOnSegment(segment, line.p1);
+		}
+
+		auto intersection = Line::getLinesIntersection(line, segment);
+		if (intersection.has_value()) {
+			return Line::isPointOnSegment(segment, intersection.value());
+		}
+		return false;
 	}
 
 	bool Line::isPointOnSegment(const Line& line, const Vectorf& point) {

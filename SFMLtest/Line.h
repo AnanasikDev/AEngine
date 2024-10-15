@@ -56,6 +56,8 @@ namespace aengine {
 
 		static std::optional<Line> getSegmentBoundsIntersection(const Line& line, const Bounds& bounds);
 
+		static bool areSegmentLineIntersecting(const Line& segment, const Line& line);
+
 		static bool isPointOnSegment(const Line& line, const Vectorf& point);
 
 		static bool isPointOnLine(const Line& line, const Vectorf& point);
