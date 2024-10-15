@@ -188,15 +188,12 @@ namespace aengine {
 		std::optional<Vectorf> p1 = std::nullopt;
 		std::optional<Vectorf> p2 = std::nullopt;
 
-		std::cout << "legit" << std::endl;
-
 		int i = 0;
 		for (i = 0; i < segments.size(); i++) {
 			auto intersection = Line::getSegmentsIntersection(segments[i], line);
 			if (intersection.has_value()) {
 				p1 = intersection.value();
-				std::cout << "p1 = " << p1.value() << segments[i] << std::endl;
-				//break;
+				break;
 			}
 		}
 
@@ -204,8 +201,7 @@ namespace aengine {
 			auto intersection = Line::getSegmentsIntersection(segments[j], line);
 			if (intersection.has_value() && p1 != intersection.value()) {
 				p2 = intersection.value();
-				std::cout << "p2 = " << p2.value() << std::endl;
-				//break;
+				break;
 			}
 		}
 

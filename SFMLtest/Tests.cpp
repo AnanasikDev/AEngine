@@ -315,13 +315,15 @@ namespace aengine {
 		Line l(Vectorf(0, 0), Vectorf(6, 3));
 		Bounds b(Vectorf(0, 0), Vectorf(6, 3));
 
-		//REQUIRE(Line::segmentsEqual(Line::getSegmentBoundsIntersection(l, b).value(), l));
+		REQUIRE(Line::segmentsEqual(Line::getSegmentBoundsIntersection(l, b).value(), l));
 		Line l1 = Line::getSegmentBoundsIntersection(Line(l.p1 - Vectorf(5, 2.5f), l.p2 + Vectorf(4, 2)), b).value();
 		std::cout << l1 << std::endl;
 		REQUIRE(Line::segmentsEqual(l1, l));
 
-		//REQUIRE(Line::segmentsEqual(Line::getSegmentBoundsIntersection(Line(Vectorf(0, 0), Vectorf(0, 3)), b).value(), Line(Vectorf(0, 0), Vectorf(0, 3))));
-		//REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(-1, 0), Vectorf(-1, 3)), b).has_value() == false);
-		//REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(-1, 0), Vectorf(1, 3)), b).value().isPoint());
+		REQUIRE(Line::segmentsEqual(Line::getSegmentBoundsIntersection(Line(Vectorf(0, 0), Vectorf(0, 3)), b).value(), Line(Vectorf(0, 0), Vectorf(0, 3))));
+		REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(-1, 0), Vectorf(-1, 3)), b).has_value() == false);
+		REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(-1, 0), Vectorf(1, 3)), b).value().isPoint());
+		REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(0, 4), Vectorf(2, 4)), b).has_value() == false);
+		REQUIRE(Line::getSegmentBoundsIntersection(Line(Vectorf(0, 4), Vectorf(2, 3)), b).value().isPoint());
 	}
 }
