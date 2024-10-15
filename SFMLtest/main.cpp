@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include <iostream>
+#include "Debug.h"
 
 using namespace aengine;
 using namespace agame;
@@ -110,6 +111,10 @@ int main() {
 
 		game.update();
 
+		Debug::logInfo("hi");
+
+		Debug::logWarning("MyWarning!");
+		Debug::logError("MyError!");
 		//textRenderer->text.setString(std::to_string(Collectable::collected));
 		//textRenderer->UpdateRelativeOrigin();
 
