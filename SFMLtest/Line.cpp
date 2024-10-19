@@ -258,11 +258,21 @@ namespace aengine {
 			return Line::isPointOnSegment(segment, line.p1);
 		}
 
+		if (Line::linesEqual(segment, line)) {
+			return true;
+		}
+
 		auto intersection = Line::getLinesIntersection(line, segment);
 		if (intersection.has_value()) {
 			return Line::isPointOnSegment(segment, intersection.value());
 		}
 		return false;
+	}
+
+	std::optional<Vectorf> Line::getSegmentLineIntersection(const Line& segment, const Line& line){
+		if (areSegmentLineIntersecting(segment, line))
+			return getLinesIntersection(segment, line);
+		return std::nullopt;
 	}
 
 	bool Line::isPointOnSegment(const Line& line, const Vectorf& point) {

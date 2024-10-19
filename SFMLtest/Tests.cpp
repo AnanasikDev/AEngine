@@ -75,6 +75,7 @@ namespace aengine {
 		Line eq2(Vectorf(1, 1), Vectorf(0, 0));
 		Line eq3(Vectorf(5, 5), Vectorf(-2, -2));
 		Line eq4(Vectorf(-2, -2), Vectorf(5, 5));
+		Line eq5(Vectorf(9, 9), Vectorf(10, 10));
 
 		// Random lines
 		Line ra1(Vectorf(-3, 2), Vectorf(0, 0));
@@ -97,6 +98,8 @@ namespace aengine {
 		REQUIRE(Line::areLinesIntersecting(eq1, eq2));
 		REQUIRE(Line::areLinesIntersecting(eq1, eq3));
 		REQUIRE(Line::areLinesIntersecting(eq1, eq4));
+		REQUIRE(Line::areLinesIntersecting(eq1, eq5));
+		REQUIRE(Line::areLinesIntersecting(eq4, eq5));
 
 		// Parallel lines have no intersection
 		REQUIRE(!Line::areLinesIntersecting(p1, p2));
@@ -197,6 +200,7 @@ namespace aengine {
 		Line d(Vectorf(-3, 4), Vectorf(1, 4));
 		Line e(Vectorf(-1, 3), Vectorf(1, -3));
 		Line f(Vectorf(-4, 3), Vectorf(-4, -10));
+		Line g(Vectorf(2, 4), Vectorf(4, 4));
 
 		// Empty lines
 		REQUIRE(Line::areSegmentLineIntersecting(el01, es01));
@@ -217,29 +221,41 @@ namespace aengine {
 		REQUIRE(Line::areSegmentLineIntersecting(f, d) == false);
 		REQUIRE(Line::areSegmentLineIntersecting(d, a) == false);
 		REQUIRE(Line::areSegmentLineIntersecting(a, d));
+
+		REQUIRE(Line::areSegmentLineIntersecting(a, g));
+		REQUIRE(Line::areSegmentLineIntersecting(g, a) == false);
+
+		REQUIRE(Line::areLinesIntersecting(d, g));
+		REQUIRE(Line::areLinesIntersecting(g, d));
+		REQUIRE(Line::areSegmentLineIntersecting(d, g));
+		REQUIRE(Line::areSegmentLineIntersecting(g, d));
 	}
 
 
 	TEST_CASE("Line_getLinesIntersection") {
 		Line emp0;
 		Line emp1(Vectorf(2, 1), Vectorf(2, 1));
-		Line a(Vectorf(0, 1), Vectorf(2, 1));
+		Line a1(Vectorf(0, 1), Vectorf(2, 1));
+		Line a2(Vectorf(4, 1), Vectorf(5, 1));
 		Line b(Vectorf(3, 2), Vectorf(5, 2));
 		Line c(Vectorf(-2, 0), Vectorf(0, 1));
 		Line d(Vectorf(-1, 2), Vectorf(1, 3));
 		Line e(Vectorf(1, -3), Vectorf(1, -1));
 		Line f(Vectorf(2, -1), Vectorf(2, -3));
+		
+		// identical lines
+		REQUIRE(Line::getLinesIntersection(a1, a2).value() == Vectorf(2.75f, 1));
 
 		REQUIRE(Line::getLinesIntersection(emp0, emp1).has_value() == false);
-		REQUIRE(Line::getLinesIntersection(emp0, a).has_value() == false);
-		REQUIRE(Line::getLinesIntersection(a, b).has_value() == false);
+		REQUIRE(Line::getLinesIntersection(emp0, a1).has_value() == false);
+		REQUIRE(Line::getLinesIntersection(a1, b).has_value() == false);
 		REQUIRE(Line::getLinesIntersection(c, d).has_value() == false);
 		REQUIRE(Line::getLinesIntersection(e, f).has_value() == false);
-		REQUIRE(Line::getLinesIntersection(a, emp1).value() == Vectorf(2, 1));
+		REQUIRE(Line::getLinesIntersection(a1, emp1).value() == Vectorf(2, 1));
 
-		REQUIRE(Line::getLinesIntersection(a, c).value() == Vectorf(0, 1));
-		REQUIRE(Line::getLinesIntersection(a, d).value() == Vectorf(-3, 1));
-		REQUIRE(Line::getLinesIntersection(e, a).value() == Vectorf(1, 1));
+		REQUIRE(Line::getLinesIntersection(a1, c).value() == Vectorf(0, 1));
+		REQUIRE(Line::getLinesIntersection(a1, d).value() == Vectorf(-3, 1));
+		REQUIRE(Line::getLinesIntersection(e, a1).value() == Vectorf(1, 1));
 		REQUIRE(Line::getLinesIntersection(f, c).value() == Vectorf(2, 2));
 	}
 
@@ -256,6 +272,7 @@ namespace aengine {
 		Line f1(Vectorf(5, 0), Vectorf(5, -1));
 		Line f2(Vectorf(5, -1), Vectorf(5, 0));
 		Line g(Vectorf(3, -2), Vectorf(3, 3));
+		Line h(Vectorf(-1, 1), Vectorf(2, 1));
 
 		REQUIRE(Line::areSegmentsIntersecting(emp2, g));
 		REQUIRE(Line::getLinesIntersection(emp2, g).value() == Vectorf(3, 2));
@@ -275,6 +292,9 @@ namespace aengine {
 		REQUIRE(Line::getSegmentsIntersection(f1, b).has_value() == false);
 		REQUIRE(Line::getSegmentsIntersection(f2, b).has_value() == false);
 
+		// TODO: overlapping not in a single point but in a segment, must result in the center point of overlap (now returns one of the edges of a segment)
+		REQUIRE(Line::getSegmentsIntersection(a, h).has_value());
+
 		REQUIRE(Line::getSegmentsIntersection(e, b).value() == Vectorf(6, 1));
 		REQUIRE(Line::getSegmentsIntersection(b, e).value() == Vectorf(6, 1));
 		REQUIRE(Line::getSegmentsIntersection(a, d1).value() == Vectorf(3, 1));
@@ -285,6 +305,35 @@ namespace aengine {
 		REQUIRE(Line::getSegmentsIntersection(c1, d2).value() == Vectorf(3 + 1./3., 2./3.));
 		REQUIRE(Line::getSegmentsIntersection(c2, d1).value() == Vectorf(3 + 1./3., 2./3.));
 		REQUIRE(Line::getSegmentsIntersection(c2, d2).value() == Vectorf(3 + 1./3., 2./3.));
+	}
+
+	TEST_CASE("Line_getSegmentLineIntersection") {
+		Line emp1;
+		Line emp2(Vectorf(3, 2), Vectorf(3, 2));
+		Line a(Vectorf(1, 1), Vectorf(3, 1));
+		Line b(Vectorf(4, 1), Vectorf(7, 1));
+		Line c1(Vectorf(3, 0), Vectorf(4, 2));
+		Line c2(Vectorf(4, 2), Vectorf(3, 0));
+		Line d1(Vectorf(4, 0), Vectorf(2, 2));
+		Line d2(Vectorf(2, 2), Vectorf(4, 0));
+		Line e(Vectorf(6, 1), Vectorf(6, 4));
+		Line f1(Vectorf(5, 0), Vectorf(5, -1));
+		Line f2(Vectorf(5, -1), Vectorf(5, 0));
+		Line g(Vectorf(3, -2), Vectorf(3, 3));
+
+		REQUIRE(Line::getSegmentLineIntersection(a, b).has_value());
+		REQUIRE(Line::getSegmentLineIntersection(b, a).has_value());
+		REQUIRE(Line::getSegmentLineIntersection(c1, e).has_value() == false);
+		REQUIRE(Line::getSegmentLineIntersection(e, c1).has_value() == false);
+		REQUIRE(Line::getSegmentLineIntersection(e, Line(c1.p1 + Vectorf::up * 2, c1.p2 + Vectorf::up * 2)).value() == Vectorf(6, 4));
+		REQUIRE(Line::getSegmentLineIntersection(a, d1).value() == Vectorf(3, 1));
+		REQUIRE(Line::getSegmentLineIntersection(d1, a).value() == Vectorf(3, 1));
+		REQUIRE(Line::getSegmentLineIntersection(b, f1).value() == Vectorf(5, 1));
+		REQUIRE(Line::getSegmentLineIntersection(f1, b).has_value() == false);
+		REQUIRE(Line::getSegmentLineIntersection(d1, f1).has_value() == false);
+		REQUIRE(Line::getSegmentLineIntersection(f1, d1).value() == Vectorf(5, -1));
+		REQUIRE(Line::getSegmentLineIntersection(e, g).has_value() == false);
+		REQUIRE(Line::getSegmentLineIntersection(g, e).has_value() == false);
 	}
 
 	TEST_CASE("Line_getSegmentBoundsIntersection") {
