@@ -98,16 +98,31 @@ namespace aengine {
 	}
 
 	std::optional<Vectorf> Line::getLinesIntersection(const Line& l1, const Line& l2) {
-		bool isp1 = l1.isPoint();
-		bool isp2 = l2.isPoint();
+		bool isL1Point = l1.isPoint();
+		bool isL2Point = l2.isPoint();
 		// if both lines are indefinite (=point) OR only one line is indefinite but it doesn't lie on the other line
-		if ((isp1 && isp2 && l1.p1 != l2.p1) || isp1 && !Line::isPointOnLine(l2, l1.p1) || isp2 && !Line::isPointOnLine(l1, l2.p1)) return std::nullopt;
+		if (isL1Point && isL2Point)
+		{
+			if (l1.p1 == l2.p1)
+				return l1.p1;
+			return std::nullopt;
+		}
+		if (isL1Point) {
+			if (Line::isPointOnLine(l2, l1.p1)) {
+				return l1.p1;
+			}
+			return std::nullopt;
+		}
+		if (isL2Point) {
+			if (Line::isPointOnLine(l1, l2.p1)) {
+				return l2.p1;
+			}
+			return std::nullopt;
+		}
 
 		float a1, b1, c1, a2, b2, c2;
 		std::tie(a1, b1, c1) = l1.getABC();
 		std::tie(a2, b2, c2) = l2.getABC();
-
-		std::cout << l1 << " " << l2 << " " << a1 << " " << b1 << " " << c1 << " " << a2 << " " << b2 << " " << c2 << " " << std::endl;
 
 		float det = a1 * b2 - a2 * b1;
 		if (det == 0) {
@@ -127,6 +142,14 @@ namespace aengine {
 			Line::isPointOnSegment(line1, line2.p2) ||
 			Line::isPointOnSegment(line2, line1.p1) ||
 			Line::isPointOnSegment(line2, line1.p2)) return true;
+
+		// point of intersection is not a vertex of any segment
+
+		// thus, if they lie on the same line, they must not intersect
+		if (Line::isPointOnLine(line1, line2.p1) ||
+			Line::isPointOnLine(line1, line2.p2) ||
+			Line::isPointOnLine(line2, line1.p1) ||
+			Line::isPointOnLine(line2, line1.p2)) return false;
 
 		auto v1 = line1.asVector();
 		auto v2 = line2.asVector();

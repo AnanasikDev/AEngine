@@ -133,21 +133,57 @@ namespace aengine {
 	}
 
 	TEST_CASE("Line_areSegmentsIntersecting") {
-		Line a(Vectorf(0, 0), Vectorf(5, 4));
-		Line b(Vectorf(2, 6), Vectorf(4, 2));
-		Line c(Vectorf(4, 2), Vectorf(2, 6));
-		Line d(Vectorf(0, 3), Vectorf(1, -3));
-		Line e(Vectorf(-1, 3), Vectorf(1, -3));
-		Line f(Vectorf(-4, 3), Vectorf(-4, -10));
+		Line _a(Vectorf(0, 0), Vectorf(5, 4));
+		Line _b(Vectorf(2, 6), Vectorf(4, 2));
+		Line _c(Vectorf(4, 2), Vectorf(2, 6));
+		Line _d(Vectorf(0, 3), Vectorf(1, -3));
+		Line _e(Vectorf(-1, 3), Vectorf(1, -3));
+		Line _f(Vectorf(-4, 3), Vectorf(-4, -10));
 
-		REQUIRE(Line::areSegmentsIntersecting(a, b));
-		REQUIRE(Line::areSegmentsIntersecting(a, c));
-		REQUIRE(Line::areSegmentsIntersecting(a, d));
-		REQUIRE(Line::areSegmentsIntersecting(a, e));
-		REQUIRE(!Line::areSegmentsIntersecting(b, d));
-		REQUIRE(!Line::areSegmentsIntersecting(a, f));
-		REQUIRE(!Line::areSegmentsIntersecting(e, f));
-		REQUIRE(!Line::areSegmentsIntersecting(c, f));
+		REQUIRE(Line::areSegmentsIntersecting(_a, _b));
+		REQUIRE(Line::areSegmentsIntersecting(_a, _c));
+		REQUIRE(Line::areSegmentsIntersecting(_a, _d));
+		REQUIRE(Line::areSegmentsIntersecting(_a, _e));
+		REQUIRE(!Line::areSegmentsIntersecting(_b, _d));
+		REQUIRE(!Line::areSegmentsIntersecting(_a, _f));
+		REQUIRE(!Line::areSegmentsIntersecting(_e, _f));
+		REQUIRE(!Line::areSegmentsIntersecting(_c, _f));
+
+		Line emp1;
+		Line emp2(Vectorf(3, 2), Vectorf(3, 2));
+		Line a(Vectorf(1, 1), Vectorf(3, 1));
+		Line b(Vectorf(4, 1), Vectorf(7, 1));
+		Line c1(Vectorf(3, 0), Vectorf(4, 2));
+		Line c2(Vectorf(4, 2), Vectorf(3, 0));
+		Line d1(Vectorf(4, 0), Vectorf(2, 2));
+		Line d2(Vectorf(2, 2), Vectorf(4, 0));
+		Line e(Vectorf(6, 1), Vectorf(6, 4));
+		Line f1(Vectorf(5, 0), Vectorf(5, -1));
+		Line f2(Vectorf(5, -1), Vectorf(5, 0));
+		Line g(Vectorf(3, -2), Vectorf(3, 3));
+
+		REQUIRE(Line::areSegmentsIntersecting(emp2, g));
+		REQUIRE(Line::areSegmentsIntersecting(emp1, a) == false);
+		REQUIRE(Line::areSegmentsIntersecting(emp1, emp2) == false);
+		REQUIRE(Line::areSegmentsIntersecting(emp2, d1) == false);
+
+		REQUIRE(Line::areSegmentsIntersecting(a, b) == false);
+		REQUIRE(Line::areSegmentsIntersecting(b, a) == false);
+		REQUIRE(Line::areSegmentsIntersecting(a, c1) == false);
+		REQUIRE(Line::areSegmentsIntersecting(a, c2) == false);
+		REQUIRE(Line::areSegmentsIntersecting(a, f1) == false);
+		REQUIRE(Line::areSegmentsIntersecting(g, f1) == false);
+		REQUIRE(Line::areSegmentsIntersecting(g, e) == false);
+		REQUIRE(Line::areSegmentsIntersecting(e, g) == false);
+		REQUIRE(Line::areSegmentsIntersecting(f1, b) == false);
+		REQUIRE(Line::areSegmentsIntersecting(f2, b) == false);
+
+		REQUIRE(Line::areSegmentsIntersecting(c1, g));
+		REQUIRE(Line::areSegmentsIntersecting(c2, g));
+		REQUIRE(Line::areSegmentsIntersecting(c1, d1));
+		REQUIRE(Line::areSegmentsIntersecting(c1, d2));
+		REQUIRE(Line::areSegmentsIntersecting(c2, d1));
+		REQUIRE(Line::areSegmentsIntersecting(c2, d2));
 	}
 
 	TEST_CASE("Line_areSegmentLineIntersecting") {
@@ -208,24 +244,47 @@ namespace aengine {
 	}
 
 	TEST_CASE("Line_getSegmentsIntersection") {
-		// pair of diagonal intersecting lines
-		Line a(Vectorf(0, 0), Vectorf(6, 4));
-		Line b(Vectorf(0, 4), Vectorf(6, 0));
+		Line emp1;
+		Line emp2(Vectorf(3, 2), Vectorf(3, 2));
+		Line a(Vectorf(1, 1), Vectorf(3, 1));
+		Line b(Vectorf(4, 1), Vectorf(7, 1));
+		Line c1(Vectorf(3, 0), Vectorf(4, 2));
+		Line c2(Vectorf(4, 2), Vectorf(3, 0));
+		Line d1(Vectorf(4, 0), Vectorf(2, 2));
+		Line d2(Vectorf(2, 2), Vectorf(4, 0));
+		Line e(Vectorf(6, 1), Vectorf(6, 4));
+		Line f1(Vectorf(5, 0), Vectorf(5, -1));
+		Line f2(Vectorf(5, -1), Vectorf(5, 0));
+		Line g(Vectorf(3, -2), Vectorf(3, 3));
 
-		Line c(Vectorf(0, 2), Vectorf(10, 2)); // horizontal line
-		Line d(Vectorf(2, -1), Vectorf(2, 5)); // vertical line
-		Line e(Vectorf(6, -1), Vectorf(6, 5)); // vertical line
-		Line f(Vectorf(6, 100), Vectorf(6, 3)); // vetical line
-		Line g(Vectorf(-2, 15), Vectorf(25, 15)); // horizontal line
+		REQUIRE(Line::areSegmentsIntersecting(emp2, g));
+		REQUIRE(Line::getLinesIntersection(emp2, g).value() == Vectorf(3, 2));
+		REQUIRE(Line::getSegmentsIntersection(emp2, g).value() == Vectorf(3, 2));
+		REQUIRE(Line::getSegmentsIntersection(emp1, a).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(emp1, emp2).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(emp2, d1).has_value() == false);
 
-		REQUIRE(Line::getLinesIntersection(a, b).value() == Vectorf(3, 2));
-		REQUIRE(Line::getLinesIntersection(a, c).value() == Vectorf(3, 2));
-		REQUIRE(Line::getLinesIntersection(a, d).has_value());
-		REQUIRE(Line::getLinesIntersection(b, d).has_value());
-		REQUIRE(!Line::getLinesIntersection(d, e).has_value());
-		REQUIRE(!Line::getLinesIntersection(d, f).has_value());
-		REQUIRE(!Line::getLinesIntersection(e, f).has_value());
-		REQUIRE(Line::getLinesIntersection(f, g).has_value());
+		REQUIRE(Line::getSegmentsIntersection(a, b).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(b, a).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(a, c1).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(a, c2).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(a, f1).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(g, f1).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(g, e).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(e, g).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(f1, b).has_value() == false);
+		REQUIRE(Line::getSegmentsIntersection(f2, b).has_value() == false);
+
+		REQUIRE(Line::getSegmentsIntersection(e, b).value() == Vectorf(6, 1));
+		REQUIRE(Line::getSegmentsIntersection(b, e).value() == Vectorf(6, 1));
+		REQUIRE(Line::getSegmentsIntersection(a, d1).value() == Vectorf(3, 1));
+		REQUIRE(Line::getSegmentsIntersection(a, g).value() == Vectorf(3, 1));
+		REQUIRE(Line::getSegmentsIntersection(c1, g).value() == Vectorf(3, 0));
+		REQUIRE(Line::getSegmentsIntersection(c2, g).value() == Vectorf(3, 0));
+		REQUIRE(Line::getSegmentsIntersection(c1, d1).value() == Vectorf(3 + 1./3., 2./3.));
+		REQUIRE(Line::getSegmentsIntersection(c1, d2).value() == Vectorf(3 + 1./3., 2./3.));
+		REQUIRE(Line::getSegmentsIntersection(c2, d1).value() == Vectorf(3 + 1./3., 2./3.));
+		REQUIRE(Line::getSegmentsIntersection(c2, d2).value() == Vectorf(3 + 1./3., 2./3.));
 	}
 
 	TEST_CASE("Line_getSegmentBoundsIntersection") {
