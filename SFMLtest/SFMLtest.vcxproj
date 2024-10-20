@@ -209,6 +209,7 @@
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="RectCollider.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
@@ -241,11 +242,13 @@
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="RectCollider.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="ShapeRenderer.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="UIElement.h" />

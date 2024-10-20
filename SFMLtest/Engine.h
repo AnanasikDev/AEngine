@@ -18,6 +18,8 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Debug.h"
+#include "Random.h"
+#include "String.h"
 
 #include "UIElement.h"
 #include "Canvas.h"

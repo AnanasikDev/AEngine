@@ -50,14 +50,14 @@ int main() {
 
 	Gameobject* floor = new Gameobject("floor");
 
- 	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor, game.getWindow()))->to<ShapeRenderer>();
+	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor, game.getWindow()))->to<ShapeRenderer>();
 
 	floorRend->setShape(std::make_unique<sf::RectangleShape>(Vectorf(800, 30).getsf()));
-	
+
 	auto floorRect = floorRend->getShapeAs<sf::RectangleShape>();
 	floorRect->setFillColor(sf::Color::Magenta);
 	floor->renderer->setRelativeOrigin(Vectorf::half);
-	
+
 	floor->setCollider(std::make_unique<RectCollider>(floor, Vectorf(800, 30)));
 	floor->setRigidbody(std::make_unique<Rigidbody>(floor));
 	floor->rigidbody->makeStatic();
@@ -74,7 +74,7 @@ int main() {
 	*/
 
 	TextRenderer::loadFont();
-	
+
 
 	Gameobject* txt = new Gameobject("MyText");
 	txt->setPosition(game.getWindow()->getSize().x / 2.f, 20);
@@ -93,6 +93,27 @@ int main() {
 	Line axisY(Vectorf(windowSize.x / 2.f, 0), Vectorf(windowSize.x / 2.f, windowSize.y));
 
 	Line intersection;
+
+	const int d = 10;
+	std::array<int, d> vec;
+	for (int i = 0; i < d; i++) {
+		vec[i] = 0;
+	}
+	for (int i = 0; i < 1000000; i++) {
+		float r = Random::getFloat();
+		for (int t = 0; t < d; t++) {
+			if (r < 1.f / d * (t+1)) {
+				vec[t]++;
+				break;
+			}
+		}
+	}
+
+	for (int i = 0; i < d; i++) {
+		Debug::logError(str(vec[i]));
+	}
+
+	//Debug::logError(str(Random::take<int>(vec)));
 
 	while (game.isRunning()) {
 
@@ -122,6 +143,8 @@ int main() {
 			intersection.setPoint2(i.value().p2);
 		}
 		intersection.render(window, shift, 1, sf::Color::Magenta);
+
+		//Debug::logWarning(std::to_string(Random::getInt(0, 100)));
 
 		game.display();
 	}
