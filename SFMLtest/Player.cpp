@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Gameobject.h"
-#include "Renderer.h"
+#include "SpriteRenderer.h"
+#include "ShapeRenderer.h"
 #include "Game.h"
 #include <iostream>
 #include "Camera.h"
@@ -13,20 +14,11 @@ namespace agame {
 	}
 
     void Player::start() {
-        this->renderer = std::make_unique<aengine::ShapeRenderer>(this, aengine::Game::instance->getWindow());
-        auto shapeRenderer = renderer->to<aengine::ShapeRenderer>();
-        shapeRenderer->setShape(std::make_unique<sf::CircleShape>(30));
-        auto circle = shapeRenderer->getShapeAs<sf::CircleShape>();
+        this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, aengine::Game::instance->getWindow(), "resources/Ananasik2.png"));
 
-        setCollider(std::make_unique<aengine::CircleCollider>(this, 30));
-        setRigidbody(std::make_unique<aengine::Rigidbody>(this));
-        rigidbody->makeKinematic();
+        auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
 
-        circle->setFillColor(sf::Color(255, 100, 10));
         setPosition(40, 50);
-        circle->setPosition(getPosition().getsf());
-
-        //aengine::Camera::setPosition(getPosition());
     }
 
 	void Player::update() {
@@ -39,9 +31,7 @@ namespace agame {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) delta.y = 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) delta.x =  1;
 
-        if (delta != aengine::Vectorf::zero)
-            rigidbody->addForce(delta * movementSpeed);
-        translate(delta);
+        translate(delta * movementSpeed);
 
         aengine::Camera::translate(getPosition() - prevPos);
 	}

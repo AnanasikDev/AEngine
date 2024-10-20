@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include <iostream>
-#include "Debug.h"
+#include "Collectable.h"
 
 using namespace aengine;
 using namespace agame;
@@ -71,15 +71,16 @@ int main() {
 	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
 	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
 	button->getGameobject()->renderer->SetRelativeOrigin(Vectorf::zero);
+	*/
 
-	TextRenderer::LoadFont();
+	TextRenderer::loadFont();
+	
 
 	Gameobject* txt = new Gameobject("MyText");
-	txt->SetPosition(game.getWindow()->getSize().x / 2.f, 20);
-	TextRenderer* textRenderer = new TextRenderer();
-	textRenderer->SetRelativeOrigin(Vectorf::zero);
-	txt->renderer = textRenderer;
-	txt->isAttachedToCamera = true;*/
+	txt->setPosition(game.getWindow()->getSize().x / 2.f, 20);
+	auto textRenderer = txt->setRenderer(std::make_unique<aengine::TextRenderer>());
+	textRenderer->setRelativeOrigin(Vectorf::zero);
+	txt->isAttachedToCamera = true;
 
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
