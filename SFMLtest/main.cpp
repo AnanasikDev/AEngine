@@ -13,6 +13,7 @@ int main() {
 	game.getWindow()->setFramerateLimit(60);
 
 	Player* player = new Player("Player");
+	player->renderer->setDistance(0);
 
 	auto c1 = new Collectable("Coin1");
 	c1->setPosition(Vectorf(300, 400));
@@ -94,27 +95,6 @@ int main() {
 
 	Line intersection;
 
-	const int d = 10;
-	std::array<int, d> vec;
-	for (int i = 0; i < d; i++) {
-		vec[i] = 0;
-	}
-	for (int i = 0; i < 1000000; i++) {
-		float r = Random::getFloat();
-		for (int t = 0; t < d; t++) {
-			if (r < 1.f / d * (t+1)) {
-				vec[t]++;
-				break;
-			}
-		}
-	}
-
-	for (int i = 0; i < d; i++) {
-		Debug::logError(str(vec[i]));
-	}
-
-	//Debug::logError(str(Random::take<int>(vec)));
-
 	while (game.isRunning()) {
 
 		game.update();
@@ -143,8 +123,6 @@ int main() {
 			intersection.setPoint2(i.value().p2);
 		}
 		intersection.render(window, shift, 1, sf::Color::Magenta);
-
-		//Debug::logWarning(std::to_string(Random::getInt(0, 100)));
 
 		game.display();
 	}

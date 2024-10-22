@@ -10,6 +10,7 @@
 namespace aengine {
 
 	class Gameobject;
+	class Renderer;
 
 	class Game {
 
@@ -18,6 +19,11 @@ namespace aengine {
 		sf::VideoMode videoMode;
 		sf::Event event;
 		sf::Color defaultColor;
+
+		/// <summary>
+		/// All rendrers present in the world, always ordered by the distance to the camera (from farthest to closest)
+		/// </summary>
+		std::vector<Renderer*> renderersOrdered;
 
 	public:
 		Vector<int> pixelPos;
@@ -42,6 +48,8 @@ namespace aengine {
 		void display();
 		void close();
 		void addGameobject(Gameobject* gameobject);
+		void addRenderer(Renderer* renderer);
+		void updateRendererDistance(Renderer* renderer);
 
 		const bool contains(Gameobject* gameobject) const;
 		void destroyGameobject(Gameobject* gameobject);

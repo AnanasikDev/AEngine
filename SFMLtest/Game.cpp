@@ -8,6 +8,7 @@
 #include "Input.h"
 #include "List.h"
 #include "Debug.h"
+#include "Renderer.h"
 
 namespace aengine {
 
@@ -39,6 +40,22 @@ namespace aengine {
 
 	void Game::addGameobject(Gameobject* gameobject) {
 		gameobjects.push_back(std::unique_ptr<Gameobject>(gameobject));
+	}
+
+	void Game::addRenderer(Renderer* renderer) {
+		for (int i = 0; i < renderersOrdered.size(); i++) {
+			if (renderer->getDistance() >= renderersOrdered[i]->getDistance()) {
+				renderersOrdered.insert(renderersOrdered.begin() + i, renderer);
+				return;
+			}
+		}
+		// if renderersOrdered is empty or its distance is minimum
+		renderersOrdered.push_back(renderer);
+	}
+
+	void Game::updateRendererDistance(Renderer* renderer) {
+		List::remove(renderersOrdered, renderer);
+		addRenderer(renderer);
 	}
 
 	sf::RenderWindow* Game::getWindow() const {
@@ -93,8 +110,8 @@ namespace aengine {
 	void Game::render() {
 		this->window->clear(this->defaultColor);
 
-		for (int i = 0; i < gameobjects.size(); i++) {
-			gameobjects[i]->render();
+		for (int i = 0; i < renderersOrdered.size(); i++) {
+			renderersOrdered[i]->render();
 		}
 
 		//Canvas::Render();
@@ -123,9 +140,13 @@ namespace aengine {
 
 	void Game::destroyGameobject(Gameobject* gameobject)
 	{
+		List::remove(renderersOrdered, gameobject->renderer.get());
 		for (int i = 0; i < gameobjects.size(); i++) {
 			if (gameobjects[i].get() == gameobject)
+			{
+				// removing the unique_ptr hence destroying the object itself
 				List::RemoveAt(gameobjects, i);
+			}
 		}
 	}
 

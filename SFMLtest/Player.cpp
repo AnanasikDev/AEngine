@@ -10,15 +10,15 @@
 namespace agame {
 
 	Player::Player(std::string name) : Gameobject(name) {
-
-	}
-
-    void Player::start() {
         this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, aengine::Game::instance->getWindow(), "resources/Ananasik2.png"));
 
         auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
 
         setPosition(40, 50);
+	}
+
+    void Player::start() {
+        
     }
 
 	void Player::update() {

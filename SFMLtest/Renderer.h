@@ -7,6 +7,13 @@
 namespace aengine {
 
 	class Renderer : public Component {
+	private:
+		/// <summary>
+		/// Distance from camera, same as order of rendering
+		/// </summary>
+		float distance;
+		static const float defaultDistance;
+
 	public:
 		class Gameobject* gameobject;
 		sf::RenderWindow* surface;
@@ -20,6 +27,12 @@ namespace aengine {
 
 		Renderer();
 		Renderer(Gameobject* gameobject, sf::RenderWindow* surface);
+
+		/// <summary>
+		/// Sets the new distance to camera (rendering order)
+		/// </summary>
+		void setDistance(float distance);
+		float getDistance() const;
 
 		virtual void update(const aengine::Vectorf position) = 0;
 		virtual void render() = 0;
