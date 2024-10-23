@@ -27,6 +27,11 @@ namespace aengine {
 		static void logWarning(const std::string& str);
 		static void logError(const std::string& str);
 
+		/// <summary>
+		/// invokes logError and throws a std::exception
+		/// </summary>
+		static void logException(const std::string& str);
+
 		enum msgType {
 			info,
 			warning,

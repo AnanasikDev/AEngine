@@ -68,7 +68,7 @@ namespace aengine {
 
 					// if not repetitive, delete
 					if (coroutines[i].repeating == false)	  {
-						List::RemoveAt(coroutines, i);
+						List::removeAt(coroutines, i);
 					}
 				}
 			}

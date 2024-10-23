@@ -12,11 +12,10 @@
 
 namespace aengine {
 
-	void Game::initWindow() {
-		this->videoMode.width = 800;
-		this->videoMode.height = 600;
-		this->defaultColor = sf::Color(220, 220, 255);
-		this->window = new sf::RenderWindow(this->videoMode, "My agnma");
+	void Game::initWindow(float width, float height, const std::string& title) {
+		this->videoMode.width = width;
+		this->videoMode.height = height;
+		this->window = new sf::RenderWindow(this->videoMode, title);
 	}
 
 	Game::Game() {
@@ -32,94 +31,14 @@ namespace aengine {
 
 	Game::~Game() {
 		delete this->window;
-		delete instance;
-
-		// automatically delete all gameobjects
-		gameobjects.clear();
-	}
-
-	void Game::addGameobject(Gameobject* gameobject) {
-		gameobjects.push_back(std::unique_ptr<Gameobject>(gameobject));
-	}
-
-	void Game::addRenderer(Renderer* renderer) {
-		for (int i = 0; i < renderersOrdered.size(); i++) {
-			if (renderer->getDistance() >= renderersOrdered[i]->getDistance()) {
-				renderersOrdered.insert(renderersOrdered.begin() + i, renderer);
-				return;
-			}
-		}
-		// if renderersOrdered is empty or its distance is minimum
-		renderersOrdered.push_back(renderer);
-	}
-
-	void Game::updateRendererDistance(Renderer* renderer) {
-		List::remove(renderersOrdered, renderer);
-		addRenderer(renderer);
 	}
 
 	sf::RenderWindow* Game::getWindow() const {
 		return this->window;
 	}
 
-	void Game::start() {
-		for (int i = 0; i < gameobjects.size(); i++) {
-			gameobjects[i]->start();
-		}
-	}
-
-	void Game::fixedUpdate() {
-		for (int i = 0; i < gameobjects.size(); i++) {
-			if (gameobjects[i]->rigidbody != nullptr) {
-				gameobjects[i]->rigidbody->fixedUpdate();
-			}
-		}
-	}
-
-	void Game::update() {
-
-		this->pollEvents();
-
-		Time::update();
-
-		Input::Update();
-		
-		for (int i = 0; i < gameobjects.size(); i++) {
-			gameobjects[i]->update();
-		}
-
-		/*	TODO: If deltaTime is greater than fixedUpdateInterval
-			(On freeze generally when lagging) physics FixedUpdate
-			and Update should take that in consideration and 
-			scale their changes according to deltaTime.
-		*/
-		if (Time::getFixedDeltaTime() * 1000.f >= Physics::fixedUpdateIntervalMs) {
-			fixedUpdate();
-			Time::recordFixedUpdate();
-		}
-
-		Canvas::update();
-
-		// get the current mouse position in the window
-		pixelPos = Vectori(sf::Mouse::getPosition(*window));
-
-		// convert it to world coordinates
-		worldPos = window->mapPixelToCoords(pixelPos.getsf());
-	}
-
-	void Game::render() {
-		this->window->clear(this->defaultColor);
-
-		for (int i = 0; i < renderersOrdered.size(); i++) {
-			renderersOrdered[i]->render();
-		}
-
-		//Canvas::Render();
-		frame++;
-	}
-
 	void Game::display() {
-		this->window->display();
+		window->display();
 	}
 
 	void Game::close() {
@@ -128,26 +47,6 @@ namespace aengine {
 
 	const bool Game::isRunning() const {
 		return this->window->isOpen();
-	}
-
-	const bool Game::contains(Gameobject* gameobject) const {
-		for (int i = 0; i < gameobjects.size(); i++) {
-			if (gameobjects[i].get() == gameobject)
-				return true;
-		}
-		return false;
-	}
-
-	void Game::destroyGameobject(Gameobject* gameobject)
-	{
-		List::remove(renderersOrdered, gameobject->renderer.get());
-		for (int i = 0; i < gameobjects.size(); i++) {
-			if (gameobjects[i].get() == gameobject)
-			{
-				// removing the unique_ptr hence destroying the object itself
-				List::RemoveAt(gameobjects, i);
-			}
-		}
 	}
 
 	/// <summary>

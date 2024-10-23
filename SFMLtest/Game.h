@@ -18,41 +18,23 @@ namespace aengine {
 		sf::RenderWindow* window;
 		sf::VideoMode videoMode;
 		sf::Event event;
-		sf::Color defaultColor;
-
-		/// <summary>
-		/// All rendrers present in the world, always ordered by the distance to the camera (from farthest to closest)
-		/// </summary>
-		std::vector<Renderer*> renderersOrdered;
 
 	public:
 		Vector<int> pixelPos;
 		Vectorf worldPos;
 
 		unsigned int frame;
-
 		static Game* instance;
-
-		std::vector<std::unique_ptr<Gameobject>> gameobjects;
 
 		Game();
 		~Game();
 
-		void initWindow();
-		sf::RenderWindow* getWindow() const;
-
-		void start();
-		void fixedUpdate();
-		void update();
-		void render();
 		void display();
 		void close();
-		void addGameobject(Gameobject* gameobject);
-		void addRenderer(Renderer* renderer);
-		void updateRendererDistance(Renderer* renderer);
 
-		const bool contains(Gameobject* gameobject) const;
-		void destroyGameobject(Gameobject* gameobject);
+
+		void initWindow(float width, float height, const std::string& title);
+		sf::RenderWindow* getWindow() const;
 
 		void pollEvents();
 

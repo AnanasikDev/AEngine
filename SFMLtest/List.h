@@ -3,6 +3,7 @@
 #include <vector>
 #include <functional>
 #include <memory>
+#include <optional>
 
 namespace aengine {
 	class List {
@@ -16,36 +17,60 @@ namespace aengine {
 		}
 
 		template <typename T>
-		static void RemoveIf(std::vector<T>& vec, std::function<bool(T)> condition) {
+		static void removeIf(std::vector<T>& vec, std::function<bool(T)> condition) {
 			for (int i = 0; i < vec.size(); i++) {
 				if (condition(vec[i]))
 				{
-					RemoveAt(vec, i);
+					removeAt(vec, i);
 					return;
 				}
 			}
 		}
 
 		template <typename T>
-		static void RemoveSmartPtr(std::vector<std::unique_ptr<T>>& vec, T* obj) {
+		static void removeSmartPtr(std::vector<std::unique_ptr<T>>& vec, T* obj) {
 			for (int i = 0; i < vec.size(); i++) {
 				if (vec[i].get() == obj)
 				{
-					RemoveAt(vec, i);
+					removeAt(vec, i);
 					return;
 				}
 			}
 		}
 
 		template <typename T>
-		static void RemoveAt(std::vector<T>& vec, int index) {
+		static void removeAt(std::vector<T>& vec, int index) {
 			vec.erase(vec.begin() + index);
 		}
 
 		template <typename T>
-		static bool Contains(std::vector<T>& vec, T obj) {
+		static bool contains(const std::vector<T>& vec, T obj) {
 			auto it = std::find(vec.begin(), vec.end(), obj);
 			return it != vec.end();
+		}
+
+		template <typename T>
+		static std::optional<T> find(const std::vector<T>& vec, const T& obj) {
+			auto it = std::find(vec.begin(), vec.end(), obj);
+			return *it;
+		}
+
+		template <typename T>
+		static std::optional<T> findBy(const std::vector<T>& vec, std::function<bool(const T&)> func) {
+			for (int i = 0; i < vec.size(); i++) {
+				if (func(vec[i]))
+					return vec[i];
+			}
+			return std::nullopt;
+		}
+
+		template <typename T>
+		static T* findUniquePointerBy(const std::vector<std::unique_ptr<T>>& vec, std::function<bool(const T&)> func) {
+			for (int i = 0; i < vec.size(); i++) {
+				if (func(vec[i]))
+					return vec[i].get();
+			}
+			return nullptr;
 		}
 	};
 }

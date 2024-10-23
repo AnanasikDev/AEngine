@@ -28,6 +28,11 @@ namespace aengine {
 		sink->log(str, Debug::error);
 	}
 
+	void Debug::logException(const std::string& str) {
+		logError(str);
+		throw std::exception(str);
+	}
+
 	std::string Console::getTime() const {
 		return std::format("{} ", Time::getCurrentLocalTime("%H:%M:%S"));
 	}
