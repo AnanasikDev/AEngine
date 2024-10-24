@@ -9,8 +9,9 @@ namespace aengine {
 	Action<Scene*> SceneManager::onSceneChanged;
 	Scene* SceneManager::m_currentScene = nullptr;
 
-	Scene* SceneManager::createScene(const std::string& name) {
-		// IMPLEMENT
+	Scene* SceneManager::createScene(const std::string& name, sf::RenderWindow* renderWindow) {
+		scenes.push_back(std::make_unique<Scene>(name, renderWindow));
+		return scenes[scenes.size() - 1].get();
 	}
 
 	void SceneManager::deleteAllScenes() {
@@ -27,7 +28,7 @@ namespace aengine {
 			Debug::logException("setCurrentScene could not find a scene of name \"" + name + "\"");
 			return;
 		}
-		if (m_currentScene->name == name)
+		if (m_currentScene != nullptr && m_currentScene->name == name)
 		{
 			Debug::logInfo("new scene name is equal to the current one, no changes made");
 			return;

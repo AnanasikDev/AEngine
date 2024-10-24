@@ -22,6 +22,7 @@ namespace aengine {
 
 	Game::~Game() {
 		delete this->window;
+		SceneManager::deleteAllScenes();
 	}
 
 	sf::RenderWindow* Game::getWindow() const {

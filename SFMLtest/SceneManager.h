@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include "Event.h"
+#include "SFML/Graphics/RenderWindow.hpp"
 
 namespace aengine {
 
@@ -15,7 +16,7 @@ namespace aengine {
 
 		static Action<Scene*> onSceneChanged;
 
-		static Scene* createScene(const std::string& name);
+		static Scene* createScene(const std::string& name, sf::RenderWindow* renderWindow);
 		static void deleteAllScenes();
 		static Scene* getCurrentScene();
 		static void setCurrentScene(const std::string& name);

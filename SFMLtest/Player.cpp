@@ -1,11 +1,7 @@
+#include "Engine.h"
 #include "Player.h"
-#include "Gameobject.h"
-#include "SpriteRenderer.h"
-#include "ShapeRenderer.h"
 #include "Game.h"
-#include <iostream>
-#include "Camera.h"
-#include "CircleCollider.h"
+#include <memory>
 
 namespace agame {
 
@@ -13,6 +9,8 @@ namespace agame {
         this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, aengine::Game::instance->getWindow(), "resources/Ananasik2.png"));
 
         auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
+
+        camera = aengine::context()->getCamera("main");
 
         setPosition(40, 50);
 	}
@@ -33,7 +31,7 @@ namespace agame {
 
         translate(delta * movementSpeed);
 
-        aengine::Camera::translate(getPosition() - prevPos);
+        camera->translate(getPosition() - prevPos);
 	}
 
 	void Player::render() {

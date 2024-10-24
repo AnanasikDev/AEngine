@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Vector.h"
+#include <vector>
+#include <memory>
+#include <string>
 
 namespace aengine {
 
@@ -10,15 +13,17 @@ namespace aengine {
 	class Camera {
 	private:
 
-		static Vectorf position;
-		static class Scene* scene;
+		Vectorf position;
+		class Scene* scene;
+		std::string name;
 
 	public:
 
-		Camera();
-
-		static void translate(Vectorf delta);
-		static void setPosition(Vectorf newPos);
-		static Vectorf getPosition();
+		Camera(const std::string& name);
+		
+		std::string getName() const;
+		void translate(Vectorf delta);
+		void setPosition(Vectorf newPos);
+		Vectorf getPosition() const;
 	};
 }

@@ -1,20 +1,9 @@
-#include "Game.h"
-#include "Gameobject.h"
-#include "Rigidbody.h"
-#include "Physics.h"
-#include <iostream>
-#include "Time.h"
-#include "Canvas.h"
-#include "Input.h"
-#include "List.h"
-#include "Debug.h"
-#include "Renderer.h"
-#include "Scene.h"
+#include "Engine.h"
 
 namespace aengine {
 
-	Scene::Scene(sf::RenderTarget* targetWindow) {
-		this->renderTarget = targetWindow;
+	Scene::Scene(const std::string& name, sf::RenderWindow* targetWindow) : name(name), renderWindow(targetWindow) {
+
 	}
 
 	Scene::~Scene() {
@@ -80,7 +69,7 @@ namespace aengine {
 	}
 
 	void Scene::render() {
-		renderTarget->clear(backgroundColor);
+		renderWindow->clear(backgroundColor);
 
 		for (int i = 0; i < renderersOrdered.size(); i++) {
 			renderersOrdered[i]->render();
@@ -105,5 +94,13 @@ namespace aengine {
 				List::removeAt(gameobjects, i);
 			}
 		}
+	}
+
+	Camera* Scene::getCamera(const std::string& name) const {
+		return List::findUniquePointerBy<Camera>(cameras, [name](Camera* cam) { return cam->getName() == name; });
+	}
+
+	void Scene::addCamera(Camera* camera) {
+		cameras.push_back(std::unique_ptr<Camera>(camera));
 	}
 }

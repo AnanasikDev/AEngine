@@ -11,6 +11,9 @@ int main() {
 	Game game;
 	game.initWindow(1000, 750, "AEngine Demo");
 	game.getWindow()->setFramerateLimit(60);
+	SceneManager::createScene("main", game.getWindow());
+	SceneManager::setCurrentScene("main");
+	Camera camera("main");
 
 	Player* player = new Player("Player");
 	player->renderer->setDistance(0);
@@ -102,7 +105,7 @@ int main() {
 		axisX.render(window, Vectorf::zero, 1, sf::Color::Red);
 		axisY.render(window, Vectorf::zero, 1, sf::Color::Green);
 
-		Vectorf shift = -aengine::Camera::getPosition(); // windowSize / 2.f;
+		Vectorf shift = -camera.getPosition();
 		Vectorf mouse = aengine::Input::getMousePosition() - shift;
 
 		l1.render(window, shift, 1, sf::Color::Blue);

@@ -3,12 +3,12 @@
 
 namespace aengine {
 
-	Vectorf Camera::position = Vectorf(0,0);
-	Scene* Camera::scene = nullptr;
-
-	Camera::Camera() {
+	Camera::Camera(const std::string& name) {
+		this->name = name;
+		position = Vectorf();
 		scene = context();
 		SceneManager::onSceneChanged.Subscribe([this](Scene* newScene) { this->scene = newScene; }); // no need for unsubscription because it will be deleted at the end
+		scene->addCamera(this);
 	}
 
 	void Camera::translate(Vectorf delta) {
@@ -26,7 +26,11 @@ namespace aengine {
 		translate(newPos - position);
 	}
 	
-	Vectorf Camera::getPosition() {
+	Vectorf Camera::getPosition() const {
 		return position;
+	}
+
+	std::string Camera::getName() const {
+		return name;
 	}
 }
