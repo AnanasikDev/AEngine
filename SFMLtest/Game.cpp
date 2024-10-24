@@ -30,6 +30,14 @@ namespace aengine {
 	}
 
 	void Game::update() {
+		this->pollEvents();
+		
+		// get the current mouse position in the window
+		pixelPos = Vectori(sf::Mouse::getPosition(*window));
+
+		// convert it to world coordinates
+		worldPos = window->mapPixelToCoords(pixelPos.getsf());
+
 		context()->update();
 	}
 
