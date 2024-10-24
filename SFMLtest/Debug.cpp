@@ -30,7 +30,7 @@ namespace aengine {
 
 	void Debug::logException(const std::string& str) {
 		logError(str);
-		throw std::exception(str);
+		throw str;
 	}
 
 	std::string Console::getTime() const {

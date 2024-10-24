@@ -1,11 +1,4 @@
-#include "Gameobject.h"
-#include "Renderer.h"
-#include "Collider.h"
-#include "Rigidbody.h"
-#include <iostream>
-#include "Game.h"
-#include "List.h"
-#include "Vector.h"
+#include "Engine.h"
 
 namespace aengine {
 
@@ -13,14 +6,14 @@ namespace aengine {
 		position = Vectorf(0, 0);
 		setParent(nullptr);
 		name = "";
-		Game::instance->addGameobject(this);
+		context()->addGameobject(this);
 	}
 
 	Gameobject::Gameobject(std::string name) {
 		this->name = name;
 		setParent(nullptr);
 		this->position = Vectorf(0, 0);
-		Game::instance->addGameobject(this);
+		context()->addGameobject(this);
 	}
 
 	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer) {
@@ -28,7 +21,7 @@ namespace aengine {
 		setParent(nullptr);
 		this->position = Vectorf(0, 0);
 		this->renderer = std::move(renderer);
-		Game::instance->addGameobject(this);
+		context()->addGameobject(this);
 	}
 
 	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody) {
@@ -39,21 +32,21 @@ namespace aengine {
 		this->renderer = std::move(renderer);
 		this->collider = std::move(collider);
 		this->rigidbody = std::move(rigidbody);
-		Game::instance->addGameobject(this);
+		context()->addGameobject(this);
 	}
 
 	Gameobject::Gameobject(const Gameobject& other){
 		this->position = other.position;
 		setParent(other.getParent());
 		this->name = other.name;
-		Game::instance->addGameobject(this);
+		context()->addGameobject(this);
 	}
 
 	void Gameobject::destroy() {
 
 		forAllChildrenRecursive([this](Gameobject* child) {
 
-			Game::instance->destroyGameobject(child);
+			context()->destroyGameobject(child);
 
 			});
 		children.clear();
@@ -62,7 +55,7 @@ namespace aengine {
 			List::remove(parent->children, this);
 		}
 
-		Game::instance->destroyGameobject(this);
+		context()->destroyGameobject(this);
 	}
 
 	void Gameobject::forAllChildrenRecursive(std::function<void(Gameobject*)> func) {

@@ -29,9 +29,10 @@ namespace aengine {
 		Game();
 		~Game();
 
+		void update();
+		void render();
 		void display();
 		void close();
-
 
 		void initWindow(float width, float height, const std::string& title);
 		sf::RenderWindow* getWindow() const;

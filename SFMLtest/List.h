@@ -65,9 +65,9 @@ namespace aengine {
 		}
 
 		template <typename T>
-		static T* findUniquePointerBy(const std::vector<std::unique_ptr<T>>& vec, std::function<bool(const T&)> func) {
+		static T* findUniquePointerBy(const std::vector<std::unique_ptr<T>>& vec, std::function<bool(T*)> func) {
 			for (int i = 0; i < vec.size(); i++) {
-				if (func(vec[i]))
+				if (func(vec[i].get()))
 					return vec[i].get();
 			}
 			return nullptr;

@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include "Event.h"
 
 namespace aengine {
 
@@ -10,17 +11,18 @@ namespace aengine {
 
 	class SceneManager {
 	public:
-		static SceneManager* instance;
+		static std::vector<std::unique_ptr<Scene>> scenes;
 
-		std::vector<std::unique_ptr<Scene>> scenes;
+		static Action<Scene*> onSceneChanged;
 
-		SceneManager();
-		~SceneManager();
-		
-		Scene* getCurrentScene() const;
-		void setCurrentScene(const std::string& name);
+		static Scene* createScene(const std::string& name);
+		static void deleteAllScenes();
+		static Scene* getCurrentScene();
+		static void setCurrentScene(const std::string& name);
 
 	private:
-		Scene* currentScene;
+		static Scene* m_currentScene;
 	};
+
+	Scene* context();
 }

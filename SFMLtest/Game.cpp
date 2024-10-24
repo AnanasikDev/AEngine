@@ -1,14 +1,5 @@
+#include "Engine.h"
 #include "Game.h"
-#include "Gameobject.h"
-#include "Rigidbody.h"
-#include "Physics.h"
-#include <iostream>
-#include "Time.h"
-#include "Canvas.h"
-#include "Input.h"
-#include "List.h"
-#include "Debug.h"
-#include "Renderer.h"
 
 namespace aengine {
 
@@ -35,6 +26,14 @@ namespace aengine {
 
 	sf::RenderWindow* Game::getWindow() const {
 		return this->window;
+	}
+
+	void Game::update() {
+		context()->update();
+	}
+
+	void Game::render() {
+		context()->render();
 	}
 
 	void Game::display() {

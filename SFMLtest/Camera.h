@@ -11,10 +11,11 @@ namespace aengine {
 	private:
 
 		static Vectorf position;
+		static class Scene* scene;
 
 	public:
 
-		Camera() = default;
+		Camera();
 
 		static void translate(Vectorf delta);
 		static void setPosition(Vectorf newPos);

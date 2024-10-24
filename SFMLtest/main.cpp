@@ -9,7 +9,7 @@ using namespace agame;
 
 int main() {
 	Game game;
-	game.initWindow();
+	game.initWindow(1000, 750, "AEngine Demo");
 	game.getWindow()->setFramerateLimit(60);
 
 	Player* player = new Player("Player");
@@ -86,7 +86,6 @@ int main() {
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
 
-	game.start();
 	auto window = game.getWindow();
 	Vectorf windowSize = Vectorf(window->getSize().x, window->getSize().y);
 
