@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <iostream>
 #include "Collectable.h"
+#include "Gizmos.h"
 
 using namespace aengine;
 using namespace agame;
@@ -107,6 +108,8 @@ int main() {
 
 		Vectorf shift = -camera.getPosition();
 		Vectorf mouse = aengine::Input::getMousePosition() - shift;
+
+		Gizmos::drawSegment(Vectorf(0, 0) + shift, player->getPosition(), sf::Color::White);
 
 		l1.render(window, shift, 1, sf::Color::Blue);
 		bounds.render(window, shift, 1, sf::Color::Yellow);

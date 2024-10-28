@@ -200,6 +200,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="Gizmos.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="List.h" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="Gizmos.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Mathf.h" />

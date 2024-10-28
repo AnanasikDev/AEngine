@@ -81,10 +81,12 @@ namespace aengine {
 		return std::make_pair(bounds, normal);
 	}
 
-	//std::vector<Collider*> Physics::raycastLine(const Line& line) {
-	//	std::vector<Collider*> results;
-	//	for (int i = 0; i < Collider::colliders.size(); i++) {
-	//		//if (Collider::colliders[i])
-	//	}
-	//}
+	/*std::vector<Collider*> Physics::raycastSegment(const Line& line) {
+		std::vector<Collider*> results;
+		for (int i = 0; i < Collider::colliders.size(); i++) {
+			if (Line::areSegmentBoundsIntesecting(line, Collider::colliders[i].) {
+
+			}
+		}
+	}*/
 }

@@ -84,4 +84,7 @@ namespace aengine {
 	}
 
 	Game* Game::instance;
+	Game* game() {
+		return Game::instance;
+	}
 }

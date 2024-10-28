@@ -41,4 +41,6 @@ namespace aengine {
 
 		const bool isRunning() const;
 	};
+
+	Game* game();
 }

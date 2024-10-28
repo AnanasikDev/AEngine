@@ -29,6 +29,6 @@ namespace aengine {
 		static std::pair<Bounds, Vectorf> getOverlap(const RectCollider* c1,   const CircleCollider* c2);
 		static std::pair<Bounds, Vectorf> getOverlap(const RectCollider* c1,   const RectCollider* c2);
 
-		//static std::vector<Collider*> raycastLine(const class Line& line);
+		//static std::vector<Collider*> raycastSegment(const class Line& line);
 	};
 }
