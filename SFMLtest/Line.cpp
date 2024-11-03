@@ -80,11 +80,23 @@ namespace aengine {
 	}
 
 	std::optional<Line> Line::getLineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
-		// Calculate the distance from the circle's center to the line
-		float dist = distancePointToLine(line, circleCenter);
+		// Calculate distance from endpoints to circle center
+		float distP1 = (line.p1 - circleCenter).getLength();
+		float distP2 = (line.p2 - circleCenter).getLength();
 
-		// If the distance is greater than the radius, no intersection
-		if (dist > circleRadius) return std::nullopt;
+		bool p1Inside = distP1 <= circleRadius;
+		bool p2Inside = distP2 <= circleRadius;
+
+		// Both endpoints are inside the circle
+		if (p1Inside && p2Inside) {
+			return line; // The entire line segment lies within the circle
+		}
+
+		// Calculate distance from circle center to the line
+		float distToLine = distancePointToLine(line, circleCenter);
+
+		// If the distance from the circle's center to the line is greater than the radius, no intersection
+		if (distToLine > circleRadius) return std::nullopt;
 
 		// Vector direction from p1 to p2
 		Vectorf d = line.p2 - line.p1;
@@ -98,25 +110,30 @@ namespace aengine {
 		Vectorf closestPoint = line.p1 + d * projLength;
 
 		// Offset distance for intersection points
-		float offset = std::sqrt(circleRadius * circleRadius - dist * dist);
+		float offset = std::sqrt(circleRadius * circleRadius - distToLine * distToLine);
 
 		// Calculate intersection points
 		Vectorf inter1 = closestPoint - d * offset;
 		Vectorf inter2 = closestPoint + d * offset;
 
-		// Check if intersection points lie within the segment bounds
+		// Determine intersection segment based on points within the segment
 		bool inter1_in_segment = (inter1 - line.p1).dotProduct(inter1 - line.p2) <= 0;
 		bool inter2_in_segment = (inter2 - line.p1).dotProduct(inter2 - line.p2) <= 0;
 
-		// Determine intersection segment based on points within the segment
+		if (p1Inside) {
+			return inter2_in_segment ? Line{ line.p1, inter2 } : Line{ line.p1, line.p1 };
+		}
+		if (p2Inside) {
+			return inter1_in_segment ? Line{ inter1, line.p2 } : Line{ line.p2, line.p2 };
+		}
 		if (inter1_in_segment && inter2_in_segment) {
-			return Line{ inter1, inter2 }; // Both intersection points within segment
+			return Line{ inter1, inter2 };
 		}
-		else if (inter1_in_segment) {
-			return Line{ inter1, inter1 }; // Only one intersection point
+		if (inter1_in_segment) {
+			return Line{ inter1, inter1 };
 		}
-		else if (inter2_in_segment) {
-			return Line{ inter2, inter2 }; // Only one intersection point
+		if (inter2_in_segment) {
+			return Line{ inter2, inter2 };
 		}
 
 		return std::nullopt; // No intersection within segment
