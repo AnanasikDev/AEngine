@@ -92,11 +92,15 @@ int main() {
 
 	auto window = game.getWindow();
 	Vectorf windowSize = Vectorf(window->getSize().x, window->getSize().y);
+	
+	float circle_radius = 60;
+	Vectorf circle_pos = Vectorf(90, 90);
 
 	Line axisX(Vectorf(0, windowSize.y / 2.f), Vectorf(windowSize.x, windowSize.y / 2.f));
 	Line axisY(Vectorf(windowSize.x / 2.f, 0), Vectorf(windowSize.x / 2.f, windowSize.y));
 
 	Line intersection;
+	Line intersection2;
 
 	while (game.isRunning()) {
 
@@ -128,6 +132,15 @@ int main() {
 			intersection.setPoint2(i.value().p2);
 		}
 		intersection.render(window, shift, 1, sf::Color::Magenta);
+
+		i = Line::getLineCircleIntersection(l1, circle_pos, circle_radius);
+		if (i.has_value())
+		{
+			intersection2.setPoint1(i.value().p1);
+			intersection2.setPoint2(i.value().p2);
+		}
+		Gizmos::drawCircle(circle_pos + shift, circle_radius);
+		intersection2.render(window, shift, 1, sf::Color::Cyan);
 
 		game.display();
 	}

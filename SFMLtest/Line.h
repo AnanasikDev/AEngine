@@ -31,7 +31,9 @@ namespace aengine {
 
 		bool isPoint() const;
 
-		static Line lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
+		static float distancePointToLine(const Line& line, const Vectorf& point);
+
+		static std::optional<Line> getLineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
 
 		/// <summary>
 		/// <para>

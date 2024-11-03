@@ -19,4 +19,15 @@ namespace aengine {
 	void Gizmos::drawSegment(const Line& segment, const sf::Color& color) {
 		Gizmos::drawSegment(segment.p1, segment.p2, color);
 	}
+
+	void Gizmos::drawCircle(const Vectorf& center, float radius, const sf::Color& fillColor, const sf::Color& outlineColor, const float outlineThickness){
+		sf::CircleShape shape(radius);
+		shape.setOrigin(Vectorf::one.getsf() * radius);
+		shape.setPosition(center.getsf());
+		shape.setOutlineThickness(outlineThickness);
+		shape.setOutlineColor(outlineColor);
+		shape.setFillColor(fillColor);
+
+		game()->getWindow()->draw(shape);
+	}
 }

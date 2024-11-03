@@ -74,8 +74,52 @@ namespace aengine {
 		return p1 == p2;
 	}
 
-	Line Line::lineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
-		return Line(Vectorf(), Vectorf()); // NEEDS IMPLEMENTATION
+	float Line::distancePointToLine(const Line& line, const Vectorf& point) {
+		auto [A, B, C] = line.getABC();
+		return std::abs(A * point.x + B * point.y + C) / std::sqrt(A * A + B * B);
+	}
+
+	std::optional<Line> Line::getLineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
+		// Calculate the distance from the circle's center to the line
+		float dist = distancePointToLine(line, circleCenter);
+
+		// If the distance is greater than the radius, no intersection
+		if (dist > circleRadius) return std::nullopt;
+
+		// Vector direction from p1 to p2
+		Vectorf d = line.p2 - line.p1;
+		d = d.normalized();
+
+		// Projection length from p1 to the circle center
+		Vectorf f = circleCenter - line.p1;
+		float projLength = f.dotProduct(d);
+
+		// Closest point on the line to the circle center
+		Vectorf closestPoint = line.p1 + d * projLength;
+
+		// Offset distance for intersection points
+		float offset = std::sqrt(circleRadius * circleRadius - dist * dist);
+
+		// Calculate intersection points
+		Vectorf inter1 = closestPoint - d * offset;
+		Vectorf inter2 = closestPoint + d * offset;
+
+		// Check if intersection points lie within the segment bounds
+		bool inter1_in_segment = (inter1 - line.p1).dotProduct(inter1 - line.p2) <= 0;
+		bool inter2_in_segment = (inter2 - line.p1).dotProduct(inter2 - line.p2) <= 0;
+
+		// Determine intersection segment based on points within the segment
+		if (inter1_in_segment && inter2_in_segment) {
+			return Line{ inter1, inter2 }; // Both intersection points within segment
+		}
+		else if (inter1_in_segment) {
+			return Line{ inter1, inter1 }; // Only one intersection point
+		}
+		else if (inter2_in_segment) {
+			return Line{ inter2, inter2 }; // Only one intersection point
+		}
+
+		return std::nullopt; // No intersection within segment
 	}
 
 	bool Line::areLinesIntersecting(const Line& l1, const Line& l2) {

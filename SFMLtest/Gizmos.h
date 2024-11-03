@@ -9,6 +9,6 @@ namespace aengine {
 		static void drawSegment(const Vectorf& start, const Vectorf& end, const sf::Color& color = sf::Color::Black);
 		static void drawSegment(const class Line& segment, const sf::Color& color = sf::Color::Black);
 
-		//static void drawCircle(const Vectorf& center, float radius, const sf::Color& color = sf::Color::Black);
+		static void drawCircle(const Vectorf& center, float radius, const sf::Color& fillColor = sf::Color::Transparent, const sf::Color& outlineColor = sf::Color::Red, const float outlineThickness = 2);
 	};
 }
