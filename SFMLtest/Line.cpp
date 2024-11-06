@@ -79,7 +79,7 @@ namespace aengine {
 		return std::abs(A * point.x + B * point.y + C) / std::sqrt(A * A + B * B);
 	}
 
-	std::optional<Line> Line::getLineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
+	std::optional<Line> Line::getSegmentCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius) {
 		// Calculate distance from endpoints to circle center
 		float distP1 = (line.p1 - circleCenter).getLength();
 		float distP2 = (line.p2 - circleCenter).getLength();

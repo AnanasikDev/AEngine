@@ -133,7 +133,7 @@ int main() {
 		}
 		intersection.render(window, shift, 1, sf::Color::Magenta);
 
-		i = Line::getLineCircleIntersection(l1, circle_pos, circle_radius);
+		i = Line::getSegmentCircleIntersection(l1, circle_pos, circle_radius);
 		if (i.has_value())
 		{
 			intersection2.setPoint1(i.value().p1);

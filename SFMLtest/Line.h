@@ -33,7 +33,7 @@ namespace aengine {
 
 		static float distancePointToLine(const Line& line, const Vectorf& point);
 
-		static std::optional<Line> getLineCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
+		static std::optional<Line> getSegmentCircleIntersection(const Line& line, const Vectorf& circleCenter, const float circleRadius);
 
 		/// <summary>
 		/// <para>

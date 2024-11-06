@@ -81,12 +81,22 @@ namespace aengine {
 		return std::make_pair(bounds, normal);
 	}
 
-	/*std::vector<Collider*> Physics::raycastSegment(const Line& line) {
+	std::vector<Collider*> Physics::segmentCastAll(const Line& line) {
 		std::vector<Collider*> results;
 		for (int i = 0; i < Collider::colliders.size(); i++) {
-			if (Line::areSegmentBoundsIntesecting(line, Collider::colliders[i].) {
-
+			auto collider = Collider::colliders[i];
+			if (auto rectCollider = dynamic_cast<RectCollider*>(collider)) {
+				if (Line::areSegmentBoundsIntesecting(line, rectCollider->bounds)) {
+					results.push_back(collider);
+					continue;
+				}
+			}
+			if (auto circleCollider = dynamic_cast<CircleCollider*>(collider)) {
+				if (Line::getSegmentCircleIntersection(line, circleCollider->center, circleCollider->radius)) {
+					results.push_back(collider);
+					continue;
+				}
 			}
 		}
-	}*/
+	}
 }
