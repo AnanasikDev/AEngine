@@ -9,6 +9,7 @@ namespace aengine {
 	class Collider;
 	class CircleCollider;
 	class RectCollider;
+	class Line;
 
 	class Physics {
 	public:
@@ -32,6 +33,6 @@ namespace aengine {
 		/// <summary>
 		/// Casts a segment and returns a vector containing all colliders intersected with it
 		/// </summary>
-		static std::vector<Collider*> segmentCastAll(const class Line& line);
+		static std::vector<Collider*> segmentCastAll(const Line& line);
 	};
 }

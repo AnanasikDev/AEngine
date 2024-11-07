@@ -2,8 +2,9 @@
 #include "RectCollider.h"
 #include "CircleCollider.h"
 #include "Vector.h"
-#include "Physics.h"
 #include "Mathf.h"
+#include "Physics.h"
+#include "Line.h"
 #include <iostream>
 
 namespace aengine {
@@ -83,8 +84,7 @@ namespace aengine {
 
 	std::vector<Collider*> Physics::segmentCastAll(const Line& line) {
 		std::vector<Collider*> results;
-		for (int i = 0; i < Collider::colliders.size(); i++) {
-			auto collider = Collider::colliders[i];
+		for (Collider* collider : Collider::colliders) {
 			if (auto rectCollider = dynamic_cast<RectCollider*>(collider)) {
 				if (Line::areSegmentBoundsIntesecting(line, rectCollider->bounds)) {
 					results.push_back(collider);
@@ -98,5 +98,6 @@ namespace aengine {
 				}
 			}
 		}
+		return results;
 	}
 }
