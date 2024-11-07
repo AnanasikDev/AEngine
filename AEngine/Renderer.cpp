@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Vector.h"
 #include "SFML/Graphics.hpp"
-#include "Game.h"
+#include "Window.h"
 #include "Scene.h"
 #include "SceneManager.h"
 

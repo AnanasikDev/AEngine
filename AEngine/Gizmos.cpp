@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "Game.h"
+#include "Window.h"
 #include "Line.h"
 
 namespace aengine {
@@ -13,7 +13,7 @@ namespace aengine {
 		segment[1].color = color;
 		segment[1].position = end.getsf();
 
-		game()->getWindow()->draw(segment);
+		window()->getWindow()->draw(segment);
 	}
 
 	void Gizmos::drawSegment(const Line& segment, const sf::Color& color) {
@@ -28,6 +28,6 @@ namespace aengine {
 		shape.setOutlineColor(outlineColor);
 		shape.setFillColor(fillColor);
 
-		game()->getWindow()->draw(shape);
+		window()->getWindow()->draw(shape);
 	}
 }

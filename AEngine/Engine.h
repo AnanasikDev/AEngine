@@ -1,3 +1,8 @@
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 #include "Mathf.h"
 #include "Vector.h"
 #include "Bounds.h"
@@ -26,4 +31,3 @@
 
 #include "UIElement.h"
 #include "Canvas.h"
-

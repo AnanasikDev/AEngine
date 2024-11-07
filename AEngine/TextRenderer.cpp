@@ -1,5 +1,5 @@
 #include "TextRenderer.h"
-#include "Game.h"
+#include "Window.h"
 
 namespace aengine {
 
@@ -23,7 +23,7 @@ namespace aengine {
 	}
 
 	void TextRenderer::render() {
-		Game::instance->getWindow()->draw(text);
+		window()->getWindow()->draw(text);
 	}
 
 	void TextRenderer::update(const Vectorf position) {

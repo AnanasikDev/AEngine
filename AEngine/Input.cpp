@@ -1,5 +1,5 @@
 #include "Input.h"
-#include "Game.h"
+#include "Window.h"
 
 namespace aengine {
 
@@ -22,7 +22,7 @@ namespace aengine {
 	}
 
 	Vectorf Input::getMousePosition() {
-		Vectori vi = sf::Mouse::getPosition(*Game::instance->getWindow());
+		Vectori vi = sf::Mouse::getPosition(*window()->getWindow());
 		return Vectorf(vi.x, vi.y);
 	}
 

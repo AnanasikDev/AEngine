@@ -220,6 +220,7 @@
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Users\Zephyr\Downloads\catch_amalgamated.hpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
