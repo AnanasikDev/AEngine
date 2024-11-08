@@ -1,237 +1,233 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="include">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Physics">
-      <UniqueIdentifier>{8f489c57-3af0-4db1-84ed-cf01f2460b06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Tests">
-      <UniqueIdentifier>{866c8798-fa6c-4672-ab31-3eeaefee0b45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Physics">
+    <Filter Include="include\Physics">
       <UniqueIdentifier>{bfbed171-d013-44de-9aae-7835d8fada21}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tests">
+    <Filter Include="include\Tests">
       <UniqueIdentifier>{070ee49e-e77c-4c2f-b2f7-7052c0d1ab3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GUI">
+    <Filter Include="include\GUI">
       <UniqueIdentifier>{5ebfa918-6644-455f-9a70-a241df23009a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{99a1b0b9-795d-4889-bb19-2df1d19a202b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Render">
-      <UniqueIdentifier>{8a24360c-9e2a-4851-a835-fc77540279cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Render">
+    <Filter Include="include\Render">
       <UniqueIdentifier>{7aa923eb-1dc5-41ec-b349-3604e3005b07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Editor">
+    <Filter Include="include\Editor">
       <UniqueIdentifier>{c97b02fe-475c-4fb0-af07-6fab0760df99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Editor">
-      <UniqueIdentifier>{66f76c2c-f973-4d33-9a61-5c5585d573f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scenes">
+    <Filter Include="include\Scenes">
       <UniqueIdentifier>{26963560-e00d-463c-99e2-1ed806cf6bfd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Scenes">
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\Physics">
+      <UniqueIdentifier>{8f489c57-3af0-4db1-84ed-cf01f2460b06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Tests">
+      <UniqueIdentifier>{866c8798-fa6c-4672-ab31-3eeaefee0b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GUI">
+      <UniqueIdentifier>{99a1b0b9-795d-4889-bb19-2df1d19a202b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Render">
+      <UniqueIdentifier>{8a24360c-9e2a-4851-a835-fc77540279cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor">
+      <UniqueIdentifier>{66f76c2c-f973-4d33-9a61-5c5585d573f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes">
       <UniqueIdentifier>{b7a1e1bf-acdb-4053-a351-fdd96fc0dd5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Gameobject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="List.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Physics.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Tests.cpp">
-      <Filter>Source Files\Tests</Filter>
+      <Filter>src\Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Users\Zephyr\Downloads\catch_amalgamated.cpp">
-      <Filter>Source Files\Tests</Filter>
+      <Filter>src\Tests</Filter>
     </ClCompile>
     <ClCompile Include="Bounds.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Mathf.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="UIElement.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>src\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>src\GUI</Filter>
     </ClCompile>
     <ClCompile Include="TextRenderer.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>src\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files\Render</Filter>
+      <Filter>src\Render</Filter>
     </ClCompile>
     <ClCompile Include="ShapeRenderer.cpp">
-      <Filter>Source Files\Render</Filter>
+      <Filter>src\Render</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files\Render</Filter>
+      <Filter>src\Render</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CircleCollider.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="RectCollider.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
-      <Filter>Source Files\Physics</Filter>
+      <Filter>src\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
-      <Filter>Source Files\Editor</Filter>
+      <Filter>src\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Gizmos.cpp">
-      <Filter>Source Files\Editor</Filter>
+      <Filter>src\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>src\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>src\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameobject.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Mathf.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Bounds.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Users\Zephyr\Downloads\catch_amalgamated.hpp">
-      <Filter>Header Files\Tests</Filter>
+      <Filter>include\Tests</Filter>
     </ClInclude>
     <ClInclude Include="UIElement.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>include\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Canvas.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>include\GUI</Filter>
     </ClInclude>
     <ClInclude Include="TextRenderer.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>include\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Render</Filter>
+      <Filter>include\Render</Filter>
     </ClInclude>
     <ClInclude Include="ShapeRenderer.h">
-      <Filter>Header Files\Render</Filter>
+      <Filter>include\Render</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files\Render</Filter>
+      <Filter>include\Render</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CircleCollider.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="RectCollider.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Line.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>include\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Debug.h">
-      <Filter>Header Files\Editor</Filter>
+      <Filter>include\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Gizmos.h">
-      <Filter>Header Files\Editor</Filter>
+      <Filter>include\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>include\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>include\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

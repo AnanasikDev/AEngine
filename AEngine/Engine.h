@@ -3,6 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include <string>
+#include <iostream>
+#include <memory>
+#include <vector>
+
 #include "Mathf.h"
 #include "Vector.h"
 #include "Bounds.h"
@@ -31,3 +36,4 @@
 
 #include "UIElement.h"
 #include "Canvas.h"
+#include "Gizmos.h"
