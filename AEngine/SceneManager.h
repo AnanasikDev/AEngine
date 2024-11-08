@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AENGINE_API.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -10,7 +11,7 @@ namespace aengine {
 
 	class Scene;
 
-	class SceneManager {
+	class DllExport SceneManager {
 	public:
 		static std::vector<std::unique_ptr<Scene>> scenes;
 
@@ -25,5 +26,5 @@ namespace aengine {
 		static Scene* m_currentScene;
 	};
 
-	Scene* context();
+	DllExport Scene* context();
 }

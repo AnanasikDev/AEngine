@@ -13,6 +13,8 @@
 #include "Bounds.h"
 #include "Physics.h"
 
+#include "Window.h"
+
 #include "Renderer.h"
 #include "ShapeRenderer.h"
 #include "SpriteRenderer.h"

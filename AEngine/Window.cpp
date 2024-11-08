@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "Engine.h"
 
 namespace aengine {
 
@@ -78,7 +78,7 @@ namespace aengine {
 		}
 	}
 
-	Window* Window::instance;
+	DllExport Window* Window::instance;
 	Window* window() {
 		return Window::instance;
 	}

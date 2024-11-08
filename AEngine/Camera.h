@@ -10,7 +10,7 @@ namespace aengine {
 	/// <summary>
 	/// Single camera support only.
 	/// </summary>
-	class Camera {
+	class DllExport Camera {
 	private:
 
 		Vectorf position;
