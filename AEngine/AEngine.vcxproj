@@ -18,35 +18,96 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Bounds.h" />
+    <ClInclude Include="Core\Camera.h" />
+    <ClInclude Include="Core\Canvas.h" />
+    <ClInclude Include="Core\CircleCollider.h" />
+    <ClInclude Include="Core\Collider.h" />
+    <ClInclude Include="Core\Component.h" />
+    <ClInclude Include="Core\Debug.h" />
+    <ClInclude Include="Core\Engine.h" />
+    <ClInclude Include="Core\Event.h" />
+    <ClInclude Include="Core\Gameobject.h" />
+    <ClInclude Include="Core\Gizmos.h" />
+    <ClInclude Include="Core\Input.h" />
+    <ClInclude Include="Core\Line.h" />
+    <ClInclude Include="Core\List.h" />
+    <ClInclude Include="Core\Mathf.h" />
+    <ClInclude Include="Core\Physics.h" />
+    <ClInclude Include="Core\Random.h" />
+    <ClInclude Include="Core\RectCollider.h" />
+    <ClInclude Include="Core\Renderer.h" />
+    <ClInclude Include="Core\Rigidbody.h" />
+    <ClInclude Include="Core\Scene.h" />
+    <ClInclude Include="Core\SceneManager.h" />
+    <ClInclude Include="Core\ShapeRenderer.h" />
+    <ClInclude Include="Core\SpriteRenderer.h" />
+    <ClInclude Include="Core\String.h" />
+    <ClInclude Include="Core\TextRenderer.h" />
+    <ClInclude Include="Core\Time.h" />
+    <ClInclude Include="Core\UIElement.h" />
+    <ClInclude Include="Core\Vector.h" />
+    <ClInclude Include="Core\Window.h" />
+    <ClInclude Include="framework.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\Bounds.cpp" />
+    <ClCompile Include="Core\Camera.cpp" />
+    <ClCompile Include="Core\Canvas.cpp" />
+    <ClCompile Include="Core\CircleCollider.cpp" />
+    <ClCompile Include="Core\Collider.cpp" />
+    <ClCompile Include="Core\Component.cpp" />
+    <ClCompile Include="Core\Debug.cpp" />
+    <ClCompile Include="Core\Gameobject.cpp" />
+    <ClCompile Include="Core\Gizmos.cpp" />
+    <ClCompile Include="Core\Input.cpp" />
+    <ClCompile Include="Core\Line.cpp" />
+    <ClCompile Include="Core\Mathf.cpp" />
+    <ClCompile Include="Core\Physics.cpp" />
+    <ClCompile Include="Core\Random.cpp" />
+    <ClCompile Include="Core\RectCollider.cpp" />
+    <ClCompile Include="Core\Renderer.cpp" />
+    <ClCompile Include="Core\Rigidbody.cpp" />
+    <ClCompile Include="Core\Scene.cpp" />
+    <ClCompile Include="Core\SceneManager.cpp" />
+    <ClCompile Include="Core\ShapeRenderer.cpp" />
+    <ClCompile Include="Core\SpriteRenderer.cpp" />
+    <ClCompile Include="Core\TextRenderer.cpp" />
+    <ClCompile Include="Core\Time.cpp" />
+    <ClCompile Include="Core\UIElement.cpp" />
+    <ClCompile Include="Core\Window.cpp" />
+    <ClCompile Include="framework.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{cf4c8a00-6e37-4533-bd30-640dbd86e500}</ProjectGuid>
+    <ProjectGuid>{32bec17f-3b9b-4a34-972f-31c77535b04a}</ProjectGuid>
     <RootNamespace>AEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,18 +131,21 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -91,11 +155,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -105,17 +175,26 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.5.1\include;$(ProjectDir)AENGINE_API.h</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;openal32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-audio-s-d.lib;sfml-network-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -123,84 +202,29 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.5.1\include;$(ProjectDir)AENGINE_API.h</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;openal32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-audio-s.lib;sfml-network-s.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Bounds.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Canvas.cpp" />
-    <ClCompile Include="CircleCollider.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="eng.cpp" />
-    <ClCompile Include="enginemain.cpp" />
-    <ClCompile Include="Gameobject.cpp" />
-    <ClCompile Include="Gizmos.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Line.cpp" />
-    <ClCompile Include="Mathf.cpp" />
-    <ClCompile Include="Physics.cpp" />
-    <ClCompile Include="Random.cpp" />
-    <ClCompile Include="RectCollider.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Rigidbody.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="ShapeRenderer.cpp" />
-    <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="TextRenderer.cpp" />
-    <ClCompile Include="Time.cpp" />
-    <ClCompile Include="UIElement.cpp" />
-    <ClCompile Include="Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AENGINE_API.h" />
-    <ClInclude Include="Bounds.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Canvas.h" />
-    <ClInclude Include="CircleCollider.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="eng.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="enginemain.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="Gameobject.h" />
-    <ClInclude Include="Gizmos.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Line.h" />
-    <ClInclude Include="List.h" />
-    <ClInclude Include="Mathf.h" />
-    <ClInclude Include="Physics.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="RectCollider.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Rigidbody.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="ShapeRenderer.h" />
-    <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="String.h" />
-    <ClInclude Include="TextRenderer.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="UIElement.h" />
-    <ClInclude Include="Vector.h" />
-    <ClInclude Include="Window.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

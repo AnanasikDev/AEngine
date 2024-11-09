@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AENGINE_API.h"
+
 #include <SFML/Graphics.hpp>
 #include "Vector.h"
 #include <vector>
@@ -10,7 +10,7 @@ namespace aengine {
 	class Gameobject;
 	class Renderer;
 
-	class DllExport Window {
+	class Window {
 
 	private:
 		sf::RenderWindow* window;
@@ -43,5 +43,5 @@ namespace aengine {
 	/// Global function to get pointer to the window
 	/// </summary>
 	/// <returns></returns>
-	DllExport Window* window();
+	Window* window();
 }

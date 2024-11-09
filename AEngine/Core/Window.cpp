@@ -78,7 +78,7 @@ namespace aengine {
 		}
 	}
 
-	DllExport Window* Window::instance;
+	Window* Window::instance;
 	Window* window() {
 		return Window::instance;
 	}
