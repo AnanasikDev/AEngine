@@ -5,16 +5,9 @@
 namespace agame {
 
 	Player::Player(std::string name) : Gameobject(name) {
-        //this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, aengine::window()->getWindow(), "resources/Ananasik2.png"));
+        this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, aengine::window()->getWindow(), "resources/Ananasik2.png"));
 
-        //auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
-
-        auto rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, aengine::window()->getWindow()));
-        rend->setShape(std::make_unique<sf::RectangleShape>());
-        auto rect = rend->getShapeAs<sf::RectangleShape>();
-        rect->setSize(aengine::Vectorf(90, 90).getsf());
-        rect->setFillColor(sf::Color::Red);
-        rend->setRelativeOrigin(aengine::Vectorf::half);
+        auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
 
         camera = aengine::context()->getCamera("main");
 

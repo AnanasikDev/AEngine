@@ -49,7 +49,6 @@
     <ClInclude Include="Core\UIElement.h" />
     <ClInclude Include="Core\Vector.h" />
     <ClInclude Include="Core\Window.h" />
-    <ClInclude Include="framework.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Bounds.cpp" />
@@ -77,7 +76,6 @@
     <ClCompile Include="Core\Time.cpp" />
     <ClCompile Include="Core\UIElement.cpp" />
     <ClCompile Include="Core\Window.cpp" />
-    <ClCompile Include="framework.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -1,50 +1,3 @@
-//#include <iostream>
-//#include "framework.h"
-////#include <SFML/Graphics.hpp>
-//#include "Core/Vector.h"
-//#include "Core/Debug.h"
-//
-//using namespace aengine;
-//
-//int main() {
-//	Vectorf vec(2, 9);
-//	std::cout << vec << std::endl;
-//	fram_show();
-//	std::unique_ptr<DebugSink> sink = std::make_unique<Console>();
-//	Debug::useStyles = true;
-//	Debug::setDebugSink(std::move(sink));
-//	Debug::logError("Error Lol");
-//	std::cout << "Hello from game main" << std::endl;
-//	return 0;
-//}
-
-
-//#include <iostream>
-//#include "Core/Engine.h"
-//#include "Collectable.h"
-//#include "Player.h"
-//
-//using namespace aengine;
-//
-//int main() {
-//	Window window(300, 300, "AEngine AGame");
-//	window.getWindow()->setFramerateLimit(60);
-//	SceneManager::createScene("main", window.getWindow());
-//	SceneManager::setCurrentScene("main");
-//	Camera camera("main");
-//
-//	while (window.isRunning()) {
-//
-//		window.update();
-//		window.render();
-//		window.display();
-//	}
-//
-//	std::cout << "Game main entrgfdf" << std::endl;
-//	std::cin.get();
-//}
-
-
 #include "Core/Engine.h"
 #include "Player.h"
 #include "Collectable.h"
@@ -53,7 +6,7 @@ using namespace aengine;
 using namespace agame;
 
 int main() {
-	Window window(300, 300, "AEngine AGame");
+	Window window(800, 500, "AEngine AGame");
 	window.getWindow()->setFramerateLimit(60);
 	SceneManager::createScene("main", window.getWindow());
 	SceneManager::setCurrentScene("main");
@@ -111,18 +64,7 @@ int main() {
 	floor->rigidbody->makeStatic();
 	floor->setPosition(400, 550);
 
-	/*UIElement* button = Canvas::AddUIElement();
-	auto shape = new sf::RectangleShape(Vectorf(100, 50).getsf());
-	shape->setFillColor(sf::Color::Cyan);
-	button->getGameobject()->renderer = new ShapeRenderer(button->getGameobject(), game.getWindow(), shape);
-	button->bounds = Bounds(Vectorf(0, 0), Vectorf(100, 50));
-	button->onLMBPressed.Subscribe([]() { std::cout << "BUTTON IS DOWN" << std::endl; });
-	button->onLMBReleased.Subscribe([]() { std::cout << "BUTTON IS UP" << std::endl; });
-	button->getGameobject()->renderer->SetRelativeOrigin(Vectorf::zero);
-	*/
-
 	TextRenderer::loadFont();
-
 
 	Gameobject* txt = new Gameobject("MyText");
 	txt->setPosition(window.getWindow()->getSize().x / 2.f, 20);
