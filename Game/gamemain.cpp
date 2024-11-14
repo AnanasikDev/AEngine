@@ -12,6 +12,8 @@ int main() {
 	SceneManager::setCurrentScene("main");
 	Camera camera("main");
 
+	Gameobject* player = Gameobject::instantiate<Player>("Player");
+
 	/*Player* player = new Player("Player");
 	player->renderer->setDistance(0);
 

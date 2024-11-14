@@ -11,6 +11,8 @@
 
 namespace aengine {
 
+	class Scene* context();
+
 	class Gameobject {
 
 	private:
@@ -31,6 +33,15 @@ namespace aengine {
 		~Gameobject() = default;
 
 		static Gameobject* instantiate(const std::string& name, const Vectorf& position = Vectorf::zero);
+
+		template <typename T>
+		static T* instantiate(const std::string& name, const Vectorf& position = Vectorf::zero) {
+			static_assert(std::is_base_of<Gameobject, T>::value, "T must be derived from Gameobject");
+			std::unique_ptr<T> obj = std::make_unique<T>();
+			obj->name = name;
+			obj->position = position;
+			return static_cast<T*>(context()->addGameobject(std::move(obj)));
+		}
 
 		void destroy();
 
