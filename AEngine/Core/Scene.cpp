@@ -32,6 +32,10 @@ namespace aengine {
 		renderersOrdered.push_back(renderer);
 	}
 
+	const std::vector<Renderer*>& Scene::getRenderers() const {
+		return renderersOrdered;
+	}
+
 	void Scene::updateRendererDistance(Renderer* renderer) {
 		List::remove(renderersOrdered, renderer);
 		addRenderer(renderer);

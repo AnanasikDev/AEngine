@@ -15,6 +15,13 @@ namespace aengine {
 		}
 	}
 
+	TextRenderer::TextRenderer(Gameobject* gameobject) : Renderer(gameobject) {
+		text.setFont(font);
+		text.setCharacterSize(defaultFontSize);
+		text.setString("Text");
+		text.setFillColor(defaultColor);
+	}
+
 	TextRenderer::TextRenderer() : Renderer() {
 		text.setFont(font);
 		text.setCharacterSize(defaultFontSize);

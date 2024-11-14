@@ -1,12 +1,13 @@
 #include "ShapeRenderer.h"
+#include "Window.h"
 
 namespace aengine {
 
-	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface) : Renderer(gameobject, surface) {
+	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject) : Renderer(gameobject) {
 		setRelativeOrigin(defaultRelativeOrigin);
 	}
 
-	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape) : Renderer(gameobject, surface) {
+	ShapeRenderer::ShapeRenderer(aengine::Gameobject* gameobject, std::unique_ptr<sf::Shape> shape) : Renderer(gameobject) {
 		this->shape = std::move(shape);
 		setRelativeOrigin(defaultRelativeOrigin);
 	}
@@ -16,7 +17,7 @@ namespace aengine {
 	}
 
 	void ShapeRenderer::render() {
-		surface->draw(*shape);
+		window()->getWindow()->draw(*shape);
 	}
 
 	void ShapeRenderer::update(const aengine::Vectorf position) {

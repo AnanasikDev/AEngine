@@ -27,6 +27,7 @@ namespace aengine {
 		sf::Text text;
 
 		TextRenderer();
+		TextRenderer(class Gameobject* gameobject);
 		~TextRenderer() = default;
 
 		void render() override;

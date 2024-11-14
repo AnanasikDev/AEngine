@@ -16,7 +16,6 @@ namespace aengine {
 
 	public:
 		class Gameobject* gameobject;
-		sf::RenderWindow* surface;
 
 		/// <summary>
 		/// Local relative origin on the renderer within the range 0.0 - 1.0 for each axis
@@ -26,7 +25,7 @@ namespace aengine {
 		static Vectorf defaultRelativeOrigin;
 
 		Renderer();
-		Renderer(Gameobject* gameobject, sf::RenderWindow* surface);
+		Renderer(Gameobject* gameobject);
 
 		/// <summary>
 		/// Sets the new distance to camera (rendering order)

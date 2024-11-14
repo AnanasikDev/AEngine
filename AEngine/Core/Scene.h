@@ -41,6 +41,7 @@ namespace aengine {
 		Gameobject* addGameobject(Gameobject* gameobject);
 		Gameobject* addGameobject(std::unique_ptr<Gameobject> gameobject);
 		void addRenderer(Renderer* renderer);
+		const std::vector<Renderer*>& getRenderers() const;
 		void updateRendererDistance(Renderer* renderer);
 
 		/// <summary>

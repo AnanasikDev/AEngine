@@ -6,7 +6,7 @@ using namespace aengine;
 using namespace agame;
 
 int main() {
-	Window window(800, 400, "Tech demo of AEngine");
+	Window window(1200, 900, "Tech demo of AEngine");
 	window.getWindow()->setFramerateLimit(60);
 	SceneManager::createScene("main", window.getWindow());
 	SceneManager::setCurrentScene("main");
@@ -14,18 +14,13 @@ int main() {
 
 	Gameobject* player = Gameobject::instantiate<Player>("Player");
 
-	/*Player* player = new Player("Player");
-	player->renderer->setDistance(0);
-
-	auto c1 = new Collectable("Coin1");
-	c1->setPosition(Vectorf(300, 400));
-	c1->rigidbody->addForce(Vectorf(-80, -130));
-	auto c2 = new Collectable("Coin2");
-	c2->setPosition(Vectorf(50, 500));
-	c2->rigidbody->addForce(Vectorf(80, -200));*/
+	Collectable* coin1 = Gameobject::instantiate<Collectable>("coin1");
+	coin1->setPosition(Vectorf(400, 0));
+	Collectable* coin2 = Gameobject::instantiate<Collectable>("coin2");
+	coin2->setPosition(Vectorf(700, 0));
 
 	Gameobject* block1 = Gameobject::instantiate("block1");
-	auto block1rend = block1->setRenderer(std::make_unique<ShapeRenderer>(block1, window.getWindow()));
+	auto block1rend = block1->setRenderer(std::make_unique<ShapeRenderer>(block1));
 	block1rend->setShape(std::make_unique<sf::RectangleShape>());
 	auto block1rect = block1rend->getShapeAs<sf::RectangleShape>();
 	block1rect->setSize(Vectorf(90, 90).getsf());
@@ -38,7 +33,7 @@ int main() {
 	block1->rigidbody->addForce(Vectorf(200, 0));
 
 	Gameobject* block2 = Gameobject::instantiate("block2");
-	auto block2rend = block2->setRenderer(std::make_unique<ShapeRenderer>(block2, window.getWindow()));
+	auto block2rend = block2->setRenderer(std::make_unique<ShapeRenderer>(block2));
 	block2rend->setShape(std::make_unique<sf::RectangleShape>());
 	auto block2rect = block2rend->getShapeAs<sf::RectangleShape>();
 	block2rect->setSize(Vectorf(90, 90).getsf());
@@ -51,9 +46,9 @@ int main() {
 	block2->rigidbody->setMass(10.f);
 	block2->rigidbody->addForce(Vectorf(-80, 0));
 
-	/*Gameobject* floor = new Gameobject("floor");
+	Gameobject* floor = Gameobject::instantiate("floor");
 
-	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor, window.getWindow()))->to<ShapeRenderer>();
+	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor))->to<ShapeRenderer>();
 
 	floorRend->setShape(std::make_unique<sf::RectangleShape>(Vectorf(800, 30).getsf()));
 
@@ -65,14 +60,14 @@ int main() {
 	floor->setRigidbody(std::make_unique<Rigidbody>(floor));
 	floor->rigidbody->makeStatic();
 	floor->setPosition(400, 550);
-
+	
 	TextRenderer::loadFont();
-	*/
+	
 	Gameobject* txt = Gameobject::instantiate("MyText");
 	txt->setPosition(window.getWindow()->getSize().x / 2.f, 20);
-	auto textRenderer = txt->setRenderer(std::make_unique<aengine::TextRenderer>());
-	textRenderer->setRelativeOrigin(Vectorf::zero);
-	//txt->isAttachedToCamera = true;
+	auto textRenderer = txt->setRenderer(std::make_unique<aengine::TextRenderer>(txt));
+	std::cout << textRenderer->text.getCharacterSize() << std::endl;
+	txt->isAttachedToCamera = true;
 
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
@@ -88,6 +83,11 @@ int main() {
 	Line intersection;
 	Line intersection2;
 
+	const std::vector<Renderer*> r = context()->getRenderers();
+	for (int i = 0; i < r.size(); i++) {
+		std::cout << r[i]->gameobject->name << std::endl;
+	}
+
 	while (window.isRunning()) {
 
 		window.update();
@@ -98,9 +98,6 @@ int main() {
 
 		Vectorf shift = -camera.getPosition();
 		Vectorf mouse = aengine::Input::getMousePosition() - shift;
-
-		//Gizmos::drawSegment(Vectorf(0, 0) + shift, player->getPosition(), sf::Color::White);
-
 		l1.render(window.getWindow(), shift, 1, sf::Color::Blue);
 		bounds.render(window.getWindow(), shift, 1, sf::Color::Yellow);
 

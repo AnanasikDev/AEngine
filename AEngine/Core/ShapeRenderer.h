@@ -12,8 +12,8 @@ namespace aengine {
 		std::unique_ptr<sf::Shape> shape;
 
 		//ShapeRenderer(const ShapeRenderer& other);
-		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface);
-		ShapeRenderer(aengine::Gameobject* gameobject, sf::RenderWindow* surface, std::unique_ptr<sf::Shape> shape);
+		ShapeRenderer(aengine::Gameobject* gameobject);
+		ShapeRenderer(aengine::Gameobject* gameobject, std::unique_ptr<sf::Shape> shape);
 
 		sf::Shape* setShape(std::unique_ptr<sf::Shape> _shape);
 		template <typename R>

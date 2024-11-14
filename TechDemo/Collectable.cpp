@@ -9,7 +9,7 @@ namespace agame {
 		onLMBDownBackdrop = 0;
 
 		auto shapeRenderer =
-			this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, aengine::window()->getWindow()))
+			this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this))
 			->to<aengine::ShapeRenderer>();
 		shapeRenderer->setShape(std::make_unique<sf::CircleShape>(15));
 		shapeRenderer->updateRelativeOrigin();

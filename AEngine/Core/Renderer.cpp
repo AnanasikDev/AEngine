@@ -11,11 +11,11 @@ namespace aengine {
 	Vectorf Renderer::defaultRelativeOrigin = Vectorf(0.5f, 0.5f);
 	const float Renderer::defaultDistance = 64;
 
-	Renderer::Renderer() : gameobject(nullptr), surface(nullptr), distance(defaultDistance) {
+	Renderer::Renderer() : gameobject(nullptr), distance(defaultDistance) {
 		context()->addRenderer(this);
 	}
 
-	Renderer::Renderer(Gameobject* gameobject, sf::RenderWindow* surface) : gameobject(gameobject), surface(surface), distance(defaultDistance) {
+	Renderer::Renderer(Gameobject* gameobject) : gameobject(gameobject), distance(defaultDistance) {
 		context()->addRenderer(this);
 	}
 

@@ -1,8 +1,9 @@
 #include "SpriteRenderer.h"
+#include "Window.h"
 
 namespace aengine {
 
-	SpriteRenderer::SpriteRenderer(Gameobject* gameobject, sf::RenderWindow* surface, const std::string& textureFileName) : Renderer(gameobject, surface) {
+	SpriteRenderer::SpriteRenderer(Gameobject* gameobject, const std::string& textureFileName) : Renderer(gameobject) {
 
 		sprite = std::make_unique<sf::Sprite>();
 		loadTexture(textureFileName);
@@ -22,6 +23,6 @@ namespace aengine {
 	}
 
 	void SpriteRenderer::render() {
-		surface->draw(*sprite);
+		window()->getWindow()->draw(*sprite);
 	}
 }
