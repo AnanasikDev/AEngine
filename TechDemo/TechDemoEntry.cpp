@@ -1,11 +1,12 @@
 #include "Core/Engine.h"
 #include "Player.h"
+#include "Collectable.h"
 
 using namespace aengine;
 using namespace agame;
 
 int main() {
-	Window window(800, 800, "Game!");
+	Window window(800, 400, "Tech demo of AEngine");
 	window.getWindow()->setFramerateLimit(60);
 	SceneManager::createScene("main", window.getWindow());
 	SceneManager::setCurrentScene("main");
@@ -66,12 +67,12 @@ int main() {
 	floor->setPosition(400, 550);
 
 	TextRenderer::loadFont();
-
-	Gameobject* txt = new Gameobject("MyText");
+	*/
+	Gameobject* txt = Gameobject::instantiate("MyText");
 	txt->setPosition(window.getWindow()->getSize().x / 2.f, 20);
 	auto textRenderer = txt->setRenderer(std::make_unique<aengine::TextRenderer>());
 	textRenderer->setRelativeOrigin(Vectorf::zero);
-	txt->isAttachedToCamera = true;*/
+	//txt->isAttachedToCamera = true;
 
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);

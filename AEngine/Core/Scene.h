@@ -23,7 +23,7 @@ namespace aengine {
 		/// Set individually for each scene so that they can be rendered simultaneously
 		/// </summary>
 		sf::RenderWindow* renderWindow;
-		sf::Color backgroundColor;
+		sf::Color backgroundColor = sf::Color(230, 230, 230);
 
 		std::vector<std::unique_ptr<Camera>> cameras;
 
