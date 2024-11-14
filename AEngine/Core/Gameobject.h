@@ -27,11 +27,10 @@ namespace aengine {
 		std::vector<Gameobject*> children;
 
 		Gameobject();
-		Gameobject(std::string name);
-		Gameobject(std::string name, std::unique_ptr<Renderer> renderer);										
-		Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody);
 		Gameobject(const Gameobject& other);
 		~Gameobject() = default;
+
+		static Gameobject* instantiate(const std::string& name, const Vectorf& position = Vectorf::zero);
 
 		void destroy();
 

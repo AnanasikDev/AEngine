@@ -11,8 +11,14 @@ namespace aengine {
 		gameobjects.clear();
 	}
 
-	void Scene::addGameobject(Gameobject* gameobject) {
+	Gameobject* Scene::addGameobject(Gameobject* gameobject) {
 		gameobjects.push_back(std::unique_ptr<Gameobject>(gameobject));
+		return List::lastUniquePointer(gameobjects);
+	}
+
+	Gameobject* Scene::addGameobject(std::unique_ptr<Gameobject> gameobject) {
+		gameobjects.push_back(std::move(gameobject));
+		return gameobjects.back().get();
 	}
 
 	void Scene::addRenderer(Renderer* renderer) {

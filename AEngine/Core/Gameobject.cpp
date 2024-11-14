@@ -6,33 +6,6 @@ namespace aengine {
 		position = Vectorf(0, 0);
 		setParent(nullptr);
 		name = "";
-		context()->addGameobject(this);
-	}
-
-	Gameobject::Gameobject(std::string name) {
-		this->name = name;
-		setParent(nullptr);
-		this->position = Vectorf(0, 0);
-		context()->addGameobject(this);
-	}
-
-	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer) {
-		this->name = name;
-		setParent(nullptr);
-		this->position = Vectorf(0, 0);
-		this->renderer = std::move(renderer);
-		context()->addGameobject(this);
-	}
-
-	Gameobject::Gameobject(std::string name, std::unique_ptr<Renderer> renderer, std::unique_ptr<Collider> collider, std::unique_ptr<Rigidbody> rigidbody) {
-
-		this->name = name;
-		setParent(nullptr);
-		this->position = Vectorf(0, 0);
-		this->renderer = std::move(renderer);
-		this->collider = std::move(collider);
-		this->rigidbody = std::move(rigidbody);
-		context()->addGameobject(this);
 	}
 
 	Gameobject::Gameobject(const Gameobject& other){
@@ -40,6 +13,13 @@ namespace aengine {
 		setParent(other.getParent());
 		this->name = other.name;
 		context()->addGameobject(this);
+	}
+
+	Gameobject* Gameobject::instantiate(const std::string& name, const Vectorf& position) {
+		std::unique_ptr<Gameobject> obj = std::make_unique<Gameobject>();
+		obj->name = name;
+		obj->position = position;
+		return context()->addGameobject(std::move(obj));
 	}
 
 	void Gameobject::destroy() {

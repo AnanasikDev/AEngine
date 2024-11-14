@@ -10,7 +10,7 @@ namespace agame {
 		aengine::Camera* camera;
 
 	public:
-		Player(std::string name);
+		Player();
 
 		void start() override;
 		void update() override;

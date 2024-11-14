@@ -9,7 +9,7 @@ namespace agame {
 
 		aengine::backdrop onLMBDownBackdrop;
 
-		Collectable(std::string name);
+		Collectable();
 		~Collectable();
 
 		void start() override;

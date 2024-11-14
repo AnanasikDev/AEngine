@@ -38,7 +38,8 @@ namespace aengine {
 		void fixedUpdate();
 		void update();
 		void render();
-		void addGameobject(Gameobject* gameobject);
+		Gameobject* addGameobject(Gameobject* gameobject);
+		Gameobject* addGameobject(std::unique_ptr<Gameobject> gameobject);
 		void addRenderer(Renderer* renderer);
 		void updateRendererDistance(Renderer* renderer);
 

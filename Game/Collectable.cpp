@@ -5,7 +5,7 @@ namespace agame {
 
 	unsigned int Collectable::collected = 0;
 
-	Collectable::Collectable(std::string name) : Gameobject(name) {
+	Collectable::Collectable() : Gameobject() {
 		onLMBDownBackdrop = 0;
 
 		auto shapeRenderer =

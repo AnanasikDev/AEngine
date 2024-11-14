@@ -72,5 +72,25 @@ namespace aengine {
 			}
 			return nullptr;
 		}
+
+		template <typename T>
+		static T* firstUniquePointer(const std::vector<std::unique_ptr<T>>& vec) {
+			return vec[0].get();
+		}
+
+		template <typename T>
+		static T* lastUniquePointer(const std::vector<std::unique_ptr<T>>& vec) {
+			return vec[vec.size() - 1].get();
+		}
+
+		template <typename T>
+		static T first(const std::vector<T>& vec) {
+			return vec[0];
+		}
+
+		template <typename T>
+		static T last(const std::vector<T>& vec) {
+			return vec[vec.size() - 1];
+		}
 	};
 }

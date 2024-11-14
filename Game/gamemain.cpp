@@ -12,7 +12,7 @@ int main() {
 	SceneManager::setCurrentScene("main");
 	Camera camera("main");
 
-	Player* player = new Player("Player");
+	/*Player* player = new Player("Player");
 	player->renderer->setDistance(0);
 
 	auto c1 = new Collectable("Coin1");
@@ -20,36 +20,36 @@ int main() {
 	c1->rigidbody->addForce(Vectorf(-80, -130));
 	auto c2 = new Collectable("Coin2");
 	c2->setPosition(Vectorf(50, 500));
-	c2->rigidbody->addForce(Vectorf(80, -200));
+	c2->rigidbody->addForce(Vectorf(80, -200));*/
 
-	Gameobject* block1 = new Gameobject("block1");
+	Gameobject* block1 = Gameobject::instantiate("block1");
 	auto block1rend = block1->setRenderer(std::make_unique<ShapeRenderer>(block1, window.getWindow()));
 	block1rend->setShape(std::make_unique<sf::RectangleShape>());
 	auto block1rect = block1rend->getShapeAs<sf::RectangleShape>();
 	block1rect->setSize(Vectorf(90, 90).getsf());
 	block1rect->setFillColor(sf::Color::Green);
 	block1rend->setRelativeOrigin(Vectorf::half);
-	block1->collider = std::make_unique<RectCollider>(block1, Vectorf(90, 90));
+	block1->setCollider(std::make_unique<RectCollider>(block1, Vectorf(90, 90)));
 	block1->setRigidbody(std::make_unique<Rigidbody>(block1));
 	block1->setPosition(100, 100);
 	block1->rigidbody->makeKinematic();
 	block1->rigidbody->addForce(Vectorf(200, 0));
 
-	Gameobject* block2 = new Gameobject("block2");
+	Gameobject* block2 = Gameobject::instantiate("block2");
 	auto block2rend = block2->setRenderer(std::make_unique<ShapeRenderer>(block2, window.getWindow()));
 	block2rend->setShape(std::make_unique<sf::RectangleShape>());
 	auto block2rect = block2rend->getShapeAs<sf::RectangleShape>();
 	block2rect->setSize(Vectorf(90, 90).getsf());
 	block2rect->setFillColor(sf::Color(0, 200, 0));
 	block2rend->setRelativeOrigin(Vectorf::half);
-	block2->collider = std::make_unique<RectCollider>(block2, Vectorf(90, 90));
+	block2->setCollider(std::make_unique<RectCollider>(block2, Vectorf(90, 90)));
 	block2->setRigidbody(std::make_unique<Rigidbody>(block2));
 	block2->setPosition(600, 100);
 	block2->rigidbody->makeKinematic();
 	block2->rigidbody->setMass(10.f);
 	block2->rigidbody->addForce(Vectorf(-80, 0));
 
-	Gameobject* floor = new Gameobject("floor");
+	/*Gameobject* floor = new Gameobject("floor");
 
 	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor, window.getWindow()))->to<ShapeRenderer>();
 
@@ -70,7 +70,7 @@ int main() {
 	txt->setPosition(window.getWindow()->getSize().x / 2.f, 20);
 	auto textRenderer = txt->setRenderer(std::make_unique<aengine::TextRenderer>());
 	textRenderer->setRelativeOrigin(Vectorf::zero);
-	txt->isAttachedToCamera = true;
+	txt->isAttachedToCamera = true;*/
 
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
@@ -97,7 +97,7 @@ int main() {
 		Vectorf shift = -camera.getPosition();
 		Vectorf mouse = aengine::Input::getMousePosition() - shift;
 
-		Gizmos::drawSegment(Vectorf(0, 0) + shift, player->getPosition(), sf::Color::White);
+		//Gizmos::drawSegment(Vectorf(0, 0) + shift, player->getPosition(), sf::Color::White);
 
 		l1.render(window.getWindow(), shift, 1, sf::Color::Blue);
 		bounds.render(window.getWindow(), shift, 1, sf::Color::Yellow);
