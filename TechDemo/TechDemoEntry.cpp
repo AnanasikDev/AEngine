@@ -46,6 +46,21 @@ int main() {
 	block2->rigidbody->setMass(10.f);
 	block2->rigidbody->addForce(Vectorf(-80, 0));
 
+	for (int i = 0; i < 10; i++) {
+		Gameobject* block = Gameobject::instantiate("block");
+		auto blockrend = block->setRenderer(std::make_unique<ShapeRenderer>(block));
+		blockrend->setShape(std::make_unique<sf::RectangleShape>());
+		auto blockrect = blockrend->getShapeAs<sf::RectangleShape>();
+		blockrect->setSize(Vectorf(30, 30).getsf());
+		blockrect->setFillColor(sf::Color(150, 0, 170));
+		blockrend->setRelativeOrigin(Vectorf::half);
+		block->setCollider(std::make_unique<RectCollider>(block, Vectorf(30, 30)));
+		block->setRigidbody(std::make_unique<Rigidbody>(block));
+		block->setPosition(400, 0 + i * 40);
+		block->rigidbody->makeDynamic();
+		block->rigidbody->setMass(3.f);
+	}
+
 	Gameobject* floor = Gameobject::instantiate("floor");
 
 	auto floorRend = floor->setRenderer(std::make_unique<ShapeRenderer>(floor))->to<ShapeRenderer>();
