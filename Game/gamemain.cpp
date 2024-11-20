@@ -16,6 +16,7 @@ int main() {
 
 	Gameobject* player = Gameobject::instantiate<Player>("Player");
 	player->setPosition(winSize.x / 2.f, winSize.y / 2.f);
+	GameController::player = static_cast<Player*>(player);
 
 	Blob* blob1 = Gameobject::instantiate<Blob>("blob");
 
@@ -30,8 +31,9 @@ int main() {
 	while (window.isRunning()) {
 
 		window.update();
-		GameController::update();
+		//GameController::update();
 		window.render();
+		Gizmos::drawSegment(player->getPosition(), blob1->getPosition());
 		window.display();
 	}
 

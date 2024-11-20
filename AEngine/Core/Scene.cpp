@@ -49,9 +49,9 @@ namespace aengine {
 
 	void Scene::fixedUpdate() {
 		for (int i = 0; i < gameobjects.size(); i++) {
-			if (gameobjects[i]->rigidbody != nullptr) {
-				gameobjects[i]->rigidbody->fixedUpdate();
-			}
+			if (!gameobjects[i]->isEnabled || gameobjects[i]->rigidbody == nullptr) continue;
+
+			gameobjects[i]->rigidbody->fixedUpdate();
 		}
 	}
 
@@ -62,6 +62,8 @@ namespace aengine {
 		Input::Update();
 
 		for (int i = 0; i < gameobjects.size(); i++) {
+			if (!gameobjects[i]->isEnabled) continue;
+			
 			gameobjects[i]->update();
 		}
 
@@ -82,13 +84,15 @@ namespace aengine {
 		renderWindow->clear(backgroundColor);
 
 		for (int i = 0; i < renderersOrdered.size(); i++) {
+			if (renderersOrdered[i]->gameobject != nullptr && !renderersOrdered[i]->gameobject->isEnabled) continue;
+
 			renderersOrdered[i]->render();
 		}
 	}
 
-	const bool Scene::contains(Gameobject* gameobject) const {
+	const bool Scene::contains(Gameobject* gameobject, bool includeInactive) const {
 		for (int i = 0; i < gameobjects.size(); i++) {
-			if (gameobjects[i].get() == gameobject)
+			if (gameobjects[i]->isEnabled && gameobjects[i].get() == gameobject)
 				return true;
 		}
 		return false;

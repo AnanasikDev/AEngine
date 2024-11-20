@@ -1,9 +1,13 @@
-#include "GameController.h"
 #include "Core/Engine.h"
+#include "GameController.h"
+#include "Blob.h"
+#include "Player.h"
 
 namespace agame {
 	int GameController::score = 0;
 	aengine::TextRenderer* GameController::textRenderer = nullptr;
+	std::vector<Blob*> GameController::blobs;
+	Player* GameController::player = nullptr;
 
 	int GameController::getScore() {
 		return score;
@@ -16,6 +20,13 @@ namespace agame {
 
 	void GameController::addScore(int delta) {
 		setScore(score + delta);
+	}
+
+	void GameController::markBlobHit(aengine::Gameobject* obj) {
+		obj->setPosition(player->getPosition() + aengine::Vectorf(
+			(aengine::Random::getFloat() - 0.5f) * 400,
+			(aengine::Random::getFloat() - 0.5f) * 400
+		));
 	}
 
 	void GameController::update() {

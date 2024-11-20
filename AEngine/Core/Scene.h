@@ -47,7 +47,7 @@ namespace aengine {
 		/// <summary>
 		/// Returns true if the given gameobject exists on the scene
 		/// </summary>
-		const bool contains(Gameobject* gameobject) const;
+		const bool contains(Gameobject* gameobject, bool includeInactive = true) const;
 		void destroyGameobject(Gameobject* gameobject);
 
 		Camera* getCamera(const std::string& name) const;

@@ -27,6 +27,7 @@ namespace aengine {
 		std::unique_ptr<Rigidbody> rigidbody;
 		bool isAttachedToCamera = false;
 		std::vector<Gameobject*> children;
+		bool isEnabled = true;
 
 		Gameobject();
 		Gameobject(const Gameobject& other);

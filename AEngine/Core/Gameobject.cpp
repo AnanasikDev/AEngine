@@ -6,6 +6,7 @@ namespace aengine {
 		position = Vectorf(0, 0);
 		setParent(nullptr);
 		name = "";
+		isEnabled = true;
 	}
 
 	Gameobject::Gameobject(const Gameobject& other){
@@ -13,6 +14,7 @@ namespace aengine {
 		setParent(other.getParent());
 		this->name = other.name;
 		context()->addGameobject(this);
+		isEnabled = other.isEnabled;
 	}
 
 	Gameobject* Gameobject::instantiate(const std::string& name, const Vectorf& position) {

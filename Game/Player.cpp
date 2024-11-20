@@ -1,5 +1,6 @@
 #include "Core/Engine.h"
 #include "Player.h"
+#include "GameController.h"
 #include <memory>
 
 namespace agame {
@@ -18,7 +19,8 @@ namespace agame {
 	}
 
     void Player::onCollision(aengine::Collider* collider) {
-        std::cout << "player collided" << std::endl;
+        GameController::addScore(1);
+        GameController::markBlobHit(collider->gameobject);
     }
 
     void Player::start() {
