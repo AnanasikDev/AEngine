@@ -31,7 +31,7 @@ int main() {
 	while (window.isRunning()) {
 
 		window.update();
-		//GameController::update();
+		GameController::update();
 		window.render();
 		for (auto blob : GameController::blobs) {
 			Gizmos::drawSegment(player->getPosition(), blob->getPosition());

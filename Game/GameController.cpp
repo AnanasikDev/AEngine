@@ -1,18 +1,35 @@
 #include "Core/Engine.h"
-#include "GameController.h"
 #include "Blob.h"
 #include "Player.h"
+#include "Bomb.h"
+#include "GameController.h"
 
 namespace agame {
 	int GameController::score = 0;
 	aengine::TextRenderer* GameController::textRenderer = nullptr;
-	std::vector<Blob*> GameController::blobs;
+
 	Player* GameController::player = nullptr;
 
+	std::vector<Blob*> GameController::blobs;
+	std::vector<aengine::Gameobject*> GameController::walls;
+	std::vector<Bomb*> GameController::bombs;
+
+	std::array<float, 3> GameController::levelThresholds { 0, 9, 20 }; // TODO: increase levels intervals
+	int GameController::level = 0;
+
+	aengine::Action<> GameController::onLevelUpEvent;
+
 	void GameController::init() {
-		for (int i = 0; i < 7; i++) {
-			blobs.push_back(aengine::Gameobject::instantiate<Blob>("blob" + i));
-		}
+		onLevelUpEvent.Subscribe([]() {
+
+			std::cout << "Level up! current level is " << level << std::endl;
+
+			if (level == 1) beginLevel1();
+			else if (level == 2) beginLevel2();
+
+			});
+
+		beginLevel0();
 	}
 
 	int GameController::getScore() {
@@ -35,8 +52,39 @@ namespace agame {
 		));
 	}
 
+	float GameController::getDifficultyAt(float t) {
+		return powf(t, 0.9f);
+	}
+
+	float GameController::getCurrentDifficulty() {
+		return getDifficultyAt(aengine::Time::getTime());
+	}
+
+	int GameController::getCurrentLevel() {
+		return level;
+	}
+
+	void GameController::beginLevel0() {
+		for (int i = 0; i < 7; i++) {
+			blobs.push_back(aengine::Gameobject::instantiate<Blob>("blob" + i));
+		}
+	}
+
+	void GameController::beginLevel1() {
+		// walls
+	}
+
+	void GameController::beginLevel2() {
+		// bombs
+	}
+
+
 	void GameController::update() {
-		// spawn new blobs
-		// control difficulty
+		float difficulty = getCurrentDifficulty();
+
+		if (level != maxLevel && difficulty > levelThresholds[level + 1]) {
+			level++;
+			onLevelUpEvent.Invoke();
+		}
 	}
 }

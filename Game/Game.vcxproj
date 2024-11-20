@@ -140,14 +140,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Blob.cpp" />
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="gamemain.cpp" />
     <ClCompile Include="GameController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Blob.h" />
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\bomb.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
