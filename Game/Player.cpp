@@ -9,11 +9,17 @@ namespace agame {
 
         rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 255, 255));
 
+        setCollider(std::make_unique<aengine::CircleCollider>(this));
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
+        rigidbody->onCollisionEvent.Subscribe([this](aengine::Collider* col) { onCollision(col); });
 
         camera = aengine::context()->getCamera("main");
 	}
+
+    void Player::onCollision(aengine::Collider* collider) {
+        std::cout << "player collided" << std::endl;
+    }
 
     void Player::start() {
         

@@ -6,6 +6,8 @@ namespace agame {
 		aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(16)));
 		rend->shape->setFillColor(sf::Color(100, 150, 200));
 		rend->setRelativeOrigin(aengine::Vectorf::half);
+
+		setCollider(std::make_unique<aengine::CircleCollider>(this, 16));
 	}
 
 	void Blob::update() {

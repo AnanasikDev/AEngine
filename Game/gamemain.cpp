@@ -1,6 +1,7 @@
 #include "Core/Engine.h"
 #include "Player.h"
 #include "Blob.h"
+#include "GameController.h"
 
 using namespace aengine;
 using namespace agame;
@@ -18,9 +19,18 @@ int main() {
 
 	Blob* blob1 = Gameobject::instantiate<Blob>("blob");
 
+	Gameobject* scoreDisplay = Gameobject::instantiate("score_display");
+	TextRenderer::loadFont();
+	TextRenderer* scoreRend = scoreDisplay->setRenderer(std::make_unique<TextRenderer>());
+	GameController::textRenderer = scoreRend;
+	scoreDisplay->isAttachedToCamera = true;
+	scoreRend->setRelativeOrigin(Vectorf::half);
+	scoreDisplay->setPosition(winSize.x / 2.f, 25);
+
 	while (window.isRunning()) {
 
 		window.update();
+		GameController::update();
 		window.render();
 		window.display();
 	}

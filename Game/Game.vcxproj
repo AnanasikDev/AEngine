@@ -142,10 +142,12 @@
     <ClCompile Include="Blob.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="gamemain.cpp" />
+    <ClCompile Include="GameController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Blob.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="GameController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

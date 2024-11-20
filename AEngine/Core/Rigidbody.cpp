@@ -134,20 +134,18 @@ namespace aengine {
 						impulse1.x = -impulse1.x;
 				}
 
-				onCollision(bounds, normal, impulse1); // - otherRigidbody->fvelocity
+				onCollision(bounds, normal, impulse1, other);
 
-				// Add force to the other object of collision, with regard of velocity and mass of this object
-				//Vectorf impulse2 = otherRigidbody->fvelocity * otherRigidbody->mass / mass;
-				//Vectorf impulse2 = (otherRigidbody->fvelocity + fvelocity) * (mass / otherRigidbody->mass);
+				// Add force to the other object of collision, with regard of velocity 
 
 				Vectorf impulse2 = v1 * (2 * m1) / (m1 + m2) + v2 * (m2 - m1) / (m1 + m2);
 
 				std::cout << "impulse 1: " << impulse1 << " | impulse 2: " << impulse2 << "m1 = " << mass << " m2 = " << otherRigidbody-> mass << std::endl;
 
-				otherRigidbody->onCollision(bounds, -normal, impulse2);
+				otherRigidbody->onCollision(bounds, -normal, impulse2, this->gameobject->collider.get());
 			}
 			else {
-				onCollision(bounds, normal, fvelocity);
+				onCollision(bounds, normal, fvelocity, other);
 			}
 
 			std::cout << gameobject->name << " collided with " << other->gameobject->name << std::endl;
@@ -158,8 +156,9 @@ namespace aengine {
 		}
 	}
 
-	void Rigidbody::onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity) {
-		
+	void Rigidbody::onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity, Collider* other) {
+		onCollisionEvent.Invoke(other);
+
 		if (!respondToImpulse) return;
 
 		/*if (normal.x == 0)

@@ -4,6 +4,9 @@
 #include "Bounds.h"
 
 namespace aengine {
+
+	class Collider;
+
 	class Rigidbody {
 	private:
 		Vectorf fvelocity;
@@ -30,11 +33,8 @@ namespace aengine {
 		/// If true, receives forces from objects when collided
 		/// </summary>
 		bool respondToImpulse = true;
-		
-		/// <summary>
-		/// If true, rigidbody uses the continuous mode of collision detection which calculates collisions before they happend in preventive manner to avoid misses or overlaps.
-		/// </summary>
-		bool isContinuous = false;
+
+		Action<Collider*> onCollisionEvent;
 
 		Rigidbody();
 		Rigidbody(Gameobject* gameobject);
@@ -81,6 +81,6 @@ namespace aengine {
 		void addForce(Vectorf force);
 
 		void checkCollisions();
-		void onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity);
+		void onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity, Collider* other);
 	};
 }
