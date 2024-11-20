@@ -18,7 +18,7 @@ int main() {
 	player->setPosition(winSize.x / 2.f, winSize.y / 2.f);
 	GameController::player = static_cast<Player*>(player);
 
-	Blob* blob1 = Gameobject::instantiate<Blob>("blob");
+	GameController::init();
 
 	Gameobject* scoreDisplay = Gameobject::instantiate("score_display");
 	TextRenderer::loadFont();
@@ -33,7 +33,9 @@ int main() {
 		window.update();
 		//GameController::update();
 		window.render();
-		Gizmos::drawSegment(player->getPosition(), blob1->getPosition());
+		for (auto blob : GameController::blobs) {
+			Gizmos::drawSegment(player->getPosition(), blob->getPosition());
+		}
 		window.display();
 	}
 

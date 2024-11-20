@@ -36,5 +36,8 @@ namespace aengine {
 		static T take(const std::array<T, length>& arr) {
 			return arr[getFloat(0, arr.size() - 1)];
 		}
+
+		static float perlin1D(float x);
+		static float perlin2D(float x, float y);
 	};
 }

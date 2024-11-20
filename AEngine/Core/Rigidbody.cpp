@@ -103,16 +103,22 @@ namespace aengine {
 
 			if (bounds.isEmpty()) continue;
 
-			//std::cout << gameobject->name << " " << bounds << std::endl;
-
 			// collision detected
+
+			auto otherRigidbody = other->gameobject->rigidbody.get();
+
+			if (this->gameobject->collider->isTrigger || other->isTrigger) {
+				onCollisionEvent.Invoke(other);
+				if (otherRigidbody != nullptr) 
+					otherRigidbody->onCollisionEvent.Invoke(this->gameobject->collider.get());
+				return; // if any object is trigger, no further calculations needed
+			}
 
 			Vectorf size = bounds.getSize();
 			
 			if (respondToImpulse)
 				gameobject->translate(normal * (bounds.getSize() + Vectorf::one * 3));
 
-			auto otherRigidbody = other->gameobject->rigidbody.get();
 			if (otherRigidbody != nullptr) {
 				
 				Vectorf vel = fvelocity;
@@ -140,15 +146,11 @@ namespace aengine {
 
 				Vectorf impulse2 = v1 * (2 * m1) / (m1 + m2) + v2 * (m2 - m1) / (m1 + m2);
 
-				std::cout << "impulse 1: " << impulse1 << " | impulse 2: " << impulse2 << "m1 = " << mass << " m2 = " << otherRigidbody-> mass << std::endl;
-
 				otherRigidbody->onCollision(bounds, -normal, impulse2, this->gameobject->collider.get());
 			}
 			else {
 				onCollision(bounds, normal, fvelocity, other);
 			}
-
-			std::cout << gameobject->name << " collided with " << other->gameobject->name << std::endl;
 
 			if (getFrameVelocity().getLength() < stickiness) {
 				//fvelocity = Vectorf::zero;

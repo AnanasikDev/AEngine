@@ -17,6 +17,11 @@ namespace aengine {
 
 		static std::vector<Collider*> colliders;
 
+		/// <summary>
+		/// If true, collisions are calculated but it doesn't affect objects's position or velocity
+		/// </summary>
+		bool isTrigger = false;
+
 		Vectorf center;
 
 		Collider();

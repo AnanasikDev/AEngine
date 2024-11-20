@@ -21,12 +21,6 @@ namespace aengine {
 		float stickiness;
 
 	public:
-
-		/// <summary>
-		/// If true, it calculates all collisions and detections but does not collide (can overlap, cannot respond to impulses)
-		/// </summary>
-		bool isTrigger = false;
-
 		bool useGravity = true;
 
 		/// <summary>

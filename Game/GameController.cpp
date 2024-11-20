@@ -9,6 +9,12 @@ namespace agame {
 	std::vector<Blob*> GameController::blobs;
 	Player* GameController::player = nullptr;
 
+	void GameController::init() {
+		for (int i = 0; i < 7; i++) {
+			blobs.push_back(aengine::Gameobject::instantiate<Blob>("blob" + i));
+		}
+	}
+
 	int GameController::getScore() {
 		return score;
 	}
@@ -24,8 +30,8 @@ namespace agame {
 
 	void GameController::markBlobHit(aengine::Gameobject* obj) {
 		obj->setPosition(player->getPosition() + aengine::Vectorf(
-			(aengine::Random::getFloat() - 0.5f) * 400,
-			(aengine::Random::getFloat() - 0.5f) * 400
+			aengine::Random::getFloat(-200, 200),
+			aengine::Random::getFloat(-200, 200)
 		));
 	}
 

@@ -8,6 +8,9 @@
 #include <memory>
 #include <vector>
 
+#define DB_PERLIN_IMPL
+#include "db_perlin.hpp"
+
 #include "Mathf.h"
 #include "Vector.h"
 #include "Bounds.h"

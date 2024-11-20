@@ -7,16 +7,11 @@ namespace agame {
 		rend->shape->setFillColor(sf::Color(100, 150, 200));
 		rend->setRelativeOrigin(aengine::Vectorf::half);
 
-		setCollider(std::make_unique<aengine::CircleCollider>(this, 16));
+		auto col = setCollider(std::make_unique<aengine::CircleCollider>(this, 32));
+		col->isTrigger = true;
 	}
 
 	void Blob::update() {
 		Gameobject::update();
-		translate(
-			aengine::Vectorf
-			(
-				(aengine::Random::getFloat() - 0.5f) * 5, 
-				(aengine::Random::getFloat() - 0.5f) * 5
-			));
 	}
 }

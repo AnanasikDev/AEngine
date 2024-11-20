@@ -14,6 +14,8 @@ namespace agame{
 		static std::vector<class Blob*> blobs;
 		static class Player* player;
 
+		static void init();
+
 		static int getScore();
 		static void setScore(int val);
 		static void addScore(int delta);
