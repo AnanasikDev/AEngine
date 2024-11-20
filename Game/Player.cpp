@@ -30,19 +30,31 @@ namespace agame {
 	void Player::update() {
         aengine::Vectorf prevPos = getPosition();
         Gameobject::update();
+
+        aengine::Vectorf force;
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            rigidbody->addForce(aengine::Vectorf::up * movementSpeed);
+            force.y -= 1;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            rigidbody->addForce(aengine::Vectorf::down * movementSpeed);
+            force.y += 1;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            rigidbody->addForce(aengine::Vectorf::right * movementSpeed);
+            force.x += 1;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            rigidbody->addForce(aengine::Vectorf::left * movementSpeed);
+            force.x -= 1;
         }
+
+        aengine::Vectorf vel = rigidbody->getVelocity().normalized();
+        // -1 - backward
+        // 1  - forward
+        
+        // increase velocity when changing direction - the more you change direction, the more force is applied. For easier movement
+        float fac = (-vel.dotProduct(force) + 1) / 2.f + 1;
+
+        force = force * movementSpeed * fac;
+        rigidbody->addForce(force);
 
         camera->translate(getPosition() - prevPos);
 	}
