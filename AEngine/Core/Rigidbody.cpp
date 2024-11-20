@@ -108,11 +108,14 @@ namespace aengine {
 			auto otherRigidbody = other->gameobject->rigidbody.get();
 
 			if (this->gameobject->collider->isTrigger || other->isTrigger) {
+				std::cout << this->gameobject->name << " triggered with " << other->gameobject->name << std::endl;
 				onCollisionEvent.Invoke(other);
 				if (otherRigidbody != nullptr) 
 					otherRigidbody->onCollisionEvent.Invoke(this->gameobject->collider.get());
 				return; // if any object is trigger, no further calculations needed
 			}
+
+			std::cout << this->gameobject->name << " collided with " << other->gameobject->name << std::endl;
 
 			Vectorf size = bounds.getSize();
 			

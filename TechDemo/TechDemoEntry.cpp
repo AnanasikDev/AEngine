@@ -72,8 +72,8 @@ int main() {
 	floor->renderer->setRelativeOrigin(Vectorf::half);
 
 	floor->setCollider(std::make_unique<RectCollider>(floor, Vectorf(800, 30)));
-	floor->setRigidbody(std::make_unique<Rigidbody>(floor));
-	floor->rigidbody->makeStatic();
+	//floor->setRigidbody(std::make_unique<Rigidbody>(floor));
+	//floor->rigidbody->makeStatic();
 	floor->setPosition(400, 550);
 	
 	TextRenderer::loadFont();

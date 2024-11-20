@@ -9,8 +9,11 @@ namespace agame {
         aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(12)));
 
         rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 255, 255));
+        rend->setRelativeOrigin(aengine::Vectorf::half);
 
-        setCollider(std::make_unique<aengine::CircleCollider>(this));
+        setCollider(std::make_unique<aengine::CircleCollider>(this, 12));
+        //setCollider(std::make_unique<aengine::RectCollider>(this, Vectorf()));
+        collider->isTrigger = false;
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
         rigidbody->onCollisionEvent.Subscribe([this](aengine::Collider* col) { onCollision(col); });

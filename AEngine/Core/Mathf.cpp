@@ -29,4 +29,8 @@ namespace aengine {
 	float Mathf::repeat(float value, float min, float max) {
 		return value < min ? max - remainder(min - value, max - min) : (value > max ? min + remainder(value - max, max - min) : value);
 	}
+
+	/*float Mathf::pixelate(float value, float scale) {
+
+	}*/
 }

@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\bomb.png" />
+    <Image Include="resources\wall.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

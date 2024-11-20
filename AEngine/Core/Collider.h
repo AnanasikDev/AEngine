@@ -52,8 +52,6 @@ namespace aengine {
 		/// </summary>
 		virtual void setScale(float scale) = 0;
 
-		virtual Line getIntersection(const Line& line) const = 0;
-
 		virtual std::string toString() const;
 	};
 }

@@ -144,6 +144,16 @@ namespace aengine {
 		static Vector<T> fromsf(sf::Vector2<T> sfvec) {
 			return Vector<T>(sfvec.x, sfvec.y);
 		}
+
+		template <typename T, typename R>
+		static Vector<R> otherFromsf(sf::Vector2<T> sfvec) {
+			return Vector<R>(R(sfvec.x), R(sfvec.y));
+		}
+
+		template <typename R>
+		Vector<R> to() {
+			return Vector<R>(R(x), R(y));
+		}
 	};
 
 	template <typename T>

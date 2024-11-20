@@ -49,5 +49,8 @@
     <Image Include="resources\bomb.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\wall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

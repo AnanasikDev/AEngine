@@ -18,8 +18,15 @@ namespace aengine {
 		if (!texture.loadFromFile(path)) {
 			throw std::exception("[DEV]: Unable to load texture");
 		}
-
+	 	size = Vectorf::otherFromsf<unsigned int, float>(texture.getSize());
 		sprite->setTexture(texture);
+	}
+
+	void SpriteRenderer::setScale(float scale) {
+		sprite->setScale(sf::Vector2f(scale, scale));
+	}
+	void SpriteRenderer::setRelativeOrigin(const Vectorf& localOrigin) {
+		sprite->setOrigin(size.getsf() / 2.f);
 	}
 
 	void SpriteRenderer::render() {

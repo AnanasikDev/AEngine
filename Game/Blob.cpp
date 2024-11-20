@@ -7,7 +7,7 @@ namespace agame {
 		rend->shape->setFillColor(sf::Color(100, 150, 200));
 		rend->setRelativeOrigin(aengine::Vectorf::half);
 
-		auto col = setCollider(std::make_unique<aengine::CircleCollider>(this, 32));
+		auto col = setCollider(std::make_unique<aengine::CircleCollider>(this, 16));
 		col->isTrigger = true;
 	}
 

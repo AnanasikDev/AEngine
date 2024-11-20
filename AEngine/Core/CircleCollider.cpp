@@ -30,8 +30,4 @@ namespace aengine {
 	std::string CircleCollider::toString() const {
 		return Collider::toString() + ":Circle";
 	}
-
-	Line CircleCollider::getIntersection(const Line& line) const {
-		return Line(Vectorf(), Vectorf());
-	}
 }

@@ -36,26 +36,4 @@ namespace aengine {
 	bool RectCollider::isPointInside(const Vectorf& point) const {
 		return bounds.isPointInside(point);
 	}
-
-	Line RectCollider::getIntersection(const Line& line) const {
-		
-		bool p1inside = isPointInside(line.p1);
-		bool p2inside = isPointInside(line.p2);
-
-		// if both ends are inside, return the original line
-		if (p1inside && p2inside) {
-			return line;
-		}
-
-		// if p1 end is inside
-		if (p1inside && !p2inside) {
-			return Line(line.p1, Vectorf());
-		}
-
-		if (!p1inside && p2inside) {
-
-		}
-
-		return Line(Vectorf(), Vectorf());
-	}
 }
