@@ -100,46 +100,36 @@ namespace aengine {
 
 			thisCol->onBeforeCollisionEvent.Invoke(otherCol);
 			otherCol->onBeforeCollisionEvent.Invoke(thisCol);
-			std::cout << normal << std::endl;
 
-			//std::cout << this->gameobject->name << " collided with " << otherCol->gameobject->name << std::endl;
+			std::cout << this->gameobject->name << " collided with " << otherCol->gameobject->name << std::endl;
 
 			Vectorf size = bounds.getSize();
 			
 			if (respondToImpulse)
 				gameobject->translate(normal * (bounds.getSize() + Vectorf::one * 3));
 
-			if (otherRigidbody != nullptr) {
-				
-				Vectorf vel = fvelocity;
+			if (otherRigidbody != nullptr && otherRigidbody->respondToImpulse) {
 
 				Vectorf v1 = fvelocity;
 				Vectorf v2 = otherRigidbody->fvelocity;
 				float m1 = mass;
 				float m2 = otherRigidbody->mass;
 
-				Vectorf impulse1;
-				if (otherRigidbody->respondToImpulse) {
-					impulse1 = v1 * (m1 - m2) / (m1 + m2) + v2 * (2 * m2) / (m1 + m2);
-				}
-				else {
-					impulse1 = v1;
-					if (normal.x == 0)
-						impulse1.y = -impulse1.y;
-					else if (normal.y == 0)
-						impulse1.x = -impulse1.x;
-				}
-
+				Vectorf impulse1 = v1 * (m1 - m2) / (m1 + m2) + v2 * (2 * m2) / (m1 + m2);
 				onCollision(bounds, normal, impulse1, otherCol);
 
-				// Add force to the other object of collision, with regard of velocity 
-
 				Vectorf impulse2 = v1 * (2 * m1) / (m1 + m2) + v2 * (m2 - m1) / (m1 + m2);
-
-				//otherRigidbody->onCollision(bounds, -normal, impulse2, this->gameobject->collider.get());
+				otherRigidbody->onCollision(bounds, -normal, impulse2, thisCol);
 			}
-			else {
-				onCollision(bounds, normal, fvelocity, otherCol);
+			else if (respondToImpulse)
+			{
+				Vectorf impulse1 = fvelocity;
+				if (normal.x == 0)
+					impulse1.y = -impulse1.y;
+				else if (normal.y == 0)
+					impulse1.x = -impulse1.x;
+
+				onCollision(bounds, normal, impulse1, otherCol);
 			}
 
 			if (getFrameVelocity().getLength() < this->gameobject->collider->stickiness * otherCol->stickiness) {
@@ -152,8 +142,6 @@ namespace aengine {
 	}
 
 	void Rigidbody::onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity, Collider* other) {
-		if (!respondToImpulse) return;
-
 		fvelocity = velocity * gameobject->collider->bounciness * other->bounciness;
 	}
 

@@ -46,7 +46,7 @@ int main() {
 	block2->rigidbody->setMass(10.f);
 	block2->rigidbody->addForce(Vectorf(-80, 0));
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 1; i++) {
 		Gameobject* block = Gameobject::instantiate("block");
 		auto blockrend = block->setRenderer(std::make_unique<ShapeRenderer>(block));
 		blockrend->setShape(std::make_unique<sf::RectangleShape>());
@@ -72,8 +72,8 @@ int main() {
 	floor->renderer->setRelativeOrigin(Vectorf::half);
 
 	floor->setCollider(std::make_unique<RectCollider>(floor, Vectorf(800, 30)));
-	//floor->setRigidbody(std::make_unique<Rigidbody>(floor));
-	//floor->rigidbody->makeStatic();
+	floor->setRigidbody(std::make_unique<Rigidbody>(floor));
+	floor->rigidbody->makeStatic();
 	floor->setPosition(400, 550);
 	
 	TextRenderer::loadFont();
