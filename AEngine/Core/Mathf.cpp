@@ -30,7 +30,9 @@ namespace aengine {
 		return value < min ? max - remainder(min - value, max - min) : (value > max ? min + remainder(value - max, max - min) : value);
 	}
 
-	/*float Mathf::pixelate(float value, float scale) {
-
-	}*/
+	float Mathf::pixelate(float value, float scale) {
+		float rem = remainder(value, scale);
+		if (abs(rem) < scale / 2.f) return value - rem;
+		else return value - rem + scale * sign(value);
+	}
 }

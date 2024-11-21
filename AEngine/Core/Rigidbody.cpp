@@ -8,22 +8,10 @@
 
 namespace aengine {
 
-	Rigidbody::Rigidbody() {
-		g = Physics::g;
-		airResistance = Physics::airResistance;
-		mass = 1.f;
-		bounciness = 0.8f;
-		stickiness = 2.f;
-		facceleration = Vectorf();
-		this->gameobject = nullptr;
-	}
-
 	Rigidbody::Rigidbody(Gameobject* gameobject){
 		g = Physics::g;
 		airResistance = Physics::airResistance;
 		mass = 1.f;
-		bounciness = 0.8f;
-		stickiness = 2.f;
 		facceleration = Vectorf();
 		this->gameobject = gameobject;
 	}
@@ -36,27 +24,19 @@ namespace aengine {
 		return fvelocity / Time::getDeltaTime();
 	}
 
-	float Rigidbody::getBounciness() const {
-		return this->bounciness;
-	}
-
-	void Rigidbody::setBounciness(float value) {
-		this->bounciness = value;
-	}
-
-	float Rigidbody::getStickiness() const {
-		return this->stickiness;
-	}
-
-	void Rigidbody::setStickiness(float value) {
-		this->stickiness = value;
-	}
-
 	float Rigidbody::getMass() const {
 		return this->mass;
 	}
 	void Rigidbody::setMass(float value) {
 		this->mass = value;
+	}
+
+	void Rigidbody::setVelocity(Vectorf value) {
+		this->fvelocity = value;
+	}
+
+	void Rigidbody::setAcceleration(Vectorf value) {
+		this->facceleration = value;
 	}
 
 	void Rigidbody::addForce(Vectorf force) {
@@ -91,31 +71,38 @@ namespace aengine {
 	}
 
 	void Rigidbody::checkCollisions() {
-		for (Collider* other : Collider::colliders) {
+		Collider* thisCol = this->gameobject->collider.get();
+
+		for (Collider* otherCol : Collider::colliders) {
 			
 			// no self collisions
-			if (this->gameobject->collider.get() == other) continue;
+			if (thisCol == otherCol) continue;
 
-			std::pair<Bounds, Vectorf> overlap = this->gameobject->collider->getOverlap(other);
+			std::pair<Bounds, Vectorf> overlap = thisCol->getOverlap(otherCol);
 
 			Bounds bounds = overlap.first;
 			Vectorf normal = overlap.second;
 
 			if (bounds.isEmpty()) continue;
 
+
 			// collision detected
 
-			auto otherRigidbody = other->gameobject->rigidbody.get();
+			auto otherRigidbody = otherCol->gameobject->rigidbody.get();
 
-			if (this->gameobject->collider->isTrigger || other->isTrigger) {
-				std::cout << this->gameobject->name << " triggered with " << other->gameobject->name << std::endl;
-				onCollisionEvent.Invoke(other);
-				if (otherRigidbody != nullptr) 
-					otherRigidbody->onCollisionEvent.Invoke(this->gameobject->collider.get());
-				return; // if any object is trigger, no further calculations needed
+			if (thisCol->isTrigger || otherCol->isTrigger) {
+				std::cout << this->gameobject->name << " triggered with " << otherCol->gameobject->name << std::endl;
+				thisCol->onTriggerEvent.Invoke(otherCol);
+				otherCol->onTriggerEvent.Invoke(thisCol);
+				return; 
+				// if any object is trigger, no further calculations needed
 			}
 
-			std::cout << this->gameobject->name << " collided with " << other->gameobject->name << std::endl;
+			thisCol->onBeforeCollisionEvent.Invoke(otherCol);
+			otherCol->onBeforeCollisionEvent.Invoke(thisCol);
+			std::cout << normal << std::endl;
+
+			//std::cout << this->gameobject->name << " collided with " << otherCol->gameobject->name << std::endl;
 
 			Vectorf size = bounds.getSize();
 			
@@ -143,35 +130,31 @@ namespace aengine {
 						impulse1.x = -impulse1.x;
 				}
 
-				onCollision(bounds, normal, impulse1, other);
+				onCollision(bounds, normal, impulse1, otherCol);
 
 				// Add force to the other object of collision, with regard of velocity 
 
 				Vectorf impulse2 = v1 * (2 * m1) / (m1 + m2) + v2 * (m2 - m1) / (m1 + m2);
 
-				otherRigidbody->onCollision(bounds, -normal, impulse2, this->gameobject->collider.get());
+				//otherRigidbody->onCollision(bounds, -normal, impulse2, this->gameobject->collider.get());
 			}
 			else {
-				onCollision(bounds, normal, fvelocity, other);
+				onCollision(bounds, normal, fvelocity, otherCol);
 			}
 
-			if (getFrameVelocity().getLength() < stickiness) {
+			if (getFrameVelocity().getLength() < this->gameobject->collider->stickiness * otherCol->stickiness) {
 				//fvelocity = Vectorf::zero;
 			}
+
+			thisCol->onAfterCollisionEvent.Invoke(otherCol);
+			otherCol->onAfterCollisionEvent.Invoke(thisCol);
 		}
 	}
 
 	void Rigidbody::onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity, Collider* other) {
-		onCollisionEvent.Invoke(other);
-
 		if (!respondToImpulse) return;
 
-		/*if (normal.x == 0)
-			velocity.y = -velocity.y;
-		else if (normal.y == 0)
-			velocity.x = -velocity.x;*/
-
-		this->fvelocity = velocity * bounciness;
+		fvelocity = velocity * gameobject->collider->bounciness * other->bounciness;
 	}
 
 	

@@ -68,7 +68,9 @@ namespace agame {
 
 	void GameController::beginLevel0() {
 		for (int i = 0; i < 7; i++) {
-			blobs.push_back(Gameobject::instantiate<Blob>("blob" + std::to_string(i)));
+			Blob* blob = Gameobject::instantiate<Blob>("blob" + std::to_string(i));
+			blobs.push_back(blob);
+			blob->tag = "blob";
 		}
 	}
 
@@ -77,10 +79,12 @@ namespace agame {
 		for (int i = 0; i < 10; i++) {
 			auto pos = player->getPosition() + 
 				Vectorf(
-					Random::getFloat(-100, 100), 
-					Random::getFloat(-100, 100));
+					Mathf::pixelate(Random::getFloat(-100, 100), 60), 
+					Mathf::pixelate(Random::getFloat(-100, 100), 60));
 			Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
+			wall->tag = "wall";
 			RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));
+			col->stickiness = 8;
 			SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "resources/wall.png"));
 			rend->setRelativeOrigin(Vectorf::half);
 			rend->sprite->setScale(Vectorf(3, 3).getsf());

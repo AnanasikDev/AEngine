@@ -6,8 +6,6 @@ namespace aengine {
 	struct CircleCollider : public Collider {
 		float radius;
 
-		CircleCollider();
-		CircleCollider(Gameobject* gameobject);
 		CircleCollider(Gameobject* gameobject, float radius);
 		~CircleCollider() = default;
 

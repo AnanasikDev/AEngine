@@ -2,17 +2,6 @@
 #include "Gameobject.h"
 
 namespace aengine {
-	RectCollider::RectCollider() :
-		Collider(), size()
-	{
-
-	}
-
-	RectCollider::RectCollider(Gameobject* gameobject) :
-		Collider(gameobject), size()
-	{
-
-	}
 
 	RectCollider::RectCollider(Gameobject* gameobject, Vectorf size) :
 		Collider(gameobject), size(size)

@@ -18,7 +18,7 @@ namespace agame {
 		setCollider(std::make_unique<aengine::CircleCollider>(this, 15));
 
 		this->setRigidbody(std::make_unique<aengine::Rigidbody>(this));
-		rigidbody->setBounciness(0.7f);
+		collider->bounciness = 0.7f;
 
 		onLMBDownBackdrop = aengine::Input::Mouse::LMB.onPressed.Subscribe([this]() { tryCollect(); });
 	}

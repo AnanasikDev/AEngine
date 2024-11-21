@@ -30,6 +30,6 @@ namespace aengine {
 		/// <summary>
 		/// Floors the value to the nearest number, divisible by scale
 		/// </summary>
-		//static float pixelate(float value, float scale);
+		static float pixelate(float value, float scale);
 	};
 }

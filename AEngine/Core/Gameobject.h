@@ -21,6 +21,7 @@ namespace aengine {
 	
 	public:
 		std::string name;
+		std::string tag;
 
 		std::unique_ptr<Collider> collider;
 		std::unique_ptr<Renderer> renderer;

@@ -14,16 +14,29 @@ namespace agame {
         setCollider(std::make_unique<aengine::CircleCollider>(this, 12));
         //setCollider(std::make_unique<aengine::RectCollider>(this, Vectorf()));
         collider->isTrigger = false;
+        collider->bounciness = 1;
+        collider->onTriggerEvent.Subscribe([this](aengine::Collider* col) { onTrigger(col); });
+        collider->onBeforeCollisionEvent.Subscribe([this](aengine::Collider* col) { onCollision(col); });
+        
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
-        rigidbody->onCollisionEvent.Subscribe([this](aengine::Collider* col) { onCollision(col); });
 
         camera = aengine::context()->getCamera("main");
 	}
 
+    void Player::onTrigger(aengine::Collider* trigger) {
+        if (trigger->gameobject->tag == "blob") {
+            GameController::addScore(1);
+            GameController::markBlobHit(trigger->gameobject);
+        }
+    }
+
     void Player::onCollision(aengine::Collider* collider) {
-        GameController::addScore(1);
-        GameController::markBlobHit(collider->gameobject);
+        if (collider->gameobject->tag == "wall")
+        {
+            rigidbody->setAcceleration(aengine::Vectorf::zero);
+            GameController::addScore(-3);
+        }
     }
 
     void Player::start() {

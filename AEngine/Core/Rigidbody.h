@@ -17,9 +17,6 @@ namespace aengine {
 		float mass;
 		Vectorf facceleration;
 
-		float bounciness;
-		float stickiness;
-
 	public:
 		bool useGravity = true;
 
@@ -28,20 +25,21 @@ namespace aengine {
 		/// </summary>
 		bool respondToImpulse = true;
 
-		Action<Collider*> onCollisionEvent;
-
-		Rigidbody();
 		Rigidbody(Gameobject* gameobject);
 		~Rigidbody() = default;
 
 		Vectorf getVelocity() const;
 		Vectorf getFrameVelocity() const;
+		
+		/// <summary>
+		/// Overwrites current velocity with a new value, without changing acceleration.
+		/// </summary>
+		void setVelocity(Vectorf val);
 
-		float getBounciness() const;
-		void setBounciness(float value);
-
-		float getStickiness() const;
-		void setStickiness(float value);
+		/// <summary>
+		/// Overwrites current acceleration with a new value, without changing velocity.
+		/// </summary>
+		void setAcceleration(Vectorf val);
 
 		float getMass() const;
 		void setMass(float value);

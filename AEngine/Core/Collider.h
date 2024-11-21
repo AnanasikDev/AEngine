@@ -21,10 +21,15 @@ namespace aengine {
 		/// If true, collisions are calculated but it doesn't affect objects's position or velocity
 		/// </summary>
 		bool isTrigger = false;
+		float bounciness;
+		float stickiness;
 
 		Vectorf center;
 
-		Collider();
+		Action<Collider*> onBeforeCollisionEvent;
+		Action<Collider*> onAfterCollisionEvent;
+		Action<Collider*> onTriggerEvent;
+
 		Collider(Gameobject* gameobject);
 		~Collider();
 

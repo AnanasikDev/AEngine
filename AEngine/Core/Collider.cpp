@@ -13,13 +13,10 @@ namespace aengine {
 
 	std::vector<Collider*> Collider::colliders;
 
-	Collider::Collider() {
-		gameobject = nullptr;
-		Collider::colliders.push_back(this);
-	}
-
 	Collider::Collider(Gameobject* gameobject) {
 		this->gameobject = gameobject;
+		bounciness = 0.8f;
+		stickiness = 2.f;
 		Collider::colliders.push_back(this);
 	}
 

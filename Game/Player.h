@@ -12,6 +12,7 @@ namespace agame {
 	public:
 		Player();
 
+		void onTrigger(class aengine::Collider* trigger);
 		void onCollision(class aengine::Collider* collider);
 
 		void start() override;

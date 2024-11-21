@@ -7,8 +7,6 @@ namespace aengine {
 		Vectorf size;
 		Bounds bounds;
 
-		RectCollider();
-		RectCollider(Gameobject* gameobject);
 		RectCollider(Gameobject* gameobject, Vectorf size);
 		~RectCollider() = default;
 
