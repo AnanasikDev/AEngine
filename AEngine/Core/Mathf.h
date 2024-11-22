@@ -4,8 +4,11 @@
 
 namespace aengine {
 
-	class Mathf {
-	public:
+	struct Mathf {
+		static const float PI;
+		static const float E;
+		static const float PHI;
+
 		/// <summary>
 		/// Based on angle tangent returns a vectorf
 		/// with scale of 1 for the corresponding angle.
@@ -18,6 +21,8 @@ namespace aengine {
 		static int sign(float val);
 
 		static float clamp(float value, float min, float max);
+		
+		static float clamp01(float value);
 
 		static float clampMin(float value, float min);
 
@@ -45,5 +50,19 @@ namespace aengine {
 		/// Lineraly lerps between values a and b by an unclamped value t.
 		/// </summary>
 		static float lerp(float a, float b, float t);
+
+		static float easeLinear(float v);
+
+		static float easeInBack(float v);
+		static float easeOutBack(float v);
+		static float easeInOutBack(float v);
+
+		static float easeInSine(float v);
+		static float easeOutSine(float v);
+		static float easeInOutSine(float v);
+		
+		static float easeInBounce(float v);
+		static float easeOutBounce(float v);
+		static float easeInOutBounce(float v);
 	};
 }
