@@ -111,7 +111,7 @@ int main() {
 	while (window.isRunning()) {
 
 		window.update();
-		point->setPosition(lerp(300, 400, Ease::easeInOutElastic(pingpong(Time::getTime(), 1.))), point->getPosition().y);
+		point->setPosition(lerp(300, 400, Ease::easeInOutCubic(pingpong(Time::getTime(), 1.))), point->getPosition().y);
 
 		window.render();
 

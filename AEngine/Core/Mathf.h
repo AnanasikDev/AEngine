@@ -69,5 +69,9 @@ namespace aengine {
 		static float easeInElastic(float v);
 		static float easeOutElastic(float v);
 		static float easeInOutElastic(float v);
+
+		static float easeInCubic(float v);
+		static float easeOutCubic(float v);
+		static float easeInOutCubic(float v);
 	};
 }

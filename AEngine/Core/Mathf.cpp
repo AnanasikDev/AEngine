@@ -172,4 +172,16 @@ namespace aengine {
 			? -(pow(2, 20 * v - 10) * sin((20 * v - 11.125) * c5)) / 2
 			: (pow(2, -20 * v + 10) * sin((20 * v - 11.125) * c5)) / 2 + 1));
 	}
+
+	float Ease::easeInCubic(float v) {
+		return v * v * v;
+	}
+
+	float Ease::easeOutCubic(float v) {
+		return 1 - pow(1 - v, 3);
+	}
+
+	float Ease::easeInOutCubic(float v) {
+		return v < 0.5 ? 4 * v * v * v : 1 - pow(-2 * v + 2, 3) / 2;
+	}
 }
