@@ -3,10 +3,11 @@
 #include "Vector.h"
 #include "Event.h"
 
+using keyCode = sf::Keyboard::Key;
+
 namespace aengine {
 
-	class Input {
-	public:
+	struct Input {
 
 		struct Button {
 			Action<> onPressed;
@@ -33,6 +34,8 @@ namespace aengine {
 		static Action<> onAnyKeyPressed;
 		
 		static Vectorf getMousePosition();
+
+		static bool isKeyPressed(keyCode key);
 
 		static void Update();
 	};

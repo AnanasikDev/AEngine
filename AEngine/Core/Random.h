@@ -1,6 +1,8 @@
 #pragma once
+
 #include <vector>
 #include <array>
+#include "Vector.h"
 
 namespace aengine {
 	class Random {
@@ -39,5 +41,10 @@ namespace aengine {
 
 		static float perlin1D(float x);
 		static float perlin2D(float x, float y);
+
+		template <typename T>
+		static Vector<T> getVector(float min = -1., float max = 1.) {
+			return Vector<T>(getFloat(min, max), getFloat(min, max));
+		}
 	};
 }

@@ -58,4 +58,8 @@ namespace aengine {
 		RMB.Update();
 		MMB.Update();
 	}
+
+	bool Input::isKeyPressed(keyCode key) {
+		return sf::Keyboard::isKeyPressed(key);
+	}
 }
