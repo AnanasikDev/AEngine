@@ -25,11 +25,25 @@ namespace aengine {
 
 		static float repeat(float value, float min, float max);
 
+		static float repeat(float value, float length);
+
+		static float pingpong(float value, float min, float max);
+
+		static float pingpong(float value, float length);
+
+		/// <summary>
+		/// Returns remainder from dividing value by divider
+		/// </summary>
 		static float remainder(float value, float divider);
 
 		/// <summary>
 		/// Floors the value to the nearest number, divisible by scale
 		/// </summary>
 		static float pixelate(float value, float scale);
+
+		/// <summary>
+		/// Lineraly lerps between values a and b by an unclamped value t.
+		/// </summary>
+		static float lerp(float a, float b, float t);
 	};
 }

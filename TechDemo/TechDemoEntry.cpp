@@ -84,6 +84,11 @@ int main() {
 	std::cout << textRenderer->text.getCharacterSize() << std::endl;
 	txt->isAttachedToCamera = true;
 
+	Gameobject* point = Gameobject::instantiate("point");
+	point->setRenderer(std::make_unique<ShapeRenderer>(point, std::make_unique<sf::CircleShape>(40)));
+	point->setPosition(Vectorf(100, 100));
+	point->isAttachedToCamera = false;
+
 	Line l1(Vectorf(0, 0), Vectorf(10, 10) * 10);
 	Bounds bounds(Vectorf(-10, -10) * 10, Vectorf(15, 25) * 10);
 
@@ -106,6 +111,8 @@ int main() {
 	while (window.isRunning()) {
 
 		window.update();
+		point->setPosition(Mathf::lerp(0, 100, Mathf::pingpong(Time::getTime(), 1.)), point->getPosition().y);
+
 		window.render();
 
 		axisX.render(window.getWindow(), Vectorf::zero, 1, sf::Color::Red);
