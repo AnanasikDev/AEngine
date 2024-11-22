@@ -79,8 +79,8 @@ namespace agame {
 		for (int i = 0; i < 10; i++) {
 			auto pos = player->getPosition() + 
 				Vectorf(
-					Mathf::pixelate(Random::getFloat(-100, 100), 60), 
-					Mathf::pixelate(Random::getFloat(-100, 100), 60));
+					pixelate(Random::getFloat(-100, 100), 60), 
+					pixelate(Random::getFloat(-100, 100), 60));
 			Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
 			wall->tag = "wall";
 			RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));

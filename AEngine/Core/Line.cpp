@@ -226,9 +226,9 @@ namespace aengine {
 		float c3 = v2.crossProduct(v21);
 		float c4 = v2.crossProduct(v22);
 
-		if (Mathf::sign(c1) == Mathf::sign(c2)) return false;
+		if (sign(c1) == sign(c2)) return false;
 
-		if (Mathf::sign(c3) == Mathf::sign(c4)) return false;
+		if (sign(c3) == sign(c4)) return false;
 
 		return true;
 	}
