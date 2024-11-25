@@ -3,24 +3,23 @@
 namespace aengine {
 
 	Gameobject::Gameobject() {
-		position = Vectorf(0, 0);
 		setParent(nullptr);
 		name = "";
 		isEnabled = true;
 	}
 
 	Gameobject::Gameobject(const Gameobject& other){
-		this->position = other.position;
+		this->worldPosition = other.worldPosition;
 		setParent(other.getParent());
 		this->name = other.name;
 		context()->addGameobject(this);
 		isEnabled = other.isEnabled;
 	}
 
-	Gameobject* Gameobject::instantiate(const std::string& name, const Vectorf& position) {
+	Gameobject* Gameobject::instantiate(const std::string& name, const Vectorf& position) { // change from const ref to value
 		std::unique_ptr<Gameobject> obj = std::make_unique<Gameobject>();
 		obj->name = name;
-		obj->position = position;
+		obj->worldPosition = position;
 		return context()->addGameobject(std::move(obj));
 	}
 
@@ -58,11 +57,11 @@ namespace aengine {
 		}
 		
 		if (collider != nullptr) {
-			collider->update(this->position);
+			collider->update(this->worldPosition);
 		}
 		
 		if (renderer != nullptr) {
-			renderer->update(this->position);
+			renderer->update(this->screenPosition);
 		}
 	}
 
@@ -83,15 +82,15 @@ namespace aengine {
 			forAllChildrenRecursive([this, newPos](Gameobject* child) {
 
 				// shift all children to match the delta
-				child->translate(newPos - position);
+				child->translate(newPos - worldPosition);
 
 				});
 		}
 
-		position = newPos;
+		worldPosition = newPos;
 
 		// update collider's self position
-		if (collider != nullptr) collider->update(position);
+		if (collider != nullptr) collider->update(worldPosition);
 	}
 
 	void Gameobject::setPosition(float x, float y, bool includeChildren) {
@@ -99,11 +98,11 @@ namespace aengine {
 	}
 
 	Vectorf Gameobject::getPosition() const {
-		return this->position;
+		return this->worldPosition;
 	}
 
 	void Gameobject::translate(Vectorf delta, bool includeChildren) {
-		setPosition(position + delta, includeChildren);
+		setPosition(worldPosition + delta, includeChildren);
 	}
 
 	void Gameobject::translate(float dx, float dy, bool includeChildren) {

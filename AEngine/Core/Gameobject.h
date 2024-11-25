@@ -16,12 +16,14 @@ namespace aengine {
 	class Gameobject {
 
 	private:
-		Vectorf position;
+		Vectorf worldPosition = Vectorf(0, 0);
 		Gameobject* parent;
 	
 	public:
 		std::string name;
 		std::string tag;
+
+		Vectorf screenPosition = Vectorf(0, 0);
 
 		std::unique_ptr<Collider> collider;
 		std::unique_ptr<Renderer> renderer;
@@ -41,7 +43,7 @@ namespace aengine {
 			static_assert(std::is_base_of<Gameobject, T>::value, "T must be derived from Gameobject");
 			std::unique_ptr<T> obj = std::make_unique<T>();
 			obj->name = name;
-			obj->position = position;
+			obj->worldPosition = position;
 			return static_cast<T*>(context()->addGameobject(std::move(obj)));
 		}
 
@@ -87,8 +89,8 @@ namespace aengine {
 		virtual void update();
 
 		/// <summary>
-	/// Sets position of the gameobject to. If includeChildren set to true, all children will be recursively translated too.
-	/// </summary>
+		/// Sets position of the gameobject to pos. If includeChildren set to true, all children will be recursively affected too.
+		/// </summary>
 		void setPosition(Vectorf pos, bool includeChildren = true);
 		void setPosition(float x, float y, bool includeChildren = true);
 		Vectorf getPosition() const;

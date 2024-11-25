@@ -16,6 +16,7 @@ namespace aengine {
 		Vectorf position;
 		class Scene* scene;
 		std::string name;
+		Vectorf size;
 
 	public:
 

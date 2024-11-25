@@ -8,7 +8,7 @@ namespace agame {
 	Player::Player() : Gameobject() {
         aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(12)));
 
-        rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 255, 255));
+        rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 0, 0));
         rend->setRelativeOrigin(aengine::Vectorf::half);
 
         setCollider(std::make_unique<aengine::CircleCollider>(this, 12));
@@ -21,6 +21,7 @@ namespace agame {
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
 
+        isAttachedToCamera = false;
         camera = aengine::context()->getCamera("main");
 	}
 
@@ -73,7 +74,8 @@ namespace agame {
         rigidbody->addForce(force);
 
         camera->translate(getPosition() - prevPos);
-	}
+        //camera->setPosition(getPosition());
+    }
 
 	void Player::render() {
 		Gameobject::render();

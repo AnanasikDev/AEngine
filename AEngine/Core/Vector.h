@@ -135,6 +135,10 @@ namespace aengine {
 			return Vector<T>(abs(x), abs(y));
 		}
 
+		float distance(Vector<T> other) const {
+			return Vector<T>(x - other.x, y - other.y).getLength();
+		}
+
 		std::string toStr() const {
 			char buff[50];
 			sprintf_s(buff, 50, "(%.4f, %.4f)", (float)(this->x), (float)(this->y));
@@ -145,9 +149,9 @@ namespace aengine {
 			return Vector<T>(sfvec.x, sfvec.y);
 		}
 
-		template <typename T, typename R>
-		static Vector<R> otherFromsf(sf::Vector2<T> sfvec) {
-			return Vector<R>(R(sfvec.x), R(sfvec.y));
+		template <typename From, typename To>
+		static Vector<To> otherFromsf(sf::Vector2<From> sfvec) {
+			return Vector<To>(To(sfvec.x), To(sfvec.y));
 		}
 
 		template <typename R>
