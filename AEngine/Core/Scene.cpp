@@ -23,7 +23,7 @@ namespace aengine {
 
 	void Scene::addRenderer(Renderer* renderer) {
 		for (int i = 0; i < renderersOrdered.size(); i++) {
-			if (renderer->getDistance() >= renderersOrdered[i]->getDistance()) {
+			if (renderer->getDistance() > renderersOrdered[i]->getDistance()) {
 				renderersOrdered.insert(renderersOrdered.begin() + i, renderer);
 				return;
 			}
@@ -39,6 +39,14 @@ namespace aengine {
 	void Scene::updateRendererDistance(Renderer* renderer) {
 		List::remove(renderersOrdered, renderer);
 		addRenderer(renderer);
+	}
+
+	void Scene::setBackgroundColor(sf::Color color) {
+		backgroundColor = color;
+	}
+
+	sf::Color Scene::getBackgroundColor() const {
+		return backgroundColor;
 	}
 
 	void Scene::start() {

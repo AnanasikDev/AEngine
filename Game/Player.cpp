@@ -8,7 +8,7 @@ namespace agame {
 	Player::Player() : Gameobject() {
         aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(radius)));
 
-        rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 0, 0));
+        rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 255, 255));
         rend->setRelativeOrigin(aengine::Vectorf::half);
 
         setCollider(std::make_unique<aengine::CircleCollider>(this, radius));

@@ -44,6 +44,9 @@ namespace aengine {
 		const std::vector<Renderer*>& getRenderers() const;
 		void updateRendererDistance(Renderer* renderer);
 
+		void setBackgroundColor(sf::Color color);
+		sf::Color getBackgroundColor() const;
+
 		/// <summary>
 		/// Returns true if the given gameobject exists on the scene
 		/// </summary>
