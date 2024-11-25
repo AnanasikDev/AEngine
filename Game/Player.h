@@ -10,6 +10,8 @@ namespace agame {
 		aengine::Camera* camera;
 
 	public:
+		float radius = 12;
+
 		Player();
 
 		void onTrigger(class aengine::Collider* trigger);

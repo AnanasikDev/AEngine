@@ -6,12 +6,12 @@
 namespace agame {
 
 	Player::Player() : Gameobject() {
-        aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(12)));
+        aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(radius)));
 
         rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 0, 0));
         rend->setRelativeOrigin(aengine::Vectorf::half);
 
-        setCollider(std::make_unique<aengine::CircleCollider>(this, 12));
+        setCollider(std::make_unique<aengine::CircleCollider>(this, radius));
         //setCollider(std::make_unique<aengine::RectCollider>(this, Vectorf()));
         collider->isTrigger = false;
         collider->bounciness = 1;

@@ -23,7 +23,7 @@ int main() {
 	bgcircle->setOutlineColor(sf::Color(220, 80, 80));
 	bgcircle->setOutlineThickness(10);
 
-	Gameobject* player = Gameobject::instantiate<Player>("Player");
+	Player* player = Gameobject::instantiate<Player>("Player");
 	player->setPosition(winSize.x / 2.f, winSize.y / 2.f);
 	GameController::player = static_cast<Player*>(player);
 
@@ -43,10 +43,10 @@ int main() {
 		GameController::update();
 		float d = player->getPosition().distance(Vectorf::zero);
 		std::cout << player->getPosition() << " " << d << std::endl;
-		if (d > SCENE_RADIUS) {
+		if (d > SCENE_RADIUS - player->radius) {
 			player->rigidbody->setVelocity(Vectorf::zero);
 			player->rigidbody->setAcceleration(Vectorf::zero);
-			player->rigidbody->addForce(-player->getPosition().normalized() * 50);
+			player->rigidbody->addForce(-player->getPosition().normalized() * 300);
 		}
 		window.render();
 		for (auto blob : GameController::blobs) {
