@@ -11,7 +11,7 @@ namespace agame{
 
 	class GameController {
 	private:
-		static int score;
+		static float secondsLeft;
 		static const int maxLevel = 2;
 		static std::array<float, maxLevel+1> levelThresholds;
 		static int level;
@@ -20,15 +20,15 @@ namespace agame{
 		static aengine::TextRenderer* textRenderer;
 		static std::vector<class Blob*> blobs;
 		static std::vector<aengine::Gameobject*> walls;
-		static std::vector<class Bomb*> bombs;
+		static std::vector<class Bomb*> hookpoints;
 		static class Player* player;
 		static aengine::Action<> onLevelUpEvent;
 
 		static void init();
 
-		static int getScore();
-		static void setScore(int val);
-		static void addScore(int delta);
+		static float getSecondsLeft();
+		static void setSecondsLeft(float val);
+		static void addSecondsLeft(float delta);
 
 		static float getDifficultyAt(float t);
 		static float getCurrentDifficulty();
@@ -37,6 +37,7 @@ namespace agame{
 		static void beginLevel0();
 		static void beginLevel1();
 		static void beginLevel2();
+		static void beginLevel3();
 
 		static void markBlobHit(aengine::Gameobject* obj);
 

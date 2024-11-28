@@ -41,13 +41,16 @@ int main() {
 
 		window.update();
 		GameController::update();
+
+		scoreRend->text.setString(std::to_string(GameController::getSecondsLeft()));
+
 		float d = player->getPosition().distance(Vectorf::zero);
-		std::cout << player->getPosition() << " " << d << std::endl;
 		if (d > BOUNDS_RADIUS - player->radius) {
 			player->rigidbody->setVelocity(Vectorf::zero);
 			player->rigidbody->setAcceleration(Vectorf::zero);
 			player->rigidbody->addForce(-player->getPosition().normalized() * 300);
 		}
+
 		window.render();
 		for (auto blob : GameController::blobs) {
 			Gizmos::drawSegment(player->screenPosition, blob->screenPosition);

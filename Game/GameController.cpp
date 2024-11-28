@@ -7,14 +7,14 @@
 using namespace aengine;
 
 namespace agame {
-	int GameController::score = 0;
+	float GameController::secondsLeft = 30.f;
 	TextRenderer* GameController::textRenderer = nullptr;
 
 	Player* GameController::player = nullptr;
 
 	std::vector<Blob*> GameController::blobs;
 	std::vector<Gameobject*> GameController::walls;
-	std::vector<Bomb*> GameController::bombs;
+	std::vector<Bomb*> GameController::hookpoints;
 
 	std::array<float, 3> GameController::levelThresholds { 0, 9, 20 }; // TODO: increase levels intervals
 	int GameController::level = 0;
@@ -28,23 +28,25 @@ namespace agame {
 
 			if (level == 1) beginLevel1();
 			else if (level == 2) beginLevel2();
+			else if (level == 3) beginLevel3();
 
 			});
 
 		beginLevel0();
 	}
 
-	int GameController::getScore() {
-		return score;
+	float GameController::getSecondsLeft() {
+		return GameController::secondsLeft;
 	}
 
-	void GameController::setScore(int val) {
-		score = val;
-		if (textRenderer != nullptr) textRenderer->text.setString(std::to_string(score));
+	void GameController::setSecondsLeft(float val) {
+		
+		secondsLeft = val;
+		if (textRenderer != nullptr) textRenderer->text.setString(std::to_string(secondsLeft));
 	}
 
-	void GameController::addScore(int delta) {
-		setScore(score + delta);
+	void GameController::addSecondsLeft(float delta) {
+		setSecondsLeft(secondsLeft + delta);
 	}
 
 	void GameController::markBlobHit(Gameobject* obj) {
@@ -95,11 +97,24 @@ namespace agame {
 	}
 
 	void GameController::beginLevel2() {
+		// hook points
+
+		for (int i = 0; i < 10; i++) {
+			Gameobject* hookpoint = Gameobject::instantiate("hook_" + std::to_string(i));
+			ShapeRenderer* rend = hookpoint->setRenderer(std::make_unique<ShapeRenderer>(hookpoint, std::make_unique<sf::CircleShape>(10)));
+			rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color::Blue);
+			rend->setRelativeOrigin(Vectorf::half);
+		}
+	}
+
+	void GameController::beginLevel3() {
 		// bombs
 	}
 
 
 	void GameController::update() {
+		addSecondsLeft(-Time::getDeltaTime());
+
 		float difficulty = getCurrentDifficulty();
 
 		if (level != maxLevel && difficulty > levelThresholds[level + 1]) {

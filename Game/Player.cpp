@@ -27,7 +27,7 @@ namespace agame {
 
     void Player::onTrigger(aengine::Collider* trigger) {
         if (trigger->gameobject->tag == "blob") {
-            GameController::addScore(1);
+            GameController::addSecondsLeft(1);
             GameController::markBlobHit(trigger->gameobject);
         }
     }
@@ -36,7 +36,7 @@ namespace agame {
         if (collider->gameobject->tag == "wall")
         {
             rigidbody->setAcceleration(aengine::Vectorf::zero);
-            GameController::addScore(-3);
+            GameController::addSecondsLeft(-3);
         }
     }
 
