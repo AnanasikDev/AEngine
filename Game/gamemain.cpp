@@ -6,7 +6,7 @@
 using namespace aengine;
 using namespace agame;
 
-const int BOUNDS_RADIUS = 2000;
+const int BOUNDS_RADIUS = 1300;
 
 int main() {
 	Window window(900, 900, "Game!");
@@ -41,8 +41,6 @@ int main() {
 
 		window.update();
 		GameController::update();
-
-		scoreRend->text.setString(std::to_string(GameController::getSecondsLeft()));
 
 		float d = player->getPosition().distance(Vectorf::zero);
 		if (d > BOUNDS_RADIUS - player->radius) {

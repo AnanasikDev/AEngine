@@ -123,11 +123,7 @@ namespace aengine {
 			}
 			else if (respondToImpulse)
 			{
-				Vectorf impulse1 = fvelocity;
-				if (normal.x == 0)
-					impulse1.y = -impulse1.y;
-				else if (normal.y == 0)
-					impulse1.x = -impulse1.x;
+				Vectorf impulse1 = fvelocity - normal * fvelocity.dotProduct(normal) * 2;
 
 				onCollision(bounds, normal, impulse1, otherCol);
 			}

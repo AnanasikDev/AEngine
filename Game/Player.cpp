@@ -16,7 +16,7 @@ namespace agame {
         collider->isTrigger = false;
         collider->bounciness = 1;
         collider->onTriggerEvent.Subscribe([this](aengine::Collider* col) { onTrigger(col); });
-        collider->onBeforeCollisionEvent.Subscribe([this](aengine::Collider* col) { onCollision(col); });
+        collider->onBeforeCollisionEvent.Subscribe([this](aengine::Collider* col) { onBeforeCollision(col); });
         
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
@@ -26,16 +26,20 @@ namespace agame {
 	}
 
     void Player::onTrigger(aengine::Collider* trigger) {
-        if (trigger->gameobject->tag == "blob") {
-            GameController::addSecondsLeft(1);
-            GameController::markBlobHit(trigger->gameobject);
-        }
+        
     }
 
-    void Player::onCollision(aengine::Collider* collider) {
+    void Player::onBeforeCollision(aengine::Collider* collider) {
+        if (collider->gameobject->tag == "blob") {
+            GameController::addSecondsLeft(1);
+            //rigidbody->setAcceleration(aengine::Vectorf::zero);
+            //rigidbody->setVelocity(aengine::Vectorf::zero);
+            //GameController::markBlobHit(collider->gameobject);
+        }
+        
         if (collider->gameobject->tag == "wall")
         {
-            rigidbody->setAcceleration(aengine::Vectorf::zero);
+            //rigidbody->setAcceleration(aengine::Vectorf::zero);
             GameController::addSecondsLeft(-3);
         }
     }
