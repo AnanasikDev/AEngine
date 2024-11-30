@@ -1,4 +1,5 @@
 #include "Mathf.h"
+#include "Random.h"
 
 namespace aengine {
 
@@ -58,6 +59,12 @@ namespace aengine {
 
 	float lerp(float a, float b, float t) {
 		return a + (b - a) * t;
+	}
+
+	Vectorf getRandomPointOnCircle(float radius) {
+		return Vectorf(
+			cos(Random::getFloat(0, 2 * PI)), 
+			sin(Random::getFloat(0, 2 * PI))) * radius;
 	}
 
 	float Ease::easeLinear(float v) {

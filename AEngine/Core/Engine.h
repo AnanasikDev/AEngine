@@ -28,6 +28,8 @@
 #include "RectCollider.h"
 #include "CircleCollider.h"
 
+#include "Gameobject.h"
+
 #include "List.h"
 #include "Event.h"
 #include "Time.h"

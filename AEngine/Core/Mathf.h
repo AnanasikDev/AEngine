@@ -50,6 +50,9 @@ namespace aengine {
 	/// </summary>
 	float lerp(float a, float b, float t);
 
+	Vectorf getRandomPointInCircle(float maxRadius);
+	Vectorf getRandomPointOnCircle(float radius);
+
 	struct Ease
 	{
 		static float easeLinear(float v);

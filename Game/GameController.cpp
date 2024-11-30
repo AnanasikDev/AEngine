@@ -15,6 +15,7 @@ namespace agame {
 	std::vector<Blob*> GameController::blobs;
 	std::vector<Gameobject*> GameController::walls;
 	std::vector<Bomb*> GameController::hookpoints;
+	aengine::Gameobject* GameController::bounds;
 
 	std::array<float, 3> GameController::levelThresholds { 0, 9, 20 }; // TODO: increase levels intervals
 	int GameController::level = 0;
@@ -22,6 +23,15 @@ namespace agame {
 	Action<> GameController::onLevelUpEvent;
 
 	void GameController::init() {
+
+		bounds = Gameobject::instantiate("bounds");
+		ShapeRenderer* bounds_rend = bounds->setRenderer(std::make_unique<ShapeRenderer>(bounds, std::make_unique<sf::CircleShape>(BOUNDS_RADIUS, 100)));
+		bounds_rend->setDistance(200);
+		auto bounds_circle = bounds_rend->getShapeAs<sf::CircleShape>();
+		bounds_circle->setFillColor(sf::Color(230, 230, 230, 255));
+		bounds_circle->setOutlineColor(sf::Color(220, 80, 80));
+		bounds_circle->setOutlineThickness(10);
+
 		onLevelUpEvent.Subscribe([]() {
 
 			std::cout << "Level up! current level is " << level << std::endl;
@@ -69,7 +79,7 @@ namespace agame {
 	}
 
 	void GameController::beginLevel0() {
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 13; i++) {
 			Blob* blob = Gameobject::instantiate<Blob>("blob" + std::to_string(i));
 			blobs.push_back(blob);
 			blob->tag = "blob";
@@ -120,6 +130,13 @@ namespace agame {
 		if (level != maxLevel && difficulty > levelThresholds[level + 1]) {
 			level++;
 			onLevelUpEvent.Invoke();
+		}
+
+		float d = player->getPosition().distance(Vectorf::zero);
+		if (d > BOUNDS_RADIUS - player->radius) {
+			player->rigidbody->setVelocity(Vectorf::zero);
+			player->rigidbody->setAcceleration(Vectorf::zero);
+			player->rigidbody->addForce(-player->getPosition().normalized() * 300);
 		}
 	}
 }

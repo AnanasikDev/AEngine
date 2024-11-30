@@ -34,7 +34,7 @@ namespace agame {
             GameController::addSecondsLeft(1);
             //rigidbody->setAcceleration(aengine::Vectorf::zero);
             //rigidbody->setVelocity(aengine::Vectorf::zero);
-            //GameController::markBlobHit(collider->gameobject);
+            GameController::markBlobHit(collider->gameobject);
         }
         
         if (collider->gameobject->tag == "wall")
