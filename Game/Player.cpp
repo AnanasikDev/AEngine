@@ -67,6 +67,15 @@ namespace agame {
             force.x -= 1;
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            std::optional<Gameobject*> go = aengine::List::findBy<aengine::Gameobject*>(GameController::hookpoints, [this](aengine::Gameobject* go)
+                { return (go->getPosition() - getPosition()).getLength() <= hookDistance; });
+            if (go.has_value()) {
+                aengine::Vectorf vec = go.value()->getPosition() - getPosition();
+                rigidbody->addForce(vec.normalized() * sqrtf(vec.getLength()));
+            }
+        }
+
         aengine::Vectorf vel = rigidbody->getVelocity().normalized();
         // -1 - backward
         // 1  - forward

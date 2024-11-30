@@ -61,6 +61,12 @@ namespace aengine {
 		return a + (b - a) * t;
 	}
 
+	Vectorf getRandomPointInCircle(float maxRadius) {
+		return Vectorf(
+			cos(Random::getFloat(0, 2 * PI)),
+			sin(Random::getFloat(0, 2 * PI))) * Random::getFloat(0, maxRadius);
+	}
+
 	Vectorf getRandomPointOnCircle(float radius) {
 		return Vectorf(
 			cos(Random::getFloat(0, 2 * PI)), 

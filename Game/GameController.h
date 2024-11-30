@@ -19,7 +19,7 @@ namespace agame{
 		static class aengine::TextRenderer* textRenderer;
 		static std::vector<class Blob*> blobs;
 		static std::vector<aengine::Gameobject*> walls;
-		static std::vector<class Bomb*> hookpoints;
+		static std::vector<aengine::Gameobject*> hookpoints;
 		static class Player* player;
 		static aengine::Gameobject* bounds;
 		static aengine::Action<> onLevelUpEvent;

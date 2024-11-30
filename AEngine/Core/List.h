@@ -92,5 +92,24 @@ namespace aengine {
 		static T last(const std::vector<T>& vec) {
 			return vec[vec.size() - 1];
 		}
+
+		template <typename T>
+		static std::vector<T> where(const std::vector<T>& vec, std::function<bool(T)> func) {
+			std::vector<T> out;
+			for (T i : vec) {
+				if (func(i))
+					out.push_back(i);
+			}
+			return out;
+		}
+
+		template <typename T>
+		static std::optional<T> findLast(const std::vector<T>& vec, std::function<bool(T)> func) {
+			for (int i = vec.size() - 1; i >= 0; i--) {
+				if (func(vec[i]))
+					return i;
+			}
+			return std::optional<T>;
+		}
 	};
 }

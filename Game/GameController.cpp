@@ -14,10 +14,10 @@ namespace agame {
 
 	std::vector<Blob*> GameController::blobs;
 	std::vector<Gameobject*> GameController::walls;
-	std::vector<Bomb*> GameController::hookpoints;
+	std::vector<Gameobject*> GameController::hookpoints;
 	aengine::Gameobject* GameController::bounds;
 
-	std::array<float, 3> GameController::levelThresholds { 0, 9, 20 }; // TODO: increase levels intervals
+	std::array<float, 3> GameController::levelThresholds { 0, 1, 2 }; // TODO: increase levels intervals
 	int GameController::level = 0;
 
 	Action<> GameController::onLevelUpEvent;
@@ -111,9 +111,11 @@ namespace agame {
 
 		for (int i = 0; i < 10; i++) {
 			Gameobject* hookpoint = Gameobject::instantiate("hook_" + std::to_string(i));
+			hookpoint->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 100));
 			ShapeRenderer* rend = hookpoint->setRenderer(std::make_unique<ShapeRenderer>(hookpoint, std::make_unique<sf::CircleShape>(10)));
 			rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color::Blue);
 			rend->setRelativeOrigin(Vectorf::half);
+			hookpoints.push_back(hookpoint);
 		}
 	}
 
