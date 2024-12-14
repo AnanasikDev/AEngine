@@ -4,6 +4,7 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include "commonh.h"
 
 namespace aengine {
 	class List {
@@ -110,6 +111,32 @@ namespace aengine {
 					return i;
 			}
 			return std::optional<T>;
+		}
+
+		template <typename T>
+		static T min(const std::vector<T>& vec, std::function<float(T)> func) {
+			int r = 0;
+			float min = INF;
+			for (int i = 0; i < vec.size(); i++) {
+				if (float t = func(vec[i]); t < min) {
+					min = t;
+					r = i;
+				}
+			}
+			return vec[r];
+		}
+
+		template <typename T>
+		static T max(const std::vector<T>& vec, std::function<float(T)> func) {
+			int r = 0;
+			float max = -INF;
+			for (int i = 0; i < vec.size(); i++) {
+				if (float t = func(vec[i]); t > max) {
+					max = t;
+					r = i;
+				}
+			}
+			return vec[r];
 		}
 	};
 }
