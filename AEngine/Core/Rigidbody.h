@@ -15,7 +15,6 @@ namespace aengine {
 		float g;
 		float airResistance;
 		float mass;
-		Vectorf facceleration;
 
 	public:
 		bool useGravity = true;
@@ -35,11 +34,6 @@ namespace aengine {
 		/// Overwrites current velocity with a new value, without changing acceleration.
 		/// </summary>
 		void setVelocity(Vectorf val);
-
-		/// <summary>
-		/// Overwrites current acceleration with a new value, without changing velocity.
-		/// </summary>
-		void setAcceleration(Vectorf val);
 
 		float getMass() const;
 		void setMass(float value);

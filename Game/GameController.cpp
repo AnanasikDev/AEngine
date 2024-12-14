@@ -137,7 +137,6 @@ namespace agame {
 		float d = player->getPosition().distance(Vectorf::zero);
 		if (d > BOUNDS_RADIUS - player->radius) {
 			player->rigidbody->setVelocity(Vectorf::zero);
-			player->rigidbody->setAcceleration(Vectorf::zero);
 			player->rigidbody->addForce(-player->getPosition().normalized() * 300);
 		}
 	}

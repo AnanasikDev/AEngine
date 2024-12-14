@@ -7,7 +7,7 @@ namespace agame {
 	class Player : public aengine::Gameobject {
 	private:
 		float movementSpeed = 3;
-		float hookDistance = 150;
+		float hookDistance = 250;
 		aengine::Camera* camera;
 
 	public:

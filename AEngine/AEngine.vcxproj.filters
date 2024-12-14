@@ -107,7 +107,7 @@
     <ClInclude Include="Core\Rigidbody.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Core\common.h">
+    <ClInclude Include="Core\commonh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

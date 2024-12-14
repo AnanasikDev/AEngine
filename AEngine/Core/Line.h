@@ -9,6 +9,9 @@ namespace aengine {
 
 	class Bounds;
 
+	/// <summary>
+	/// Class defining two points on a plane, representing either a line or a segment, depending on usage; points can be equal, this case is handled by all Line functions.
+	/// </summary>
 	class Line {
 	public:
 		Vectorf p1;

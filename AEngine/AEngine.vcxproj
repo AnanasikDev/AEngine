@@ -24,7 +24,7 @@
     <ClInclude Include="Core\Canvas.h" />
     <ClInclude Include="Core\CircleCollider.h" />
     <ClInclude Include="Core\Collider.h" />
-    <ClInclude Include="Core\common.h" />
+    <ClInclude Include="Core\commonh.h" />
     <ClInclude Include="Core\Component.h" />
     <ClInclude Include="Core\Debug.h" />
     <ClInclude Include="Core\Engine.h" />

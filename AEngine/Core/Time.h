@@ -15,6 +15,7 @@ namespace aengine {
 			/// Whether the coroutine has been invoked at least once.
 			/// </summary>
 			bool invoked = false;
+
 			float delay;
 			float startDelay = delay;
 			float waitingTime = 0;
@@ -50,7 +51,7 @@ namespace aengine {
 		static std::vector<Time::Coroutine> coroutines;
 
 		/// <summary>
-		/// Computes current time in seconds, caches the result in the variable time which is can be widely used using getTime().
+		/// Computes current time in seconds, caches the result in the variable timeSinceStartup which is can be accessed using getTime().
 		/// </summary>
 		static void computeTime();
 
@@ -67,13 +68,22 @@ namespace aengine {
 		static float getTimeScale();
 		static void setTimeScale(float scale);
 
+		/// <summary>
+		/// Returns time in seconds since application startup (timeSinceStartup)
+		/// </summary>
+		/// <returns></returns>
 		static float getTime();
+
 		/// <summary>
 		/// Returns time in milliseconds from UNIX
 		/// </summary>
 		static std::uint64_t getTimeSinceUNIX();
 
 		static void init();
+
+		/// <summary>
+		/// Updated all values, runs coroutines
+		/// </summary>
 		static void update();
 
 		/// <summary>
@@ -82,6 +92,7 @@ namespace aengine {
 		static void recordFixedUpdate();
 
 		static void invoke(std::function<void()> func, float delaySeconds);
+
 		static void invokeRepeating(std::function<void()> func, float startDelaySeconds, float delaySeconds);
 
 		static std::string getCurrentLocalTime(const std::string& format);

@@ -12,7 +12,6 @@ namespace aengine {
 		g = Physics::g;
 		airResistance = Physics::airResistance;
 		mass = 1.f;
-		facceleration = Vectorf();
 		this->gameobject = gameobject;
 	}
 
@@ -33,10 +32,6 @@ namespace aengine {
 
 	void Rigidbody::setVelocity(Vectorf value) {
 		this->fvelocity = value;
-	}
-
-	void Rigidbody::setAcceleration(Vectorf value) {
-		this->facceleration = value;
 	}
 
 	void Rigidbody::addForce(Vectorf force) {
@@ -84,7 +79,6 @@ namespace aengine {
 			Vectorf normal = overlap.second;
 
 			if (bounds.isEmpty()) continue;
-
 
 			// collision detected
 
