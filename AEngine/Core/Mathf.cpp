@@ -60,6 +60,11 @@ namespace aengine {
 	float lerp(float a, float b, float t) {
 		return a + (b - a) * t;
 	}
+	float rescale(float value, float min1, float max1, float min2, float max2, bool invert) {
+		float rel = (value - min1) / (max1 - min1);
+		if (invert) rel = 1 - rel;
+		return min2 + (max2 - min2) * rel;
+	}
 
 	Vectorf getRandomPointInCircle(float maxRadius) {
 		return Vectorf(

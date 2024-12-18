@@ -17,7 +17,7 @@ namespace agame {
 	std::vector<Gameobject*> GameController::hookpoints;
 	aengine::Gameobject* GameController::bounds;
 
-	std::array<float, 3> GameController::levelThresholds { 0, 1, 2 }; // TODO: increase levels intervals
+	std::array<float, 3> GameController::levelThresholds { 0, 12, 19 }; // TODO: increase levels intervals
 	int GameController::level = 0;
 
 	Action<> GameController::onLevelUpEvent;
@@ -76,6 +76,7 @@ namespace agame {
 	}
 
 	void GameController::beginLevel0() {
+		// blobs
 		for (int i = 0; i < 13; i++) {
 			Time::invoke
 			([i]() 

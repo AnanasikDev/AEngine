@@ -26,20 +26,17 @@ namespace agame {
 	}
 
     void Player::onTrigger(aengine::Collider* trigger) {
-        
+        if (trigger->gameobject->tag == "blob") {
+            rigidbody->addForce((trigger->gameobject->getPosition() - getGameobject()->getPosition()) * 5);
+            GameController::addSecondsLeft(0.05f * powf(rigidbody->getVelocity().getLength(), 0.8f));
+            GameController::markBlobHit(trigger->gameobject);
+        }
     }
 
     void Player::onBeforeCollision(aengine::Collider* collider) {
-        if (collider->gameobject->tag == "blob") {
-            GameController::addSecondsLeft(1);
-            //rigidbody->setAcceleration(aengine::Vectorf::zero);
-            //rigidbody->setVelocity(aengine::Vectorf::zero);
-            GameController::markBlobHit(collider->gameobject);
-        }
         
         if (collider->gameobject->tag == "wall")
         {
-            //rigidbody->setAcceleration(aengine::Vectorf::zero);
             GameController::addSecondsLeft(-3);
         }
     }
@@ -78,19 +75,22 @@ namespace agame {
 
             aengine::Vectorf diff = hook->getPosition() - getPosition();
             //aengine::Vectorf vec = vec.normalized() * sqrtf(vec.getLength());
-            aengine::Vectorf vec = diff.normalized() * 100;
+            aengine::Vectorf vec = diff.normalized() * 20;
             rigidbody->addForce(vec);
         }
         else {
             isHooked = false;
         }
 
+        force = force.normalized();
         aengine::Vectorf vel = rigidbody->getVelocity().normalized();
         // -1 - backward
         // 1  - forward
         
         // increase velocity when changing direction - the more you change direction, the more force is applied. For easier movement
-        float fac = (-vel.dotProduct(force) + 1) / 2.f + 1;
+        //float fac = ((-vel.dotProduct(force) + 1) / 2.f + 1) * 1.;
+        float fac = aengine::rescale(-vel.dotProduct(force), -1, 1, 1, 8);
+        std::cout << fac << "\n";
 
         force = force * movementSpeed * fac;
         rigidbody->addForce(force);

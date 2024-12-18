@@ -50,6 +50,8 @@ namespace aengine {
 	/// </summary>
 	float lerp(float a, float b, float t);
 
+	float rescale(float value, float min1, float max1, float min2, float max2, bool invert=false);
+
 	Vectorf getRandomPointInCircle(float maxRadius);
 	Vectorf getRandomPointOnCircle(float radius);
 
