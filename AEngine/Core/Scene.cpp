@@ -94,7 +94,7 @@ namespace aengine {
 		for (int i = 0; i < renderersOrdered.size(); i++) {
 			if (renderersOrdered[i]->gameobject != nullptr && !renderersOrdered[i]->gameobject->isEnabled) continue;
 
-			renderersOrdered[i]->render();
+			renderersOrdered[i]->gameobject->render();
 		}
 	}
 

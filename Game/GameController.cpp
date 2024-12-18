@@ -106,7 +106,6 @@ namespace agame {
 			rend->setRelativeOrigin(Vectorf::half);
 				}, i + 1.);
 		}
-
 	}
 
 	void GameController::beginLevel2() {

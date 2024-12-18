@@ -23,7 +23,7 @@ int main() {
 
 	Gameobject* scoreDisplay = Gameobject::instantiate("score_display");
 	TextRenderer::loadFont();
-	TextRenderer* scoreRend = scoreDisplay->setRenderer(std::make_unique<TextRenderer>());
+	TextRenderer* scoreRend = scoreDisplay->setRenderer(std::make_unique<TextRenderer>(scoreDisplay));
 	GameController::textRenderer = scoreRend;
 	scoreDisplay->isAttachedToCamera = true;
 	scoreRend->setRelativeOrigin(Vectorf::half);
@@ -41,6 +41,7 @@ int main() {
 		if (player->isHooked) {
 			Gizmos::drawSegment(player->screenPosition, player->hook->screenPosition);
 		}
+		//player->trail.draw(*aengine::window()->getWindow());
 		window.display();
 	}
 

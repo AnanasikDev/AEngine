@@ -21,6 +21,9 @@ namespace agame {
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
 
+        trail = DynamicTrail(200.f, 1.f);
+        trail.setThicknessFunction([](float v) { return v * 14; });
+
         isAttachedToCamera = false;
         camera = aengine::context()->getCamera("main");
 	}
@@ -95,11 +98,14 @@ namespace agame {
         force = force * movementSpeed * fac;
         rigidbody->addForce(force);
 
-        camera->translate(getPosition() - prevPos);
+        camera->translate(aengine::Vectorf::zero);
+        //camera->translate(getPosition() - prevPos);
+        trail.addPoint((getGameobject()->getPosition()).getsf());
         //camera->setPosition(getPosition());
     }
 
 	void Player::render() {
+        trail.render();
 		Gameobject::render();
 	}
 }

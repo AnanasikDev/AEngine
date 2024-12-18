@@ -144,6 +144,7 @@
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TechDemoEntry.cpp" />
+    <ClCompile Include="trailtest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collectable.h" />

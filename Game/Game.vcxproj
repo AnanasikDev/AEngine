@@ -144,12 +144,14 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="gamemain.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="Trail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Blob.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="Trail.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\bomb.png" />

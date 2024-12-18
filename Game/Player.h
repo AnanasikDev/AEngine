@@ -2,6 +2,7 @@
 
 #include "Core/Gameobject.h"
 #include "Core/Camera.h"
+#include "Trail.h"
 
 namespace agame {
 	class Player : public aengine::Gameobject {
@@ -11,6 +12,7 @@ namespace agame {
 		aengine::Camera* camera;
 
 	public:
+		DynamicTrail trail;
 		bool isHooked = false;
 		Gameobject* hook = nullptr;
 		float radius = 12;

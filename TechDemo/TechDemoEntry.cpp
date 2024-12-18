@@ -5,7 +5,7 @@
 using namespace aengine;
 using namespace agame;
 
-int main() {
+int main2() {
 	Window window(1200, 900, "Tech demo of AEngine");
 	window.getWindow()->setFramerateLimit(60);
 	SceneManager::createScene("main", window.getWindow());
