@@ -13,6 +13,7 @@ int main() {
 	SceneManager::createScene("main", window.getWindow())->setBackgroundColor(sf::Color(220, 80, 80));
 	SceneManager::setCurrentScene("main");
 	Camera camera("main");
+	Random::init();
 
 	Player* player = Gameobject::instantiate<Player>("Player");
 	player->setPosition(winSize.x / 2.f, winSize.y / 2.f);

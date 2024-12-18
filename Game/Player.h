@@ -9,6 +9,8 @@ namespace agame {
 		float movementSpeed = 3;
 		float hookDistance = 250;
 		aengine::Camera* camera;
+		bool isHooked = false;
+		Gameobject* hook = nullptr;
 
 	public:
 		float radius = 12;

@@ -69,13 +69,20 @@ namespace agame {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && GameController::hookpoints.size() != 0) {
 
-            Gameobject* go = aengine::List::min<aengine::Gameobject*>(GameController::hookpoints, [this](aengine::Gameobject* go)
-                { return (go->getPosition() - getPosition()).getLength(); });
+            if (!isHooked) {
+                hook = aengine::List::min<aengine::Gameobject*>(GameController::hookpoints, [this](aengine::Gameobject* go)
+                    { return (go->getPosition() - getPosition()).getLength(); });
+            }
 
-            aengine::Vectorf diff = go->getPosition() - getPosition();
+            isHooked = true;
+
+            aengine::Vectorf diff = hook->getPosition() - getPosition();
             //aengine::Vectorf vec = vec.normalized() * sqrtf(vec.getLength());
             aengine::Vectorf vec = diff.normalized() * 100;
             rigidbody->addForce(vec);
+        }
+        else {
+            isHooked = false;
         }
 
         aengine::Vectorf vel = rigidbody->getVelocity().normalized();

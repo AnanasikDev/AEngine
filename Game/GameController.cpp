@@ -60,10 +60,7 @@ namespace agame {
 	}
 
 	void GameController::markBlobHit(Gameobject* obj) {
-		obj->setPosition(player->getPosition() + Vectorf(
-			Random::getFloat(-200, 200),
-			Random::getFloat(-200, 200)
-		));
+		obj->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 100));
 	}
 
 	float GameController::getDifficultyAt(float t) {
@@ -80,30 +77,36 @@ namespace agame {
 
 	void GameController::beginLevel0() {
 		for (int i = 0; i < 13; i++) {
-			Blob* blob = Gameobject::instantiate<Blob>("blob" + std::to_string(i));
+			Time::invoke
+			([i]() 
+				{
+				Blob* blob = Gameobject::instantiate<Blob>("blob" + std::to_string(i));
+			blob->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 100));
 			blobs.push_back(blob);
 			blob->tag = "blob";
+				}, i + 0.9f);
 		}
 	}
 
 	void GameController::beginLevel1() {
 		// walls
 		for (int i = 0; i < 10; i++) {
-			auto pos = player->getPosition() + 
-				Vectorf(
-					pixelate(Random::getFloat(-800, 800), 60),
-					pixelate(Random::getFloat(-800, 800), 60));
-			Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
+
+			Time::invoke
+			([i]() {
+				Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
 			wall->tag = "wall";
 			RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));
 			//col->stickiness = 8;
 			SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "resources/wall.png"));
 			rend->setRelativeOrigin(Vectorf::half);
 			rend->sprite->setScale(Vectorf(3, 3).getsf());
-			
-			wall->setPosition(pos);
+
+			wall->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 200));
 			rend->setRelativeOrigin(Vectorf::half);
+				}, i + 1.);
 		}
+
 	}
 
 	void GameController::beginLevel2() {

@@ -8,6 +8,8 @@ namespace aengine {
 	class Random {
 	public:
 
+		static void init();
+
 		/// <summary>
 		/// Generates random float in range [0, 1]
 		/// </summary>

@@ -1,8 +1,13 @@
 #include "Random.h"
 #include "db_perlin.hpp"
 #include <random>
+#include <stdlib.h>
 
 namespace aengine {
+	void Random::init() {
+		srand(time(NULL));
+	}
+
 	float Random::getFloat() {
 		return ((float)rand() / RAND_MAX);
 	}
