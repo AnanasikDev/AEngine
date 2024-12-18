@@ -28,7 +28,7 @@ namespace agame {
     void Player::onTrigger(aengine::Collider* trigger) {
         if (trigger->gameobject->tag == "blob") {
             rigidbody->addForce((trigger->gameobject->getPosition() - getGameobject()->getPosition()) * 5);
-            GameController::addSecondsLeft(0.05f * powf(rigidbody->getVelocity().getLength(), 0.8f));
+            GameController::addSecondsLeft(0.05f * powf(rigidbody->getVelocity().getLength(), 0.7f));
             GameController::markBlobHit(trigger->gameobject);
         }
     }
@@ -37,7 +37,7 @@ namespace agame {
         
         if (collider->gameobject->tag == "wall")
         {
-            GameController::addSecondsLeft(-3);
+            GameController::addSecondsLeft(-10);
         }
     }
 
@@ -80,6 +80,7 @@ namespace agame {
         }
         else {
             isHooked = false;
+            hook = nullptr;
         }
 
         force = force.normalized();
@@ -90,7 +91,6 @@ namespace agame {
         // increase velocity when changing direction - the more you change direction, the more force is applied. For easier movement
         //float fac = ((-vel.dotProduct(force) + 1) / 2.f + 1) * 1.;
         float fac = aengine::rescale(-vel.dotProduct(force), -1, 1, 1, 8);
-        std::cout << fac << "\n";
 
         force = force * movementSpeed * fac;
         rigidbody->addForce(force);

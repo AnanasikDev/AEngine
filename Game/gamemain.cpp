@@ -35,8 +35,11 @@ int main() {
 		GameController::update();
 
 		window.render();
-		for (auto blob : GameController::blobs) {
+		/*for (auto blob : GameController::blobs) {
 			Gizmos::drawSegment(player->screenPosition, blob->screenPosition);
+		}*/
+		if (player->isHooked) {
+			Gizmos::drawSegment(player->screenPosition, player->hook->screenPosition);
 		}
 		window.display();
 	}

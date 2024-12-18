@@ -155,6 +155,9 @@
     <Image Include="resources\bomb.png" />
     <Image Include="resources\wall.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="controls.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

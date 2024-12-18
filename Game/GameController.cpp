@@ -98,7 +98,6 @@ namespace agame {
 				Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
 			wall->tag = "wall";
 			RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));
-			//col->stickiness = 8;
 			SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "resources/wall.png"));
 			rend->setRelativeOrigin(Vectorf::half);
 			rend->sprite->setScale(Vectorf(3, 3).getsf());
@@ -140,8 +139,11 @@ namespace agame {
 
 		float d = player->getPosition().distance(Vectorf::zero);
 		if (d > BOUNDS_RADIUS - player->radius) {
-			player->rigidbody->setVelocity(Vectorf::zero);
-			player->rigidbody->addForce(-player->getPosition().normalized() * 300);
+			player->setPosition(player->getPosition().normalized() * (BOUNDS_RADIUS - player->radius - 1));
+			Vectorf fvelocity = player->rigidbody->getVelocity();
+			Vectorf normal = -player->getPosition().normalized(); // radius from 0,0 to player position
+			Vectorf impulse1 = fvelocity - normal * fvelocity.dotProduct(normal) * 2;
+			player->rigidbody->setVelocity(impulse1 * player->collider->bounciness);
 		}
 	}
 }
