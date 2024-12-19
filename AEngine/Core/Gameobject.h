@@ -13,6 +13,9 @@ namespace aengine {
 
 	class Scene* context();
 
+	/// <summary>
+	/// Represents an updatable and/or renderable entity. May or may not have a collider, rigidbody and/or renderer (of any type available). Can be attached to another object or camera
+	/// </summary>
 	class Gameobject {
 
 	private:
@@ -21,6 +24,10 @@ namespace aengine {
 	
 	public:
 		std::string name;
+
+		/// <summary>
+		/// String tag of the gameobject. Can be empty
+		/// </summary>
 		std::string tag;
 
 		Vectorf screenPosition = Vectorf(0, 0);
@@ -92,7 +99,12 @@ namespace aengine {
 		/// Sets position of the gameobject to pos. If includeChildren set to true, all children will be recursively affected too.
 		/// </summary>
 		void setPosition(Vectorf pos, bool includeChildren = true);
+		
+		/// /// <summary>
+		/// Sets position of the gameobject to pos. If includeChildren set to true, all children will be recursively affected too.
+		/// </summary>
 		void setPosition(float x, float y, bool includeChildren = true);
+
 		Vectorf getPosition() const;
 
 		/// <summary>

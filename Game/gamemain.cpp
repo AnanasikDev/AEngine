@@ -39,7 +39,7 @@ int main() {
 			Gizmos::drawSegment(player->screenPosition, blob->screenPosition);
 		}*/
 		if (player->isHooked) {
-			Gizmos::drawSegment(player->screenPosition, player->hook->screenPosition);
+			Gizmos::drawSegment(player->screenPosition, player->hook->screenPosition, sf::Color::White, sf::Color::Black);
 		}
 		//player->trail.draw(*aengine::window()->getWindow());
 		window.display();

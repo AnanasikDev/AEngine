@@ -201,7 +201,7 @@ namespace aengine {
 		return Bounds(minp.x - left, minp.y - top, maxp.x + right, maxp.y + bottom);
 	}
 
-	void Bounds::render(class sf::RenderWindow* window, Vectorf shift, float scale, sf::Color color) {
+	void Bounds::render(class sf::RenderWindow* window, const Vectorf& shift, const float scale, sf::Color color) {
 		auto segments = getSegments();
 		for (auto segment : segments) {
 			segment.render(window, shift, scale, color);

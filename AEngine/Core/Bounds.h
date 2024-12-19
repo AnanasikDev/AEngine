@@ -41,7 +41,7 @@ namespace aengine {
 		bool operator==(const Bounds& other);
 		bool operator!=(const Bounds& other);
 
-		void render(class sf::RenderWindow* window, Vectorf shift = Vectorf::zero, float scale = 1, sf::Color color = sf::Color::Black);
+		void render(class sf::RenderWindow* window, const Vectorf& shift = Vectorf::zero, const float scale = 1, sf::Color color = sf::Color::Black);
 
 		static Bounds empty;
 	};

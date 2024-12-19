@@ -94,7 +94,6 @@ namespace agame {
         // 1  - forward
         
         // increase velocity when changing direction - the more you change direction, the more force is applied. For easier movement
-        //float fac = ((-vel.dotProduct(force) + 1) / 2.f + 1) * 1.;
         float fac = aengine::rescale(-vel.dotProduct(force), -1, 1, 1, 8);
 
         force = force * movementSpeed * fac;

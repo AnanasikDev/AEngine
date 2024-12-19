@@ -7,7 +7,7 @@ namespace aengine {
 	std::vector<std::unique_ptr<Scene>> SceneManager::scenes;
 
 	Action<Scene*> SceneManager::onSceneChanged;
-	Scene* SceneManager::m_currentScene = nullptr;
+	Scene* SceneManager::currentScene = nullptr;
 
 	Scene* SceneManager::createScene(const std::string& name, sf::RenderWindow* renderWindow) {
 		scenes.push_back(std::make_unique<Scene>(name, renderWindow));
@@ -19,7 +19,7 @@ namespace aengine {
 	}
 
 	Scene* SceneManager::getCurrentScene() {
-		return m_currentScene;
+		return currentScene;
 	}
 
 	void SceneManager::setCurrentScene(const std::string& name) {
@@ -28,13 +28,13 @@ namespace aengine {
 			Debug::logException("setCurrentScene could not find a scene of name \"" + name + "\"");
 			return;
 		}
-		if (m_currentScene != nullptr && m_currentScene->name == name)
+		if (currentScene != nullptr && currentScene->name == name)
 		{
 			Debug::logInfo("new scene name is equal to the current one, no changes made");
 			return;
 		}
 
-		m_currentScene = scene;
+		currentScene = scene;
 		onSceneChanged.Invoke(scene);
 	}
 

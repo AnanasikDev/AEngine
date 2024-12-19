@@ -28,6 +28,9 @@ namespace aengine {
 			}
 		}
 
+		/// <summary>
+		/// Removes the first unique pointer from the vector that matches the given raw pointer
+		/// </summary>
 		template <typename T>
 		static void removeSmartPtr(std::vector<std::unique_ptr<T>>& vec, T* obj) {
 			for (int i = 0; i < vec.size(); i++) {
@@ -65,6 +68,9 @@ namespace aengine {
 			return std::nullopt;
 		}
 
+		/// <summary>
+		/// Finds the first unique pointer in the vector that satisfies the given condition and returns its raw pointer
+		/// </summary>
 		template <typename T>
 		static T* findUniquePointerBy(const std::vector<std::unique_ptr<T>>& vec, std::function<bool(T*)> func) {
 			for (int i = 0; i < vec.size(); i++) {
@@ -74,11 +80,17 @@ namespace aengine {
 			return nullptr;
 		}
 
+		/// <summary>
+		/// Retrieves the first unique pointer in the vector and returns its raw pointer
+		/// </summary>
 		template <typename T>
 		static T* firstUniquePointer(const std::vector<std::unique_ptr<T>>& vec) {
 			return vec[0].get();
 		}
 
+		/// <summary>
+		/// Retrieves the last unique pointer in the vector and returns its raw pointer
+		/// </summary>
 		template <typename T>
 		static T* lastUniquePointer(const std::vector<std::unique_ptr<T>>& vec) {
 			return vec[vec.size() - 1].get();
@@ -94,6 +106,9 @@ namespace aengine {
 			return vec[vec.size() - 1];
 		}
 
+		/// <summary>
+		/// Returns a vector of elements from the given vec that satisfy the condition
+		/// </summary>
 		template <typename T>
 		static std::vector<T> where(const std::vector<T>& vec, std::function<bool(T)> func) {
 			std::vector<T> out;
@@ -110,7 +125,7 @@ namespace aengine {
 				if (func(vec[i]))
 					return i;
 			}
-			return std::optional<T>;
+			return std::nullopt;
 		}
 
 		template <typename T>

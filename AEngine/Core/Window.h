@@ -10,6 +10,9 @@ namespace aengine {
 	class Gameobject;
 	class Renderer;
 
+	/// <summary>
+	/// Class maintaining window, rendering modes, events, engine updates. Handles an SFML RenderWindow object and its settings. Calling current scene update and render functions.
+	/// </summary>
 	class Window {
 
 	private:
@@ -42,6 +45,5 @@ namespace aengine {
 	/// <summary>
 	/// Global function to get pointer to the window
 	/// </summary>
-	/// <returns></returns>
 	Window* window();
 }

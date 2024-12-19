@@ -2,8 +2,8 @@
 
 namespace aengine {
 
-	Scene::Scene(const std::string& name, sf::RenderWindow* targetWindow) : name(name), renderWindow(targetWindow) {
-
+	Scene::Scene(const std::string& name, sf::RenderWindow* targetWindow)
+		: name(name), renderWindow(targetWindow) {
 	}
 
 	Scene::~Scene() {
