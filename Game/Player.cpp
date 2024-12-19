@@ -22,9 +22,9 @@ namespace agame {
 
         camera = aengine::context()->getCamera("main");
 
-        trail = DynamicTrail(6, 13.f);
+        trail = DynamicTrail(16, 5.f);
         trail.setThicknessFunction([](float v) { return v * 12; });
-        trail.setColorFunction([](float v) { return sf::Color(255,255,255, 255 * v); });
+        trail.setColorFunction([](float v) { return sf::Color(255,255,255 * powf(v, 1), 255 * v); });
         trail.setShiftFunction([this](sf::Vector2f vec) { return camera->worldToScreen(vec).getsf(); });
 
         isAttachedToCamera = false;
