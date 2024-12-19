@@ -9,7 +9,7 @@ namespace aengine {
 
 	void TextRenderer::loadFont() {
 
-		if (!font.loadFromFile("resources/Arial.ttf"))
+		if (!font.loadFromFile("assets/Arial.ttf"))
 		{
 			throw std::exception("[DEV]: Fail loading Arial.ttf font in Text::Renderer::LoadFont()");
 		}

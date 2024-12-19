@@ -114,6 +114,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)external\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;openal32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-audio-s-d.lib;sfml-network-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /E /I /D "$(ProjectDir)assets" "$(TargetDir)assets"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -154,8 +157,8 @@
     <ClInclude Include="Trail.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\bomb.png" />
-    <Image Include="resources\wall.png" />
+    <Image Include="assets\bomb.png" />
+    <Image Include="assets\wall.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="controls.txt" />

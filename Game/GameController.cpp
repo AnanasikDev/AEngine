@@ -98,7 +98,7 @@ namespace agame {
 				Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
 			wall->tag = "wall";
 			RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));
-			SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "resources/wall.png"));
+			SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "assets/wall.png"));
 			rend->setRelativeOrigin(Vectorf::half);
 			rend->sprite->setScale(Vectorf(3, 3).getsf());
 
