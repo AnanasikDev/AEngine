@@ -1,37 +1,37 @@
 #include "Trail.h"
 #include "Core/Engine.h"
 
-DynamicTrail::DynamicTrail(float maxTrailLength, float vertexDistance)
-        : maxTrailLength(maxTrailLength), vertexDistance(vertexDistance) {}
+DynamicTrail::DynamicTrail(int maxPoints, float vertexDistance)
+    : maxPoints(maxPoints), vertexDistance(vertexDistance) 
+{
+    thicknessFunction = [](float val) { return val * 10; };
+    colorFunction = [](float val) { return sf::Color::White; };
+}
 
 void DynamicTrail::setThicknessFunction(std::function<float(float)> func) {
     thicknessFunction = func;
 }
 
-void DynamicTrail::addPoint(const sf::Vector2f& point) {
-    if (!points.empty() && distance(points.back(), point) < vertexDistance) {
-        return; // Skip adding if the distance is too small
-    }
-
-    points.push_back(point);
-
-    // Remove points if the trail exceeds the maximum length
-    float length = 0.0f;
-    for (size_t i = points.size() - 1; i > 0; --i) {
-        length += distance(points[i], points[i - 1]);
-        if (length > maxTrailLength) {
-            points.erase(points.begin(), points.begin() + i - 1);
-            break;
-        }
-    }
-
-    generateVertices();
+void DynamicTrail::setColorFunction(std::function<sf::Color(float)> func) {
+    colorFunction = func;
 }
 
-void DynamicTrail::anchorLastAt(const sf::Vector2f& pos) {
-    sf::Vector2f delta = points.back() - pos;
-    for (int i = 0; i < points.size(); i++) {
-        points[i] += delta;
+void DynamicTrail::setShiftFunction(std::function<sf::Vector2f(sf::Vector2f)> func) {
+    shiftFunction = func;
+}
+
+void DynamicTrail::addPoint(const sf::Vector2f& point) {
+        // Check if the new point should be added based on vertex distance
+    if (!worldPoints.empty() && distance(worldPoints.back(), point) < vertexDistance) {
+        return;
+    }
+
+    // Add new point to the back
+    worldPoints.push_back(point);
+
+    // Remove oldest point if the maximum number of points is exceeded
+    if (worldPoints.size() > maxPoints) {
+        worldPoints.pop_front();
     }
 }
 
@@ -45,15 +45,15 @@ void DynamicTrail::generateVertices() {
     vertices.clear();
     vertices.setPrimitiveType(sf::TriangleStrip);
 
-    if (points.size() < 2)
+    if (worldPoints.size() < 2)
         return;
 
-    for (size_t i = 0; i < points.size(); ++i) {
+    for (size_t i = 0; i < worldPoints.size(); ++i) {
         sf::Vector2f direction;
-        if (i == points.size() - 1)
-            direction = points[i] - points[i - 1];
+        if (i == worldPoints.size() - 1)
+            direction = worldPoints[i] - worldPoints[i - 1];
         else
-            direction = points[i + 1] - points[i];
+            direction = worldPoints[i + 1] - worldPoints[i];
 
         float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
         direction /= length;
@@ -62,13 +62,16 @@ void DynamicTrail::generateVertices() {
         sf::Vector2f normal(-direction.y, direction.x);
 
         // Calculate relative position in the trail (0.0 to 1.0)
-        float relativePosition = static_cast<float>(i) / static_cast<float>(points.size() - 1);
+        float relativePosition = static_cast<float>(i) / static_cast<float>(worldPoints.size() - 1);
 
         float thickness = thicknessFunction ? thicknessFunction(relativePosition) : 5.0f;
 
+        sf::Color color = colorFunction(relativePosition);
+        sf::Vector2f renderPosition = shiftFunction(worldPoints[i]); // shift points for rendering
+
         // Add two vertices per point (one on each side of the trail)
-        vertices.append(sf::Vertex(points[i] + normal * thickness, sf::Color::White));
-        vertices.append(sf::Vertex(points[i] - normal * thickness, sf::Color::White));
+        vertices.append(sf::Vertex(renderPosition + normal * thickness, color));
+        vertices.append(sf::Vertex(renderPosition - normal * thickness, color));
     }
 }
 

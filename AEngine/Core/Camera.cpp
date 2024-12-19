@@ -4,7 +4,7 @@ namespace aengine {
 
 	Camera::Camera(const std::string& name) {
 		this->name = name;
-		position = Vectorf();
+		cornerPosition = Vectorf();
 		scene = context();
 		size = Vectorf::otherFromsf<unsigned int, float>(window()->getWindow()->getSize());
 
@@ -13,7 +13,7 @@ namespace aengine {
 	}
 
 	void Camera::translate(Vectorf delta) {
-		position += delta;
+		cornerPosition += delta;
 		for (int i = 0; i < scene->gameobjects.size(); i++) {
 			
 			// if attached to camera leave it where it is
@@ -23,17 +23,25 @@ namespace aengine {
 
 			else
 			{
-				scene->gameobjects[i]->screenPosition = scene->gameobjects[i]->getPosition() - position;// (position - Vectorf(size.x / 2., size.y / 2.));
+				scene->gameobjects[i]->screenPosition = scene->gameobjects[i]->getPosition() - cornerPosition;// (position - Vectorf(size.x / 2., size.y / 2.));
 			}
 		}
 	}
 
+	Vectorf Camera::worldToScreen(Vectorf worldpos) const {
+		return worldpos - cornerPosition;
+	}
+
+	Vectorf Camera::screenToWorld(Vectorf screenpos) const {
+		return cornerPosition + screenpos;
+	}
+
 	void Camera::setPosition(Vectorf newPos) {
-		translate(newPos - position);
+		translate(newPos - cornerPosition);
 	}
 	
 	Vectorf Camera::getPosition() const {
-		return position;
+		return cornerPosition;
 	}
 
 	std::string Camera::getName() const {

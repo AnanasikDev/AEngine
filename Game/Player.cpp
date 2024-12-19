@@ -12,7 +12,6 @@ namespace agame {
         rend->setRelativeOrigin(aengine::Vectorf::half);
 
         setCollider(std::make_unique<aengine::CircleCollider>(this, radius));
-        //setCollider(std::make_unique<aengine::RectCollider>(this, Vectorf()));
         collider->isTrigger = false;
         collider->bounciness = 1;
         collider->onTriggerEvent.Subscribe([this](aengine::Collider* col) { onTrigger(col); });
@@ -21,11 +20,14 @@ namespace agame {
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
 
-        trail = DynamicTrail(200.f, 1.f);
-        trail.setThicknessFunction([](float v) { return v * 14; });
+        camera = aengine::context()->getCamera("main");
+
+        trail = DynamicTrail(6, 13.f);
+        trail.setThicknessFunction([](float v) { return v * 12; });
+        trail.setColorFunction([](float v) { return sf::Color(255,255,255, 255 * v); });
+        trail.setShiftFunction([this](sf::Vector2f vec) { return camera->worldToScreen(vec).getsf(); });
 
         isAttachedToCamera = false;
-        camera = aengine::context()->getCamera("main");
 	}
 
     void Player::onTrigger(aengine::Collider* trigger) {
@@ -98,10 +100,10 @@ namespace agame {
         force = force * movementSpeed * fac;
         rigidbody->addForce(force);
 
-        camera->translate(aengine::Vectorf::zero);
-        //camera->translate(getPosition() - prevPos);
+        //camera->translate(aengine::Vectorf::zero);
+        camera->translate(getPosition() - prevPos);
         trail.addPoint((getGameobject()->getPosition()).getsf());
-        //camera->setPosition(getPosition());
+        trail.generateVertices();
     }
 
 	void Player::render() {

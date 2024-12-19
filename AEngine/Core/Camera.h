@@ -13,7 +13,7 @@ namespace aengine {
 	class Camera {
 	private:
 
-		Vectorf position;
+		Vectorf cornerPosition;
 		class Scene* scene;
 		std::string name;
 		Vectorf size;
@@ -26,5 +26,8 @@ namespace aengine {
 		void translate(Vectorf delta);
 		void setPosition(Vectorf newPos);
 		Vectorf getPosition() const;
+
+		Vectorf worldToScreen(Vectorf worldpos) const;
+		Vectorf screenToWorld(Vectorf screenpos) const;
 	};
 }
