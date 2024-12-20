@@ -24,10 +24,13 @@ namespace aengine {
 		
 		std::string getName() const;
 		void translate(Vectorf delta);
-		void setPosition(Vectorf newPos);
+		void setCornerPosition(Vectorf newPos);
+		void setCenterPosition(Vectorf newPos);
 		Vectorf getPosition() const;
 
 		Vectorf worldToScreen(Vectorf worldpos) const;
 		Vectorf screenToWorld(Vectorf screenpos) const;
+
+		static Camera* main();
 	};
 }

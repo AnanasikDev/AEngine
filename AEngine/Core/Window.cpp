@@ -24,6 +24,10 @@ namespace aengine {
 		return this->window;
 	}
 
+	Vectorf Window::getSize() const {
+		return Vectorf::otherFromsf<unsigned int, float>(window->getSize());
+	}
+
 	void Window::update() {
 		this->pollEvents();
 

@@ -7,41 +7,30 @@ using namespace aengine;
 using namespace agame;
 
 int main() {
+	// setup window
 	Window window(900, 900, "Game!");
-	auto winSize = window.getWindow()->getSize();
 	window.getWindow()->setFramerateLimit(60);
+	
+	// setup scene
 	SceneManager::createScene("main", window.getWindow())->setBackgroundColor(sf::Color(220, 80, 80));
 	SceneManager::setCurrentScene("main");
+	
+	// setup camera
 	Camera camera("main");
+
+	// init game systems
 	Random::init();
-
-	Player* player = Gameobject::instantiate<Player>("Player");
-	player->setPosition(winSize.x / 2.f, winSize.y / 2.f);
-	GameController::player = player;
-
 	GameController::init();
-
-	Gameobject* scoreDisplay = Gameobject::instantiate("score_display");
-	TextRenderer::loadFont();
-	TextRenderer* scoreRend = scoreDisplay->setRenderer(std::make_unique<TextRenderer>(scoreDisplay));
-	GameController::textRenderer = scoreRend;
-	scoreDisplay->isAttachedToCamera = true;
-	scoreRend->setRelativeOrigin(Vectorf::half);
-	scoreDisplay->setPosition(winSize.x / 2.f, 25);
 
 	while (window.isRunning()) {
 
+		GameController::preUpdate();
 		window.update();
-		GameController::update();
+		GameController::postUpdate();
 
+		GameController::preRender();
 		window.render();
-		/*for (auto blob : GameController::blobs) {
-			Gizmos::drawSegment(player->screenPosition, blob->screenPosition);
-		}*/
-		if (player->isHooked) {
-			Gizmos::drawSegment(player->screenPosition, player->hook->screenPosition, sf::Color::White, sf::Color::Black);
-		}
-		//player->trail.draw(*aengine::window()->getWindow());
+		GameController::postRender();
 		window.display();
 	}
 

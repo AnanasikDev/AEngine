@@ -35,6 +35,8 @@ namespace aengine {
 		void display();
 		void close();
 
+		Vectorf getSize() const;
+
 		sf::RenderWindow* getWindow() const;
 
 		void pollEvents();

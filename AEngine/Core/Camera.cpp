@@ -6,7 +6,7 @@ namespace aengine {
 		this->name = name;
 		cornerPosition = Vectorf();
 		scene = context();
-		size = Vectorf::otherFromsf<unsigned int, float>(window()->getWindow()->getSize());
+		size = window()->getSize();
 
 		SceneManager::onSceneChanged.Subscribe([this](Scene* newScene) { this->scene = newScene; }); // no need for unsubscription because it will be deleted at the end
 		scene->addCamera(this);
@@ -36,8 +36,12 @@ namespace aengine {
 		return cornerPosition + screenpos;
 	}
 
-	void Camera::setPosition(Vectorf newPos) {
+	void Camera::setCornerPosition(Vectorf newPos) {
 		translate(newPos - cornerPosition);
+	}
+
+	void Camera::setCenterPosition(Vectorf newPos) {
+		translate(newPos - size / 2.f - cornerPosition);
 	}
 	
 	Vectorf Camera::getPosition() const {
@@ -46,5 +50,9 @@ namespace aengine {
 
 	std::string Camera::getName() const {
 		return name;
+	}
+
+	Camera* Camera::main() {
+		return context()->getCamera("main");
 	}
 }

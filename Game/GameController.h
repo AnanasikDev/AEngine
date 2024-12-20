@@ -43,7 +43,10 @@ namespace agame{
 
 		static void markBlobHit(aengine::Gameobject* obj);
 
-		static void update();
+		static void postUpdate();
+		static void preUpdate();
+		static void postRender();
+		static void preRender();
 	};
 
 }

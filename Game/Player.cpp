@@ -20,7 +20,7 @@ namespace agame {
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
 
-        camera = aengine::context()->getCamera("main");
+        camera = aengine::Camera::main();
 
         trail = DynamicTrail(16, 5.f);
         trail.setThicknessFunction([](float v) { return v * 12; });

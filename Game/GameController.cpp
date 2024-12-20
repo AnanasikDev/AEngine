@@ -17,12 +17,33 @@ namespace agame {
 	std::vector<Gameobject*> GameController::hookpoints;
 	aengine::Gameobject* GameController::bounds;
 
-	std::array<float, 3> GameController::levelThresholds { 0, 12, 19 }; // TODO: increase levels intervals
+	std::array<float, 3> GameController::levelThresholds { 0, 12, 19 };
 	int GameController::level = 0;
 
 	Action<> GameController::onLevelUpEvent;
 
 	void GameController::init() {
+		Vectorf winSize = window()->getSize();
+
+		// ==== Initialize player ==== //
+
+		player = Gameobject::instantiate<Player>("Player");
+		player->setPosition(0, 0);
+		Camera::main()->setCenterPosition(Vectorf::zero);
+
+
+		// ==== Initialize score ==== //
+
+		Gameobject* scoreDisplay = Gameobject::instantiate("score_display");
+		TextRenderer::loadFont();
+		TextRenderer* scoreRend = scoreDisplay->setRenderer(std::make_unique<TextRenderer>(scoreDisplay));
+		GameController::textRenderer = scoreRend;
+		scoreDisplay->isAttachedToCamera = true;
+		scoreRend->setRelativeOrigin(Vectorf::half);
+		scoreDisplay->setPosition(winSize.x / 2.f, 25);
+
+
+		// ==== Initialize bounds ==== //
 
 		bounds = Gameobject::instantiate("bounds");
 		ShapeRenderer* bounds_rend = bounds->setRenderer(std::make_unique<ShapeRenderer>(bounds, std::make_unique<sf::CircleShape>(BOUNDS_RADIUS, 100)));
@@ -31,6 +52,9 @@ namespace agame {
 		bounds_circle->setFillColor(sf::Color(230, 230, 230, 255));
 		bounds_circle->setOutlineColor(sf::Color(220, 80, 80));
 		bounds_circle->setOutlineThickness(10);
+
+
+		// ==== Initialize levels ==== //
 
 		onLevelUpEvent.Subscribe([]() {
 
@@ -125,8 +149,11 @@ namespace agame {
 		// bombs
 	}
 
+	void GameController::preUpdate() {
 
-	void GameController::update() {
+	}
+
+	void GameController::postUpdate() {
 		addSecondsLeft(-Time::getDeltaTime());
 
 		float difficulty = getCurrentDifficulty();
@@ -143,6 +170,16 @@ namespace agame {
 			Vectorf normal = -player->getPosition().normalized(); // radius from 0,0 to player position
 			Vectorf impulse1 = fvelocity - normal * fvelocity.dotProduct(normal) * 2;
 			player->rigidbody->setVelocity(impulse1 * player->collider->bounciness);
+		}
+	}
+
+	void GameController::preRender() {
+
+	}
+
+	void GameController::postRender() {
+		if (player->isHooked) {
+			Gizmos::drawSegment(player->screenPosition, player->hook->screenPosition, sf::Color::White, sf::Color::Black);
 		}
 	}
 }
