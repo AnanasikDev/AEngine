@@ -4,9 +4,9 @@
 
 namespace aengine {
 
-	const float PI = 3.1415926f;
-	const float E = 2.7182818f;
-	const float PHI = 1.6180339f;
+	constexpr float PI = 3.1415926f;
+	constexpr float E = 2.7182818f;
+	constexpr float PHI = 1.6180339f;
 
 	/// <summary>
 	/// Based on angle tangent returns a vectorf
@@ -51,9 +51,6 @@ namespace aengine {
 	float lerp(float a, float b, float t);
 
 	float rescale(float value, float min1, float max1, float min2, float max2, bool invert=false);
-
-	Vectorf getRandomPointInCircle(float maxRadius);
-	Vectorf getRandomPointOnCircle(float radius);
 
 	struct Ease
 	{

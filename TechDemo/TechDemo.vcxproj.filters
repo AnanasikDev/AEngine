@@ -27,6 +27,9 @@
     <ClCompile Include="trailtest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="randommain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collectable.h">

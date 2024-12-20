@@ -81,7 +81,7 @@ private:
     }
 };
 
-int main() {
+int main_trail(){
     sf::RenderWindow window(sf::VideoMode(800, 600), "Dynamic Trail with Player Controls");
 
     sf::CircleShape object(10.0f);

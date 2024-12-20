@@ -66,18 +66,6 @@ namespace aengine {
 		return min2 + (max2 - min2) * rel;
 	}
 
-	Vectorf getRandomPointInCircle(float maxRadius) {
-		return Vectorf(
-			cos(Random::getFloat(0, 2 * PI)),
-			sin(Random::getFloat(0, 2 * PI))) * Random::getFloat(0, maxRadius);
-	}
-
-	Vectorf getRandomPointOnCircle(float radius) {
-		return Vectorf(
-			cos(Random::getFloat(0, 2 * PI)), 
-			sin(Random::getFloat(0, 2 * PI))) * radius;
-	}
-
 	float Ease::easeLinear(float v) {
 		return v;
 	}

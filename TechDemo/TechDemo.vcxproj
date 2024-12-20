@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="randommain.cpp" />
     <ClCompile Include="TechDemoEntry.cpp" />
     <ClCompile Include="trailtest.cpp" />
   </ItemGroup>

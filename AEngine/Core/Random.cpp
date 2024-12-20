@@ -2,6 +2,7 @@
 #include "db_perlin.hpp"
 #include <random>
 #include <stdlib.h>
+#include "Mathf.h"
 
 namespace aengine {
 	void Random::init() {
@@ -26,5 +27,19 @@ namespace aengine {
 
 	float Random::perlin2D(float x, float y) {
 		return db::perlin(x, y);
+	}
+
+	Vectorf Random::getRandomPointInCircle(float maxRadius) {
+		float a = Random::getFloat(0, 2 * PI);
+		return Vectorf(
+			cos(a),
+			sin(a)) * Random::getFloat(0, maxRadius);
+	}
+
+	Vectorf Random::getRandomPointOnCircle(float radius) {
+		float a = Random::getFloat(0, 2 * PI);
+		return Vectorf(
+			cos(a),
+			sin(a)) * radius;
 	}
 }

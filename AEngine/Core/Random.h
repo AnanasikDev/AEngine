@@ -48,5 +48,9 @@ namespace aengine {
 		static Vector<T> getVector(float min = -1., float max = 1.) {
 			return Vector<T>(getFloat(min, max), getFloat(min, max));
 		}
+
+		static Vectorf getRandomPointInCircle(float maxRadius);
+
+		static Vectorf getRandomPointOnCircle(float radius);
 	};
 }

@@ -52,6 +52,7 @@ namespace agame {
 		bounds_circle->setFillColor(sf::Color(230, 230, 230, 255));
 		bounds_circle->setOutlineColor(sf::Color(220, 80, 80));
 		bounds_circle->setOutlineThickness(10);
+		bounds_rend->setRelativeOrigin(Vectorf::half);
 
 
 		// ==== Initialize levels ==== //
@@ -84,7 +85,7 @@ namespace agame {
 	}
 
 	void GameController::markBlobHit(Gameobject* obj) {
-		obj->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 100));
+		obj->setPosition(Random::getRandomPointInCircle(BOUNDS_RADIUS - 100));
 	}
 
 	float GameController::getDifficultyAt(float t) {
@@ -104,12 +105,12 @@ namespace agame {
 		for (int i = 0; i < 13; i++) {
 			Time::invoke
 			([i]() 
-				{
+			{
 				Blob* blob = Gameobject::instantiate<Blob>("blob" + std::to_string(i));
-			blob->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 100));
-			blobs.push_back(blob);
-			blob->tag = "blob";
-				}, i + 0.9f);
+				blob->setPosition(aengine::Random::getRandomPointInCircle(BOUNDS_RADIUS - 100));
+				blobs.push_back(blob);
+				blob->tag = "blob";
+			}, i / 1.1f + 0.9f);
 		}
 	}
 
@@ -118,17 +119,18 @@ namespace agame {
 		for (int i = 0; i < 10; i++) {
 
 			Time::invoke
-			([i]() {
+			([i]() 
+			{
 				Gameobject* wall = Gameobject::instantiate("wall" + std::to_string(i));
-			wall->tag = "wall";
-			RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));
-			SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "assets/wall.png"));
-			rend->setRelativeOrigin(Vectorf::half);
-			rend->sprite->setScale(Vectorf(3, 3).getsf());
+				wall->tag = "wall";
+				RectCollider* col = wall->setCollider(std::make_unique<RectCollider>(wall, Vectorf(60, 60)));
+				SpriteRenderer* rend = wall->setRenderer(std::make_unique<SpriteRenderer>(wall, "assets/wall.png"));
+				rend->setRelativeOrigin(Vectorf::half);
+				rend->sprite->setScale(Vectorf(3, 3).getsf());
 
-			wall->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 200));
-			rend->setRelativeOrigin(Vectorf::half);
-				}, i + 1.);
+				wall->setPosition(Random::getRandomPointInCircle(BOUNDS_RADIUS - 200));
+				rend->setRelativeOrigin(Vectorf::half);
+			}, i + 1.);
 		}
 	}
 
@@ -137,7 +139,7 @@ namespace agame {
 
 		for (int i = 0; i < 10; i++) {
 			Gameobject* hookpoint = Gameobject::instantiate("hook_" + std::to_string(i));
-			hookpoint->setPosition(getRandomPointInCircle(BOUNDS_RADIUS - 100));
+			hookpoint->setPosition(Random::getRandomPointInCircle(BOUNDS_RADIUS - 100));
 			ShapeRenderer* rend = hookpoint->setRenderer(std::make_unique<ShapeRenderer>(hookpoint, std::make_unique<sf::CircleShape>(10)));
 			rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color::Blue);
 			rend->setRelativeOrigin(Vectorf::half);
