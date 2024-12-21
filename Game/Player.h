@@ -9,6 +9,8 @@ namespace agame {
 	private:
 		float movementSpeed = 3;
 		float hookDistance = 250;
+		float hookForce = 20;
+		float blobCollectForce = 5;
 		aengine::Camera* camera;
 
 	public:

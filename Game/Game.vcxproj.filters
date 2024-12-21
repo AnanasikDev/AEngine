@@ -33,6 +33,9 @@
     <ClCompile Include="Trail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -50,6 +53,9 @@
     <ClInclude Include="Trail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\bomb.png">
@@ -60,6 +66,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="controls.txt" />
+    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>

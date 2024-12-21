@@ -10,13 +10,12 @@ namespace agame{
 
 	class GameController {
 	private:
-		static float secondsLeft;
 		static const int maxLevel = 2;
 		static std::array<float, maxLevel+1> levelThresholds;
 		static int level;
 
 	public:
-		static class aengine::TextRenderer* textRenderer;
+		
 		static std::vector<class Blob*> blobs;
 		static std::vector<aengine::Gameobject*> walls;
 		static std::vector<aengine::Gameobject*> hookpoints;
@@ -27,10 +26,6 @@ namespace agame{
 		static const int BOUNDS_RADIUS = 1300;
 
 		static void init();
-
-		static float getSecondsLeft();
-		static void setSecondsLeft(float val);
-		static void addSecondsLeft(float delta);
 
 		static float getDifficultyAt(float t);
 		static float getCurrentDifficulty();

@@ -1,39 +1,43 @@
 #include "Core/Engine.h"
 #include "Player.h"
 #include "GameController.h"
+#include "ScoreManager.h"
 #include <memory>
 
 namespace agame {
 
 	Player::Player() : Gameobject() {
+        
+        // init renderer
         aengine::ShapeRenderer* rend = this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this, std::make_unique<sf::CircleShape>(radius)));
-
         rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(255, 255, 255));
         rend->setRelativeOrigin(aengine::Vectorf::half);
 
+        // init collider
         setCollider(std::make_unique<aengine::CircleCollider>(this, radius));
         collider->isTrigger = false;
         collider->bounciness = 1;
         collider->onTriggerEvent.Subscribe([this](aengine::Collider* col) { onTrigger(col); });
         collider->onBeforeCollisionEvent.Subscribe([this](aengine::Collider* col) { onBeforeCollision(col); });
         
+        // init rigidbody
         setRigidbody(std::make_unique<aengine::Rigidbody>(this));
         rigidbody->makeKinematic();
 
         camera = aengine::Camera::main();
+        isAttachedToCamera = false;
 
+        // init trail
         trail = DynamicTrail(16, 5.f);
-        trail.setThicknessFunction([](float v) { return v * 12; });
+        trail.setThicknessFunction([this](float v) { return v * radius; });
         trail.setColorFunction([](float v) { return sf::Color(255,255,255 * powf(v, 1), 255 * v); });
         trail.setShiftFunction([this](sf::Vector2f vec) { return camera->worldToScreen(vec).getsf(); });
-
-        isAttachedToCamera = false;
 	}
 
     void Player::onTrigger(aengine::Collider* trigger) {
         if (trigger->gameobject->tag == "blob") {
-            rigidbody->addForce((trigger->gameobject->getPosition() - getGameobject()->getPosition()) * 5);
-            GameController::addSecondsLeft(0.05f * powf(rigidbody->getVelocity().getLength(), 0.7f));
+            ScoreManager::onBlobCollected();
+            rigidbody->addForce((trigger->gameobject->getPosition() - getGameobject()->getPosition()) * blobCollectForce);
             GameController::markBlobHit(trigger->gameobject);
         }
     }
@@ -42,7 +46,7 @@ namespace agame {
         
         if (collider->gameobject->tag == "wall")
         {
-            GameController::addSecondsLeft(-10);
+            ScoreManager::onWallHit();
         }
     }
 
@@ -56,16 +60,20 @@ namespace agame {
 
         aengine::Vectorf force;
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             force.y -= 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             force.y += 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             force.x += 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             force.x -= 1;
         }
 
@@ -79,8 +87,7 @@ namespace agame {
             isHooked = true;
 
             aengine::Vectorf diff = hook->getPosition() - getPosition();
-            //aengine::Vectorf vec = vec.normalized() * sqrtf(vec.getLength());
-            aengine::Vectorf vec = diff.normalized() * 20;
+            aengine::Vectorf vec = diff.normalized() * hookForce;
             rigidbody->addForce(vec);
         }
         else {

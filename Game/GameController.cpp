@@ -3,13 +3,12 @@
 #include "Player.h"
 #include "Bomb.h"
 #include "GameController.h"
+#include "ScoreManager.h"
+#include <format>
 
 using namespace aengine;
 
 namespace agame {
-	float GameController::secondsLeft = 30.f;
-	TextRenderer* GameController::textRenderer = nullptr;
-
 	Player* GameController::player = nullptr;
 
 	std::vector<Blob*> GameController::blobs;
@@ -31,18 +30,9 @@ namespace agame {
 		player->setPosition(0, 0);
 		Camera::main()->setCenterPosition(Vectorf::zero);
 
-
 		// ==== Initialize score ==== //
 
-		Gameobject* scoreDisplay = Gameobject::instantiate("score_display");
-		TextRenderer::loadFont();
-		TextRenderer* scoreRend = scoreDisplay->setRenderer(std::make_unique<TextRenderer>(scoreDisplay));
-		GameController::textRenderer = scoreRend;
-		scoreDisplay->isAttachedToCamera = true;
-		scoreRend->setRelativeOrigin(Vectorf::half);
-		scoreDisplay->setPosition(winSize.x / 2.f, 25);
-		scoreRend->setDistance(0);
-
+		ScoreManager::init();
 
 		// ==== Initialize bounds ==== //
 
@@ -59,9 +49,6 @@ namespace agame {
 		// ==== Initialize levels ==== //
 
 		onLevelUpEvent.Subscribe([]() {
-
-			std::cout << "Level up! current level is " << level << std::endl;
-
 			if (level == 1) beginLevel1();
 			else if (level == 2) beginLevel2();
 			else if (level == 3) beginLevel3();
@@ -69,20 +56,6 @@ namespace agame {
 			});
 
 		beginLevel0();
-	}
-
-	float GameController::getSecondsLeft() {
-		return GameController::secondsLeft;
-	}
-
-	void GameController::setSecondsLeft(float val) {
-		
-		secondsLeft = val;
-		if (textRenderer != nullptr) textRenderer->text.setString(std::to_string(secondsLeft));
-	}
-
-	void GameController::addSecondsLeft(float delta) {
-		setSecondsLeft(secondsLeft + delta);
 	}
 
 	void GameController::markBlobHit(Gameobject* obj) {
@@ -156,7 +129,7 @@ namespace agame {
 	}
 
 	void GameController::postUpdate() {
-		addSecondsLeft(-Time::getDeltaTime());
+		ScoreManager::addSecondsLeft(-Time::getDeltaTime());
 
 		float difficulty = getCurrentDifficulty();
 

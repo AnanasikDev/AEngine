@@ -1,2 +1,0 @@
-WASD to move
-Space to attach to the nearest hook

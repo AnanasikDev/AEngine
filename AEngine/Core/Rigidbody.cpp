@@ -85,7 +85,6 @@ namespace aengine {
 			auto otherRigidbody = otherCol->gameobject->rigidbody.get();
 
 			if (thisCol->isTrigger || otherCol->isTrigger) {
-				std::cout << this->gameobject->name << " triggered with " << otherCol->gameobject->name << std::endl;
 				thisCol->onTriggerEvent.Invoke(otherCol);
 				otherCol->onTriggerEvent.Invoke(thisCol);
 				return; 
@@ -94,8 +93,6 @@ namespace aengine {
 
 			thisCol->onBeforeCollisionEvent.Invoke(otherCol);
 			otherCol->onBeforeCollisionEvent.Invoke(thisCol);
-
-			std::cout << this->gameobject->name << " collided with " << otherCol->gameobject->name << std::endl;
 
 			Vectorf size = bounds.getSize();
 			
