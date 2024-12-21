@@ -12,20 +12,27 @@ namespace aengine {
 		scene->addCamera(this);
 	}
 
-	void Camera::translate(Vectorf delta) {
-		cornerPosition += delta;
+	void Camera::update() {
 		for (int i = 0; i < scene->gameobjects.size(); i++) {
-			
+
 			// if attached to camera leave it where it is
 			if (scene->gameobjects[i]->isAttachedToCamera) {
-				scene->gameobjects[i]->screenPosition = scene->gameobjects[i]->getPosition();
+				// set screen position to world position
+				scene->gameobjects[i]->screenPosition = 
+					scene->gameobjects[i]->getPosition();
 			}
 
 			else
 			{
-				scene->gameobjects[i]->screenPosition = scene->gameobjects[i]->getPosition() - cornerPosition;// (position - Vectorf(size.x / 2., size.y / 2.));
+				// add position of the camera
+				scene->gameobjects[i]->screenPosition = 
+					scene->gameobjects[i]->getPosition() - cornerPosition;
 			}
 		}
+	}
+
+	void Camera::translate(Vectorf delta) {
+		cornerPosition += delta;
 	}
 
 	Vectorf Camera::worldToScreen(Vectorf worldpos) const {

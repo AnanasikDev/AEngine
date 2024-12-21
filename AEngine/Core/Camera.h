@@ -23,6 +23,9 @@ namespace aengine {
 		Camera(const std::string& name);
 		
 		std::string getName() const;
+
+		void update();
+
 		void translate(Vectorf delta);
 		void setCornerPosition(Vectorf newPos);
 		void setCenterPosition(Vectorf newPos);

@@ -99,7 +99,6 @@ namespace agame {
         force = force * movementSpeed * fac;
         rigidbody->addForce(force);
 
-        //camera->translate(aengine::Vectorf::zero);
         camera->translate(getPosition() - prevPos);
         trail.addPoint((getGameobject()->getPosition()).getsf());
         trail.generateVertices();

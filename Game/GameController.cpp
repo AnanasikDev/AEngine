@@ -41,6 +41,7 @@ namespace agame {
 		scoreDisplay->isAttachedToCamera = true;
 		scoreRend->setRelativeOrigin(Vectorf::half);
 		scoreDisplay->setPosition(winSize.x / 2.f, 25);
+		scoreRend->setDistance(0);
 
 
 		// ==== Initialize bounds ==== //
@@ -109,7 +110,6 @@ namespace agame {
 				Blob* blob = Gameobject::instantiate<Blob>("blob" + std::to_string(i));
 				blob->setPosition(aengine::Random::getRandomPointInCircle(BOUNDS_RADIUS - 100));
 				blobs.push_back(blob);
-				blob->tag = "blob";
 			}, i / 1.1f + 0.9f);
 		}
 	}

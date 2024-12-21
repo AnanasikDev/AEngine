@@ -89,6 +89,7 @@ namespace aengine {
 	}
 
 	void Scene::render() {
+		Camera::main()->update(); // update screen positions on all gameobjects
 		renderWindow->clear(backgroundColor);
 
 		for (int i = 0; i < renderersOrdered.size(); i++) {

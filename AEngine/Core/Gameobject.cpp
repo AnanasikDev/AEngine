@@ -47,8 +47,14 @@ namespace aengine {
 	}
 
 	void Gameobject::render() {
-		if (renderer != nullptr)
+		if (renderer != nullptr) {
+			// Camera has just updated screen positions of all gameobjects, now renderers must be updated to new values
+			renderer->update(this->screenPosition);
+		}
+
+		if (renderer != nullptr) {
 			renderer->render();
+		}
 	}
 
 	void Gameobject::update() {
@@ -58,10 +64,6 @@ namespace aengine {
 		
 		if (collider != nullptr) {
 			collider->update(this->worldPosition);
-		}
-		
-		if (renderer != nullptr) {
-			renderer->update(this->screenPosition);
 		}
 	}
 
@@ -89,7 +91,7 @@ namespace aengine {
 
 		worldPosition = newPos;
 
-		// update collider's self position
+		// update collider position
 		if (collider != nullptr) collider->update(worldPosition);
 	}
 
