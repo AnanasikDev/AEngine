@@ -52,33 +52,33 @@ namespace aengine {
 
 		computeTime(); 
 
-		auto now = getTime();
+		float now = getTime();
 		deltaTime = (now - lastUpdate) * timeScale;
 		fixedDeltaTime = (now - lastFixedUpdate) * timeScale;
 		lastUpdate = now;
 		// lastFixedUpdate is updated in RecordFixedUpdate
 
-		for (int i = 0; i < coroutines.size(); i++) {
-
-			coroutines[i].waitingTime += deltaTime;
-			
-			if (!coroutines[i].invoked) {
+		for (auto cor = coroutines.begin(); cor != coroutines.end(); ) {
+			cor->waitingTime += deltaTime;
+			if (!cor->invoked) {
 				// never been invoked, try for the first time
-				if (coroutines[i].waitingTime >= coroutines[i].startDelay) {
-					coroutines[i].Execute();
+				if (cor->waitingTime >= cor->startDelay) {
+					cor->Execute();
 
 					// if not repetitive, delete
-					if (coroutines[i].repeating == false)	  {
-						List::removeAt(coroutines, i);
+					if (cor->repeating == false) {
+						cor = coroutines.erase(cor);
+						continue;
 					}
 				}
 			}
 			else {
 				// has already been invoked hence repetitive
-				if (coroutines[i].waitingTime >= coroutines[i].delay) {
-					coroutines[i].Execute();
+				if (cor->waitingTime >= cor->delay) {
+					cor->Execute();
 				}
 			}
+			cor++;
 		}
 	}
 
@@ -87,9 +87,9 @@ namespace aengine {
 	}
 
 	void Time::Coroutine::Execute() {
-		this->func();
 		invoked = true;
 		waitingTime = 0;
+		this->func();
 	}
 
 	void Time::invoke(std::function<void()> func, float delaySeconds) {

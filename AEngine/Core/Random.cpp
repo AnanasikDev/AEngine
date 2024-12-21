@@ -5,7 +5,7 @@
 #include "Mathf.h"
 
 namespace aengine {
-	void Random::init() {
+	void Random::initSeed() {
 		srand(time(NULL));
 	}
 

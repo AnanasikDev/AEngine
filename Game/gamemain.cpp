@@ -19,7 +19,7 @@ int main() {
 	Camera camera("main");
 
 	// init game systems
-	Random::init();
+	Random::initSeed();
 	GameController::init();
 
 	while (window.isRunning()) {

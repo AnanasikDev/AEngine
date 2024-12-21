@@ -8,7 +8,10 @@ namespace aengine {
 	class Random {
 	public:
 
-		static void init();
+		/// <summary>
+		/// Sets seed of random to current time
+		/// </summary>
+		static void initSeed();
 
 		/// <summary>
 		/// Generates random float in range [0, 1]
