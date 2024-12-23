@@ -6,9 +6,9 @@
 
 namespace aengine {
 
-	class Collider;
-	class CircleCollider;
-	class RectCollider;
+	struct Collider;
+	struct CircleCollider;
+	struct RectCollider;
 	class Line;
 
 	class Physics {

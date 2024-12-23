@@ -5,7 +5,7 @@
 
 namespace aengine {
 
-	class Collider;
+	struct Collider;
 
 	class Rigidbody {
 	private:

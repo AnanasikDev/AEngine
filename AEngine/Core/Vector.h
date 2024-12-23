@@ -166,7 +166,7 @@ namespace aengine {
 	}
 
 	template <typename T>
-	const float Vector<T>::eps = 10e-6;
+	const float Vector<T>::eps = 10e-6f;
 
 	template <typename T>
 	const Vector<T> Vector<T>::zero = Vector<T>(0, 0);

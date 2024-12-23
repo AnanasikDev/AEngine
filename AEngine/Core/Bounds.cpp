@@ -82,8 +82,6 @@ namespace aengine {
 	}
 
 	bool Bounds::areIntersecting(const Bounds& a, const Bounds& b) {
-		float width, height;
-
 		bool isInter = std::max(a.minp.x, b.minp.x) < std::min(a.maxp.x, b.maxp.x) &&
 			std::max(a.minp.y, b.minp.y) < std::min(a.maxp.y, b.maxp.y);
 		return isInter;

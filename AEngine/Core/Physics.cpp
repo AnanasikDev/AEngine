@@ -60,9 +60,9 @@ namespace aengine {
 		Vectorf size = bounds.getSize();
 
 		if (size.x > size.y)
-			normal.y = sign(diff.y);
+			normal.y = signf(diff.y);
 		else
-			normal.x = sign(diff.x);
+			normal.x = signf(diff.x);
 
 		return std::pair<Bounds, Vectorf>(bounds, normal);
 	}
@@ -75,9 +75,9 @@ namespace aengine {
 		Vectorf size = bounds.getSize();
 
 		if (size.x > size.y)
-			normal.y = sign(diff.y);
+			normal.y = signf(diff.y);
 		else
-			normal.x = sign(diff.x);
+			normal.x = signf(diff.x);
 
 		return std::make_pair(bounds, normal);
 	}

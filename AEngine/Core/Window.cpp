@@ -2,7 +2,7 @@
 
 namespace aengine {
 
-	Window::Window(float width, float height, const std::string& title) {
+	Window::Window(unsigned int width, unsigned int height, const std::string& title) {
 		this->videoMode.width = width;
 		this->videoMode.height = height;
 		this->window = new sf::RenderWindow(this->videoMode, title);

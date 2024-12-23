@@ -18,7 +18,7 @@ namespace aengine {
 	}
 
 	int Random::getInt(int min, int max) {
-		return std::round(getFloat() * (max - min) + min);
+		return (int)std::round(getFloat() * (max - min) + min);
 	}
 
 	float Random::perlin1D(float x) {

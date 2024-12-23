@@ -19,6 +19,11 @@ namespace aengine {
 	/// </summary>
 	int sign(float val);
 
+	/// <summary>
+	/// Same as sign(float) but returns float instead of int
+	/// </summary>
+	float signf(float val);
+
 	float clamp(float value, float min, float max);
 		
 	float clamp01(float value);

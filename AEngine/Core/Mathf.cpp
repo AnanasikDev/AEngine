@@ -11,12 +11,16 @@ namespace aengine {
 		return val >= 0 ? 1 : -1;
 	}
 
+	float signf(float val) {
+		return (float)sign(val);
+	}
+
 	float clamp(float value, float min, float max) {
 		return value > max ? max : (value < min ? min : value);
 	}
 
 	float clamp01(float value) {
-		return clamp(value, 0., 1.);
+		return clamp(value, 0.f, 1.f);
 	}
 
 	float clampMin(float value, float min) {
@@ -41,8 +45,8 @@ namespace aengine {
 
 	float pingpong(float value, float min, float max) {
 		float len = max - min;
-		float rem = remainder(value, len * 2.);
-		if (rem < 0) rem = len * 2. + rem; // convert negative remainder to positive
+		float rem = remainder(value, len * 2.f);
+		if (rem < 0) rem = len * 2.f + rem; // convert negative remainder to positive
 		if (rem < len) return min + rem;
 		else return max - (rem - len);
 	}
@@ -71,26 +75,26 @@ namespace aengine {
 	}
 
 	float Ease::easeInOutBack(float v){
-		const float c1 = 1.70158;
-		const float c2 = c1 * 1.525;
+		const float c1 = 1.70158f;
+		const float c2 = c1 * 1.525f;
 
-		return v < 0.5
-		  ? (pow(2 * v, 2) * ((c2 + 1) * 2 * v - c2)) / 2
-		  : (pow(2 * v - 2, 2) * ((c2 + 1) * (v * 2 - 2) + c2) + 2) / 2;
+		return v < 0.5f
+		  ? (powf(2 * v, 2) * ((c2 + 1) * 2 * v - c2)) / 2
+		  : (powf(2 * v - 2, 2) * ((c2 + 1) * (v * 2 - 2) + c2) + 2) / 2;
 	}
 
 	float Ease::easeInBack(float v) {
-		const float c1 = 1.70158;
+		const float c1 = 1.70158f;
 		const float c3 = c1 + 1;
 
-		return c3 * pow(v, 3) - c1 * pow(v, 2);
+		return c3 * powf(v, 3) - c1 * powf(v, 2);
 	}
 
 	float Ease::easeOutBack(float v) {
-		const float c1 = 1.70158;
+		const float c1 = 1.70158f;
 		const float c3 = c1 + 1;
 
-		return 1 + c3 * pow(v - 1, 3) - c1 * pow(v - 1, 2);
+		return 1 + c3 * powf(v - 1, 3) - c1 * powf(v - 1, 2);
 	}
 
 	float Ease::easeInSine(float v) {
@@ -106,38 +110,38 @@ namespace aengine {
 	}
 
 	float Ease::easeInBounce(float v) {
-		const float n1 = 7.5625;
-		const float d1 = 2.75;
+		const float n1 = 7.5625f;
+		const float d1 = 2.75f;
 
 		if (v < 1 / d1) {
 			return n1 * v * v;
 		}
 		else if (v < 2 / d1) {
-			return n1 * (v -= 1.5 / d1) * v + 0.75;
+			return n1 * (v -= 1.5f / d1) * v + 0.75f;
 		}
 		else if (v < 2.5 / d1) {
-			return n1 * (v -= 2.25 / d1) * v + 0.9375;
+			return n1 * (v -= 2.25f / d1) * v + 0.9375f;
 		}
 		else {
-			return n1 * (v -= 2.625 / d1) * v + 0.984375;
+			return n1 * (v -= 2.625f / d1) * v + 0.984375f;
 		}
 	}
 
 	float Ease::easeOutBounce(float v) {
-		const float n1 = 7.5625;
-		const float d1 = 2.75;
+		const float n1 = 7.5625f;
+		const float d1 = 2.75f;
 
 		if (v < 1 / d1) {
 			return n1 * v * v;
 		}
 		else if (v < 2 / d1) {
-			return n1 * (v -= 1.5 / d1) * v + 0.75;
+			return n1 * (v -= 1.5f / d1) * v + 0.75f;
 		}
-		else if (v < 2.5 / d1) {
-			return n1 * (v -= 2.25 / d1) * v + 0.9375;
+		else if (v < 2.5f / d1) {
+			return n1 * (v -= 2.25f / d1) * v + 0.9375f;
 		}
 		else {
-			return n1 * (v -= 2.625 / d1) * v + 0.984375;
+			return n1 * (v -= 2.625f / d1) * v + 0.984375f;
 		}
 	}
 
@@ -154,7 +158,7 @@ namespace aengine {
 			? 0
 			: (v == 1
 			? 1
-			: -pow(2, 10 * v - 10) * sin((v * 10 - 10.75) * c4));
+			: -powf(2, 10 * v - 10) * sin((v * 10 - 10.75f) * c4));
 	}
 
 	float Ease::easeOutElastic(float v) {
@@ -164,19 +168,19 @@ namespace aengine {
 			? 0
 			: (v == 1
 			? 1
-			: pow(2, -10 * v) * sin((v * 10 - 0.75) * c4) + 1);
+			: powf(2, -10 * v) * sin((v * 10 - 0.75f) * c4) + 1);
 	}
 
 	float Ease::easeInOutElastic(float v) {
-		const float c5 = (2 * PI) / 4.5;
+		const float c5 = (2 * PI) / 4.5f;
 
 		return v == 0
 			? 0
 			: (v == 1
 			? 1
 			: (v < 0.5
-			? -(pow(2, 20 * v - 10) * sin((20 * v - 11.125) * c5)) / 2
-			: (pow(2, -20 * v + 10) * sin((20 * v - 11.125) * c5)) / 2 + 1));
+			? -(powf(2, 20 * v - 10) * sin((20 * v - 11.125f) * c5)) / 2
+			: (powf(2, -20 * v + 10) * sin((20 * v - 11.125f) * c5)) / 2 + 1));
 	}
 
 	float Ease::easeInCubic(float v) {
@@ -184,10 +188,10 @@ namespace aengine {
 	}
 
 	float Ease::easeOutCubic(float v) {
-		return 1 - pow(1 - v, 3);
+		return 1 - powf(1 - v, 3);
 	}
 
 	float Ease::easeInOutCubic(float v) {
-		return v < 0.5 ? 4 * v * v * v : 1 - pow(-2 * v + 2, 3) / 2;
+		return v < 0.5f ? 4 * v * v * v : 1 - powf(-2 * v + 2, 3) / 2;
 	}
 }

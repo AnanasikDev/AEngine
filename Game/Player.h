@@ -21,8 +21,8 @@ namespace agame {
 
 		Player();
 
-		void onTrigger(class aengine::Collider* trigger);
-		void onBeforeCollision(class aengine::Collider* collider);
+		void onTrigger(struct aengine::Collider* trigger);
+		void onBeforeCollision(struct aengine::Collider* collider);
 
 		void start() override;
 		void update() override;

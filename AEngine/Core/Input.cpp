@@ -23,7 +23,7 @@ namespace aengine {
 
 	Vectorf Input::getMousePosition() {
 		Vectori vi = sf::Mouse::getPosition(*window()->getWindow());
-		return Vectorf(vi.x, vi.y);
+		return Vectorf((float)vi.x, (float)vi.y);
 	}
 
 	Input::Button::Button(std::function<bool()> func) : function(func) {

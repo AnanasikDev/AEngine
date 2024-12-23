@@ -27,7 +27,7 @@ namespace aengine {
 		unsigned int frame;
 		static Window* instance;
 
-		Window(float width, float height, const std::string& title);
+		Window(unsigned int width, unsigned int height, const std::string& title);
 		~Window();
 
 		void update();

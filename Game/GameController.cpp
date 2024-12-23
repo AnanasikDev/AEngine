@@ -1,7 +1,6 @@
 #include "Core/Engine.h"
 #include "Blob.h"
 #include "Player.h"
-#include "Bomb.h"
 #include "GameController.h"
 #include "ScoreManager.h"
 #include <format>
@@ -103,7 +102,7 @@ namespace agame {
 
 				wall->setPosition(Random::getRandomPointInCircle(BOUNDS_RADIUS - 200));
 				rend->setRelativeOrigin(Vectorf::half);
-			}, i + 1.);
+			}, i + 1.f);
 		}
 	}
 
