@@ -109,9 +109,19 @@ namespace agame {
 	void GameController::beginLevel2() {
 		// hook points
 
-		for (int i = 0; i < 10; i++) {
+		constexpr int gridSize = 4;
+		constexpr int number = gridSize * gridSize;
+		constexpr float spawnAreaSize = (BOUNDS_RADIUS - 180) / 1.5f * 2;
+		constexpr float gridCellSize = spawnAreaSize / (gridSize - 1);
+
+		for (int i = 0; i < number; i++) {
+
+			Vectorf pos = Vectorf(-spawnAreaSize / 2.f + i % gridSize * gridCellSize,
+								  -spawnAreaSize / 2.f + i / gridSize * gridCellSize)
+						  + Random::getVector<float>(-70, 70);
+
 			Gameobject* hookpoint = Gameobject::instantiate("hook_" + std::to_string(i));
-			hookpoint->setPosition(Random::getRandomPointInCircle(BOUNDS_RADIUS - 100));
+			hookpoint->setPosition(pos);
 			ShapeRenderer* rend = hookpoint->setRenderer(std::make_unique<ShapeRenderer>(hookpoint, std::make_unique<sf::CircleShape>(10)));
 			rend->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color::Blue);
 			rend->setRelativeOrigin(Vectorf::half);

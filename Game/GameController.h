@@ -23,7 +23,7 @@ namespace agame{
 		static aengine::Gameobject* bounds;
 		static aengine::Action<> onLevelUpEvent;
 
-		static const int BOUNDS_RADIUS = 1300;
+		static constexpr int BOUNDS_RADIUS = 1300;
 
 		static void init();
 
