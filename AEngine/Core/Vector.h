@@ -131,6 +131,17 @@ namespace aengine {
 			return Vector<T>(x / m, y / m);
 		}
 
+		Vector<T> clampMagnitude(float min, float max) const {
+			float m = getLength();
+			if (m == 0)
+				return *this;
+			if (m < min)
+				return Vector<T>(x * min / m, y * min / m);
+			if (m > max)
+				return Vector<T>(x * max / m, y * max / m);
+			return *this;
+		}
+
 		Vector<T> vabs() const {
 			return Vector<T>(abs(x), abs(y));
 		}

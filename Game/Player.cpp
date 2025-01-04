@@ -91,6 +91,12 @@ namespace agame {
             rigidbody->addForce(vec);
         }
         else {
+            if (isHooked) {
+                // add additional force on unhook, according to current speed
+                aengine::Vectorf force = (rigidbody->getVelocity().normalized() * powf(rigidbody->getVelocity().getLength() / 200, 2.8f)).clampMagnitude(0, 220);
+                rigidbody->addForce(force);
+            }
+
             isHooked = false;
             hook = nullptr;
         }
