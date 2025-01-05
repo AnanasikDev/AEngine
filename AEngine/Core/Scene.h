@@ -31,6 +31,9 @@ namespace aengine {
 		std::string name;
 		std::vector<std::unique_ptr<Gameobject>> gameobjects;
 
+		Action<> onBeforeUpdate;
+		Action<> onAfterUpdate;
+
 		Scene(const std::string& name, sf::RenderWindow* renderWindow);
 		~Scene();
 

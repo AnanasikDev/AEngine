@@ -11,7 +11,7 @@ namespace aengine {
 	public:
 		std::unique_ptr<sf::Shape> shape;
 
-		//ShapeRenderer(const ShapeRenderer& other);
+		ShapeRenderer() = delete;
 		ShapeRenderer(aengine::Gameobject* gameobject);
 		ShapeRenderer(aengine::Gameobject* gameobject, std::unique_ptr<sf::Shape> shape);
 

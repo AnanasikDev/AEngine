@@ -37,4 +37,6 @@ namespace aengine {
 
 		static Camera* main();
 	};
+
+	Camera* mainCamera();
 }

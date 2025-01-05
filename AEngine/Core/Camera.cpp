@@ -66,4 +66,8 @@ namespace aengine {
 	Camera* Camera::main() {
 		return context()->getCamera("main");
 	}
+
+	Camera* aengine::mainCamera() {
+		return Camera::main();
+	}
 }

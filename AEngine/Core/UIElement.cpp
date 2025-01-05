@@ -3,6 +3,9 @@
 #include "Input.h"
 #include <functional>
 #include "TextRenderer.h"
+#include "Scene.h"
+#include "ShapeRenderer.h"
+#include "Camera.h"
 
 namespace aengine {
 
@@ -12,6 +15,19 @@ namespace aengine {
 
 	UIElement::UIElement() : Gameobject::Gameobject(){
 		isAttachedToCamera = true;
+
+		ShapeRenderer* rend = setRenderer(std::make_unique<ShapeRenderer>(getGameobject()));
+		rend->setShape(std::make_unique<sf::RectangleShape>(Vectorf(90, 50).getsf()));
+		setPosition(Camera::main()->getCenterPosition());
+		bounds = Bounds(0, 0, 90, 50);
+
+		onMouseOverBackdrop = context()->onAfterUpdate.Subscribe([this]() {
+			if (bounds.isPointInside(Input::getMousePosition())) {
+				onMouseOverEvent.Invoke();
+				onMouseOver();
+			}
+			});
+
 		onLMBPressedBackdrop = Input::Mouse::LMB.onPressed.Subscribe( [this]() {
 			if (bounds.isPointInside(Input::getMousePosition())) {
 				onLMBPressedEvent.Invoke();
@@ -54,5 +70,9 @@ namespace aengine {
 	}
 
 	void UIElement::onLMBHold() {
+	}
+
+	void UIElement::onMouseOver() {
+
 	}
 }

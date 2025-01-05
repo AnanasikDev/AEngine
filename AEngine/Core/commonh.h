@@ -4,5 +4,6 @@ namespace aengine
 {
 	class Scene* context();
 	class Window* window();
-	const float INF = 1000000.0f;
+	class Camera* mainCamera();
+	constexpr float INF = 10e6f;
 }

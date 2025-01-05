@@ -24,7 +24,7 @@ namespace aengine {
 
 		static Vectorf defaultRelativeOrigin;
 
-		Renderer();
+		Renderer() = delete;
 		Renderer(Gameobject* gameobject);
 
 		/// <summary>

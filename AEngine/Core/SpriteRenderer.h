@@ -12,6 +12,7 @@ namespace aengine {
 	public:
 		std::unique_ptr<sf::Sprite> sprite;
 
+		SpriteRenderer() = delete;
 		SpriteRenderer(Gameobject* gameobject, const std::string& textureFileName);
 
 		void loadTexture(const std::string path);

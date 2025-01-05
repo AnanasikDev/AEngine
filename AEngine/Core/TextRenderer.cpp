@@ -22,13 +22,6 @@ namespace aengine {
 		text.setFillColor(defaultColor);
 	}
 
-	TextRenderer::TextRenderer() : Renderer() {
-		text.setFont(font);
-		text.setCharacterSize(defaultFontSize);
-		text.setString("Text");
-		text.setFillColor(defaultColor);
-	}
-
 	void TextRenderer::render() {
 		window()->getWindow()->draw(text);
 	}

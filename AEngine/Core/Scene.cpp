@@ -65,6 +65,8 @@ namespace aengine {
 
 	void Scene::update() {
 
+		onBeforeUpdate.Invoke();
+
 		Time::update();
 
 		Input::Update();
@@ -86,6 +88,8 @@ namespace aengine {
 		}
 
 		Canvas::update();
+
+		onAfterUpdate.Invoke();
 	}
 
 	void Scene::render() {

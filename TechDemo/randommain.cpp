@@ -6,7 +6,7 @@ constexpr int calls = 100000;
 constexpr float max = 1.;
 constexpr int parts = (int)(max / delta);
 
-int main() {
+int main2() {
 	std::array<int, parts> values;
 
 	for (int p = 0; p < parts; p++) {
@@ -26,4 +26,6 @@ int main() {
 	for (int p = 0; p < parts; p++) {
 		std::cout << p << " (" << p * delta << " - " << (p + 1) * delta << "): " << values[p] << std::endl;
 	}
+
+	return 0;
 }

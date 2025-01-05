@@ -5,7 +5,7 @@
 using namespace aengine;
 using namespace agame;
 
-int main2() {
+int main() {
 	Window window(1200, 900, "Tech demo of AEngine");
 	window.getWindow()->setFramerateLimit(60);
 	SceneManager::createScene("main", window.getWindow());
@@ -84,6 +84,9 @@ int main2() {
 	std::cout << textRenderer->text.getCharacterSize() << std::endl;
 	txt->isAttachedToCamera = true;
 
+	UIElement* button = Gameobject::instantiate<UIElement>("btn");
+	button->onLMBPressedEvent.Subscribe([]() { std::cout << "Hello!" << std::endl; });
+
 	Gameobject* point = Gameobject::instantiate("point");
 	point->setRenderer(std::make_unique<ShapeRenderer>(point, std::make_unique<sf::CircleShape>(40)));
 	point->setPosition(Vectorf(100, 100));
@@ -118,7 +121,7 @@ int main2() {
 		axisX.render(window.getWindow(), Vectorf::zero, 1, sf::Color::Red);
 		axisY.render(window.getWindow(), Vectorf::zero, 1, sf::Color::Green);
 
-		Vectorf shift = -camera.getPosition();
+		Vectorf shift = -camera.getCornerPosition();
 		Vectorf mouse = aengine::Input::getMousePosition() - shift;
 		l1.render(window.getWindow(), shift, 1, sf::Color::Blue);
 		bounds.render(window.getWindow(), shift, 1, sf::Color::Yellow);

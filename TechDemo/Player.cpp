@@ -5,7 +5,7 @@
 namespace agame {
 
 	Player::Player() : Gameobject() {
-        this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, "resources/Ananasik2.png"));
+        this->setRenderer(std::make_unique<aengine::SpriteRenderer>(this, "assets/Ananasik2.png"));
 
         auto spriteRenderer = renderer->to<aengine::SpriteRenderer>();
 

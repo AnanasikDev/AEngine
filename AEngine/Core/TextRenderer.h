@@ -26,7 +26,7 @@ namespace aengine {
 
 		sf::Text text;
 
-		TextRenderer();
+		TextRenderer() = delete;
 		TextRenderer(class Gameobject* gameobject);
 		~TextRenderer() = default;
 

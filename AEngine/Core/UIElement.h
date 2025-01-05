@@ -5,7 +5,7 @@
 #include "Gameobject.h"
 
 namespace aengine {
-	class UIElement : Gameobject{
+	class UIElement : public Gameobject{
 	public:
 
 		Action<> onMouseOverEvent;
@@ -29,5 +29,6 @@ namespace aengine {
 		virtual void onLMBPressed();
 		virtual void onLMBReleased();
 		virtual void onLMBHold();
+		virtual void onMouseOver();
 	};
 }
