@@ -29,7 +29,8 @@ namespace aengine {
 		void translate(Vectorf delta);
 		void setCornerPosition(Vectorf newPos);
 		void setCenterPosition(Vectorf newPos);
-		Vectorf getPosition() const;
+		Vectorf getCornerPosition() const;
+		Vectorf getCenterPosition() const;
 
 		Vectorf worldToScreen(Vectorf worldpos) const;
 		Vectorf screenToWorld(Vectorf screenpos) const;

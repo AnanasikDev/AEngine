@@ -51,8 +51,12 @@ namespace aengine {
 		translate(newPos - size / 2.f - cornerPosition);
 	}
 	
-	Vectorf Camera::getPosition() const {
+	Vectorf Camera::getCornerPosition() const {
 		return cornerPosition;
+	}
+
+	Vectorf Camera::getCenterPosition() const {
+		return cornerPosition + size / 2.f;
 	}
 
 	std::string Camera::getName() const {
