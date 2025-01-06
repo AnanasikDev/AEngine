@@ -3,7 +3,7 @@
 
 int main() {
 	// setup window
-	aengine::Window window(900, 900, "Game!");
+	aengine::Window window(900, 900, "Strike");
 	window.getWindow()->setFramerateLimit(60);
 	
 	// setup scene

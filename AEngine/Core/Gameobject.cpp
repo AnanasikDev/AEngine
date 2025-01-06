@@ -50,9 +50,6 @@ namespace aengine {
 		if (renderer != nullptr) {
 			// Camera has just updated screen positions of all gameobjects, now renderers must be updated to new values
 			renderer->update(this->screenPosition);
-		}
-
-		if (renderer != nullptr) {
 			renderer->render();
 		}
 	}
