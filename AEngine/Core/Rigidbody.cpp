@@ -20,7 +20,7 @@ namespace aengine {
 	}
 
 	Vectorf Rigidbody::getFrameVelocity() const {
-		return fvelocity / Time::getDeltaTime();
+		return fvelocity * Time::getDeltaTime();
 	}
 
 	float Rigidbody::getMass() const {
@@ -97,7 +97,9 @@ namespace aengine {
 			Vectorf size = bounds.getSize();
 			
 			if (respondToImpulse)
-				gameobject->translate(normal * (bounds.getSize() + Vectorf::one * 3));
+			{
+				gameobject->translate(normal * (bounds.getSize() + Vectorf::one * 1.f));
+			}
 
 			if (otherRigidbody != nullptr && otherRigidbody->respondToImpulse) {
 
@@ -120,7 +122,7 @@ namespace aengine {
 			}
 
 			if (getFrameVelocity().getLength() < this->gameobject->collider->stickiness * otherCol->stickiness) {
-				//fvelocity = Vectorf::zero;
+				fvelocity = Vectorf::zero;
 			}
 
 			thisCol->onAfterCollisionEvent.Invoke(otherCol);

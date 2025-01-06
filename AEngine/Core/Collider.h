@@ -17,6 +17,9 @@ namespace aengine {
 
 		static std::vector<Collider*> colliders;
 
+		static float defaultBounciness;
+		static float defaultStickiness;
+
 		/// <summary>
 		/// If true, collisions are calculated but it doesn't affect objects's position or velocity
 		/// </summary>

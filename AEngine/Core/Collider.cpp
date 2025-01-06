@@ -13,10 +13,13 @@ namespace aengine {
 
 	std::vector<Collider*> Collider::colliders;
 
+	float Collider::defaultBounciness = 0.8f;
+	float Collider::defaultStickiness = 0.1f;
+
 	Collider::Collider(Gameobject* gameobject) {
 		this->gameobject = gameobject;
-		bounciness = 0.8f;
-		stickiness = 2.f;
+		bounciness = defaultBounciness;
+		stickiness = defaultStickiness;
 		Collider::colliders.push_back(this);
 	}
 
