@@ -12,7 +12,6 @@ namespace agame {
 			this->setRenderer(std::make_unique<aengine::ShapeRenderer>(this))
 			->to<aengine::ShapeRenderer>();
 		shapeRenderer->setShape(std::make_unique<sf::CircleShape>(15));
-		shapeRenderer->updateRelativeOrigin();
 		shapeRenderer->getShapeAs<sf::CircleShape>()->setFillColor(sf::Color(250, 220, 20));
 
 		setCollider(std::make_unique<aengine::CircleCollider>(this, 15));

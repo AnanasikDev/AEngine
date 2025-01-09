@@ -16,11 +16,11 @@ namespace aengine {
 	}
 
 	Vectorf Rigidbody::getVelocity() const {
-		return this->fvelocity;
+		return this->velocity;
 	}
 
 	Vectorf Rigidbody::getFrameVelocity() const {
-		return fvelocity * Time::getDeltaTime();
+		return velocity * Time::getDeltaTime();
 	}
 
 	float Rigidbody::getMass() const {
@@ -31,12 +31,12 @@ namespace aengine {
 	}
 
 	void Rigidbody::setVelocity(Vectorf value) {
-		this->fvelocity = value;
+		this->velocity = value;
 	}
 
 	void Rigidbody::addForce(Vectorf force) {
 		// may be enforced to not be able to add force to static rigidbodies
-		this->fvelocity += force;
+		this->velocity += force;
 	}
 
 	void Rigidbody::fixedUpdate() {
@@ -47,9 +47,9 @@ namespace aengine {
 		*/
 
 		if (useGravity)
-			fvelocity += Vectorf::up * this->g;
+			velocity += Vectorf::up * this->g;
 
-		this->fvelocity = this->fvelocity * (1 - Physics::airResistance);
+		this->velocity = this->velocity * (1 - Physics::airResistance);
 
 		checkCollisions();
 
@@ -62,7 +62,7 @@ namespace aengine {
 			such as transformations
 		*/
 
-		this->gameobject->translate(this->fvelocity * Time::getDeltaTime());
+		this->gameobject->translate(this->velocity * Time::getDeltaTime());
 	}
 
 	void Rigidbody::checkCollisions() {
@@ -103,8 +103,8 @@ namespace aengine {
 
 			if (otherRigidbody != nullptr && otherRigidbody->respondToImpulse) {
 
-				Vectorf v1 = fvelocity;
-				Vectorf v2 = otherRigidbody->fvelocity;
+				Vectorf v1 = velocity;
+				Vectorf v2 = otherRigidbody->velocity;
 				float m1 = mass;
 				float m2 = otherRigidbody->mass;
 
@@ -116,13 +116,13 @@ namespace aengine {
 			}
 			else if (respondToImpulse)
 			{
-				Vectorf impulse1 = fvelocity - normal * fvelocity.dotProduct(normal) * 2;
+				Vectorf impulse1 = velocity - normal * velocity.dotProduct(normal) * 2;
 
 				onCollision(bounds, normal, impulse1, otherCol);
 			}
 
 			if (getFrameVelocity().getLength() < this->gameobject->collider->stickiness * otherCol->stickiness) {
-				fvelocity = Vectorf::zero;
+				velocity = Vectorf::zero;
 			}
 
 			thisCol->onAfterCollisionEvent.Invoke(otherCol);
@@ -131,7 +131,7 @@ namespace aengine {
 	}
 
 	void Rigidbody::onCollision(const Bounds& bounds, Vectorf normal, Vectorf velocity, Collider* other) {
-		fvelocity = velocity * gameobject->collider->bounciness * other->bounciness;
+		velocity = velocity * gameobject->collider->bounciness * other->bounciness;
 	}
 
 	

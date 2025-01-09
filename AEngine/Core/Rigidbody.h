@@ -9,7 +9,7 @@ namespace aengine {
 
 	class Rigidbody {
 	private:
-		Vectorf fvelocity;
+		Vectorf velocity;
 		class Gameobject* gameobject;
 
 		float g;

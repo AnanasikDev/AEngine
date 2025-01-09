@@ -43,6 +43,5 @@ namespace aengine {
 		/// </summary>
 		/// <param name="localOrigin">Local relative origin point within range 0.0 - 1.0 for each axis</param>
 		virtual void setRelativeOrigin(const aengine::Vectorf& localOrigin);
-		void updateRelativeOrigin();
 	};
 }

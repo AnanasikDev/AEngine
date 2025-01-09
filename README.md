@@ -32,6 +32,8 @@ It has simple component system for built-in classes, namely Rigidbody, Collider 
 
 Engine does not support dynamic window resize at the moment.
 
+Default constructors for all renderer classes are deleted to avoid creating renderer components with no attachment to a gameobject.
+
 ### Events
 
 There are two types of events - `Action` and `Func` (much like in C#). `Action` is an event which takes any number of arguments and returns `void` (no output), whereas `Func` is an event which returns a value of some type as well as takes any number of arguments. When implementing a `Func`, first type stands for output. Both classes are templates.
